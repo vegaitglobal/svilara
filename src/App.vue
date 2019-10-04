@@ -2,14 +2,23 @@
   <div id="app">
     <div class="wrapper">
       <div class="top-bar"></div>
-      <router-view />
+      <div class="content-wrapper">
+        <Header/>
+        <div class="content">
+            <router-view />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'
 export default {
-
+  name: "app",
+  components: {
+    Header
+  }
 }
 </script>
 
@@ -17,12 +26,50 @@ export default {
 @import "assets/scss/variables.scss";
 @import "assets/scss/reset.scss";
 
+#app {
+  font-family: $font-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .wrapper {
-  background-color: $white;
+  height: 100%;
+  width: 100%;
 }
 
 .top-bar {
   height: 275px;
   background-color: $purple-lighter;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+
+.content-wrapper {
+  max-width: 1421px;
+  width: calc(100% - 40px);
+  padding: 56px 20px 0;
+  margin: 0 auto;
+
+  .content {
+    background-color: $white;
+    padding: 37px;
+    border-radius: 10px;
+  }
+}
+
+.btn {
+  min-width: 170px;
+  border-radius: 50px;
+  color: $white;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  border: 0;
+  padding: 14px 10px;
+  
+  &.btn-purple {
+    background-color: $purple;
+  }
 }
 </style>
