@@ -31,6 +31,7 @@ export default {
   font-family: $font-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: $font-color;
 }
 
 .wrapper {
@@ -67,9 +68,24 @@ export default {
   text-align: center;
   border: 0;
   padding: 14px 10px;
+  transition: 0.2s;
   
   &.btn-purple {
     background-color: $purple;
+
+    &:hover,
+    &:active {
+      background-color: rgba($purple, 0.6);
+    }
+  }
+
+  &.btn-orange {
+    background-color: $orange;
+
+    &:hover,
+    &:active {
+      background-color: rgba($orange, 0.6);
+    }
   }
 }
 </style>
