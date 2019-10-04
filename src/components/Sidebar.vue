@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar">
-    <h1>Sidebar</h1>
+    <img class="sidebar" src="../assets/img/sidebar-bg.jpg" />
     <p>Lorem ipsum</p>
   </div>
 </template>
@@ -16,7 +16,9 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-    color: red;
-}
+    .sidebar {
+        margin: 0;
+        height: 100vh;
+        width: 350px;
+    }
 </style>
