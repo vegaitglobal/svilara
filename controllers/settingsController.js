@@ -1,7 +1,7 @@
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 
-exports.create = async (req, res) => {
+exports.createSettings = async (req, res) => {
     let [err, settings] = await to(
         models.Settings.create({
             key: req.body.key,
@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
         data: settings
     });
 }
-exports.update = async (req, res) => {
+exports.updateSettings = async (req, res) => {
     let [err, settings] = await to(
         models.Settings.findOne({
             where: {
@@ -43,7 +43,7 @@ exports.update = async (req, res) => {
     })
 }
 
-exports.read = async (req, res) => {
+exports.readSettings = async (req, res) => {
     let [err, settings] = await to(
         models.Settings.findAll()
     );
@@ -58,7 +58,7 @@ exports.read = async (req, res) => {
     });
 }
 
-exports.destroy = async (req, res) => {
+exports.destroySettings = async (req, res) => {
     let [err, settings] = await to(
         models.Settings.destroy({
             where: {

@@ -26,6 +26,7 @@
     "mysql": "^2.17.1",
     "mysql2": "^1.7.0",
     "parse-error": "^0.2.0",
+    "random-js": "^2.1.0",
     "sequelize": "^5.19.2",
     "validator": "^11.1.0"
   },
