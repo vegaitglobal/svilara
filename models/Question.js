@@ -19,12 +19,16 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'input'
       },
       values: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
         defaultValue: null
       },
       order: {
           type: DataTypes.INTEGER,
           allowNull: false
+      },
+      mandatory: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
       }
     },
     {
