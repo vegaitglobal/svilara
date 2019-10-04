@@ -1,15 +1,21 @@
 <template>
-  <div>welcome</div>
+  <div>
+    <HelloWorld msg="Test Message"></HelloWorld>
+    <Sidebar/>
+  </div>
 </template>
 
 <script>
+import { Sidebar } from "@/components";
 
 
 export default {
   components: {
 
+    Sidebar
   }
 };
+
 </script>
 
 <style scoped lang="scss">
