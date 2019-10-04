@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-let domainRouter = require("./routes/domainRouter");
+// let domainRouter = require("./routes/domainRouter");
+const routes = require('./routes')
 
 const app = express();
 
@@ -31,11 +32,11 @@ models.sequelize
 //
 //models.sequelize.sync();
 
-/*
-models.sequelize.sync({
-    force: true //deletes all tables then recreates them useful for testing and development purposes
-});
-*/
+
+// models.sequelize.sync({
+//     force: true //deletes all tables then recreates them useful for testing and development purposes
+// });
+
 
 //* CORS middleware
 app.use(function(req, res, next) {
@@ -65,8 +66,10 @@ app.get("/", function(req, res) {
   res.sendFile(path.join(__dirname + "/index.html"));
 });
 
-//* ROUTERS
-app.use("/api/domains/", domainRouter);
+// //* ROUTERS
+// app.use("/api/domains/", domainRouter);
+
+app.use("/api/", routes);
 
 //* NOT FOUND
 app.get("*", function(req, res) {

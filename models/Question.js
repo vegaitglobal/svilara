@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 'input'
       },
       values: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
         defaultValue: null
       },
       order: {
