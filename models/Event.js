@@ -28,12 +28,40 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING(10),
         allowNull: false,
-        defaultValue: 'pending'
+        defaultValue: "pending"
+      },
+      category: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      type: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      space: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      socialMedia: {
+        type: DataTypes.STRING(150),
+        allowNull: false
+      },
+      media: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      },
+      age: {
+        type: DataTypes.STRING(20),
+        allowNull: false
       },
       formData: {
-        type: DataTypes.TEXT,
+        type: DataTypes.TEXT
       },
-      datetime: {
+      startTime: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      endTime: {
         type: DataTypes.DATE,
         allowNull: true
       },
@@ -47,7 +75,6 @@ module.exports = (sequelize, DataTypes) => {
       timestamps: false
     }
   );
-
 
   return Model;
 };
