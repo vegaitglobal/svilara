@@ -47,9 +47,8 @@ export default {
 
 .content-wrapper {
   max-width: 1421px;
-  width: calc(100% - 40px);
-  padding: 56px 20px 0;
-  margin: 0 auto;
+  padding: 33px 20px 0;
+  margin: 0 auto 0 340px;
 
   .content {
     background-color: $white;

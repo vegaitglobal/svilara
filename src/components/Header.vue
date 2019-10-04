@@ -27,9 +27,10 @@ export default {
 .header {
     width: 100%;
     background-color: transparent;
-    padding: 10px 0 10px 37px;
+    padding: 22px 0 22px 37px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     h1 {
         font-size: 25px;
