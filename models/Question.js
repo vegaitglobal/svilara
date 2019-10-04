@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       text: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.TEXT,
         allowNull: false
       },
       fieldType: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING(20),
         allowNull: false,
         defaultValue: 'input'
       },
