@@ -8,8 +8,8 @@ import store from './store/index'
 import axios from 'axios'
 import router from './router'
 
-import './interceptor'
-import './permissions'
+//import './interceptor'
+//import './permissions'
 import './validation'
 
 Vue.config.productionTip = false
