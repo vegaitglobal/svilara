@@ -1,13 +1,24 @@
 <template>
-  <HelloWorld msg="Test Message"></HelloWorld>
+  <div>
+
+  </div>
 </template>
 
 <script>
-import { HelloWorld } from "@/components";
+
+
 
 export default {
   components: {
-    HelloWorld,
+    Sidebar
   }
+
 };
+
 </script>
+
+<style scoped lang="scss">
+@import "../assets/scss/variables.scss";
+
+
+</style>

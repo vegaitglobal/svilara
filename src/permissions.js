@@ -4,7 +4,7 @@ import router from './router'
 router.beforeEach(async (to, from, next) => {
   next()
   // if (hasToken()) {
-  //   if (to.path === '/admin/login' || to.path === '/register') {
+  //   if (to.path === '/login' || to.path === '/register') {
   //     next({
   //       path: '/'
   //     })
