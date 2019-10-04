@@ -27,35 +27,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.STRING(10),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'pending'
       },
-      timestamp: {
-        type: DataTypes.(10),
+      formData: {
+        type: DataTypes.TEXT,
+      },
+      datetime: {
+        type: DataTypes.DATE,
         allowNull: true
-      },
-      organisationName: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-      },
-      contactPerson: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-      },
-      contactPhone: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-      },
-      organisationDescription: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-      },
-      organisationLogo: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-      },
-      organisationSocial: {
-        type: DataTypes.STRING(100),
-        allowNull: false
       },
       created: {
         type: DataTypes.DATE,

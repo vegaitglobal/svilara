@@ -1,7 +1,7 @@
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 
-// GET DEVICES
+// GET EVENTs
 exports.getEvents = async function(req, res) {
   let [err, dbDevices] = await to(models.Event.findAll({}));
 
