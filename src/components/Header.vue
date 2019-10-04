@@ -31,11 +31,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    h1 {
-        font-size: 25px;
-        font-weight: bold;
-    }
 }
 
 </style>
