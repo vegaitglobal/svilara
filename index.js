@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 let authRouter = require("./routes/authRouter");
 let adminRouter = require("./routes/adminRouter");
 let userRouter = require("./routes/userRouter");
-let questionsRouter = require("./routes/questionsRouter");
-let settingsRouter = require("./routes/settingsRouter");
 const app = express();
 
 app.use(bodyParser.json());
@@ -70,8 +68,6 @@ app.get("/", function(req, res) {
 app.use("/api/auth/", authRouter);
 app.use("/api/admin/", adminRouter);
 app.use("/api/user/", userRouter);
-app.use("/api/questions", questionsRouter);
-app.use("/api/settings", settingsRouter);
 
 //* NOT FOUND
 app.get("*", function(req, res) {
