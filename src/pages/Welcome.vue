@@ -1,16 +1,19 @@
 <template>
   <div>
     <Sidebar/>
+    <MainEvent/>
   </div>
 </template>
 
 <script>
 
 import Sidebar from '../components/Sidebar.vue'
+import MainEvent from '../components/MainEvent.vue'
 
 export default {
   components: {
-    Sidebar
+    Sidebar,
+    MainEvent
   }
 };
 
