@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
-    <img class="sidebar" src="../assets/img/sidebar-bg.jpg" />
-    <p>Lorem ipsum</p>
+    <div class="sidebar__bg" style="background:url('../assets/img/sidebar-bg.jpg') no-repeat center;height:auto;width:305px;"></div>
+    <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
   </div>
 </template>
 
@@ -15,10 +15,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .sidebar {
+        position: absolute;
+        z-index: 2;
         margin: 0;
         height: 100vh;
-        width: 350px;
+        width: 305px;
+        top: 0;
+        box-shadow:inset 0 0  0 160px rgba(0,0,0,.5);
+        &__logo {
+            position: absolute;
+            z-index: 3;
+            top: 26px;
+            left: 25px;
+        }
     }
 </style>
