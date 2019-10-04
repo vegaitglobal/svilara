@@ -11,7 +11,7 @@ let mailgun = require("mailgun-js")({
 });
 */
 
-let random = new Random(Random.engines.mt19937().autoSeed());
+//let random = new Random(Random.engines.mt19937().autoSeed());
 
 // LOGIN ADMIN
 exports.loginAdmin = async function(req, res) {
