@@ -30,12 +30,12 @@ models.sequelize
 
 // Creates table if they do not already exist
 //
-//models.sequelize.sync();
+// models.sequelize.sync();
 
 
-// models.sequelize.sync({
-//     force: true //deletes all tables then recreates them useful for testing and development purposes
-// });
+models.sequelize.sync({
+    force: true //deletes all tables then recreates them useful for testing and development purposes
+});
 
 
 //* CORS middleware
