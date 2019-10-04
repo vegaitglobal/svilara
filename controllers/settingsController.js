@@ -2,9 +2,23 @@ const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 
 exports.create = async (req, res) => {
-
+    let [err, settings] = await to(
+        models.Settings.create({
+            key: req.body.key,
+            value: req.body.value,
+        })
+    );
+    if (err) {
+        console.log(err)
+        return ReE(res, {
+            msg: 'Something went wrong'
+        })
+    }
+    return ReS(res, {
+        msg: 'Successfully created',
+        data: settings
+    });
 }
-
 exports.update = async (req, res) => {
     let [err, settings] = await to(
         models.Settings.findOne({
@@ -18,10 +32,8 @@ exports.update = async (req, res) => {
         key: req.body.key,
         value: req.body.value
     })
-    // console.log(settings)
-    // settings.key = req.body.
+
     if (err) {
-        console.log(err)
         return ReE(res, {
             msg: 'Something went wrong'
         })
@@ -46,9 +58,9 @@ exports.read = async (req, res) => {
     });
 }
 
-exports.delete = async (req, res) => {
+exports.destroy = async (req, res) => {
     let [err, settings] = await to(
-        models.Settings.findOne({
+        models.Settings.destroy({
             where: {
                 id: req.params.id
             }
@@ -60,7 +72,7 @@ exports.delete = async (req, res) => {
         })
     }
     return ReS(res, {
-        data: settings
+        msg: "Deleted successfully."
     });
 }
 
