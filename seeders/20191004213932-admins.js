@@ -8,7 +8,7 @@ module.exports = {
         {
           email: "admin@demo.com",
           password:
-            "$2y$12$Z72t0KZ2Va5eEpQAMcG9.ugiXmmPE1S4TJxq6YRMfIob/Qr3zern6",
+            "$2b$10$g3jFu2yedNFwI.fIgonSh.Wl1202xBOyjVxESWap.wMDeYuA1lCKS",
           phone: "+38164987654",
           resetCode: "2579"
         }

@@ -52,3 +52,17 @@ exports.createEvent = async function(req, res) {
     msg: "Event was created!"
   });
 };
+
+// GET EVENTS
+exports.getQuestions = async function(req, res) {
+  let [err, dbQuestions] = await to(models.Question.findAll({}));
+
+  if (err) {
+    console.log(err);
+    return ReE(res, err.message);
+  }
+
+  return ReS(res, {
+    data: dbQuestions
+  });
+};

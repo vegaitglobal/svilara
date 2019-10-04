@@ -34,7 +34,9 @@ exports.loginAdmin = async function(req, res) {
     return ReE(res, "Wrong email or password!");
   }
 
-  let result = await to(bcrypt.compare(password, dbAdmin.password));
+  let [err2, result] = await to(bcrypt.compare(password, dbAdmin.password));
+
+  if (err) return err, err.message;
 
   if (result) {
     let token = jwt.sign(
