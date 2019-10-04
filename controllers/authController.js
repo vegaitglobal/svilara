@@ -4,10 +4,12 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { to, ReS, ReE } = require("../helpers/utils");
 
+/*
 let mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN
 });
+*/
 
 let random = new Random(Random.engines.mt19937().autoSeed());
 
@@ -107,6 +109,7 @@ exports.sendEmail = function (req, res) {
 }
 */
 
+/*
 exports.resetUser = async function(req, res) {
   let email = req.body.email;
   let code = req.body.code;
@@ -152,3 +155,4 @@ exports.resetUser = async function(req, res) {
     msg: "Password was changed!"
   });
 };
+*/
