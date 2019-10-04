@@ -12,7 +12,7 @@ const routes = [
         name: "Welcome"
     },
     {
-        path: "/login",
+        path: "/admin/login",
         component: Login,
         name: "Login"
     },
@@ -27,7 +27,7 @@ const routes = [
         name: "VerifyEmail"
     },
     {
-        path: "/reset-password/:token",
+        path: "/admin/reset-password/:token",
         component: ResetPasswordEmail,
         name: "ResetPasswordEmail"
     },
@@ -35,7 +35,7 @@ const routes = [
         path: "/logout",
         component: Logout,
         name: "Logout"
-    }
+    },
 ]
 
 export default routes;

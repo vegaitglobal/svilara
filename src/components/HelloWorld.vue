@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <div>
-      <input @click.prevent="resetPasswordEmail" class="btn btn-main" type="submit" value="Reset Password" />
+
     </div>
   </div>
 </template>
