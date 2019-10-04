@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 let authRouter = require("./routes/authRouter");
 let adminRouter = require("./routes/adminRouter");
 let userRouter = require("./routes/userRouter");
-const routes = require("./routes");
 
 const app = express();
 
