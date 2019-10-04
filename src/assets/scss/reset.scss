@@ -42,7 +42,7 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    background-color: $color-primary;
+    background-color: $white;
     line-height: 1;
 }
 
@@ -163,7 +163,7 @@ form {
  */
 
 fieldset {
-    border: 1px solid $fieldset-gray;
+    border: 1px solid gray;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
 }
@@ -324,12 +324,12 @@ textarea {
 }
 
 ::-moz-selection {
-    background: $selection-gray;
+    background: gray;
     text-shadow: none;
 }
 
 ::selection {
-    background: $selection-gray;
+    background: gray;
     text-shadow: none;
 }
 
@@ -346,7 +346,6 @@ fieldset {
 
 .chromeframe {
     margin: 0.2em 0;
-    background: $chromeframe-gray;
     color: $black;
     padding: 0.2em 0;
 }
