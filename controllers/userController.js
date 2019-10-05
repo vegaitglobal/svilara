@@ -22,6 +22,10 @@ exports.getEvents = async function(req, res) {
 exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
+    if (err) {
+      console.log(error);
+      return ReE(res, { msg: "Something went wrong!" });
+    }
     let formAnwers = fields.formAnwers;
     if (files.picture) {
       // check mime type (is image)
