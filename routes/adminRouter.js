@@ -7,6 +7,9 @@ router.post("/event", adminController.createEvent);
 router.put("/event/:id", adminController.updateEvent);
 router.delete("/event/:id", adminController.deleteEvent);
 
+router.put("/event/accept/:id", adminController.acceptEvent);
+router.put("/event/reject/:id", adminController.rejectEvent);
+
 router.get("/questions", adminController.getQuestions);
 router.post("/question", adminController.createQuestion);
 router.put("/question/:id", adminController.updateQuestion);

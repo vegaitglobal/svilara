@@ -1,6 +1,11 @@
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 
+let mailgun = require("mailgun-js")({
+  apiKey: process.env.MAILGUN_API_KEY,
+  domain: process.env.MAILGUN_DOMAIN
+});
+
 // GET EVENTS
 exports.getEvents = async function(req, res) {
   let [err, dbEvents] = await to(models.Event.findAll({}));
@@ -114,6 +119,76 @@ exports.deleteEvent = async (req, res) => {
   }
   return ReS(res, {
     msg: "Deleted successfully."
+  });
+};
+
+// ACCEPT EVENT
+exports.acceptEvent = async (req, res) => {
+  let explanation = req.body.explanation;
+  let email = req.body.email;
+  let [err, dbUpdated] = await to(
+    models.Event.update(
+      { status: "accepted" },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    )
+  );
+  if (err) {
+    return ReE(res, {
+      msg: "Something went wrong"
+    });
+  }
+
+  let mailData = {
+    from: "Svilara <svilara@test.com>",
+    to: email,
+    subject: "Zahtev Prihvacen",
+    text: explanation
+  };
+
+  mailgun.messages().send(mailData, function(error, body) {
+    if (error) return console.log(error);
+    console.log(body);
+    return ReS(res, {
+      msg: "Accepted successfully."
+    });
+  });
+};
+
+// REJECT EVENT
+exports.rejectEvent = async (req, res) => {
+  let explanation = req.body.explanation;
+  let [err, dbUpdated] = await to(
+    models.Event.update(
+      { status: "rejected" },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    )
+  );
+  if (err) {
+    return ReE(res, {
+      msg: "Something went wrong"
+    });
+  }
+  let mailData = {
+    from: "Svilara <svilara@test.com>",
+    to: email,
+    subject: "Zahtev Odbijen",
+    text: explanation
+  };
+
+  mailgun.messages().send(mailData, function(error, body) {
+    if (error) return console.log(error);
+    console.log(body);
+    return ReS(res, {
+      msg: "Rejected successfully."
+    });
   });
 };
 
