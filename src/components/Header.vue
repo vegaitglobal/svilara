@@ -59,7 +59,11 @@
           <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
         </div>
       </div>
-      <div class="tc-modal" v-if="page==2"></div>
+      <div class="tc-modal" v-if="page==2">
+        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
+
+
+      </div>
     </modal>
   </div>
 </template>
