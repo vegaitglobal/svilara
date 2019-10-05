@@ -34,7 +34,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-@import "~@fullcalendar/core/main.css";
-@import "~@fullcalendar/daygrid/main.css";
+<style lang="scss">
+@import "../assets/scss/variables.scss";
+@import "../assets/scss/calendar.scss";
 </style>
