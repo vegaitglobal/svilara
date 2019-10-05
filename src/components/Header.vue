@@ -63,6 +63,7 @@
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
 
 
+        <Formular />
       </div>
     </modal>
   </div>
@@ -71,12 +72,14 @@
 <script>
 import SearchField from "./SearchField.vue";
 import DatePicker from "./DatePicker.vue";
+import Formular from './Formular.vue'
 
 export default {
   name: "Header",
   components: {
     SearchField,
-    DatePicker
+    DatePicker,
+    Formular
   },
   methods: {
     showUserCreateEventModal() {

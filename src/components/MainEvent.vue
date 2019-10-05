@@ -1,16 +1,16 @@
 <template>
-    <div class="main-event">
+    <div class="main-event" v-if="event">
         <h2>Sledeći događaj</h2>
         <div class="main-event__box">
             <div class="main-event__box--date">
-                <p>sep<span>13</span></p>
+                <p>{{startingDateMonth}}<span>{{startingDay}}</span></p>
             </div>
-            <div class="main-event__box--image w-50" :style="{background: `url(${MainImg})` }"></div>
+            <div class="main-event__box--image w-50" :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"></div>
             <!-- <img class="w-60" src="../assets/img/example.png" alt="event-image"> -->
             <div class="main-event__box--text w-50">
-                <p>Drustveni centar | 10:00-18:00h</p>
-                <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scramble</p>
+                <p>{{event.space}} | {{startingTime}}-{{endingTime}}h</p>
+                <h3>{{event.title}}</h3>
+                <p>{{event.description}}</p>
                 <button type="button" class="btn btn__orange">Pogledaj opis</button>
             </div>
         </div>
@@ -19,15 +19,47 @@
 
 <script>
 import MainImg from "../assets/img/example.png"
+import moment from 'moment'
 
 export default {
     name: 'MainEvent',
-    props: {
-        msg: String
-    },
+    props:['event'],
     data: function() {
         return {
-            MainImg: MainImg
+            MainImg: MainImg,
+            baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL
+        }
+    },
+
+    computed:{
+        startingDay(){
+            return new Date(this.event.startTime).getDay()
+        },
+        startingDateMonth(){
+            let month = new Array()
+            month[0] = "jan";
+            month[1] = "feb";
+            month[2] = "mar";
+            month[3] = "apr";
+            month[4] = "maj";
+            month[5] = "jun";
+            month[6] = "jul";
+            month[7] = "aug";
+            month[8] = "sep";
+            month[9] = "oct";
+            month[10] = "nov";
+            month[11] = "dec";
+            return month[new Date(this.event.startTime).getMonth() - 1]
+        },
+
+        startingTime(){
+            var start = new Date(this.event.startTime).getTime()
+            return moment.unix(start).format('hh:mm')
+        },
+
+        endingTime(){
+            var start = new Date(this.event.endTime).getTime()
+            return moment.unix(start).format('hh:mm')
         }
     }
 }
