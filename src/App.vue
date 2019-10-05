@@ -2,7 +2,7 @@
   <div id="app">
     <div class="wrapper">
       <div class="top-bar"></div>
-      <div class="content-wrapper">
+      <div class="content--wrapper">
         <Header/>
         <div class="content">
             <router-view />
@@ -47,7 +47,7 @@ export default {
   z-index: -1;
 }
 
-.content-wrapper {
+.content--wrapper {
   max-width: 1421px;
   padding: 33px 20px 0;
   margin: 0 auto 0 340px;

@@ -29,18 +29,18 @@ p {
     padding: 6px 10px;
     transition: 0.2s;
 
-    &.btn-small {
+    &.btn__small {
         font-size: 10px;
         min-width: 78px;
     }
 
-    &.btn-large {
+    &.btn__large {
         padding: 14px 10px;
         font-size: 16px;
         line-height: 20px;
     }
     
-    &.btn-purple {
+    &.btn__purple {
       background-color: $purple;
   
       &:hover,
@@ -49,7 +49,7 @@ p {
       }
     }
   
-    &.btn-orange {
+    &.btn__orange {
       background-color: $orange;
   
       &:hover,
@@ -58,7 +58,7 @@ p {
       }
     }
 
-    &.btn-red {
+    &.btn__red {
         background-color: $red;
     
         &:hover,
@@ -67,7 +67,7 @@ p {
         }
       }
 
-      &.btn-green {
+      &.btn__green {
         background-color: $green;
     
         &:hover,

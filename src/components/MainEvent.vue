@@ -7,7 +7,7 @@
                 <p>Drustveni centar | 10:00-18:00h</p>
                 <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scramble</p>
-                <button type="button" class="btn btn-orange">Pogledaj opis</button>
+                <button type="button" class="btn btn__orange">Pogledaj opis</button>
             </div>
         </div>
     </div>
@@ -19,7 +19,6 @@ export default {
   props: {
     msg: String
   }
-
 }
 </script>
 

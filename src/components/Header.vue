@@ -1,21 +1,19 @@
 <template>
   <div>
     <header class="header">
-        <h1 class="headline">Kalendar događaja</h1>
+        <h1>Kalendar događaja</h1>
         <div>
-            <div class="social-icons-wrapper">
-                <span></span>
-            </div>
-            <div class="search-wrapper">
+            <div class="search--wrapper">
                 
             </div>
-            <button class="btn btn-purple btn-large" type="button">+ Dodaj događaj</button>
+            <button class="btn btn__purple btn__large" type="button">+ Dodaj događaj</button>
         </div>
     </header>
   </div>
 </template>
 
 <script>
+
 export default {
     name: "Header",
 }
