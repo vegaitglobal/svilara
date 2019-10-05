@@ -144,6 +144,7 @@ export default {
 
   .inputfield-row {
     margin-bottom: 25px;
+    list-style-type: none;
     span {
       display: inline-block;
       margin-bottom: 10px;

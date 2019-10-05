@@ -64,3 +64,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+  .v--modal-overlay .v--modal-box {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+</style>
