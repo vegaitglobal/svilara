@@ -133,40 +133,9 @@ export default {
   .v--modal-box {
     padding: 30px;
   }
-
   ol,
   ul {
     list-style: decimal;
-    list-style-position: inside;
-  }
-
-  .inputfield-row {
-    margin-bottom: 25px;
-    list-style-type: none;
-    span {
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    input {
-      display: block;
-      min-width: 400px;
-      padding: 5px 10px;
-    }
-    select {
-      min-width: 420px;
-    }
-    span,
-    input,
-    select {
-      font-size: 16px;
-      border: 0;
-    }
-    input[type="text"],
-    select {
-      border: 0;
-      border-bottom: 1px solid $gray;
-    }
   }
 }
 

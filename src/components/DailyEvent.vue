@@ -102,7 +102,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import "../assets/scss/variables.scss";
     .w-22 {
       @include breakpoint(desk-xl) {
