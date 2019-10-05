@@ -4,9 +4,11 @@ import Vuex from "vuex";
 import VuexPersistence from 'vuex-persist';
 
 import auth from './modules/auth'
+import event from './modules/event'
 
 const vuexLocal = new VuexPersistence({
-  storage: window.localStorage
+  storage: window.localStorage,
+  modules: ['auth']
 })
 
 Vue.use(Vuex);
@@ -14,6 +16,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
       auth: auth,
+      event: event
   },
   plugins: [vuexLocal.plugin]
 });

@@ -4,6 +4,7 @@ import Register from "@/pages/Register.vue"
 import VerifyEmail from "@/pages/VerifyEmail.vue"
 import Logout from "@/pages/Logout.vue"
 import ResetPasswordEmail from "@/pages/ResetPasswordEmail.vue"
+import Formular from "../components/Formular.vue";
 
 const routes = [
     {
@@ -36,6 +37,12 @@ const routes = [
         component: Logout,
         name: "Logout"
     },
+
+    {
+        path: "/formular",
+        component: Formular,
+        name: "Formular"
+    }
 ]
 
 export default routes;
