@@ -301,6 +301,29 @@ exports.rejectEvent = async (req, res) => {
   });
 };
 
+// UPDATE EVENT PAGE
+exports.updateEventPage = async (req, res) => {
+  let data = req.body.pageData;
+  let [err, dbUpdated] = await to(
+    models.Event.update(
+      {
+        html: data
+      },
+      { where: { id: req.params.id } }
+    )
+  );
+  if (err) {
+    console.log(err);
+    return ReE(res, {
+      msg: "Something went wrong"
+    });
+  }
+  return ReS(res, {
+    //data: dbUpdated,
+    msg: "Update  was successfull."
+  });
+};
+
 // GET QUESTIONS
 exports.getQuestions = async function(req, res) {
   let [err, dbQuestions] = await to(models.Question.findAll({}));
