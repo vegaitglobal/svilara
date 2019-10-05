@@ -88,11 +88,11 @@
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa</span>
-            <input type="time" />
+            <input type="datetime-local" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
-            <input type="time" />
+            <input type="datetime-local" />
           </li>
         </ol>
       </div>
