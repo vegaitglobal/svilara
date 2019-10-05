@@ -95,6 +95,9 @@ export default {
   },
   methods: {
     showUserCreateEventModal() {
+      this.page = 1;
+      this.terms1accepted = false;
+      this.terms2accepted = false;
       this.$modal.show("userCreateEventModal");
     },
     goNext() {
