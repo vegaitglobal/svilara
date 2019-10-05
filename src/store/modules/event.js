@@ -31,7 +31,7 @@ export default {
         },
         
         getSelectedMonth(state){
-            var month =  state.selectedMonth.lang("sr").format('MMMM Y')
+            var month =  state.selectedMonth.locale("sr").format('MMMM Y')
             return month.charAt(0).toUpperCase() + month.slice(1)
         },
 
@@ -99,9 +99,10 @@ export default {
         });
         },
 
-        async answerQuestion({ commit }, { question, answers }) {
-        commit("REMOVE_ANSWER", question.id);
-        commit("ANSWER_QUESTION", {
+        async answerQuestion({ commit }, { question, answers }) {     commit("REMOVE_ANSWER", question.id);
+        co
+            commit("REMOVE_ANSWER", question.id);
+            commit("ANSWER_QUESTION", {
             question: { id: question.id, text: question.text },
             answers,
             type: question.fieldType,
@@ -143,12 +144,25 @@ export default {
             }
         },
 
-        async increaseMonth({commit}){
-            commit('INCREASE_MONTH')       
+        async increaseMonth({commit, dispatch}){
+            commit('INCREASE_MONTH')
+            dispatch('filterByMonth')
         },
             
-        async decreaseMonth({commit}){
-            commit('DECREASE_MONTH')       
+        async decreaseMonth({commit, dispatch}){
+            commit('DECREASE_MONTH')
+            dispatch('filterByMonth')
+        },
+
+        async filterByMonth({commit, state}){
+            let filtered = []
+            
+            for (var i = 0; i < state.events.length; i++){
+                if (moment(new Date(state.events[i].startTime)).isSame(state.selectedMonth, 'month')){
+                    filtered.push(state.events[i])
+                }
+            }
+            commit('SET_SEARCHED_EVENTS', filtered)
         },
 
         async fetchEvents({ commit }) {
