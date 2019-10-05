@@ -59,7 +59,9 @@
           <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
         </div>
       </div>
-      <div class="tc-modal" v-if="page==2"></div>
+      <div class="tc-modal" v-if="page==2">
+        <Formular />
+      </div>
     </modal>
   </div>
 </template>
@@ -67,12 +69,14 @@
 <script>
 import SearchField from "./SearchField.vue";
 import DatePicker from "./DatePicker.vue";
+import Formular from './Formular.vue'
 
 export default {
   name: "Header",
   components: {
     SearchField,
-    DatePicker
+    DatePicker,
+    Formular
   },
   methods: {
     showUserCreateEventModal() {
