@@ -14,7 +14,7 @@
         >+ Dodaj događaj</button>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="700">
+    <modal name="userCreateEventModal" height="760">
       <div class="tc-modal">
           <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1> 
           <div class="tc-modal__text">
@@ -37,8 +37,12 @@
               <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
           </div>
           <div class="tc-modal__bottom">
-            <input class="tc-modal-checkbox" id="tc-modal-checkbox" type="checkbox">
-            <label for="tc-modal-checkbox">Prihvatam uslove</label>
+              <input class="tc-modal-checkbox" id="tc-modal-checkbox" type="checkbox">
+              <label for="tc-modal-checkbox">Pročitao sam i prihvatam sve uslove pravilnika</label>
+              <input class="tc-modal-checkbox" id="tc-modal-checkbox-2" type="checkbox">
+              <label for="tc-modal-checkbox-2">Potvrđujem verodostojnost i tačnost unetih podataka</label>
+          </div>
+          <div class="text-center">
             <button class="btn btn__purple btn__large">Dalje</button>
           </div>
       </div>
@@ -111,9 +115,11 @@ export default {
     }
   }
   &__bottom {
-      display: flex;
-      justify-content: space-between;
       padding-top: 25px;
+      display: grid;
+  }
+  button {
+    margin-top: 20px;
   }
   .tc-modal-checkbox {
     position: absolute;
