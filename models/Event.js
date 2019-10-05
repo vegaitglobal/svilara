@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: true
       },
-      formAnwers: {
+      formAnswers: {
         type: DataTypes.TEXT
       },
       startTime: {
