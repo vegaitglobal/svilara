@@ -3,28 +3,37 @@
     <header class="header">
       <div class="header__left-part">
         <h1>Kalendar događaja</h1>
-        <DatePicker/>
+        <DatePicker />
       </div>
-        <div class="header__right-part">
-            <SearchField/>
-            <button class="btn btn__purple btn__large" type="button">+ Dodaj događaj</button>
-        </div>
+      <div class="header__right-part">
+        <SearchField />
+        <button
+          class="btn btn__purple btn__large"
+          type="button"
+          @click="showUserCreateEventModal"
+        >+ Dodaj događaj</button>
+      </div>
     </header>
+    <modal name="userCreateEventModal">hello, world! aaaaaaaaaa</modal>
   </div>
 </template>
 
 <script>
-
-import SearchField from './SearchField.vue'
-import DatePicker from './DatePicker.vue'
+import SearchField from "./SearchField.vue";
+import DatePicker from "./DatePicker.vue";
 
 export default {
   name: "Header",
   components: {
     SearchField,
     DatePicker
+  },
+  methods: {
+    showUserCreateEventModal() {
+      this.$modal.show("userCreateEventModal");
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -58,5 +67,4 @@ export default {
     }
   }
 }
-
 </style>
