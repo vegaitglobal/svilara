@@ -30,9 +30,12 @@ export default {
 
 .sidebar {
   position: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top left;
   z-index: 2;
   margin: 0;
-  height: 100vh;
+  height: 100%;
   width: 305px;
   top: 0;
   left: 0;
