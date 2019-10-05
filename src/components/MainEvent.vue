@@ -29,6 +29,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
     .main-event {
+        margin-bottom: 48px;
         h2 {
             width: 100%;
             font-weight: bold;
@@ -70,14 +71,14 @@ export default {
                 p {
                     color: $gray;
                 }
-                @media (max-width: $screen-md) {
+                @include breakpoint(htab) {
                     padding-left: 0;
                 }
                 button {
                     margin-top: 30px;
                 }
             }
-            @media (max-width: $screen-md) {
+            @include breakpoint(htab) {
                 display: initial;
                 .w-40 {
                     width: 100%;
