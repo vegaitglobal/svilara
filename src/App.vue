@@ -58,34 +58,4 @@ export default {
     border-radius: 10px;
   }
 }
-
-.btn {
-  min-width: 170px;
-  border-radius: 50px;
-  color: $white;
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-  border: 0;
-  padding: 14px 10px;
-  transition: 0.2s;
-  
-  &.btn-purple {
-    background-color: $purple;
-
-    &:hover,
-    &:active {
-      background-color: rgba($purple, 0.6);
-    }
-  }
-
-  &.btn-orange {
-    background-color: $orange;
-
-    &:hover,
-    &:active {
-      background-color: rgba($orange, 0.6);
-    }
-  }
-}
 </style>

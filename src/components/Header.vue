@@ -9,7 +9,7 @@
             <div class="search-wrapper">
                 
             </div>
-            <button class="btn btn-purple" type="button">+ Dodaj događaj</button>
+            <button class="btn btn-purple btn-large" type="button">+ Dodaj događaj</button>
         </div>
     </header>
   </div>

@@ -37,10 +37,6 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
-.wrapper {
-    width: 100%;
-}
-
 body {
     background-color: $white;
     line-height: 1;
@@ -140,6 +136,7 @@ html {
 img {
     border: 0; /* 1 */
     -ms-interpolation-mode: bicubic; /* 2 */
+    max-width: 100%;
 }
 
 /**
@@ -197,6 +194,7 @@ textarea {
     vertical-align: baseline; /* 3 */
     *vertical-align: middle; /* 3 */
     color: $font-color;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
 }
 
 /**
@@ -324,16 +322,6 @@ textarea {
     color: $font-color;
 }
 
-::-moz-selection {
-    background: gray;
-    text-shadow: none;
-}
-
-::selection {
-    background: gray;
-    text-shadow: none;
-}
-
 img {
     vertical-align: middle;
     max-width: 100%;
@@ -343,28 +331,4 @@ fieldset {
     border: 0;
     margin: 0;
     padding: 0;
-}
-
-.chromeframe {
-    margin: 0.2em 0;
-    color: $black;
-    padding: 0.2em 0;
-}
-
-// Library override
-.multiselect__tags {
-    min-height: 53px!important;
-    padding-top: 15px!important;
-    border-radius: 0!important;
-    border: 2px solid #d8d8d8!important;
-    margin-top: 19px!important;
-}
-
-.multiselect__select {
-    top: 7px!important;
-    right: -4px!important;
-}
-
-.multiselect__content {
-    height: 100px!important;
 }
