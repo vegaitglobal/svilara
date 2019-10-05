@@ -56,6 +56,8 @@ export default {
     background-color: $white;
     padding: 37px;
     border-radius: 10px;
+    flex-wrap: wrap;
+    display: flex;
   }
 }
 </style>
