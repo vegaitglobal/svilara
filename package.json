@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "export NODE_ENV=development && node index.js",
+    "db:seed": "sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",
