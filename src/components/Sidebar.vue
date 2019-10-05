@@ -3,16 +3,19 @@
     <div class="sidebar__bg" style="background:url('/img/sidebar-bg.jpg') no-repeat center;height:auto;width:305px;"></div>
     <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
     <SocialIcons/>
+    <ContactInfo/>
   </div>
 </template>
 
 <script>
 import SocialIcons from './SocialIcons'
+import ContactInfo from './ContactInfo'
 
 export default {
   name: 'Sidebar',
   components: {
-    SocialIcons
+    SocialIcons,
+    ContactInfo
   }
 }
 </script>
