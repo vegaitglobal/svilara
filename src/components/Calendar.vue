@@ -6,6 +6,8 @@
       :events="events"
       @eventClick="eventClicked"
     />
+
+    <modal name="modalEventEdit">hello, world aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!</modal>
   </div>
 </template>
     
@@ -29,6 +31,7 @@ export default {
   methods: {
     eventClicked(info) {
       console.log(info);
+      this.$modal.show("modalEventEdit");
     }
   }
 };
