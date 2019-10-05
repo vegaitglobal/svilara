@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: {
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
       },
       location: {
         type: DataTypes.STRING(100),
@@ -21,8 +21,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true
       },
+      logo: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        defaultValue: "default-picture.png"
+      },
       picture: {
-        type: DataTypes.STRING(40),
+        type: DataTypes.STRING(50),
         allowNull: false,
         defaultValue: "default-picture.png"
       },
@@ -37,29 +42,29 @@ module.exports = (sequelize, DataTypes) => {
       },
       category: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       type: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       space: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       socialMedia: {
         type: DataTypes.STRING(150),
-        allowNull: false
+        allowNull: true
       },
       media: {
         type: DataTypes.BOOLEAN,
-        allowNull: false
+        allowNull: true
       },
       age: {
         type: DataTypes.STRING(20),
-        allowNull: false
+        allowNull: true
       },
-      formData: {
+      formAnwers: {
         type: DataTypes.TEXT
       },
       startTime: {
