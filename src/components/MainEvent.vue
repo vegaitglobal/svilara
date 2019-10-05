@@ -2,6 +2,9 @@
     <div class="main-event">
         <h2>Sledeći događaj</h2>
         <div class="main-event__box">
+            <div class="main-event__box--date">
+                <p>sep<span>13</span></p>
+            </div>
             <img src="../assets/img/example.png" alt="">
             <div class="main-event__box--text">
                 <p>Drustveni centar | 10:00-18:00h</p>
@@ -30,8 +33,32 @@ export default {
             width: 100%;
         }
         &__box {
+            position: relative;
             display: flex;
             justify-content: flex-start;
+            &--date {
+                text-transform: uppercase;
+                color: $white;
+                background: $purple;
+                height: 53px;
+                width: 53px;
+                position: absolute;
+                top: 0;
+                left: 0;
+                p {
+                    font-family: $font-primary;
+                    font-size: 16px;
+                    display: grid;
+                    text-align: center;
+                    span {
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                }
+            }
+            img {
+                max-width: 630px;
+            }
             &--text {
                 padding-left: 33px;
                 p {
