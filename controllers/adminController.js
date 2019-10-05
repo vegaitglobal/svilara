@@ -1,3 +1,5 @@
+const validator =  require('validator');
+
 var fs = require("fs");
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
@@ -43,6 +45,14 @@ exports.createEvent = async function(req, res) {
     let socialMedia = fields.socialMedia;
     let media = fields.media;
     let age = fields.age;
+
+    let validatorMessage = validateEvent(fields);
+    if (validatorMessage)
+    {
+      return ReE(res, {
+        msg: validatorMessage
+      });
+    }
 
     if (files.picture) {
       // check mime type (is image)
@@ -105,6 +115,15 @@ exports.updateEvent = async function(req, res) {
   let socialMedia = req.body.socialMedia;
   let media = req.body.media;
   let age = req.body.age;
+
+  let validatorMessage = validateEvent(req.body);
+  if (validatorMessage)
+  {
+    return ReE(res, {
+      msg: validatorMessage
+    });
+  }
+
   let [err, dbUpdated] = await to(
     models.Event.update(
       {
@@ -123,6 +142,8 @@ exports.updateEvent = async function(req, res) {
       { where: { id: req.params.id } }
     )
   );
+
+  
 
   if (err) {
     console.log(err);
@@ -325,13 +346,16 @@ exports.createQuestion = async (req, res) => {
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = null;
-  if (req.body.values) values = req.body.values;
 
-  let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
-  if (!allowedFiledTypes.includes(fieldType))
+  let validatorMessage = validateQuestion(req.body);
+  if (validatorMessage)
+  {
     return ReE(res, {
-      msg: "Wrong Params!."
+      msg: validatorMessage
     });
+  }
+
+  if (req.body.values) values = req.body.values;
 
   let [err, dbCreated] = await to(
     models.Question.create({
@@ -362,6 +386,15 @@ exports.updateQuestion = async (req, res) => {
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = null;
+  
+  let validatorMessage = validateQuestion(req.body);
+  if (validatorMessage)
+  {
+    return ReE(res, {
+      msg: validatorMessage
+    });
+  }
+  
   if (req.body.values) values = req.body.values;
 
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
@@ -485,3 +518,103 @@ exports.deleteSettings = async (req, res) => {
     msg: "Deleted successfully."
   });
 };
+
+function validateQuestion(body)
+{
+  let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
+  if (!allowedFiledTypes.includes(body.fieldType))
+  {
+    return body.fieldType + " is not allowed as fieldtype";
+  }
+  if (!validator.isBoolean(body.mandatory))
+  {
+    return "mandatory must be boolean";
+  }
+  if (!validator.isNumeric(body.order) || body.order < 0)
+  {
+    return "order must be positive integer";
+  }
+  if (!validator.isJSON(body.values))
+  {
+    // TODO extra code to check is body.values json string array
+    return "values must be JSON string array"
+  }
+  if (body.id && !validator.isNumeric(body.id))
+  {
+    return "Id must be numeric";
+  }
+
+  return undefined;
+}
+
+function validateEvent(body)
+{
+  if (body.id && !validator.isNumeric)
+  {
+    return "Id must be numeric";
+  }
+
+  if (!body.title || validator.isEmpty(body.title))
+  {
+    return "Title is required";
+  }
+
+  // QUESTION: is picture required?
+  /*if (!body.picture || validator.isEmpty(body.picture))
+  {
+    return "Picture is required"
+  }*/
+
+  if (!body.status || validator.isEmpty(body.status))
+  {
+    // TODO: check for allowed status enumerations
+    return "Status is required"
+  }
+
+  if (!body.category || validator.isEmpty(body.category))
+  {
+    return "Category is required"
+  }
+
+  if (!body.type || validator.isEmpty(body.type))
+  {
+    return "Type is required"
+  }
+
+  if (!body.space || validator.isEmpty(body.space))
+  {
+    return "Space is required"
+  }
+
+  if (validator.isEmpty(body.socialMedia))
+  {
+    return "Social media must be boolean"
+  }
+
+  if (!validator.isBoolean(body.media))
+  {
+    return "Media must be boolean"
+  }
+
+  if (!body.age || validator.isEmpty(body.age))
+  {
+    return "Age is required"
+  }
+
+  // startTime and  endTime validation
+  if (body.startTime && !validator.isISO8601(body.startTime))
+  {
+    return "startTime is not valid ISO-8601 date"
+  }
+
+  if (body.endTime && !validator.isISO8601(body.endTime))
+  {
+    return "endTime is not valid ISO-8601 date"
+  }
+
+  if (body.startTime && body.endTime && validator.isBefore(body.endTime, body.startTime))
+  {
+    return "endTime is before the startTime"
+  }
+
+}
