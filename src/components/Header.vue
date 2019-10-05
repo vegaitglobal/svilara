@@ -3,7 +3,7 @@
     <header class="header">
       <div class="header__left-part">
         <h1>Kalendar događaja</h1>
-        <DatePicker />
+        <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
         <SearchField />
@@ -11,7 +11,18 @@
           class="btn btn__purple btn__large"
           type="button"
           @click="showUserCreateEventModal"
+          v-if="['Welcome'].includes($route.name)"
         >+ Dodaj događaj</button>
+        <button
+          class="btn btn__purple btn__large"
+          type="button"
+          v-if="['Admin'].includes($route.name)"
+        >Događaji</button>
+        <button
+          class="btn btn__purple btn__large"
+          type="button"
+          v-if="['Admin'].includes($route.name)"
+        >Podešavanja</button>
       </div>
     </header>
     <modal name="userCreateEventModal" height="760">
@@ -62,7 +73,6 @@
       <div class="tc-modal" v-if="page==2">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
 
-
         <Formular />
       </div>
     </modal>
@@ -72,7 +82,7 @@
 <script>
 import SearchField from "./SearchField.vue";
 import DatePicker from "./DatePicker.vue";
-import Formular from './Formular.vue'
+import Formular from "./Formular.vue";
 
 export default {
   name: "Header",
