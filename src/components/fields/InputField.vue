@@ -4,6 +4,7 @@
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <input type="text" v-model="data" @change="onChange" />
+          <span>{{ errors[0] }}</span>
         </li>
     </ValidationProvider>
   </div>
@@ -25,7 +26,8 @@ export default {
   },
   computed: {
     isRequired() {
-      if (this.mandatory) return "required";
+      if (this.question.mandatory) return "required";
+      return "";  
     }
   },
 
