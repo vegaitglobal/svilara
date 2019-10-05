@@ -1,9 +1,9 @@
 <template>
-    <div class="daily-event w-30">
+    <div class="daily-event w-22">
         <div class="daily-event--date">
           <p>sep<span>13</span></p>
         </div>
-        <img class="daily-event--img" src="../assets/img/example.png" alt="event-image">
+        <div class="daily-event--image" :style="{background: `url(${DailyImg})` }"></div>
         <p class="daily-event--time">Drustveni centar | 10:00-18:00h</p>
         <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
         <div class="daily-event__bottom">
@@ -15,22 +15,48 @@
         </div>
     </div>
 </template>
-
 <script>
+
+import DailyImg from "../assets/img/example.png"
+
 export default {
   name: 'DailyEvent',
   props: {
     msg: String
+  },
+    data: function() {
+    return {
+      DailyImg: DailyImg
+    }
   }
 }
 </script>
 
 <style scoped lang="scss">
 @import "../assets/scss/variables.scss";
+    .w-22 {
+      @include breakpoint(desk-xl) {
+        width: 20% !important;
+      }
+      @include breakpoint(desk) {
+        width: 44% !important;
+      }
+      @include breakpoint(vtab) {
+        width: 100% !important;
+      }
+    }
     .daily-event {
         position: relative;
-        &--img {
-          min-height: 170px;
+        margin-right: 30px;
+        margin-bottom: 32px;
+        @include breakpoint(vtab) {
+          margin-right: 0;
+        }
+        &--image {
+          width: 100%;
+          height: 174px;
+          background-size: cover !important;
+          background-position: center !important;
         }
         &--time {
           color: $gray;
