@@ -1,6 +1,9 @@
+var fs = require("fs");
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
-
+var formidable = require("formidable");
+const Random = require("random-js").Random;
+const random = new Random();
 // GET EVENTS
 exports.getEvents = async function(req, res) {
   let [err, dbDevices] = await to(models.Event.findAll({}));
@@ -17,15 +20,63 @@ exports.getEvents = async function(req, res) {
 
 // CREATE EVENTS
 exports.createEvent = async function(req, res) {
-  let [err, dbCreated] = await to(models.Event.create({}));
+  var form = new formidable.IncomingForm();
+  form.parse(req, async function(error, fields, files) {
+    let formAnwers = fields.formAnwers;
+    if (files.picture) {
+      // check mime type (is image)
+      if (
+        files.picture.type !== "image/jpeg" &&
+        files.picture.type !== "image/png"
+      ) {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var imageTmpPath = files.picture.path;
+        var fileName = random.string("24");
+        if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
+        if (files.picture.type == "image/png") var imgExt = ".png";
+        var imageName = fileName + imgExt;
+        var newImagePath = "./public/uploads/" + imageName;
+      }
+      fs.renameSync(imageTmpPath, newImagePath);
+    } else imageName = "default-picture.png";
 
-  if (err) {
-    console.log(err);
-    return ReE(res, err.message);
-  }
+    if (files.logo) {
+      // check mime type (is image)
+      if (
+        files.picture.type !== "image/jpeg" &&
+        files.picture.type !== "image/png"
+      ) {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var logoTmpPath = files.picture.path;
+        var fileName2 = random.string("24");
+        if (files.picture.type == "image/jpeg") var imgExt2 = ".jpg";
+        if (files.picture.type == "image/png") var imgExt2 = ".png";
+        var logoName = fileName2 + imgExt2;
+        var newLogoPath = "./public/uploads/" + logoName;
+      }
+      fs.renameSync(logoTmpPath, newLogoPath);
+    } else logoName = "default-picture.png";
 
-  return ReS(res, {
-    msg: "Event was created!"
+    let [err, dbCreated] = await to(
+      models.Event.create({
+        formAnwers,
+        picture: imageName,
+        logo: logoName
+      })
+    );
+
+    if (err) {
+      console.log(err);
+      return ReE(res, err.message);
+    }
+
+    return ReS(res, {
+      msg: "Event was created!"
+    });
   });
 };
 

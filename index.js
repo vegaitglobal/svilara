@@ -33,7 +33,7 @@ models.sequelize
 // models.sequelize.sync();
 
 //models.sequelize.sync({
-//  force: true //deletes all tables then recreates them useful for testing and development purposes
+// force: true //deletes all tables then recreates them useful for testing and development purposes
 //});
 
 //* CORS middleware

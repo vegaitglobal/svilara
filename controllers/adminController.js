@@ -7,7 +7,7 @@ var formidable = require("formidable");
 const Random = require("random-js").Random;
 const random = new Random();
 
-let mailgun = require("mailgun-js")({
+var mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN
 });
@@ -37,7 +37,6 @@ exports.createEvent = async function(req, res) {
     let title = fields.title;
     let location = fields.location;
     let description = fields.description;
-    let formData = null;
     let startTime = fields.startTime;
     let endTime = fields.endTime;
     let category = fields.category;
@@ -234,7 +233,8 @@ exports.deleteEvent = async (req, res) => {
 // ACCEPT EVENT
 exports.acceptEvent = async (req, res) => {
   let explanation = req.body.explanation;
-  let email = req.body.email;
+  //let email = req.body.email;
+  let email = "zeka035@gmail.com";
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "accepted" },
@@ -270,6 +270,7 @@ exports.acceptEvent = async (req, res) => {
 // REJECT EVENT
 exports.rejectEvent = async (req, res) => {
   let explanation = req.body.explanation;
+  let email = "zeka035@gmail.com";
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "rejected" },
