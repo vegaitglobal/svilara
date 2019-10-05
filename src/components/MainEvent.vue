@@ -29,6 +29,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
     .main-event {
+        margin-bottom: 30px;
         h2 {
             width: 100%;
             font-weight: bold;

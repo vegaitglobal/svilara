@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :style="{background: `url(${sidebarBg})` }">
+  <div class="sidebar" :style="{background: `url(${sidebarBg}) no-repeat` }">
     <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
     <SocialIcons/>
     <ContactInfo/>
@@ -29,10 +29,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .sidebar {
-  position: absolute;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top left;
+  position: fixed;
   z-index: 2;
   margin: 0;
   height: 100vh;

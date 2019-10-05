@@ -2,6 +2,11 @@
   <div>
     <Sidebar/>
     <MainEvent/>
+    <MainEvent/>
+    <MainEvent/>
+    <MainEvent/>
+    <MainEvent/>
+    <MainEvent/>
   </div>
 </template>
 
