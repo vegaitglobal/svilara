@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h5>{{question.order}}. {{question.text}}</h5>
-    <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
+    <h5>{{question.order}}. {{question.text}} -- {{question.mandatory}}</h5>
+    <ValidationProvider name="Field" id="password" :rules="isRequired" v-slot="{errors}">
       <input type="text" v-model="data" @change="onChange" />
+      <span>{{ errors[0] }}</span>
     </ValidationProvider>
   </div>
 </template>
@@ -23,7 +24,8 @@ export default {
   },
   computed: {
     isRequired() {
-      if (this.mandatory) return "required";
+      if (this.question.mandatory) return "required";
+      return "";  
     }
   },
 
