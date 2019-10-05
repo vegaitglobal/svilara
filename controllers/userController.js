@@ -22,7 +22,7 @@ exports.getEvents = async function(req, res) {
 exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
-    if (err) {
+    if (error) {
       console.log(error);
       return ReE(res, { msg: "Something went wrong!" });
     }
