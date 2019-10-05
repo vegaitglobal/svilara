@@ -18,6 +18,8 @@ $font-color-light: $gray;
 
 $font-primary: "Montserrat", Helvetica, Arial, sans-serif;
 
+.text-center {text-align: center;}
+
 // Responsive mixins
 
 @mixin breakpoint($point) {
