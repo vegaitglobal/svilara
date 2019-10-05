@@ -1,5 +1,6 @@
 import Welcome from "@/pages/Welcome.vue";
 import Admin from "@/pages/Admin.vue";
+import Editor from "../pages/Editor.vue";
 import Login from "@/pages/Login.vue";
 import Register from "@/pages/Register.vue";
 import VerifyEmail from "@/pages/VerifyEmail.vue";
@@ -22,6 +23,11 @@ const routes = [
     path: "/admin",
     component: Admin,
     name: "Admin"
+  },
+  {
+    path: "/admin/editor/:id",
+    component: Editor,
+    name: "Editor"
   },
   {
     path: "/register",
