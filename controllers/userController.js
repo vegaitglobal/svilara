@@ -44,17 +44,14 @@ exports.createEvent = async function(req, res) {
 
     if (files.logo) {
       // check mime type (is image)
-      if (
-        files.picture.type !== "image/jpeg" &&
-        files.picture.type !== "image/png"
-      ) {
+      if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
         return ReE(res, { msg: "Wrong image format!" });
       } else {
         // set image extenstion and new path (old path is in /tmp)
-        var logoTmpPath = files.picture.path;
+        var logoTmpPath = files.logo.path;
         var fileName2 = random.string("24");
-        if (files.picture.type == "image/jpeg") var imgExt2 = ".jpg";
-        if (files.picture.type == "image/png") var imgExt2 = ".png";
+        if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
+        if (files.logo.type == "image/png") var imgExt2 = ".png";
         var logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
