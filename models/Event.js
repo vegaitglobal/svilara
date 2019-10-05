@@ -64,8 +64,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: true
       },
+      contactEmail: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
       formAnswers: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
+        allowNull: true
       },
       startTime: {
         type: DataTypes.DATE,
