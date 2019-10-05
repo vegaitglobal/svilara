@@ -1,0 +1,78 @@
+h1 {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+p {
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.btn {
+    min-width: 170px;
+    border-radius: 50px;
+    color: $white;
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    border: 0;
+    padding: 6px 10px;
+    transition: 0.2s;
+
+    &.btn-small {
+        font-size: 10px;
+        min-width: 78px;
+    }
+
+    &.btn-large {
+        padding: 14px 10px;
+        font-size: 16px;
+        line-height: 20px;
+    }
+    
+    &.btn-purple {
+      background-color: $purple;
+  
+      &:hover,
+      &:active {
+        background-color: rgba($purple, 0.6);
+      }
+    }
+  
+    &.btn-orange {
+      background-color: $orange;
+  
+      &:hover,
+      &:active {
+        background-color: rgba($orange, 0.6);
+      }
+    }
+
+    &.btn-red {
+        background-color: $red;
+    
+        &:hover,
+        &:active {
+          background-color: rgba($red, 0.6);
+        }
+      }
+
+      &.btn-green {
+        background-color: $green;
+    
+        &:hover,
+        &:active {
+          background-color: rgba($green, 0.6);
+        }
+      }
+  }
