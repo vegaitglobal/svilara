@@ -1,13 +1,25 @@
 <template>
   <div>
     <h5>{{question.order}}. {{question.text}}</h5>
-    <ValidationProvider
-      name="Password"
-      id="password"
-      :rules="isRequired"
-      v-slot="{errors}"
-    >
-      <input type="radio" />
+    <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
+      <ul>
+        <li v-for="(value, index) in JSON.parse(question.values)" :key="index">
+          <input
+            v-if="value.toLowerCase() !== 'other:'"
+            type="radio"
+            @change="onChange($event)"
+            :name="question.id"
+            :id="value"
+          />
+          {{value}}
+          <input
+            v-if="value.toLowerCase() == 'other:'"
+            type="text"
+            @change="onChange($event)"
+            :name="value"
+          />
+        </li>
+      </ul>
     </ValidationProvider>
   </div>
 </template>
@@ -18,15 +30,28 @@ export default {
   name: "RadioButton",
   props: ["name", "question", "values", "mandatory"],
   components: {
-      ValidationProvider
+    ValidationProvider
   },
   computed: {
-      isRequired(){
-          if(this.mandatory) return 'required'
-      }
+    isRequired() {
+      if (this.mandatory) return "required";
+    }
   },
+  methods: {
+    onChange(event) {
+      var isChecked = event.target.checked;
+      var answer = event.target.id;
+      
+      if (event.target.type == "text") {
+        answer = event.target.value;
+      }
 
-
+      this.$store.dispatch("answerQuestion", {
+        question: this.question,
+        answers: answer
+      });
+    }
+  }
 };
 </script>
 

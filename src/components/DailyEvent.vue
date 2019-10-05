@@ -8,8 +8,14 @@
         <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
         <div class="daily-event__bottom">
           <div class="daily-event__bottom--icons">
-            <img src="../assets/img/family-icon.png" title="Porodicni dogadjaj" alt="Porodicni dogadjaj">
-            <img src="../assets/img/dollar-icon.png" title="Besplatan ulaz" alt="Besplatan ulaz">
+            <currency-usd-off class="daily-event__bottom--icons-ico"/>
+            <!-- <currency-usd class="daily-event__bottom--icons-ico"/> -->
+            <!-- <account-child class="daily-event__bottom--icons-ico"/> -->
+            <!-- <artist class="daily-event__bottom--icons-ico"/> -->
+            <!-- <human-child class="daily-event__bottom--icons-ico"/> -->
+            <!-- <alpha-r class="daily-event__bottom--icons-ico"/> -->
+            <!-- <alpha-p class="daily-event__bottom--icons-ico"/> -->
+            <alpha-t class="daily-event__bottom--icons-ico"/>
           </div>
           <button type="button" class="btn btn__orange">Pogledaj opis</button>
         </div>
@@ -18,9 +24,30 @@
 <script>
 
 import DailyImg from "../assets/img/example.png"
+import CurrencyUsdOff from 'vue-material-design-icons/CurrencyUsdOff.vue';
+import CurrencyUsd from 'vue-material-design-icons/CurrencyUsd.vue';
+import AccountChild from 'vue-material-design-icons/AccountChild.vue';
+import Artist from 'vue-material-design-icons/Artist.vue';
+import HumanChild from 'vue-material-design-icons/HumanChild.vue';
+import AlphaR from 'vue-material-design-icons/AlphaR.vue';
+import AlphaP from 'vue-material-design-icons/AlphaP.vue';
+import AlphaT from 'vue-material-design-icons/AlphaT.vue';
+
 
 export default {
   name: 'DailyEvent',
+    components: {
+      CurrencyUsdOff,
+      CurrencyUsd,
+      AccountChild,
+      Artist,
+      HumanChild,
+      AlphaR,
+      AlphaP,
+      AlphaT,
+
+
+  },
   props: {
     msg: String
   },
@@ -36,7 +63,7 @@ export default {
 @import "../assets/scss/variables.scss";
     .w-22 {
       @include breakpoint(desk-xl) {
-        width: 20% !important;
+        width: 30% !important;
       }
       @include breakpoint(desk) {
         width: 44% !important;
@@ -47,7 +74,7 @@ export default {
     }
     .daily-event {
         position: relative;
-        margin-right: 30px;
+        margin-right: 2.3%;
         margin-bottom: 32px;
         @include breakpoint(vtab) {
           margin-right: 0;
@@ -96,14 +123,19 @@ export default {
             &--icons {
               display: inline-flex;
               align-items: center;
-              img {
-                max-height: 17px;
-                max-width: 17px;
-                margin-right: 15px;
-                opacity: .4;
+            }
+            &--icons-ico {
+              margin-right: 5px;
+              background: $orange;
+              border-radius: 30px;
+              text-align: center;
+              color: $white;
+              position: relative;
+              font-size: 21px;
+              svg {
+                bottom: -0.025em;
               }
             }
         }
-        
     }
 </style>

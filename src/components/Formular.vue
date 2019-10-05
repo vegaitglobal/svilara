@@ -1,12 +1,13 @@
 <template>
   <div>
+    {{answers}}
+    <button @click="submit">Submit</button>
     <component
       v-for="(question, index) in questions"
       :key="index"
       :question="question"
       :is="mapToType(question.fieldType)"
     ></component>
-    <!-- {{questions}} -->
   </div>
 </template>
 
@@ -26,7 +27,8 @@ export default {
   },
   data() {
     return {
-      questions: []
+      questions: [],
+      answers: []
     };
   },
   async created() {
@@ -39,7 +41,7 @@ export default {
       switch (questionFieldType) {
         case "input":
           return "InputField";
-        case "radiobutton":
+        case "checkbox":
           return "CheckBoxField";
         case "file":
           return "FileField";
@@ -53,6 +55,11 @@ export default {
         var x = a.order < b.order ? -1 : 1;
         return x;
       });
+    },
+
+    submit() {
+      this.$store.dispatch('submitEvent')
+      // this.answers = this.$store.getters.getEvents;
     }
   }
 };
