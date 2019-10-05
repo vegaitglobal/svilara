@@ -3,7 +3,14 @@
     <Sidebar/>
     <MainEvent/>
     <EventHeadline/>
-    <DailyEvent/>
+    <div class="daily-event-wrap">
+      <DailyEvent/>
+      <DailyEvent/>
+      <DailyEvent/>
+      <DailyEvent/>
+      <DailyEvent/>
+      <DailyEvent/>
+    </div>
   </div>
 </template>
 
@@ -27,4 +34,11 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/scss/variables.scss";
+
+.daily-event-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 </style>
