@@ -62,7 +62,7 @@ exports.createEvent = async function(req, res) {
         var newImagePath = "./public/uploads/" + imageName;
       }
       fs.renameSync(imageTmpPath, newImagePath);
-    } else imageName = "change-picture.png";
+    } else imageName = "default-picture.png";
 
     let [err, dbCreated] = await to(
       models.Event.create({
@@ -163,7 +163,7 @@ exports.updateEventPicture = async function(req, res) {
           return ReE(res, err.message);
         }
         var imageTmpPath = files.picture.path;
-        if (dbEvent.picture == "change-picture.png")
+        if (dbEvent.picture == "default-picture.png")
           var fileName = random.string("24");
         else {
           fs.unlinkSync("./public/uploads/" + dbEvent.picture); //remove old picture

@@ -1,7 +1,7 @@
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 
-// GET DEVICES
+// GET EVENTS
 exports.getEvents = async function(req, res) {
   let [err, dbDevices] = await to(models.Event.findAll({}));
 
@@ -15,7 +15,7 @@ exports.getEvents = async function(req, res) {
   });
 };
 
-// GET DEVICES
+// CREATE EVENTS
 exports.createEvent = async function(req, res) {
   let [err, dbCreated] = await to(models.Event.create({}));
 
@@ -26,5 +26,23 @@ exports.createEvent = async function(req, res) {
 
   return ReS(res, {
     msg: "Event was created!"
+  });
+};
+
+exports.getEventPage = async function(req, res) {
+  let [err1, dbEventPage] = await to(
+    models.Event.findOne({
+      attributes: ["html"],
+      where: {
+        id: req.params.id
+      }
+    })
+  );
+  if (err1) {
+    console.log(err);
+    return ReE(res, err.message);
+  }
+  return ReS(res, {
+    data: dbEventPage
   });
 };
