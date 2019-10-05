@@ -11,6 +11,8 @@ router.delete("/event/:id", adminController.deleteEvent);
 router.put("/event/accept/:id", adminController.acceptEvent);
 router.put("/event/reject/:id", adminController.rejectEvent);
 
+router.put("/event/page/:id", adminController.updateEventPage);
+
 router.get("/questions", adminController.getQuestions);
 router.post("/question", adminController.createQuestion);
 router.put("/question/:id", adminController.updateQuestion);
