@@ -5,6 +5,7 @@ const adminController = require("../controllers/adminController");
 router.get("/events", adminController.getEvents);
 router.post("/event", adminController.createEvent);
 router.put("/event/:id", adminController.updateEvent);
+router.put("/event/picture/:id", adminController.updateEventPicture);
 router.delete("/event/:id", adminController.deleteEvent);
 
 router.put("/event/accept/:id", adminController.acceptEvent);

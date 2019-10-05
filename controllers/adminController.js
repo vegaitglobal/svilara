@@ -1,6 +1,9 @@
+var fs = require("fs");
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 var formidable = require("formidable");
+const Random = require("random-js").Random;
+const random = new Random();
 
 let mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
@@ -24,7 +27,11 @@ exports.getEvents = async function(req, res) {
 // CREATE EVENT
 exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
-  form.parse(req, async function(err, fields, files) {
+  form.parse(req, async function(error, fields, files) {
+    if (error) {
+      console.log(error);
+      return ReE(res, { msg: "Something went wrong!" });
+    }
     let title = fields.title;
     let location = fields.location;
     let description = fields.description;
@@ -125,6 +132,62 @@ exports.updateEvent = async function(req, res) {
 
   return ReS(res, {
     msg: "Event was updated!"
+  });
+};
+
+exports.updateEventPicture = async function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, async function(error, fields, files) {
+    if (error) {
+      console.log(error);
+      return ReE(res, { msg: "Something went wrong!" });
+    }
+
+    if (files.picture) {
+      if (
+        files.picture.type !== "image/jpeg" &&
+        files.picture.type !== "image/png"
+      ) {
+        return res.json({ status: "error", msg: "Wrong image format!" });
+      } else {
+        let [err1, dbEvent] = await to(
+          models.Event.findOne({
+            attributes: ["id", "picture"],
+            where: {
+              id: req.params.id
+            }
+          })
+        );
+        if (err1) {
+          console.log(err);
+          return ReE(res, err.message);
+        }
+        var imageTmpPath = files.picture.path;
+        if (dbEvent.picture == "change-picture.png")
+          var fileName = random.string("24");
+        else {
+          fs.unlinkSync("./public/uploads/" + dbEvent.picture); //remove old picture
+          var fileName = random.string("24");
+        }
+        if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
+        if (files.picture.type == "image/png") var imgExt = ".png";
+        var imageName = fileName + imgExt;
+        var newImagePath = "./public/uploads/" + imageName;
+        fs.renameSync(imageTmpPath, newImagePath);
+        let [err2, dbUpdated] = await to(
+          dbEvent.update({ picture: imageName })
+        );
+        if (err2) {
+          console.log(err);
+          return ReE(res, err.message);
+        }
+
+        return ReS(res, {
+          data: dbUpdated,
+          msg: "Picture was updated!"
+        });
+      }
+    }
   });
 };
 
