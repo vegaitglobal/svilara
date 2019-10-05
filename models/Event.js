@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true
       },
+      picture: {
+        type: DataTypes.STRING(40),
+        allowNull: false,
+        defaultValue: "change-picture.png"
+      },
       html: {
         type: DataTypes.TEXT,
         allowNull: true

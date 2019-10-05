@@ -1,5 +1,6 @@
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
+var formidable = require("formidable");
 
 let mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
@@ -22,42 +23,66 @@ exports.getEvents = async function(req, res) {
 
 // CREATE EVENT
 exports.createEvent = async function(req, res) {
-  let title = req.body.title;
-  let location = req.body.location;
-  let description = req.body.description;
-  let formData = null;
-  let startTime = req.body.startTime;
-  let endTime = req.body.endTime;
-  let category = req.body.category;
-  let space = req.body.space;
-  let type = req.body.type;
-  let socialMedia = req.body.socialMedia;
-  let media = req.body.media;
-  let age = req.body.age;
-  let [err, dbCreated] = await to(
-    models.Event.create({
-      title,
-      location,
-      description,
-      startTime,
-      endTime,
-      category,
-      type,
-      space,
-      socialMedia,
-      media,
-      age
-    })
-  );
+  var form = new formidable.IncomingForm();
+  form.parse(req, async function(err, fields, files) {
+    let title = fields.title;
+    let location = fields.location;
+    let description = fields.description;
+    let formData = null;
+    let startTime = fields.startTime;
+    let endTime = fields.endTime;
+    let category = fields.category;
+    let space = fields.space;
+    let type = fields.type;
+    let socialMedia = fields.socialMedia;
+    let media = fields.media;
+    let age = fields.age;
 
-  if (err) {
-    console.log(err);
-    return ReE(res, err.message);
-  }
+    if (files.picture) {
+      // check mime type (is image)
+      if (
+        files.picture.type !== "image/jpeg" &&
+        files.picture.type !== "image/png"
+      ) {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var imageTmpPath = files.picture.path;
+        var fileName = random.string("24");
+        if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
+        if (files.picture.type == "image/png") var imgExt = ".png";
+        var imageName = fileName + imgExt;
+        var newImagePath = "./public/uploads/" + imageName;
+      }
+      fs.renameSync(imageTmpPath, newImagePath);
+    } else imageName = "change-picture.png";
 
-  return ReS(res, {
-    data: dbCreated,
-    msg: "Event was created!"
+    let [err, dbCreated] = await to(
+      models.Event.create({
+        title,
+        location,
+        description,
+        picture: imageName,
+        startTime,
+        endTime,
+        category,
+        type,
+        space,
+        socialMedia,
+        media,
+        age
+      })
+    );
+
+    if (err) {
+      console.log(err);
+      return ReE(res, err.message);
+    }
+
+    return ReS(res, {
+      data: dbCreated,
+      msg: "Event was created!"
+    });
   });
 };
 

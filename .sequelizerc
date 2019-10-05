@@ -1,3 +1,9 @@
+'use strict';
+
+const path = require('path');
+
 module.exports = {
-  "config": path.resolve('./config', 'config.js')
+  config: path.join('./config', 'config.js')
+  //'migrations-path': path.join(__dirname, './migrations'),
+  //'seeders-path': path.join(__dirname, './seeders'),
 };
