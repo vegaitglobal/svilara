@@ -8,7 +8,7 @@
       locale="sr"
     />
 
-    <modal name="modalEventEdit" height="600">
+    <modal name="modalEventEdit" height="600" class="new-event-modal">
       <div class="modal-wrapper">
         <ol>
           <li class="inputfield-row">
@@ -133,7 +133,6 @@ export default {
 
 .v--modal-overlay {
   .v--modal-box {
-    overflow: auto;
     padding: 30px;
   }
 
@@ -169,6 +168,12 @@ export default {
       border: 0;
       border-bottom: 1px solid $gray;
     }
+  }
+}
+
+.v--modal-overlay.new-event-modal {
+  .v--modal-box {
+    overflow: auto;
   }
 }
 </style>

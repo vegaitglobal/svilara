@@ -14,8 +14,8 @@
         >+ Dodaj događaj</button>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="700">
-      <div class="tc-modal">
+    <modal name="userCreateEventModal" height="760">
+      <div class="tc-modal" v-if="page==1">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
         <div class="tc-modal__text">
           <p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
@@ -35,6 +35,8 @@
 
           <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
 
+          <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
+
           <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
         </div>
         <div class="tc-modal__bottom">
@@ -44,10 +46,20 @@
             type="checkbox"
             v-model="terms1accepted"
           />
-          <label for="tc-modal-checkbox">Prihvatam uslove</label>
-          <button class="btn btn__purple btn__large">Dalje</button>
+          <label for="tc-modal-checkbox">Pročitao sam i prihvatam sve uslove pravilnika</label>
+          <input
+            class="tc-modal-checkbox"
+            id="tc-modal-checkbox-2"
+            type="checkbox"
+            v-model="terms2accepted"
+          />
+          <label for="tc-modal-checkbox-2">Potvrđujem verodostojnost i tačnost unetih podataka</label>
+        </div>
+        <div class="text-center">
+          <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
         </div>
       </div>
+      <div class="tc-modal" v-if="page==2"></div>
     </modal>
   </div>
 </template>
@@ -65,12 +77,17 @@ export default {
   methods: {
     showUserCreateEventModal() {
       this.$modal.show("userCreateEventModal");
+    },
+    goNext() {
+      if (!this.terms1accepted || !this.terms2accepted) return;
+      this.page = 2;
     }
   },
   data: function() {
     return {
       terms1accepted: false,
-      terms2accepted: false
+      terms2accepted: false,
+      page: 1
     };
   }
 };
@@ -122,9 +139,11 @@ export default {
     }
   }
   &__bottom {
-    display: flex;
-    justify-content: space-between;
     padding-top: 25px;
+    display: grid;
+  }
+  button {
+    margin-top: 20px;
   }
   .tc-modal-checkbox {
     position: absolute;
