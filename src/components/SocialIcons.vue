@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <div class="social-icons__wrapper">
-       <a href="">
-           <facebook-box-icon class="ico"/>
+    <div class="social-icons">
+        <a href="">
+            <facebook-box-icon class="social-icons--ico"/>
         </a>
-       <a href="">
-           <instagram-icon class="ico"/>
+        <a href="">
+            <instagram-icon class="social-icons--ico"/>
         </a>
-       <a href="">
-           <gmail-icon class="ico"/>
+        <a href="">
+            <gmail-icon class="social-icons--ico"/>
         </a>
     </div>
-  </div>
 </template>
 
 <script>
@@ -32,11 +30,12 @@ export default {
 <style lang="scss">
 @import "../assets/scss/variables.scss";
 
-.social-icons__wrapper {
+.social-icons {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    .ico {
+    margin: 15px 0 25px;
+    .social-icons--ico {
         font-size: 25px;
         svg {
             fill: $white;
