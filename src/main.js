@@ -12,6 +12,8 @@ import router from './router'
 //import './permissions'
 import './validation'
 
+import 'vue-material-design-icons/styles.css';
+
 Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)

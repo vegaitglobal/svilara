@@ -2,34 +2,41 @@
   <div class="sidebar">
     <div class="sidebar__bg" style="background:url('/img/sidebar-bg.jpg') no-repeat center;height:auto;width:305px;"></div>
     <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
+    <SocialIcons/>
+    <ContactInfo/>
   </div>
 </template>
 
 <script>
+import SocialIcons from './SocialIcons'
+import ContactInfo from './ContactInfo'
+
 export default {
   name: 'Sidebar',
-  props: {
-    msg: String
+  components: {
+    SocialIcons,
+    ContactInfo
   }
-
 }
 </script>
 
 <style scoped lang="scss">
-    .sidebar {
-        position: absolute;
-        z-index: 2;
-        margin: 0;
-        height: 100vh;
-        width: 305px;
-        top: 0;
-        left: 0;
-        box-shadow:inset 0 0  0 160px rgba(0,0,0,.5);
-        &__logo {
-            position: absolute;
-            z-index: 3;
-            top: 26px;
-            left: 25px;
-        }
-    }
+@import "../assets/scss/variables.scss";
+
+.sidebar {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  height: 100vh;
+  width: 305px;
+  top: 0;
+  left: 0;
+  box-shadow:inset 0 0 0 160px rgba($black,.5);
+  padding: 26px 20px;
+  &__logo {
+    margin: 0 auto 30px;
+    display: block;
+    z-index: 3;
+  }
+}
 </style>

@@ -13,9 +13,18 @@ h3 {
     font-weight: 600;
 }
 
-p {
+p,
+span,
+a {
     font-size: 14px;
     line-height: 18px;
+}
+
+a {
+    &:hover,
+    &:active {
+        text-decoration: none;
+    }
 }
 
 .btn {
@@ -28,51 +37,41 @@ p {
     border: 0;
     padding: 6px 10px;
     transition: 0.2s;
-
-    &.btn-small {
+    &.btn__small {
         font-size: 10px;
         min-width: 78px;
     }
-
-    &.btn-large {
+    &.btn__large {
         padding: 14px 10px;
         font-size: 16px;
         line-height: 20px;
     }
-    
-    &.btn-purple {
+    &.btn__purple {
       background-color: $purple;
-  
       &:hover,
       &:active {
         background-color: rgba($purple, 0.6);
       }
     }
-  
-    &.btn-orange {
+    &.btn__orange {
       background-color: $orange;
-  
       &:hover,
       &:active {
         background-color: rgba($orange, 0.6);
       }
     }
-
-    &.btn-red {
+    &.btn__red {
         background-color: $red;
-    
         &:hover,
         &:active {
           background-color: rgba($red, 0.6);
         }
-      }
-
-      &.btn-green {
+    }
+    &.btn__green {
         background-color: $green;
-    
         &:hover,
         &:active {
-          background-color: rgba($green, 0.6);
+            background-color: rgba($green, 0.6);
         }
-      }
+    }
   }
