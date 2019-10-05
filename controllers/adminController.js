@@ -1,4 +1,4 @@
-const validator =  require('validator');
+const validator = require("validator");
 
 var fs = require("fs");
 const models = require("../models");
@@ -47,8 +47,7 @@ exports.createEvent = async function(req, res) {
     let age = fields.age;
 
     let validatorMessage = validateEvent(fields);
-    if (validatorMessage)
-    {
+    if (validatorMessage) {
       return ReE(res, {
         msg: validatorMessage
       });
@@ -72,6 +71,22 @@ exports.createEvent = async function(req, res) {
       }
       fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
+
+    if (files.logo) {
+      // check mime type (is image)
+      if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var logoTmpPath = files.logo.path;
+        var fileName2 = random.string("24");
+        if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
+        if (files.logo.type == "image/png") var imgExt2 = ".png";
+        var logoName = fileName2 + imgExt2;
+        var newLogoPath = "./public/uploads/" + logoName;
+      }
+      fs.renameSync(logoTmpPath, newLogoPath);
+    } else logoName = "default-picture.png";
 
     let [err, dbCreated] = await to(
       models.Event.create({
@@ -117,8 +132,7 @@ exports.updateEvent = async function(req, res) {
   let age = req.body.age;
 
   let validatorMessage = validateEvent(req.body);
-  if (validatorMessage)
-  {
+  if (validatorMessage) {
     return ReE(res, {
       msg: validatorMessage
     });
@@ -142,8 +156,6 @@ exports.updateEvent = async function(req, res) {
       { where: { id: req.params.id } }
     )
   );
-
-  
 
   if (err) {
     console.log(err);
@@ -348,8 +360,7 @@ exports.createQuestion = async (req, res) => {
   let values = null;
 
   let validatorMessage = validateQuestion(req.body);
-  if (validatorMessage)
-  {
+  if (validatorMessage) {
     return ReE(res, {
       msg: validatorMessage
     });
@@ -386,15 +397,14 @@ exports.updateQuestion = async (req, res) => {
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = null;
-  
+
   let validatorMessage = validateQuestion(req.body);
-  if (validatorMessage)
-  {
+  if (validatorMessage) {
     return ReE(res, {
       msg: validatorMessage
     });
   }
-  
+
   if (req.body.values) values = req.body.values;
 
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
@@ -519,43 +529,34 @@ exports.deleteSettings = async (req, res) => {
   });
 };
 
-function validateQuestion(body)
-{
+function validateQuestion(body) {
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
-  if (!allowedFiledTypes.includes(body.fieldType))
-  {
+  if (!allowedFiledTypes.includes(body.fieldType)) {
     return body.fieldType + " is not allowed as fieldtype";
   }
-  if (!validator.isBoolean(body.mandatory))
-  {
+  if (!validator.isBoolean(body.mandatory)) {
     return "mandatory must be boolean";
   }
-  if (!validator.isNumeric(body.order) || body.order < 0)
-  {
+  if (!validator.isNumeric(body.order) || body.order < 0) {
     return "order must be positive integer";
   }
-  if (!validator.isJSON(body.values))
-  {
+  if (!validator.isJSON(body.values)) {
     // TODO extra code to check is body.values json string array
-    return "values must be JSON string array"
+    return "values must be JSON string array";
   }
-  if (body.id && !validator.isNumeric(body.id))
-  {
+  if (body.id && !validator.isNumeric(body.id)) {
     return "Id must be numeric";
   }
 
   return undefined;
 }
 
-function validateEvent(body)
-{
-  if (body.id && !validator.isNumeric)
-  {
+function validateEvent(body) {
+  if (body.id && !validator.isNumeric) {
     return "Id must be numeric";
   }
 
-  if (!body.title || validator.isEmpty(body.title))
-  {
+  if (!body.title || validator.isEmpty(body.title)) {
     return "Title is required";
   }
 
@@ -565,56 +566,49 @@ function validateEvent(body)
     return "Picture is required"
   }*/
 
-  if (!body.status || validator.isEmpty(body.status))
-  {
+  if (!body.status || validator.isEmpty(body.status)) {
     // TODO: check for allowed status enumerations
-    return "Status is required"
+    return "Status is required";
   }
 
-  if (!body.category || validator.isEmpty(body.category))
-  {
-    return "Category is required"
+  if (!body.category || validator.isEmpty(body.category)) {
+    return "Category is required";
   }
 
-  if (!body.type || validator.isEmpty(body.type))
-  {
-    return "Type is required"
+  if (!body.type || validator.isEmpty(body.type)) {
+    return "Type is required";
   }
 
-  if (!body.space || validator.isEmpty(body.space))
-  {
-    return "Space is required"
+  if (!body.space || validator.isEmpty(body.space)) {
+    return "Space is required";
   }
 
-  if (validator.isEmpty(body.socialMedia))
-  {
-    return "Social media must be boolean"
+  if (validator.isEmpty(body.socialMedia)) {
+    return "Social media must be boolean";
   }
 
-  if (!validator.isBoolean(body.media))
-  {
-    return "Media must be boolean"
+  if (!validator.isBoolean(body.media)) {
+    return "Media must be boolean";
   }
 
-  if (!body.age || validator.isEmpty(body.age))
-  {
-    return "Age is required"
+  if (!body.age || validator.isEmpty(body.age)) {
+    return "Age is required";
   }
 
   // startTime and  endTime validation
-  if (body.startTime && !validator.isISO8601(body.startTime))
-  {
-    return "startTime is not valid ISO-8601 date"
+  if (body.startTime && !validator.isISO8601(body.startTime)) {
+    return "startTime is not valid ISO-8601 date";
   }
 
-  if (body.endTime && !validator.isISO8601(body.endTime))
-  {
-    return "endTime is not valid ISO-8601 date"
+  if (body.endTime && !validator.isISO8601(body.endTime)) {
+    return "endTime is not valid ISO-8601 date";
   }
 
-  if (body.startTime && body.endTime && validator.isBefore(body.endTime, body.startTime))
-  {
-    return "endTime is before the startTime"
+  if (
+    body.startTime &&
+    body.endTime &&
+    validator.isBefore(body.endTime, body.startTime)
+  ) {
+    return "endTime is before the startTime";
   }
-
 }
