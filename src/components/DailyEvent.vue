@@ -1,10 +1,10 @@
 <template>
     <div class="daily-event w-22">
         <div class="daily-event--date">
-          <p>sep<span>13</span></p>
+          <p>{{startingDateMonth}}<span>{{startingDay}}</span></p>
         </div>
-        <div class="daily-event--image" :style="{background: `url(${DailyImg})` }"></div>
-        <p class="daily-event--time">Drustveni centar | 10:00-18:00h</p>
+        <div class="daily-event--image" :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"></div>
+        <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
         <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
         <div class="daily-event__bottom">
           <div class="daily-event__bottom--icons">
@@ -47,7 +47,7 @@ import HumanChild from 'vue-material-design-icons/HumanChild.vue';
 import AlphaR from 'vue-material-design-icons/AlphaR.vue';
 import AlphaP from 'vue-material-design-icons/AlphaP.vue';
 import AlphaT from 'vue-material-design-icons/AlphaT.vue';
-
+import moment from 'moment'
 
 export default {
   name: 'DailyEvent',
@@ -60,12 +60,11 @@ export default {
     AlphaP,
     AlphaT,
   },
-  props: {
-    msg: String
-  },
+  props: ['event'],
     data: function() {
     return {
-      DailyImg: DailyImg
+      DailyImg: DailyImg,
+      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL
     }
   },
   computed:{

@@ -4,7 +4,7 @@
     <MainEvent :event="events[0]"/>
     <EventHeadline/>
     <div class="daily-event-wrap">
-      <DailyEvent v-for="(event, index) in events.slice(1)" :event="event"/>
+      <DailyEvent :key="event.id" v-for="(event, index) in events.slice(1)" :event="event"/>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
 
   computed:{
     events(){
-      return this.$store.getters.getEvents.sort(this.sortByDate)
+      return this.$store.getters.getSearchedEvents.sort(this.sortByDate)
     },
   },
 
