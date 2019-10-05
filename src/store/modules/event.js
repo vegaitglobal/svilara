@@ -21,7 +21,8 @@ export default {
         image: '',
         selectedMonth: moment(new Date()),
         events: [],
-        searchedEvents: []
+        searchedEvents: [],
+        searching: false
     },
 
     getters: {
@@ -36,6 +37,10 @@ export default {
 
         getSearchedEvents(state){
             return state.searchedEvents;
+        },
+        
+        getSearching (state) {
+          return state.searching
         }
   },
 
@@ -79,6 +84,10 @@ export default {
   
     SET_SEARCHED_EVENTS(state, events) {
         state.searchedEvents = events;
+    },
+
+    SET_SEARCHING(state, status){
+      state.searching = status;
     }
 },
 
@@ -159,10 +168,15 @@ export default {
 
     async searchEvent({ commit, state }, query) {
       let result;
+      
       if (!query == "") {
+        commit('SET_SEARCHING', true)
         let fuse = new Fuse(state.events, fuseOptions);
         result = fuse.search(query);
-      } else result = state.events;
+      } else {
+        commit('SET_SEARCHING', false)
+        result = state.events
+      }
       commit("SET_SEARCHED_EVENTS", result);
     },
 
