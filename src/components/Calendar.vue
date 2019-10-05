@@ -15,15 +15,11 @@
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Lokacija programa</span>
-            <input type="text" />
-          </li>
-          <li class="inputfield-row">
             <span>Opis programa</span>
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Logo</span>
+            <span>Logo organizacije</span>
             <input type="file" />
           </li>
           <li class="inputfield-row">
@@ -36,6 +32,13 @@
               <option>Otvoren program (slobodan ulaz bez prijave)</option>
               <option>Otvoren program (slobodan ulaz sa prijavom)</option>
               <option>Zatvoren program</option>
+            </select>
+          </li>
+          <li class="inputfield-row">
+            <span>Da li se događaj naplaćuje</span>
+            <select>
+              <option>Da</option>
+              <option>Ne</option>
             </select>
           </li>
           <li class="inputfield-row">
@@ -65,15 +68,8 @@
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Profil organizacije na društvenim mrežama (link)</span>
+            <span>Link ka dogadjaju na društvenim mrežama</span>
             <input type="text"/>
-          </li>
-          <li class="inputfield-row">
-            <span>Da li ste zainteresovani za gostovanja u medijima</span>
-            <select>
-              <option>Da</option>
-              <option>Ne</option>
-            </select>
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
