@@ -53,6 +53,7 @@
               <option>Festival</option>
               <option>Predavanje</option>
               <option>Radionica</option>
+              <option>Drugo</option>
             </select>
           </li>
           <li class="inputfield-row">
@@ -60,9 +61,10 @@
             <select>
               <option>Velika sala</option>
               <option>Mala sala</option>
-              <option>Igranka</option>
               <option>Dvorište</option>
               <option>Sportski tereni sa tribinama</option>
+              <option>Društveni centar</option>
+              <option>Plato</option>
               <option>Drugo</option>
             </select>
 
