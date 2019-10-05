@@ -5,6 +5,7 @@
       :plugins="calendarPlugins"
       :events="events"
       @eventClick="eventClicked"
+      locale="sr"
     />
 
     <modal name="modalEventEdit" height="600" class="new-event-modal">
@@ -69,7 +70,7 @@
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input type="text"/>
+            <input type="text" />
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
@@ -131,7 +132,8 @@ export default {
     padding: 30px;
   }
 
-  ol, ul {
+  ol,
+  ul {
     list-style: decimal;
     list-style-position: inside;
   }

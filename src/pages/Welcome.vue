@@ -1,15 +1,10 @@
 <template>
   <div>
     <Sidebar/>
-    <MainEvent/>
+    <MainEvent :event="events[0]"/>
     <EventHeadline/>
     <div class="daily-event-wrap">
-      <DailyEvent/>
-      <DailyEvent/>
-      <DailyEvent/>
-      <DailyEvent/>
-      <DailyEvent/>
-      <DailyEvent/>
+      <DailyEvent v-for="(event, index) in events.slice(1)" :event="event"/>
     </div>
   </div>
 </template>
@@ -27,6 +22,22 @@ export default {
     MainEvent,
     DailyEvent,
     EventHeadline
+  },
+
+  created(){
+    this.$store.dispatch('fetchEvents')
+  },
+
+  computed:{
+    events(){
+      return this.$store.getters.getEvents.sort(this.sortByDate)
+    },
+  },
+
+  methods: {
+    sortByDate (a, b) {
+      return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
+    },
   }
 };
 

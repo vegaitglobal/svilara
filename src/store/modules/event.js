@@ -5,12 +5,14 @@ export default {
     state: {
         questions: [],
         answers: [],
-        image: ''
+        image: '',
+
+        events: []
     },
 
     getters: {
         getEvents(state) {
-            return state.answers;
+            return state.events;
         }
     },
 
@@ -32,6 +34,10 @@ export default {
         },
         SET_IMAGE(state, file) {
             state.image = file
+        },
+
+        SET_EVENTS(state, events){
+            state.events = events;
         }
     },
 
@@ -72,6 +78,16 @@ export default {
             }).catch(err => {
                 console.log(err)
             })
+        },
+
+        async fetchEvents({commit}) {
+            try{
+                const events = await axios.get(`${process.env.VUE_APP_BASE_URL}/user/events`);
+                commit('SET_EVENTS', events.data.data)
+                return events;
+            }catch(err){
+                return err
+            }
         }
     }
 }

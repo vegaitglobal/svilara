@@ -67,7 +67,38 @@ export default {
     return {
       DailyImg: DailyImg
     }
-  }
+  },
+  computed:{
+        startingDay(){
+            return new Date(this.event.startTime).getDay()
+        },
+        startingDateMonth(){
+            let month = new Array()
+            month[0] = "jan";
+            month[1] = "feb";
+            month[2] = "mar";
+            month[3] = "apr";
+            month[4] = "maj";
+            month[5] = "jun";
+            month[6] = "jul";
+            month[7] = "aug";
+            month[8] = "sep";
+            month[9] = "oct";
+            month[10] = "nov";
+            month[11] = "dec";
+            return month[new Date(this.event.startTime).getMonth() - 1]
+        },
+
+        startingTime(){
+            var start = new Date(this.event.startTime).getTime()
+            return moment.unix(start).format('hh:mm')
+        },
+
+        endingTime(){
+            var start = new Date(this.event.endTime).getTime()
+            return moment.unix(start).format('hh:mm')
+        }
+    }
 }
 </script>
 
