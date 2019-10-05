@@ -7,22 +7,24 @@
       </div>
       <div class="header__right-part">
         <SearchField />
-        <button
-          class="btn btn__purple btn__large"
-          type="button"
-          @click="showUserCreateEventModal"
-          v-if="['Welcome'].includes($route.name)"
-        >+ Dodaj događaj</button>
-        <button
-          class="btn btn__purple btn__large"
-          type="button"
-          v-if="['Admin'].includes($route.name)"
-        >Događaji</button>
-        <button
-          class="btn btn__purple btn__large"
-          type="button"
-          v-if="['Admin'].includes($route.name)"
-        >Podešavanja</button>
+        <div class="button-wrapper">
+          <button
+            class="btn btn__purple btn__large"
+            type="button"
+            @click="showUserCreateEventModal"
+            v-if="['Welcome'].includes($route.name)"
+          >+ Dodaj događaj</button>
+          <button
+            class="btn btn__purple btn__large"
+            type="button"
+            v-if="['Admin'].includes($route.name)"
+          >Događaji</button>
+          <button
+            class="btn btn__purple btn__large"
+            type="button"
+            v-if="['Admin'].includes($route.name)"
+          >Podešavanja</button>
+        </div>
       </div>
     </header>
     <modal name="userCreateEventModal" height="760">
@@ -130,6 +132,10 @@ export default {
     }
     h1 {
       margin-right: 35px;
+      @include breakpoint(vtab) {
+        max-width: 130px;
+        margin-right: 0;
+      }
     }
   }
   &__right-part {
@@ -138,6 +144,9 @@ export default {
     @include breakpoint(desk-xl) {
       flex-direction: column;
       align-items: flex-end;
+    }
+    .btn:first-of-type:not(:only-of-type) {
+      margin-right: 10px;
     }
   }
 }
