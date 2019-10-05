@@ -38,6 +38,9 @@ export default {
   left: 0;
   box-shadow:inset 0 0 0 160px rgba(41, 16, 191, .6);
   padding: 26px 20px;
+  @include breakpoint(htab) {
+    width: 220px;
+  }
   &__logo {
     margin: 0 auto 30px;
     display: block;

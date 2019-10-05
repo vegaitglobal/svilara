@@ -51,7 +51,9 @@ export default {
   max-width: 1421px;
   padding: 33px 20px 0;
   margin: 0 auto 0 340px;
-
+  @include breakpoint(htab) {
+    margin-left: 220px;
+  }
   .content {
     background-color: $white;
     padding: 37px;
