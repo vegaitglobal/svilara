@@ -16,15 +16,11 @@
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Lokacija programa</span>
-            <input type="text" />
-          </li>
-          <li class="inputfield-row">
             <span>Opis programa</span>
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Logo</span>
+            <span>Logo organizacije</span>
             <input type="file" />
           </li>
           <li class="inputfield-row">
@@ -40,6 +36,13 @@
             </select>
           </li>
           <li class="inputfield-row">
+            <span>Da li se događaj naplaćuje</span>
+            <select>
+              <option>Da</option>
+              <option>Ne</option>
+            </select>
+          </li>
+          <li class="inputfield-row">
             <span>Kategorija programa</span>
             <select>
               <option>Izložba</option>
@@ -50,6 +53,7 @@
               <option>Festival</option>
               <option>Predavanje</option>
               <option>Radionica</option>
+              <option>Drugo</option>
             </select>
           </li>
           <li class="inputfield-row">
@@ -57,24 +61,18 @@
             <select>
               <option>Velika sala</option>
               <option>Mala sala</option>
-              <option>Igranka</option>
               <option>Dvorište</option>
               <option>Sportski tereni sa tribinama</option>
+              <option>Društveni centar</option>
+              <option>Plato</option>
               <option>Drugo</option>
             </select>
 
             <input type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Profil organizacije na društvenim mrežama (link)</span>
+            <span>Link ka dogadjaju na društvenim mrežama</span>
             <input type="text" />
-          </li>
-          <li class="inputfield-row">
-            <span>Da li ste zainteresovani za gostovanja u medijima</span>
-            <select>
-              <option>Da</option>
-              <option>Ne</option>
-            </select>
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
