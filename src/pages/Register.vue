@@ -32,7 +32,7 @@
       <label for="password">Password</label>
       <ValidationProvider
         name="Password"
-        vid="password"
+        id="password"
         rules="required|lengthBetween:8,26|verify_password"
         v-slot="{errors}"
       >
