@@ -1,5 +1,5 @@
 import router from './router'
-import hasToken from './utils/token'
+// import hasToken from './utils/token'
 
 router.beforeEach(async (to, from, next) => {
   next()

@@ -4,6 +4,7 @@ import Register from "@/pages/Register.vue"
 import VerifyEmail from "@/pages/VerifyEmail.vue"
 import Logout from "@/pages/Logout.vue"
 import ResetPasswordEmail from "@/pages/ResetPasswordEmail.vue"
+import Formular from "../components/Formular.vue";
 
 const routes = [
     {
@@ -12,7 +13,7 @@ const routes = [
         name: "Welcome"
     },
     {
-        path: "/login",
+        path: "/admin/login",
         component: Login,
         name: "Login"
     },
@@ -27,7 +28,7 @@ const routes = [
         name: "VerifyEmail"
     },
     {
-        path: "/reset-password/:token",
+        path: "/admin/reset-password/:token",
         component: ResetPasswordEmail,
         name: "ResetPasswordEmail"
     },
@@ -35,6 +36,12 @@ const routes = [
         path: "/logout",
         component: Logout,
         name: "Logout"
+    },
+
+    {
+        path: "/formular",
+        component: Formular,
+        name: "Formular"
     }
 ]
 
