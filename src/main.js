@@ -4,6 +4,7 @@ import VueAxios from "vue-axios";
 import VueSwal from "vue-sweetalert2";
 import VueMoment from "vue-moment";
 import VModal from "vue-js-modal";
+import wysiwyg from "vue-wysiwyg";
 
 import store from "./store/index";
 import axios from "axios";
@@ -21,6 +22,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSwal);
 Vue.use(VueMoment);
 Vue.use(VModal);
+Vue.use(wysiwyg, {});
 
 new Vue({
   el: "#app",

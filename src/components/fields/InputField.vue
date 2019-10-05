@@ -1,9 +1,11 @@
 <template>
   <div>
-    <h5>{{question.order}}. {{question.text}} -- {{question.mandatory}}</h5>
-    <ValidationProvider name="Field" id="password" :rules="isRequired" v-slot="{errors}">
-      <input type="text" v-model="data" @change="onChange" />
-      <span>{{ errors[0] }}</span>
+    <h5>{{question.order}}. {{question.text}}</h5>
+    <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
+        <li class="inputfield-row">
+          <input type="text" v-model="data" @change="onChange" />
+          <span>{{ errors[0] }}</span>
+        </li>
     </ValidationProvider>
   </div>
 </template>
@@ -37,5 +39,32 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+  .inputfield-row {
+    margin-bottom: 25px;
+    span {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    input {
+      display: block;
+      min-width: 400px;
+      padding: 5px 10px;
+    }
+    select {
+      min-width: 420px;
+    }
+    span,
+    input,
+    select {
+      font-size: 16px;
+      border: 0;
+    }
+    input[type="text"],
+    select {
+      border: 0;
+      border-bottom: 1px solid #939393;
+    }
+  }
 </style>
