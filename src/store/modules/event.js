@@ -1,35 +1,47 @@
-import axios from "axios";
-import * as _ from "lodash";
+import axios from 'axios';
+import * as _ from 'lodash';
+import moment from 'moment'
 import Fuse from "fuse.js";
+
 var fuseOptions = {
-  shouldSort: true,
-  threshold: 0.6,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: ["title"]
-};
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: ["title"]
+  };
 
+  
 export default {
-  state: {
-    questions: [],
-    answers: [],
-    image: "",
-
-    events: []
-  },
-
-  getters: {
-    getEvents(state) {
-      return state.events;
+    state: {
+        questions: [],
+        answers: [],
+        image: '',
+        selectedMonth: moment(new Date()),
+        events: [],
+        selectedMonthEvents: [],
+        searchedEvents: []
     },
-    searchEvent(state, query) {
-      let fuse = new Fuse(state.events, options);
-      let result = fuse.search(query);
-      return result;
-    }
-  },
+
+    getters: {
+        getEvents(state) {
+            return state.events;
+        },
+        
+        getSelectedMonth(state){
+            var month =  state.selectedMonth.lang("sr").format('MMMM Y')
+            return month.charAt(0).toUpperCase() + month.slice(1)
+        },
+
+        searchEvent(state, query) {
+            let fuse = new Fuse(state.events, fuseOptions);
+            let result = fuse.search(query);
+            return result;
+        }
+    },
+    
 
   mutations: {
     SET_QUESTIONS(state, questions) {
@@ -39,6 +51,18 @@ export default {
     ANSWER_QUESTION(state, questionAnswers) {
       state.answers.push(questionAnswers);
     },
+
+        SET_EVENTS(state, events){
+            state.events = events;
+        },
+
+        INCREASE_MONTH(state){
+            state.selectedMonth = moment(state.selectedMonth.add(1,"M"))
+        },
+
+        DECREASE_MONTH(state){
+            state.selectedMonth = moment(state.selectedMonth.add(-1,"M"))
+        },
 
     REMOVE_ANSWER(state, id) {
       for (var i = 0; i < state.answers.length; i++) {
@@ -86,22 +110,41 @@ export default {
     },
 
     async submitEvent({ commit, state }) {
-      var formData = new FormData();
-      for (var i = 0; i < state.answers.length; i++) {
-        if (state.answers[i].type === "file") {
-          formData.append(state.answers[i].name, state.answers[i].answers);
+        var formData = new FormData();
+        for (var i = 0; i < state.answers.length; i++) {
+            if (state.answers[i].type === "file") {
+            formData.append(state.answers[i].name, state.answers[i].answers);
+            }
         }
-      }
-      formData.set("formAnswers", JSON.stringify(state.answers));
+        formData.set("formAnswers", JSON.stringify(state.answers));
 
-      axios
-        .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
-        .then(res => {
-          console.log(res);
+        if(state.answers[i].type === 'file'){
+            formData.append(state.answers[i].name, state.answers[i].answers);     
+        }
+            
+        axios.post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData).then(res => {
+            console.log(res)
+        }).catch(err => {
+        console.log(err)
         })
-        .catch(err => {
-          console.log(err);
-        });
+    },
+
+    async fetchEvents({commit}) {
+        try{
+            const events = await axios.get(`${process.env.VUE_APP_BASE_URL}/user/events`);
+            commit('SET_EVENTS', events.data.data)
+            return events;
+        }catch(err){
+            return err
+        }
+    },
+
+    async increaseMonth({commit}){
+        commit('INCREASE_MONTH')       
+    },
+        
+    async decreaseMonth({commit}){
+        commit('DECREASE_MONTH')       
     },
 
     async fetchEvents({ commit }) {
@@ -114,6 +157,7 @@ export default {
       } catch (err) {
         return err;
       }
+
     }
   }
 };
