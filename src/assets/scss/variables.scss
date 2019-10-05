@@ -21,7 +21,10 @@ $font-primary: "Montserrat", Helvetica, Arial, sans-serif;
 // Responsive mixins
 
 @mixin breakpoint($point) {
-    @if $point == desk {
+    @if $point == desk-xl {
+        @media (max-width: $screen-xl) { @content; }
+    }
+    @else if $point == desk {
         @media (max-width: $screen-lg) { @content; }
     }
     @else if $point == htab {
@@ -38,6 +41,7 @@ $font-primary: "Montserrat", Helvetica, Arial, sans-serif;
     }
 }
 
+$screen-xl: 1400px;
 $screen-lg: 1200px;
 $screen-md: 1024px;
 $screen-sm: 990px;

@@ -2,6 +2,7 @@
   <div>
     <header class="header">
         <h1>Kalendar događaja</h1>
+        <DatePicker/>
         <div class="header__right-part">
             <SearchField/>
             <button class="btn btn__purple btn__large" type="button">+ Dodaj događaj</button>
@@ -13,11 +14,13 @@
 <script>
 
 import SearchField from './SearchField.vue'
+import DatePicker from './DatePicker.vue'
 
 export default {
   name: "Header",
   components: {
-    SearchField
+    SearchField,
+    DatePicker
   }
 }
 </script>
@@ -35,6 +38,10 @@ export default {
   &__right-part {
     display: flex;
     align-items: center;
+    @include breakpoint(desk-xl) {
+      flex-direction: column;
+      align-items: flex-end;
+    }
   }
 }
 

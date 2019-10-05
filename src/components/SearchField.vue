@@ -21,8 +21,14 @@ export default {
 
 .search-field {
     margin-right: 30px;
+    display: flex;
+    align-items: flex-start;
+    @include breakpoint(desk-xl) {
+        margin: 0 0 12px 0;
+    }
     .search-field--ico {
         font-size: 20px;
+        margin-bottom: 6px;
         svg {
             fill: $purple;
         }
@@ -34,11 +40,13 @@ export default {
         border: 0;
         color: rgba($purple, 0.5);
         padding: 5px;
-
         &::placeholder {
             font-size: 16px;
             line-height: 20px;
             color: rgba($purple, 0.5);
+        }
+        @include breakpoint(desk-xl) {
+            width: 142px;
         }
     }
 }
