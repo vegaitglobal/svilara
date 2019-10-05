@@ -14,7 +14,7 @@
         >+ Dodaj događaj</button>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="600">
+    <modal name="userCreateEventModal" height="700">
       <div class="tc-modal">
           <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1> 
           <div class="tc-modal__text">
@@ -113,7 +113,7 @@ export default {
   &__bottom {
       display: flex;
       justify-content: space-between;
-      padding-top: 15px;
+      padding-top: 25px;
   }
   .tc-modal-checkbox {
     position: absolute;
