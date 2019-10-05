@@ -1,7 +1,7 @@
 <template>
   <div class="search-field">
     <magnify-icon class="search-field--ico"/>
-    <input class="search-field--input" type="text" placeholder="Pretraži..." />
+    <input v-on:keyup="search" class="search-field--input" v-model="query" type="text" placeholder="Pretraži..." />
   </div>
 </template>
 
@@ -12,7 +12,18 @@ export default {
     name: "SearchField",
     components: {
         MagnifyIcon
-    }
+    },
+    data(){
+        return {
+            query: ''
+        }
+    },
+    methods:{
+        search(){
+            console.log(this.query)
+            this.$store.dispatch('searchEvent', this.query)
+        }
+    },
 }
 </script>
 

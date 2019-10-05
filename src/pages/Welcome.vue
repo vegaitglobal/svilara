@@ -30,7 +30,7 @@ export default {
 
   computed:{
     events(){
-      return this.$store.getters.getEvents.sort(this.sortByDate)
+      return this.$store.getters.getSearchedEvents.sort(this.sortByDate)
     },
   },
 
