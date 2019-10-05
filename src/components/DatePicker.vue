@@ -1,8 +1,8 @@
 <template>
     <div class="date-picker">
-        <chevron-left-icon class="date-picker--ico"/>
-        <span class="date-picker--val">Septembar 2019</span>
-        <chevron-right-icon class="date-picker--ico"/>
+        <chevron-left-icon @click="decMonth" class="date-picker--ico"/>
+        <span class="date-picker--val">{{selectedMonth}}</span>
+        <chevron-right-icon @click="incMonth" class="date-picker--ico"/>
     </div>
 </template>
 
@@ -15,6 +15,22 @@ export default {
     components: {
         ChevronRightIcon,
         ChevronLeftIcon
+    },
+
+    methods:{
+        incMonth(){
+            this.$store.dispatch('increaseMonth')
+        },
+
+        decMonth(){
+            this.$store.dispatch('decreaseMonth')
+        }
+    },
+
+    computed:{
+        selectedMonth(){
+            return this.$store.getters.getSelectedMonth
+        }
     }
 }
 </script>

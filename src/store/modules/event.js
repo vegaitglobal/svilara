@@ -1,18 +1,23 @@
 import axios from 'axios';
 import * as _ from 'lodash';
-
+import moment from 'moment'
 export default {
     state: {
         questions: [],
         answers: [],
         image: '',
-
+        selectedMonth: moment(new Date()),
         events: []
     },
 
     getters: {
         getEvents(state) {
             return state.events;
+        },
+        
+        getSelectedMonth(state){
+            var month =  state.selectedMonth.lang("sr").format('MMMM Y')
+            return month.charAt(0).toUpperCase() + month.slice(1)
         }
     },
 
@@ -38,6 +43,14 @@ export default {
 
         SET_EVENTS(state, events){
             state.events = events;
+        },
+
+        INCREASE_MONTH(state){
+            state.selectedMonth = moment(state.selectedMonth.add(1,"M"))
+        },
+
+        DECREASE_MONTH(state){
+            state.selectedMonth = moment(state.selectedMonth.add(-1,"M"))
         }
     },
 
@@ -72,7 +85,7 @@ export default {
                 }
             }
             formData.set('formAnswers', JSON.stringify(state.answers));
-          
+
             axios.post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData).then(res => {
                 console.log(res)
             }).catch(err => {
@@ -88,6 +101,14 @@ export default {
             }catch(err){
                 return err
             }
+        },
+
+        async increaseMonth({commit}){
+            commit('INCREASE_MONTH')       
+        },
+        
+        async decreaseMonth({commit}){
+            commit('DECREASE_MONTH')       
         }
     }
 }
