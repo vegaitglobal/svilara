@@ -80,8 +80,6 @@ export default {
             picture: state.events[i].picture,
             logo: state.events[i].logo
           }
-
-
         };
         // console.log(parsedEvent)
         serializedEvents.push(parsedEvent)
@@ -198,7 +196,6 @@ export default {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
-        console.log(state.answers)
         if (state.answers[i].type === "file") {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
@@ -244,6 +241,18 @@ export default {
       }
     },
 
+    async fetchAdminEvents({ commit }) {
+      try {
+        const events = await axios.get(
+          `${process.env.VUE_APP_BASE_URL}/admin/events`
+        );
+        commit("SET_EVENTS", events.data.data);
+        return events;
+      } catch (err) {
+        return err;
+      }
+    },
+
     async searchEvent({ commit, state }, query) {
       let result;
 
@@ -276,10 +285,17 @@ export default {
 
     async updateQuestion({ commit }, question) {
       try {
-        console.log(question)
         const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
         return res
       } catch (err) {
+        return err
+      }
+    },
+
+    async updateEvent({commit}, question) {
+      try{
+        const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
+      }catch(err){
         return err
       }
     }
