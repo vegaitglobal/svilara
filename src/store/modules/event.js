@@ -18,16 +18,8 @@ const sortByDate = (a, b) => {
 }
 
 const searchColorsByType = (settings, type) => {
-  // console.log(settings)
-  // var found = settings.find(function(element) {
-  //   console.log(element)
-  //   return element.key  === type;
-  // });
-
-  // return found.value;
-
   for (var i = 0; i < settings.length; i++) {
-    if (settings[i].key === type){
+    if (settings[i].key === type) {
       return settings[i].value
     }
   }
@@ -65,7 +57,7 @@ export default {
       for (var i = 0; i < state.events.length; i++) {
         var color = searchColorsByType(settings, state.events[i].type)
         var borderColor = searchColorsByType(settings, 'placanje')
-      
+
         let parsedEvent = {
           id: state.events[i].id,
           title: state.events[i].title,
@@ -280,6 +272,16 @@ export default {
         }
       }
       commit("SET_SEARCHED_EVENTS", filtered);
+    },
+
+    async updateQuestion({ commit }, question) {
+      try {
+        console.log(question)
+        const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
+        return res
+      } catch (err) {
+        return err
+      }
     }
   }
 };
