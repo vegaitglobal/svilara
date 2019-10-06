@@ -8,13 +8,10 @@
         <h3>{{event.title}}</h3>
         <div class="daily-event__bottom">
           <div class="daily-event__bottom--icons">
-            <span data-tooltip="Ulaz besplatan, bez prijave">
-              <currency-usd-off class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span data-tooltip="Ulaz besplatan, sa prijavom">
+            <span data-tooltip="Ulaz se naplaćuje">
               <currency-usd class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Ulaz besplatan, sa prijavom">
+            <span data-tooltip="Ulaz besplatan">
               <currency-usd-off class="daily-event__bottom--icons-ico"/>
             </span>
             <span data-tooltip="Tribina">
@@ -35,6 +32,7 @@
             <span data-tooltip="Potrebna prijava">
               <file-document-box-plus-outline class="daily-event__bottom--icons-ico"/>
             </span>
+            
           </div>
           <button type="button" class="btn btn__orange">Pogledaj opis</button>
         </div>
