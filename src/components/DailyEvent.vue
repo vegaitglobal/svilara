@@ -1,67 +1,76 @@
 <template>
-    <div class="daily-event w-22">
-        <div class="daily-event--date">
-          <p>{{startingDateMonth}}<span>{{startingDay}}</span></p>
-        </div>
-        <div class="daily-event--image" :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"></div>
-        <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
-        <h3>{{event.title}}</h3>
-        <div class="daily-event__bottom">
-          <div class="daily-event__bottom--icons">
-            <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
-              <currency-usd-off class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-else data-tooltip="Ulaz se naplaćuje">
-              <currency-usd class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='izlozba'" data-tooltip="Izložba">
-              <palette class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='muzicki'" data-tooltip="Muzički program">
-              <music class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='igranka'" data-tooltip="Igranka">
-              <human-handsup class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='audiovideo'" data-tooltip="Audio-vizuelni program">
-              <video-vintage class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='festival'" data-tooltip="Festival">
-              <castle class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='predstava'" data-tooltip="Predstava">
-              <drama-masks class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='radionica'" data-tooltip="Radionica">
-              <hammer class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
-              <script-text-outline class="daily-event__bottom--icons-ico"/> 
-            </span>
-            <span v-if="event.type=='otvorensp'" data-tooltip="Potrebna prijava">
-              <file-document-box-plus-outline class="daily-event__bottom--icons-ico"/>
-            </span>
-            
-          </div>
-          <button type="button" class="btn btn__orange">Pogledaj opis</button>
-        </div>
+  <div class="daily-event w-22">
+    <div class="daily-event--date">
+      <p>
+        {{startingDateMonth}}
+        <span>{{startingDay}}</span>
+      </p>
     </div>
+    <div
+      class="daily-event--image"
+      :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
+    ></div>
+    <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
+    <h3>{{event.title}}</h3>
+    <div class="daily-event__bottom">
+      <div class="daily-event__bottom--icons">
+        <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
+          <currency-usd-off class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-else data-tooltip="Ulaz se naplaćuje">
+          <currency-usd class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='izlozba'" data-tooltip="Izložba">
+          <palette class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='muzicki'" data-tooltip="Muzički program">
+          <music class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='igranka'" data-tooltip="Igranka">
+          <human-handsup class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='audiovideo'" data-tooltip="Audio-vizuelni program">
+          <video-vintage class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='festival'" data-tooltip="Festival">
+          <castle class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='predstava'" data-tooltip="Predstava">
+          <drama-masks class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='radionica'" data-tooltip="Radionica">
+          <hammer class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
+          <script-text-outline class="daily-event__bottom--icons-ico" />
+        </span>
+        <span v-if="event.type=='otvorensp'" data-tooltip="Potrebna prijava">
+          <file-document-box-plus-outline class="daily-event__bottom--icons-ico" />
+        </span>
+      </div>
+      <router-link
+        :to="'/event/' + this.event.id"
+        type="button"
+        tag="button"
+        class="btn btn__orange"
+      >Pogledaj opis</router-link>
+    </div>
+  </div>
 </template>
 <script>
-
-import DailyImg from "../assets/img/example.png"
-import CurrencyUsdOff from 'vue-material-design-icons/CurrencyUsdOff.vue';
-import CurrencyUsd from 'vue-material-design-icons/CurrencyUsd.vue';
-import Palette from 'vue-material-design-icons/Palette.vue';
-import Hammer from 'vue-material-design-icons/Hammer.vue';
-import ScriptTextOutline from 'vue-material-design-icons/ScriptTextOutline.vue';
-import HumanHandsup from 'vue-material-design-icons/HumanHandsup.vue';
-import VideoVintage from 'vue-material-design-icons/VideoVintage.vue';
-import Music from 'vue-material-design-icons/Music.vue';
-import FileDocumentBoxPlusOutline from 'vue-material-design-icons/FileDocumentBoxPlusOutline.vue';
-import DramaMasks from 'vue-material-design-icons/DramaMasks.vue';
-import Castle from 'vue-material-design-icons/Castle.vue';
-import moment from 'moment'
+import DailyImg from "../assets/img/example.png";
+import CurrencyUsdOff from "vue-material-design-icons/CurrencyUsdOff.vue";
+import CurrencyUsd from "vue-material-design-icons/CurrencyUsd.vue";
+import Palette from "vue-material-design-icons/Palette.vue";
+import Hammer from "vue-material-design-icons/Hammer.vue";
+import ScriptTextOutline from "vue-material-design-icons/ScriptTextOutline.vue";
+import HumanHandsup from "vue-material-design-icons/HumanHandsup.vue";
+import VideoVintage from "vue-material-design-icons/VideoVintage.vue";
+import Music from "vue-material-design-icons/Music.vue";
+import FileDocumentBoxPlusOutline from "vue-material-design-icons/FileDocumentBoxPlusOutline.vue";
+import DramaMasks from "vue-material-design-icons/DramaMasks.vue";
+import Castle from "vue-material-design-icons/Castle.vue";
+import moment from "moment";
 
 export default {
   name: "DailyEvent",
@@ -137,7 +146,7 @@ export default {
   margin-right: 2.3%;
   margin-bottom: 32px;
   flex-direction: column;
-    display: flex;
+  display: flex;
   @include breakpoint(vtab) {
     margin-right: 0;
   }
