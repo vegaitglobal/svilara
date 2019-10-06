@@ -75,3 +75,10 @@ a {
         }
     }
   }
+
+a.btn {
+    text-decoration: none;
+    &.btn__large {
+    padding: 14px 50px;
+    }
+}
