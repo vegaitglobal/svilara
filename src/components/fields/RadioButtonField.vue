@@ -58,6 +58,8 @@ export default {
 <style lang="scss">
   .radio-btn {
     list-style-type: none;
+    margin-bottom: 5px;
   }
+
 
 </style>

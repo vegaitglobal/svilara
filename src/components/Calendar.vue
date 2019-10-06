@@ -147,11 +147,15 @@ export default {
 .v--modal-overlay {
   .v--modal-box {
     padding: 30px;
+    max-width: 100%;
   }
   ol,
   ul {
     list-style: decimal;
     list-style-position: inside;
+  }
+  .inputfield-row {
+    margin-bottom: 25px;
   }
 }
 

@@ -27,9 +27,9 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="760">
+    <modal name="userCreateEventModal" height="500" width="830">
       <div class="tc-modal" v-if="page==1">
-        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
+        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg/Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
           <p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
 
@@ -51,6 +51,25 @@
           <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
 
           <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
+          <hr>
+
+          <p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p> 
+
+          <p>The applications have to be submitted by 15th of the month which precedes the month in which your event is taking place (e.g. if your event takes place in May, you have to submit your application by 15 April). Applications that do not meet this condition will not be taken into consideration.</p>
+
+          <p>In order to include your organisation’s event into our schedule, it needs to be approved by the team of the 'Egység' Cultural Station. In case you have more than one event that you wish to be included in the programme of 'Egység' CS, you need to fill in a form for each the events separately.</p>
+
+          <p>By accepting the organisation of the event, the applicant automatically accepts the Rules of Procedure of the 'Egység' Cultural Station and confirms that he/she is familiar with them.
+
+          <p>By filling in this application form, the applicant of the exhibition accepts the fact that the Cultural Station is a multi-functional facility and that events of various types may take place during the exhibition, though in such a way that they do not endanger the exhibition or damage it.</p>
+
+          <p>The Cultural Station can offer commercial services that are discussed during preparatory meetings.</p>
+            Performances have advantage over rehearsals/meetings and preparatory activities, therefore you are advised to enter alternative dates.</p>
+
+          <p>During the events organised in the 'Egység' Cultural Station, we usually photograph and record events in order to promote the programme of the 'Novi Sad 2021 - European Capital of Culture' Foundation in accordance with the Law on Personal Data Protection and Law on Public Information, and this application is deemed acceptance to possible publication of the said photographs and video recordings on social networks and websites of the Foundation and Cultural Station.</p>
+
+          <p>By filling in this application form you confirm that the data entered are true and correct.</p>
+
         </div>
         <div class="tc-modal__bottom">
           <input
@@ -59,14 +78,14 @@
             type="checkbox"
             v-model="terms1accepted"
           />
-          <label for="tc-modal-checkbox">Pročitao sam i prihvatam sve uslove pravilnika</label>
+          <label for="tc-modal-checkbox">Pročitao sam i prihvatam sve uslove pravilnika. / I read the Rules of Procerure and I accept them.</label>
           <input
             class="tc-modal-checkbox"
             id="tc-modal-checkbox-2"
             type="checkbox"
             v-model="terms2accepted"
           />
-          <label for="tc-modal-checkbox-2">Potvrđujem verodostojnost i tačnost unetih podataka</label>
+          <label for="tc-modal-checkbox-2">Potvrđujem verodostojnost i tačnost unetih podataka. / I confirm that the data entered are true and correct.</label>
         </div>
         <div class="text-center">
           <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>

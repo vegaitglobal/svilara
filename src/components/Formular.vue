@@ -7,7 +7,7 @@
       :question="question"
       :is="mapToType(question.fieldType)"
     ></component>
-    <button @click="submit">Submit</button>
+    <button class="btn btn__purple btn__large" @click="submit">Submit</button>
   </div>
 </template>
 
@@ -74,6 +74,9 @@ export default {
   }
   .question {
     margin-bottom: 25px;
+    h5 {
+      margin-bottom: 15px;
+    }
   }
   input[type="checkbox"],
   input[type="radio"] {
