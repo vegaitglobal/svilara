@@ -15,13 +15,13 @@
               <currency-usd class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='izlozba'" data-tooltip="Izložba">
-              <artist class="daily-event__bottom--icons-ico"/>
+              <palette class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='muzicki'" data-tooltip="Muzički program">
-              <music-clef-treble class="daily-event__bottom--icons-ico"/>
+              <music class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='igranka'" data-tooltip="Igranka">
-              <music class="daily-event__bottom--icons-ico"/>
+              <human-handsup class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='audiovideo'" data-tooltip="Audio-vizuelni program">
               <video-vintage class="daily-event__bottom--icons-ico"/>
@@ -33,7 +33,7 @@
               <drama-masks class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='radionica'" data-tooltip="Radionica">
-              <puzzle class="daily-event__bottom--icons-ico"/>
+              <hammer class="daily-event__bottom--icons-ico"/>
             </span>
             <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
               <script-text-outline class="daily-event__bottom--icons-ico"/> 
@@ -46,50 +46,18 @@
           <button type="button" class="btn btn__orange">Pogledaj opis</button>
         </div>
     </div>
-    <!--
-    <div class="daily-event__bottom">
-      <div class="daily-event__bottom--icons">
-        <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
-          <currency-usd-off class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-else data-tooltip="Ulaz se naplaćuje">
-          <currency-usd class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.category=='tribina'" data-tooltip="Tribina">
-          <alpha-t class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.category=='radionica'" data-tooltip="Radionica">
-          <alpha-r class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
-          <alpha-p class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.category=='otvorensp'" data-tooltip="Umetnički program">
-          <artist class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.category=='deciji'" data-tooltip="Dečji program">
-          <human-child class="daily-event__bottom--icons-ico" />
-        </span>
-        <span v-if="event.type=='otvorensp'" data-tooltip="Potrebna prijava">
-          <file-document-box-plus-outline class="daily-event__bottom--icons-ico" />
-        </span>
-      </div>
-      <button type="button" class="btn btn__orange">Pogledaj opis</button>
-    </div>
-    -->
-  </div>
 </template>
 <script>
 
 import DailyImg from "../assets/img/example.png"
 import CurrencyUsdOff from 'vue-material-design-icons/CurrencyUsdOff.vue';
 import CurrencyUsd from 'vue-material-design-icons/CurrencyUsd.vue';
-import Artist from 'vue-material-design-icons/Artist.vue';
-import Puzzle from 'vue-material-design-icons/Puzzle.vue';
+import Palette from 'vue-material-design-icons/Palette.vue';
+import Hammer from 'vue-material-design-icons/Hammer.vue';
 import ScriptTextOutline from 'vue-material-design-icons/ScriptTextOutline.vue';
-import Music from 'vue-material-design-icons/Music.vue';
+import HumanHandsup from 'vue-material-design-icons/HumanHandsup.vue';
 import VideoVintage from 'vue-material-design-icons/VideoVintage.vue';
-import MusicClefTreble from 'vue-material-design-icons/MusicClefTreble.vue';
+import Music from 'vue-material-design-icons/Music.vue';
 import FileDocumentBoxPlusOutline from 'vue-material-design-icons/FileDocumentBoxPlusOutline.vue';
 import DramaMasks from 'vue-material-design-icons/DramaMasks.vue';
 import Castle from 'vue-material-design-icons/Castle.vue';
@@ -100,15 +68,15 @@ export default {
   components: {
     CurrencyUsdOff,
     CurrencyUsd,
-    Artist,
-    MusicClefTreble,
+    Palette,
     Music,
+    HumanHandsup,
     FileDocumentBoxPlusOutline,
     VideoVintage,
     DramaMasks,
     Castle,
     ScriptTextOutline,
-    Puzzle
+    Hammer
   },
   props: ["event"],
   data: function() {
@@ -220,7 +188,7 @@ export default {
     }
     &--icons-ico {
       margin-right: 5px;
-      background: $orange;
+      background: $purple;
       border-radius: 30px;
       text-align: center;
       color: $white;

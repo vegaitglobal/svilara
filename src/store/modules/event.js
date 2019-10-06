@@ -17,6 +17,21 @@ const sortByDate = (a, b) => {
   return new Date(a.created).getTime() - new Date(b.created).getTime();
 }
 
+const searchColorsByType = (settings, type) => {
+  // console.log(settings)
+  // var found = settings.find(function(element) {
+  //   console.log(element)
+  //   return element.key  === type;
+  // });
+
+  // return found.value;
+
+  for (var i = 0; i < settings.length; i++) {
+    if (settings[i].key === type){
+      return settings[i].value
+    }
+  }
+}
 
 export default {
   state: {
@@ -34,22 +49,30 @@ export default {
       return state.events;
     },
 
+    getQuestions(state) {
+      return state.questions
+    },
+
     eventsSortedByCreationTime(state) {
       return state.events.sort(sortByDate)
     },
 
-    getCalendarEvents(state) {
-      let colors = ['#fcba03', '#6bfc03', '#3a9bfc', '#fc3af6', '#fc3a54']
+    getCalendarEvents(state, rootState) {
+
+      let settings = rootState.getSettings
+
       let serializedEvents = []
       for (var i = 0; i < state.events.length; i++) {
-        let color = colors[Math.floor(Math.random() * 5)]
+        var color = searchColorsByType(settings, state.events[i].type)
+        var borderColor = searchColorsByType(settings, 'placanje')
+      
         let parsedEvent = {
           id: state.events[i].id,
           title: state.events[i].title,
           start: new Date(state.events[i].startTime),
           end: new Date(state.events[i].endTime),
-          // backgroundColor: color,
-          borderColor: color,
+          backgroundColor: color,
+          borderColor: state.events[i].price === 0 ? undefined : borderColor,
           displayEventEnd: true,
           extendedProps: {
             name: state.events[i].title,
@@ -191,7 +214,7 @@ export default {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
 
-        if (state.answers[i].name === 'email'){
+        if (state.answers[i].name === 'email') {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
       }
