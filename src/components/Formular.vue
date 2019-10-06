@@ -1,13 +1,13 @@
 <template>
   <div>
     {{answers}}
-    <button @click="submit">Submit</button>
     <component
       v-for="(question, index) in questions"
       :key="index"
       :question="question"
       :is="mapToType(question.fieldType)"
     ></component>
+    <button @click="submit">Submit</button>
   </div>
 </template>
 
@@ -67,7 +67,17 @@ export default {
 
 <style lang="scss">
 .v--modal-overlay .v--modal-box {
-  overflow-y: scroll;
+  overflow-y: scroll !important;
   overflow-x: hidden;
+  h5 {
+    line-height: 23px;
+  }
+  .question {
+    margin-bottom: 25px;
+  }
+  input[type="checkbox"],
+  input[type="radio"] {
+    list-style-type: none !important;
+  }
 }
 </style>

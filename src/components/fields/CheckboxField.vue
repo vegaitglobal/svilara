@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="question">
     <h5>{{question.order}}. {{question.text}}</h5>
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
       <ul>
-        <li v-for="(value, index) in JSON.parse(question.values)" :key="index">
+        <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
           <input
             v-if="value.toLowerCase() !== 'other:'"
             type="checkbox"
@@ -87,5 +87,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .check-box {
+    list-style-type: none;
+  }
 </style>

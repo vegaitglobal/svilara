@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="question">
     <h5>{{question.order}}. {{question.text}}</h5>
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
       <input type="file" @change="uploadImage($event)" />
