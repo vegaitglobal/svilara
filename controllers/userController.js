@@ -6,7 +6,9 @@ const Random = require("random-js").Random;
 const random = new Random();
 // GET EVENTS
 exports.getEvents = async function(req, res) {
-  let [err, dbDevices] = await to(models.Event.findAll({}));
+  let [err, dbDevices] = await to(
+    models.Event.findAll({ where: { status: "accepted" } })
+  );
 
   if (err) {
     console.log(err);
