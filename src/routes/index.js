@@ -1,4 +1,5 @@
 import Welcome from "@/pages/Welcome.vue";
+import EventPage from "@/pages/EventPage.vue";
 import Admin from "@/pages/Admin.vue";
 import Editor from "../pages/Editor.vue";
 import Login from "@/pages/Login.vue";
@@ -15,6 +16,11 @@ const routes = [
     path: "/",
     component: Welcome,
     name: "Welcome"
+  },
+  {
+    path: "/event/:id",
+    component: EventPage,
+    name: "EventPage"
   },
   {
     path: "/admin/login",
