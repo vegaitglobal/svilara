@@ -48,15 +48,15 @@
           <li class="inputfield-row">
             <span>Kategorija programa</span>
             <select v-model="event.category">
-              <option>Izložba</option>
-              <option>Muzički program</option>
-              <option>Igranka</option>
-              <option>Audio-vizuelni program</option>
-              <option>Predstava</option>
-              <option>Festival</option>
-              <option>Predavanje</option>
-              <option>Radionica</option>
-              <option>Drugo</option>
+              <option value="izlozba">Izložba</option>
+              <option value="muzickiprogram">Muzički program</option>
+              <option value="igranka">Igranka</option>
+              <option value="audiovideo">Audio-vizuelni program</option>
+              <option value="predstava">Predstava</option>
+              <option value="festival">Festival</option>
+              <option value="predavanja">Predavanje</option>
+              <option value="radionica">Radionica</option>
+              <option value="drugo">Drugo</option>
             </select>
           </li>
           <li class="inputfield-row">

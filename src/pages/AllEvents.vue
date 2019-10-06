@@ -14,15 +14,20 @@ export default {
   },
   data() {
     return {
-      columns: ["id", "name", "age"],
+      columns: ["id", "title", "contactEmail", "category", "type", "space", "status", "startTime", "endTime"],
       tableData: [
-        { id: 1, name: "John", age: "20" },
-        { id: 2, name: "Jane", age: "24" },
-        { id: 3, name: "Susan", age: "16" },
-        { id: 4, name: "Chris", age: "55" },
-        { id: 5, name: "Dan", age: "40" }
       ]
     };
+  },
+
+  created(){
+    this.tableData = this.events
+  },
+
+  computed:{
+    events(){
+      return this.$store.getters.getAdminEvents;
+    }
   }
 };
 </script>
