@@ -35,7 +35,6 @@ exports.createEvent = async function(req, res) {
       return ReE(res, { msg: "Something went wrong!" });
     }
     let title = fields.title;
-    let location = fields.location;
     let description = fields.description;
     let startTime = fields.startTime;
     let endTime = fields.endTime;
@@ -43,7 +42,6 @@ exports.createEvent = async function(req, res) {
     let space = fields.space;
     let type = fields.type;
     let socialMedia = fields.socialMedia;
-    let media = fields.media;
     let age = fields.age;
 
     let validatorMessage = validateEvent(fields);
@@ -91,16 +89,15 @@ exports.createEvent = async function(req, res) {
     let [err, dbCreated] = await to(
       models.Event.create({
         title,
-        location,
         description,
         picture: imageName,
+        logo: logoName,
         startTime,
         endTime,
         category,
         type,
         space,
         socialMedia,
-        media,
         age
       })
     );
@@ -120,7 +117,6 @@ exports.createEvent = async function(req, res) {
 // UPDATE EVENT
 exports.updateEvent = async function(req, res) {
   let title = req.body.title;
-  let location = req.body.location;
   let description = req.body.description;
   let startTime = req.body.startTime;
   let endTime = req.body.endTime;
@@ -128,7 +124,6 @@ exports.updateEvent = async function(req, res) {
   let space = req.body.space;
   let type = req.body.type;
   let socialMedia = req.body.socialMedia;
-  let media = req.body.media;
   let age = req.body.age;
 
   let validatorMessage = validateEvent(req.body);
@@ -142,7 +137,6 @@ exports.updateEvent = async function(req, res) {
     models.Event.update(
       {
         title,
-        location,
         description,
         startTime,
         endTime,
@@ -150,7 +144,6 @@ exports.updateEvent = async function(req, res) {
         type,
         space,
         socialMedia,
-        media,
         age
       },
       { where: { id: req.params.id } }
@@ -552,10 +545,6 @@ function validateQuestion(body) {
 }
 
 function validateEvent(body) {
-  if (body.id && !validator.isNumeric) {
-    return "Id must be numeric";
-  }
-
   if (!body.title || validator.isEmpty(body.title)) {
     return "Title is required";
   }
@@ -576,14 +565,6 @@ function validateEvent(body) {
 
   if (!body.space || validator.isEmpty(body.space)) {
     return "Space is required";
-  }
-
-  if (validator.isEmpty(body.socialMedia)) {
-    return "Social media must be boolean";
-  }
-
-  if (!validator.isBoolean(body.media)) {
-    return "Media must be boolean";
   }
 
   if (!body.age || validator.isEmpty(body.age)) {

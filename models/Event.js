@@ -13,10 +13,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: true
       },
-      location: {
-        type: DataTypes.STRING(100),
-        allowNull: true
-      },
       description: {
         type: DataTypes.TEXT,
         allowNull: true
@@ -52,12 +48,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: true
       },
-      socialMedia: {
-        type: DataTypes.STRING(150),
+      price: {
+        type: DataTypes.INTEGER,
         allowNull: true
       },
-      media: {
-        type: DataTypes.BOOLEAN,
+      socialMedia: {
+        type: DataTypes.STRING(150),
         allowNull: true
       },
       age: {
@@ -66,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       contactEmail: {
         type: DataTypes.STRING(100),
-        allowNull: false
+        allowNull: true
       },
       formAnswers: {
         type: DataTypes.TEXT,
