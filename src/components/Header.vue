@@ -30,11 +30,14 @@
             tag="button"
             v-if="['Admin'].includes($route.name)"
           >Događaji</router-link>
-          <button
+          
+          <router-link
+            to="/admin/settings"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Podešavanja</button>
+          >Podešavanja</router-link>
         </div>
       </div>
     </header>
