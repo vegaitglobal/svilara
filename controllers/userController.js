@@ -23,7 +23,6 @@ exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
     if (error) {
-      console.log(error);
       return ReE(res, { msg: "Something went wrong!" });
     }
     var email = fields.email;
@@ -48,6 +47,7 @@ exports.createEvent = async function(req, res) {
     } else imageName = "default-picture.png";
 
     if (files.logo) {
+      console.log("ima logo");
       // check mime type (is image)
       if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
         return ReE(res, { msg: "Wrong image format!" });
@@ -61,7 +61,9 @@ exports.createEvent = async function(req, res) {
         var newLogoPath = "./public/uploads/" + logoName;
       }
       fs.renameSync(logoTmpPath, newLogoPath);
-    } else logoName = "default-picture.png";
+    } else {
+      logoName = "default-picture.png";
+    }
 
     let [err, dbCreated] = await to(
       models.Event.create({
