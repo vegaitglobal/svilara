@@ -232,10 +232,14 @@ export default {
       align-items: center;
       justify-content: center;
       margin: 20px 20px 0;
+      flex-wrap: wrap;
     }
     .search-field {
       @include breakpoint(mob) {
         margin: 0;
+      }
+      @include breakpoint(mob-sm) {
+        margin-bottom: 20px;
       }
     }
   }
