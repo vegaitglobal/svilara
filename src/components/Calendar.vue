@@ -13,80 +13,79 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-            <input type="text" v-model="name" />
+            <input type="text" v-model="name" placeholder="Unesi naziv prostora" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
-            <input type="text" v-model="description" />
+            <input type="text" v-model="description" placeholder="Unesi opis prostora" />
           </li>
-          <!--
+
           <li class="inputfield-row">
             <span>Logo organizacije</span>
-            <input type="file" v-model="logo" />
+            <input type="file" />
           </li>
-          -->
-          <!--
+
           <li class="inputfield-row">
             <span>Slika</span>
-            <input type="file" v-model="picture" />
+            <input type="file" />
           </li>
-          -->
+
           <li class="inputfield-row">
             <span>Status programa</span>
             <select v-model="type">
-              <option>Otvoren program (slobodan ulaz bez prijave)</option>
-              <option>Otvoren program (slobodan ulaz sa prijavom)</option>
-              <option>Zatvoren program</option>
+              <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
+              <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
+              <option value="zatvoren">Zatvoren program</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
             <select v-model="price">
-              <option>Da</option>
-              <option>Ne</option>
+              <option value="1">Da</option>
+              <option value="0">Ne</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Kategorija programa</span>
             <select v-model="category">
-              <option>Izložba</option>
-              <option>Muzički program</option>
-              <option>Igranka</option>
-              <option>Audio-vizuelni program</option>
-              <option>Predstava</option>
-              <option>Festival</option>
-              <option>Predavanje</option>
-              <option>Radionica</option>
-              <option>Drugo</option>
+              <option value="izlozba">Izložba</option>
+              <option value="muzicki">Muzički program</option>
+              <option value="igranka">Igranka</option>
+              <option value="audiovideo">Audio-vizuelni program</option>
+              <option value="predstava">Predstava</option>
+              <option value="festival">Festival</option>
+              <option value="predavanja">Predavanje</option>
+              <option value="radionica">Radionica</option>
+              <option value="drugo">Drugo</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
             <select v-model="space">
-              <option>Velika sala</option>
-              <option>Mala sala</option>
-              <option>Dvorište</option>
-              <option>Sportski tereni sa tribinama</option>
-              <option>Društveni centar</option>
-              <option>Plato</option>
-              <option>Drugo</option>
+              <option value="velikasala">Velika sala</option>
+              <option value="malasala">Mala sala</option>
+              <option value="dvoriste">Dvorište</option>
+              <option value="teren">Sportski tereni sa tribinama</option>
+              <option value="drucentar">Društveni centar</option>
+              <option value="plato">Plato</option>
+              <option value="drugo">Drugo</option>
             </select>
 
-            <input type="text" />
+            <input type="text" v-if="space=='drugo'" placeholder="Unesi ime prostora" />
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input type="text" v-model="socialMedia" />
+            <input type="text" v-model="socialMedia" placeholder="Unesi link" />
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
             <select v-model="age">
-              <option>Deca</option>
-              <option>Mladi</option>
-              <option>Odrasli</option>
-              <option>Starija publika</option>
-              <option>Profesionalna publika</option>
-              <option>Svi</option>
+              <option value="deca">Deca</option>
+              <option value="mladi">Mladi</option>
+              <option value="odrasli">Odrasli</option>
+              <option value="stariji">Starija publika</option>
+              <option value="profesionalna">Profesionalna publika</option>
+              <option value="svi">Svi</option>
             </select>
           </li>
           <li class="inputfield-row">
@@ -120,14 +119,16 @@ export default {
       ],
       name: "",
       description: "",
-      type: "",
-      price: "",
-      category: "",
-      space: "",
+      type: "otvorenbp",
+      price: "0",
+      category: "izlozba",
+      space: "velikasala",
       socialMedia: "",
-      age: "",
+      age: "mladi",
       startTime: "",
-      endTime: ""
+      endTime: "",
+      picture: "",
+      logo: ""
     };
   },
   methods: {
