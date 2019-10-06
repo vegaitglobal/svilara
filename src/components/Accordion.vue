@@ -25,13 +25,21 @@
                         {{row.question.id}}. {{row.question.text}}: <span class="replies__answer">{{row.answers}}</span>
                     </div>
                     <div class="button-wrapper">
-                        <button type="button" class="btn btn__green">Prihvati</button>
-                        <button type="button" class="btn btn__red">Odbij</button>
+                        <button type="button" @click="showExplanationModal" class="btn btn__green">Prihvati</button>
+                        <button type="button" @click="showExplanationModal" class="btn btn__red">Odbij</button>
                     </div>
                 </div>  
             </badger-accordion-item>
         
         </badger-accordion>
+
+        <modal name="explanationModal" height="550" width="830" overlayTransition="overlay-fade">
+            <div class="explanation-modal text-center">
+                <h1>Objašnjenje</h1>
+                <p>Objašnjenje zašto je (nije) prihvaćen događaj.</p>
+                <button type="submit" class="btn btn__purple btn__large">Sačuvaj</button>
+            </div>
+        </modal>
     </div>
 </template>
     
@@ -50,6 +58,11 @@ export default {
         Check,
         TimerSandEmpty,
         Close
+    },
+    methods: {
+        showExplanationModal() {
+            this.$modal.show("explanationModal");
+        },
     }
 };
 </script>
@@ -113,9 +126,24 @@ export default {
         display: flex;
         margin-top: 30px;
         flex-wrap: wrap;
+        .btn {
+            min-width: 100px;
+        }
         .btn:first-of-type {
             margin-right: 10px;
         }
+    }
+}
+.explanation-modal {
+    overflow-Y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    h1,
+    p {
+        margin-bottom: 30px;
     }
 }
 
