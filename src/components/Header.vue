@@ -7,6 +7,7 @@
         <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
         <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <h1 v-if="['Settings'].includes($route.name)">Podešavanja</h1>
+        <h1 v-if="['Editor'].includes($route.name)">Kreiraj stranicu</h1>
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
@@ -46,7 +47,7 @@
             @click="$router.go(-1)"
             class="btn btn__purple btn__large"
             type="button"
-            v-if="['NewEvent','AllEvents','Settings'].includes($route.name)"
+            v-if="['NewEvent','AllEvents','Editor', 'Settings'].includes($route.name)"
           >Nazad</button>
         </div>
       </div>

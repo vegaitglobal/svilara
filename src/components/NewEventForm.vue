@@ -2,13 +2,12 @@
   <div class="new-event--wrapper">
       <div class="client-form" v-if="events">
             <h2>Zahtevi</h2>
-            <Accordion  v-for="(event, index) in events" :key="index" :event="event"/>
+            <Accordion v-if="event.status === 'pending'" v-for="(event, index) in events" :key="index" :event="event"/>
             <p v-if="events.length === 0">Nema novih zahteva...</p>
       </div>
       <div class="admin-form">
             <h2>Kreiranje novog događaja</h2>
-            <!-- Example form -->
-            <div class="modal-wrapper">
+            <div class="form-wrapper">
                 <ol>
                     <li class="inputfield-row">
                         <span>Naziv programa</span>
@@ -66,8 +65,7 @@
                         <option>Plato</option>
                         <option>Drugo</option>
                         </select>
-
-                        <input type="text" />
+                        <input type="text"/>
                     </li>
                     <li class="inputfield-row">
                         <span>Link ka dogadjaju na društvenim mrežama</span>
@@ -94,7 +92,7 @@
                     </li>
                 </ol>
             </div>
-            <button class="btn btn__purple btn__large mt-20" type="submit">Sačuvaj</button>
+            <button @click="save" class="btn btn__purple btn__large mt-20" type="submit">Sačuvaj</button>
       </div>
   </div>
 </template>
@@ -109,11 +107,11 @@ export default {
   },
 
   created(){
-      this.$store.dispatch('fetchEvents')
+      this.$store.dispatch('fetchAdminEvents')
   },
   computed:{
       events(){
-          return this.$store.getters.eventsSortedByCreationTime
+          return this.$store.getters.getAdminEvents
       }
   }
 };
@@ -158,6 +156,12 @@ export default {
         }
         @include breakpoint(desk) {
             width: 200px;
+        }
+    }
+    .form-wrapper {
+        .inputfield-row {
+            list-style-type: decimal;
+            margin-bottom: 20px;
         }
     }
 }

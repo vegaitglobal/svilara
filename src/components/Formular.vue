@@ -58,7 +58,18 @@ export default {
 
     submit() {
       this.$store.dispatch("submitEvent");
-      // this.answers = this.$store.getters.getEvents;
+
+      this.$swal
+        .fire({
+          title: "Dogadjaj poslat.",
+          text: "Predlog dogadjaja poslat je administratorima na procenu.",
+          type: "success"
+        })
+        .then(result => {
+          if (result.value) {
+            this.$modal.hide("userCreateEventModal");
+          }
+        });
     }
   }
 };

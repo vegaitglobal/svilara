@@ -45,14 +45,11 @@ export default {
     width: 300px;
   }
 }
-
 .VueTables__table {
   td {
     padding: 15px;
     border: 1px solid $purple-light;
-    text-align: center;
   }
-
   th {
     padding: 15px;
     span {
@@ -60,11 +57,9 @@ export default {
     }
   }
 }
-
 thead {
   font-weight: 700;
 }
-
 .VuePagination__count {
   text-align: left;
   margin: 40px 0;

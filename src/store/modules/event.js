@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 
 var fuseOptions = {
   shouldSort: true,
-  threshold: 0.6,
+  threshold: 0.4,
   location: 0,
   distance: 100,
   maxPatternLength: 32,
@@ -32,6 +32,7 @@ export default {
     image: '',
     selectedMonth: moment(new Date()),
     events: [],
+    adminEvents: [],
     searchedEvents: [],
     searching: false
   },
@@ -39,6 +40,10 @@ export default {
   getters: {
     getEvents(state) {
       return state.events;
+    },
+
+    getAdminEvents(state) {
+      return state.adminEvents;
     },
 
     getQuestions(state) {
@@ -54,34 +59,33 @@ export default {
       let settings = rootState.getSettings
 
       let serializedEvents = []
-      for (var i = 0; i < state.events.length; i++) {
-        var color = searchColorsByType(settings, state.events[i].type)
+      for (var i = 0; i < state.adminEvents.length; i++) {
+        var color = searchColorsByType(settings, state.adminEvents[i].type)
         var borderColor = searchColorsByType(settings, 'placanje')
 
         let parsedEvent = {
-          id: state.events[i].id,
-          title: state.events[i].title,
-          start: new Date(state.events[i].startTime),
-          end: new Date(state.events[i].endTime),
+          id: state.adminEvents[i].id,
+          title: state.adminEvents[i].title,
+          start: new Date(state.adminEvents[i].startTime),
+          end: new Date(state.adminEvents[i].endTime),
           backgroundColor: color,
-          borderColor: state.events[i].price === 0 ? undefined : borderColor,
+          borderColor: state.adminEvents[i].price === 0 ? undefined : borderColor,
           displayEventEnd: true,
           extendedProps: {
-            name: state.events[i].title,
-            description: state.events[i].description,
-            type: state.events[i].type,
-            price: state.events[i].price,
-            category: state.events[i].category,
-            space: state.events[i].space,
-            socialMedia: state.events[i].socialMedia,
-            age: state.events[i].age,
-            startTime: state.events[i].startTime,
-            endTime: state.events[i].endTime,
-            picture: state.events[i].picture,
-            logo: state.events[i].logo
+            id: state.adminEvents[i].id,
+            name: state.adminEvents[i].title,
+            description: state.adminEvents[i].description,
+            type: state.adminEvents[i].type,
+            price: state.adminEvents[i].price,
+            category: state.adminEvents[i].category,
+            space: state.adminEvents[i].space,
+            socialMedia: state.adminEvents[i].socialMedia,
+            age: state.adminEvents[i].age,
+            startTime: state.adminEvents[i].startTime,
+            endTime: state.adminEvents[i].endTime,
+            picture: state.adminEvents[i].picture,
+            logo: state.adminEvents[i].logo
           }
-
-
         };
         // console.log(parsedEvent)
         serializedEvents.push(parsedEvent)
@@ -130,6 +134,10 @@ export default {
       state.events = events;
     },
 
+    SET_ADMIN_EVENTS(state, events) {
+      state.adminEvents = events;
+    },
+
     INCREASE_MONTH(state) {
       state.selectedMonth = moment(state.selectedMonth.add(1, "M"));
     },
@@ -161,7 +169,7 @@ export default {
 
     SET_SEARCHING(state, status) {
       state.searching = status;
-      state.searchedEvents = events;
+      // state.searchedEvents = state.events;
     }
   },
 
@@ -198,7 +206,6 @@ export default {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
-        console.log(state.answers)
         if (state.answers[i].type === "file") {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
@@ -244,6 +251,18 @@ export default {
       }
     },
 
+    async fetchAdminEvents({ commit }) {
+      try {
+        const events = await axios.get(
+          `${process.env.VUE_APP_BASE_URL}/admin/events`
+        );
+        commit("SET_ADMIN_EVENTS", events.data.data);
+        return events;
+      } catch (err) {
+        return err;
+      }
+    },
+
     async searchEvent({ commit, state }, query) {
       let result;
 
@@ -276,10 +295,17 @@ export default {
 
     async updateQuestion({ commit }, question) {
       try {
-        console.log(question)
         const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
         return res
       } catch (err) {
+        return err
+      }
+    },
+
+    async updateEvent({commit}, question) {
+      try{
+        const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
+      }catch(err){
         return err
       }
     }
