@@ -38,7 +38,7 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="500" width="830">
+    <modal name="userCreateEventModal" height="550" width="830" overlayTransition="overlay-fade">
       <div class="tc-modal" v-if="page==1">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg/Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
