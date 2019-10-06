@@ -50,6 +50,12 @@
             type="button"
             v-if="['NewEvent','AllEvents','Editor', 'Settings'].includes($route.name)"
           >Nazad</button>
+          <button
+            @click="logout"
+            class="btn btn__purple btn__large"
+            type="button"
+            v-if="['Admin'].includes($route.name)"
+          >Odjavi se</button>
         </div>
       </div>
     </header>
@@ -148,6 +154,10 @@ export default {
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) return;
       this.page = 2;
+    },
+    logout(){
+      this.$store.dispatch("logout");
+      this.$router.push({ path: '/admin/login' })
     }
   },
   data: function() {

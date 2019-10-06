@@ -81,6 +81,9 @@ export default {
 .v--modal-overlay .v--modal-box {
   overflow-y: scroll !important;
   overflow-x: hidden;
+  @include breakpoint(vtab) {
+    left: auto !important;
+  }
   h5 {
     line-height: 23px;
   }

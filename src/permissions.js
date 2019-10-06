@@ -1,8 +1,8 @@
 import router from './router'
 // import hasToken from './utils/token'
 
-router.beforeEach(async (to, from, next) => {
-  next()
+//router.beforeEach(async (to, from, next) => {
+ // next()
   // if (hasToken()) {
   //   if (to.path === '/login' || to.path === '/register') {
   //     next({
