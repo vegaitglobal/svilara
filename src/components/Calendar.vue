@@ -14,7 +14,7 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-            <input type="text" v-model="selectedEvent.name" />
+            <input type="text" v-model="selectedEvent.title" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
@@ -118,14 +118,14 @@ export default {
 
       selectedEvent: {
         id: "",
-        name: "",
+        title: "",
         description: "",
-        type: "otvorenbp",
-        price: "0",
-        category: "izlozba",
-        space: "velikasala",
+        type: "",
+        price: "",
+        category: "",
+        space: "",
         socialMedia: "",
-        age: "mladi",
+        age: "",
         startTime: "",
         endTime: "",
         picture: "",
@@ -150,13 +150,28 @@ export default {
 
     async updateEvent(){
       try{
-        const res = await this.axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`, this.selectedEvent);
-        if(res.status === 200){
+        const form = new FormData()
+          for (var prop in this.selectedEvent){
+              form.append(prop, this.selectedEvent[prop])
+          }
+        const res = await this.axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`, form);
+        if (res.data.success) {
           this.$swal.fire({
-          type: "success",
-          title: 'Success',
-          text: 'Event updated!'
-        })
+            type: "success",
+            title: "Success",
+            text: "Event created!"
+          }).then(res => {
+            if(res.value){
+              this.$modal.hide("modalEventEdit");
+              this.$store.dispatch('fetchAdminEvents')
+            }
+          });
+        }else{
+           this.$swal.fire({
+            type: "warning",
+            title: "Error",
+            text: `${res.data.error.msg}`
+          }); 
         }
       }catch(err){
         this.$swal.fire({
@@ -165,6 +180,13 @@ export default {
           text: 'Something went wrong! Try again!'
         })
       }
+    },
+    logoChange(event){
+        this.event.logo = event.target.files[0]
+    },
+
+    imageChange(event){
+        this.event.picture = event.target.files[0]
     }
   }
 };
