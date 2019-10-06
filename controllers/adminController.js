@@ -14,7 +14,29 @@ var mailgun = require("mailgun-js")({
 
 // GET EVENTS
 exports.getEvents = async function(req, res) {
-  let [err, dbEvents] = await to(models.Event.findAll({}));
+  let [err, dbEvents] = await to(
+    models.Event.findAll({
+      attributes: [
+        "id",
+        "title",
+        "description",
+        "logo",
+        "picture",
+        "status",
+        "category",
+        "type",
+        "space",
+        "price",
+        "socialMedia",
+        "age",
+        "contactEmail",
+        "formAnswers",
+        "startTime",
+        "endTime",
+        "created"
+      ]
+    })
+  );
 
   if (err) {
     console.log(err);

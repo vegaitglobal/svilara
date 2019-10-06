@@ -7,7 +7,23 @@ const random = new Random();
 // GET EVENTS
 exports.getEvents = async function(req, res) {
   let [err, dbDevices] = await to(
-    models.Event.findAll({ where: { status: "accepted" } })
+    models.Event.findAll({
+      attributes: [
+        "id",
+        "title",
+        "description",
+        "picture",
+        "status",
+        "category",
+        "type",
+        "space",
+        "price",
+        "age",
+        "startTime",
+        "endTime"
+      ],
+      where: { status: "accepted" }
+    })
   );
 
   if (err) {
