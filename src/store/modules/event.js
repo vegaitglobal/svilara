@@ -290,7 +290,7 @@ export default {
           filtered.push(state.events[i]);
         }
       }
-
+      console.log(filtered)
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 

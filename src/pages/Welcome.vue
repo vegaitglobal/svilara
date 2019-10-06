@@ -26,11 +26,11 @@ export default {
     EventHeadline,
   },
 
-  mounted(){
+  created(){
     this.$store.dispatch('fetchEvents')
   },
 
-  created(){
+  mounted(){
     this.$store.dispatch('filterByMonth')
   },
 
