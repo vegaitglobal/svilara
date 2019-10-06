@@ -435,7 +435,7 @@ exports.updateQuestion = async (req, res) => {
   let fieldType = req.body.fieldType;
   let order = req.body.order;
   let mandatory = req.body.mandatory;
-  let values = null;
+  let values = req.body.values;
 
   let validatorMessage = validateQuestion(req.body);
   if (validatorMessage) {
