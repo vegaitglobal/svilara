@@ -2,7 +2,9 @@
   <div>
     <header class="header">
       <div class="header__left-part">
-        <h1>Kalendar događaja</h1>
+        <h1 v-if="['Welcome','Admin'].includes($route.name)">Kalendar događaja</h1>
+        <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
+        <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
