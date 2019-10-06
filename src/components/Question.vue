@@ -16,6 +16,13 @@ export default {
       return {
           editing: false
       }
+  },
+
+  methods:{
+    save(){
+        this.$store.dispatch('updateQuestion', this.question)
+        this.editing = false;
+    }
   }
 };
 </script>
