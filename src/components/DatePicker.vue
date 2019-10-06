@@ -43,6 +43,7 @@ export default {
     &--val {
         font-size: 18px;
         line-height: 24px;
+        vertical-align: top;
     }
     &--ico {
         cursor: pointer;

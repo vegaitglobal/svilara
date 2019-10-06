@@ -81,5 +81,8 @@ export default {
   input[type="radio"] {
     list-style-type: none !important;
   }
+  ::-webkit-scrollbar {
+    // width: 18px;
+  }
 }
 </style>

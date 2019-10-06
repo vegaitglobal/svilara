@@ -14,12 +14,10 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa - The event name</span>
-            <input type="text" v-model="selectedEvent.name" placeholder="Unesi naziv prostora" />
-          </li>
+			<input type="text" v-model="selectedEvent.name" />          </li>
           <li class="inputfield-row">
             <span>Opis programa - The event description</span>
-            <input type="text" v-model="selectedEvent.description" placeholder="Unesi opis prostora" />
-
+            <input type="text" v-model="selectedEvent.description"/>
           </li>
 
           <li class="inputfield-row">
@@ -73,12 +71,10 @@
               <option value="drugo">Drugo - Other</option>
             </select>
 
-            <input type="text" v-if="selectedEvent.space=='drugo'" placeholder="Unesi ime prostora - Enter the prefered space" />
-          </li>
+			<input type="text" v-if="selectedEvent.space=='drugo'"/>          </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama - Link to the event on social media</span>
-            <input type="text" v-model="selectedEvent.socialMedia" placeholder="Unesi link - Enter the link" />
-          </li>
+            <input type="text" v-model="selectedEvent.socialMedia" />          </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
             <select v-model="selectedEvent.age">
