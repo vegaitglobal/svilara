@@ -12,6 +12,7 @@ router.put("/event/accept/:id", adminController.acceptEvent);
 router.put("/event/reject/:id", adminController.rejectEvent);
 
 router.put("/event/page/:id", adminController.updateEventPage);
+router.get("/event/page/:id", adminController.getEventPage);
 
 router.get("/questions", adminController.getQuestions);
 router.post("/question", adminController.createQuestion);

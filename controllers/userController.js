@@ -92,7 +92,8 @@ exports.getEventPage = async function(req, res) {
     models.Event.findOne({
       attributes: ["html"],
       where: {
-        id: req.params.id
+        id: req.params.id,
+        status: "accepted"
       }
     })
   );
