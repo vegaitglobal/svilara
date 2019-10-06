@@ -73,7 +73,7 @@ export default {
           displayEventEnd: true,
           extendedProps: {
             id: state.adminEvents[i].id,
-            name: state.adminEvents[i].title,
+            title: state.adminEvents[i].title,
             description: state.adminEvents[i].description,
             type: state.adminEvents[i].type,
             price: state.adminEvents[i].price,

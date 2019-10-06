@@ -14,7 +14,7 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-            <input type="text" v-model="selectedEvent.name" />
+            <input type="text" v-model="selectedEvent.title" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
@@ -118,7 +118,7 @@ export default {
 
       selectedEvent: {
         id: "",
-        name: "",
+        title: "",
         description: "",
         type: "otvorenbp",
         price: "0",
@@ -156,7 +156,7 @@ export default {
           type: "success",
           title: 'Success',
           text: 'Event updated!'
-        })
+          })
         }
       }catch(err){
         this.$swal.fire({
@@ -165,6 +165,13 @@ export default {
           text: 'Something went wrong! Try again!'
         })
       }
+    },
+    logoChange(event){
+        this.event.logo = event.target.files[0]
+    },
+
+    imageChange(event){
+        this.event.picture = event.target.files[0]
     }
   }
 };
