@@ -41,6 +41,7 @@ exports.createEvent = async function(req, res) {
     let category = fields.category;
     let space = fields.space;
     let type = fields.type;
+    let price = fields.price;
     let socialMedia = fields.socialMedia;
     let age = fields.age;
 
@@ -96,6 +97,7 @@ exports.createEvent = async function(req, res) {
         endTime,
         category,
         type,
+        price,
         space,
         socialMedia,
         age
@@ -116,47 +118,91 @@ exports.createEvent = async function(req, res) {
 
 // UPDATE EVENT
 exports.updateEvent = async function(req, res) {
-  let title = req.body.title;
-  let description = req.body.description;
-  let startTime = req.body.startTime;
-  let endTime = req.body.endTime;
-  let category = req.body.category;
-  let space = req.body.space;
-  let type = req.body.type;
-  let socialMedia = req.body.socialMedia;
-  let age = req.body.age;
+  var form = new formidable.IncomingForm();
+  form.parse(req, async function(error, fields, files) {
+    if (error) {
+      console.log(error);
+      return ReE(res, { msg: "Something went wrong!" });
+    }
+    let title = fields.title;
+    let description = fields.description;
+    let startTime = fields.startTime;
+    let endTime = fields.endTime;
+    let category = fields.category;
+    let space = fields.space;
+    let type = fields.type;
+    let price = fields.price;
+    let socialMedia = fields.socialMedia;
+    let age = fields.age;
 
-  let validatorMessage = validateEvent(req.body);
-  if (validatorMessage) {
-    return ReE(res, {
-      msg: validatorMessage
+    let validatorMessage = validateEvent(req.body);
+    if (validatorMessage) {
+      return ReE(res, {
+        msg: validatorMessage
+      });
+    }
+
+    if (files.picture) {
+      // check mime type (is image)
+      if (
+        files.picture.type !== "image/jpeg" &&
+        files.picture.type !== "image/png"
+      ) {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var imageTmpPath = files.picture.path;
+        var fileName = random.string("24");
+        if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
+        if (files.picture.type == "image/png") var imgExt = ".png";
+        var imageName = fileName + imgExt;
+        var newImagePath = "./public/uploads/" + imageName;
+      }
+      fs.renameSync(imageTmpPath, newImagePath);
+    } else imageName = "default-picture.png";
+
+    if (files.logo) {
+      // check mime type (is image)
+      if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
+        return ReE(res, { msg: "Wrong image format!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var logoTmpPath = files.logo.path;
+        var fileName2 = random.string("24");
+        if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
+        if (files.logo.type == "image/png") var imgExt2 = ".png";
+        var logoName = fileName2 + imgExt2;
+        var newLogoPath = "./public/uploads/" + logoName;
+      }
+      fs.renameSync(logoTmpPath, newLogoPath);
+    } else logoName = "default-picture.png";
+
+    let [err, dbUpdated] = await to(
+      models.Event.update(
+        {
+          title,
+          description,
+          startTime,
+          endTime,
+          category,
+          type,
+          price,
+          space,
+          socialMedia,
+          age
+        },
+        { where: { id: req.params.id } }
+      )
+    );
+
+    if (err) {
+      console.log(err);
+      return ReE(res, err.message);
+    }
+
+    return ReS(res, {
+      msg: "Event was updated!"
     });
-  }
-
-  let [err, dbUpdated] = await to(
-    models.Event.update(
-      {
-        title,
-        description,
-        startTime,
-        endTime,
-        category,
-        type,
-        space,
-        socialMedia,
-        age
-      },
-      { where: { id: req.params.id } }
-    )
-  );
-
-  if (err) {
-    console.log(err);
-    return ReE(res, err.message);
-  }
-
-  return ReS(res, {
-    msg: "Event was updated!"
   });
 };
 
