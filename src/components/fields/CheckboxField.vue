@@ -89,5 +89,6 @@ export default {
 <style lang="scss">
   .check-box {
     list-style-type: none;
+    margin-bottom: 5px;
   }
 </style>

@@ -31,7 +31,7 @@ const routes = [
     name: "Editor"
   },
   {
-    path: "/new-event",
+    path: "/admin/new-event",
     component: NewEvent,
     name: "NewEvent"
   },

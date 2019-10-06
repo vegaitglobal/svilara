@@ -17,10 +17,11 @@ export default {
   state: {
     questions: [],
     answers: [],
-    image: "",
+    image: '',
     selectedMonth: moment(new Date()),
     events: [],
-    searchedEvents: []
+    searchedEvents: [],
+    searching: false
   },
 
   getters: {
@@ -28,14 +29,68 @@ export default {
       return state.events;
     },
 
+    getCalendarEvents(state) {
+      let colors = ['#fcba03', '#6bfc03', '#3a9bfc', '#fc3af6', '#fc3a54']
+      let serializedEvents = []
+      for (var i = 0; i < state.events.length; i++) {
+        let color = colors[Math.floor(Math.random() * 5)]
+        let parsedEvent = {
+          id: state.events[i].id,
+          title: state.events[i].title,
+          start: new Date(state.events[i].startTime),
+          end: new Date(state.events[i].endTime),
+          // backgroundColor: color,
+          borderColor: color,
+          displayEventEnd: true,
+          extendedProps: {
+            name: state.events[i].title,
+            description: state.events[i].description,
+            type: state.events[i].type,
+            price: state.events[i].price,
+            category: state.events[i].category,
+            space: state.events[i].space,
+            socialMedia: state.events[i].socialMedia,
+            age: state.events[i].age,
+            startTime: state.events[i].startTime,
+            endTime: state.events[i].endTime,
+            picture: state.events[i].picture,
+            logo: state.events[i].logo
+          }
+
+
+        };
+        // console.log(parsedEvent)
+        serializedEvents.push(parsedEvent)
+      }
+
+      return serializedEvents;
+    },
+
     getSelectedMonth(state) {
-      var month = state.selectedMonth.locale("sr").format("MMMM Y");
-      return month.charAt(0).toUpperCase() + month.slice(1);
+      var month = state.selectedMonth.locale("sr").format('MMMM Y')
+      return month.charAt(0).toUpperCase() + month.slice(1)
     },
 
     getSearchedEvents(state) {
       return state.searchedEvents;
+    },
+
+    getSearching(state) {
+      return state.searching
     }
+    // getters: {
+    //   getEvents(state) {
+    //     return state.events;
+    //   },
+
+    //   getSelectedMonth(state) {
+    //     var month = state.selectedMonth.locale("sr").format("MMMM Y");
+    //     return month.charAt(0).toUpperCase() + month.slice(1);
+    //   },
+
+    //   getSearchedEvents(state) {
+    //     return state.searchedEvents;
+    //   }
   },
 
   mutations: {
@@ -77,6 +132,11 @@ export default {
     },
 
     SET_SEARCHED_EVENTS(state, events) {
+      state.searchedEvents = events;
+    },
+
+    SET_SEARCHING(state, status) {
+      state.searching = status;
       state.searchedEvents = events;
     }
   },
@@ -157,10 +217,15 @@ export default {
 
     async searchEvent({ commit, state }, query) {
       let result;
+
       if (!query == "") {
+        commit('SET_SEARCHING', true)
         let fuse = new Fuse(state.events, fuseOptions);
         result = fuse.search(query);
-      } else result = state.events;
+      } else {
+        commit('SET_SEARCHING', false)
+        result = state.events
+      }
       commit("SET_SEARCHED_EVENTS", result);
     },
 

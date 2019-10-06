@@ -1,6 +1,7 @@
 <template>
     <div>
-        <h2 class="w-100">Događaji u najavi</h2>
+        <h2 v-if="!isSearching" class="w-100">Događaji u najavi</h2>
+        <h2 v-else class="w-100">Rezultat pretrage</h2>
     </div>
 </template>
     
@@ -9,6 +10,12 @@ export default {
   name: 'EventHeadline',
   props: {
     msg: String
+  },
+
+  computed:{
+    isSearching(){
+      return this.$store.getters.getSearching;
+    }
   }
 }
 </script>

@@ -6,6 +6,7 @@
       :events="events"
       @eventClick="eventClicked"
       locale="sr"
+      :displayEventEnd="true"
     />
 
     <modal name="modalEventEdit" height="600" class="new-event-modal">
@@ -13,11 +14,10 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa - The event name</span>
-            <input type="text" v-model="name" />
-          </li>
+			<input type="text" v-model="selectedEvent.name" />          </li>
           <li class="inputfield-row">
             <span>Opis programa - The event description</span>
-            <input type="text" v-model="description" />
+            <input type="text" v-model="selectedEvent.description"/>
           </li>
 
           <li class="inputfield-row">
@@ -32,23 +32,23 @@
 
           <li class="inputfield-row">
             <span>Status programa - The event status</span>
-            <select v-model="type">
+            <select v-model="selectedEvent.type">
               <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave) - Open event (Visitors do not need to apply beforehand)</option>
               <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom) - Open event (Visitors need to apply beforehand)</option>
               <option value="zatvoren">Zatvoren program - Closed event</option>
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Da li se događaj besplatan - Is the event free</span>
-            <select v-model="price">
+            <span>Da li se događaj naplaćuje - Is the event free</span>
+            <select v-model="selectedEvent.price">
               <option value="1">Da / Yes</option>
               <option value="0">Ne / No</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Kategorija programa - Event category</span>
-            <select v-model="category">
-              <option value="izlozba">Izložba - Exhibition</option>
+            <select v-model="selectedEvent.category">
+               <option value="izlozba">Izložba - Exhibition</option>
               <option value="muzicki">Muzički program - Musical event</option>
               <option value="igranka">Igranka - Dance</option>
               <option value="audiovideo">Audio-vizuelni program - Audio-visual event</option>
@@ -56,12 +56,12 @@
               <option value="festival">Festival - Festival</option>
               <option value="predavanja">Predavanje - Lecture, Seminar</option>
               <option value="radionica">Radionica - Workshop</option>
-              <option value="drugo">Drugo</option>
+              <option value="drugo">Drugo - Other</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program - Prefered space for your event</span>
-            <select v-model="space">
+            <select v-model="selectedEvent.space">
               <option value="velikasala">Velika sala - Grand Hall</option>
               <option value="malasala">Mala sala - Small hall</option>
               <option value="dvoriste">Dvorište - Courtyard</option>
@@ -71,16 +71,14 @@
               <option value="drugo">Drugo - Other</option>
             </select>
 
-            <input type="text" v-if="space=='drugo'"/>
-          </li>
+			<input type="text" v-if="selectedEvent.space=='drugo'"/>          </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama - Link to the event on social media</span>
-            <input type="text" v-model="socialMedia" />
-          </li>
+            <input type="text" v-model="selectedEvent.socialMedia" />          </li>
           <li class="inputfield-row">
-            <span>Očekivani uzrast publike - The expected age of visitors</span>
-            <select v-model="age">
-              <option value="deca">Deca - Children</option>
+            <span>Očekivani uzrast publike</span>
+            <select v-model="selectedEvent.age">
+               <option value="deca">Deca - Children</option>
               <option value="mladi">Mladi - Youth</option>
               <option value="odrasli">Odrasli - Adults</option>
               <option value="stariji">Starija publika - Elderly</option>
@@ -89,12 +87,13 @@
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Vreme početka programa -  Start time of the event</span>
-            <input type="datetime-local" v-model="startTime" />
+            <span>Vreme početka programa - Start time of the event</span>
+            <input type="datetime-local" v-model="selectedEvent.startTime" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa - End time of the event</span>
-            <input type="datetime-local" v-model="endTime" />
+            <input type="datetime-local" v-model="selectedEvent.endTime" />
+
           </li>
         </ol>
       </div>
@@ -113,27 +112,34 @@ export default {
   data() {
     return {
       calendarPlugins: [dayGridPlugin],
-      events: [
-        { title: "event 1", date: "2019-10-01" },
-        { title: "event 2", date: "2019-10-03" }
-      ],
-      name: "",
-      description: "",
-      type: "otvorenbp",
-      price: "0",
-      category: "izlozba",
-      space: "velikasala",
-      socialMedia: "",
-      age: "mladi",
-      startTime: "",
-      endTime: "",
-      picture: "",
-      logo: ""
+
+      selectedEvent: {
+        name: "",
+        description: "",
+        type: "otvorenbp",
+        price: "0",
+        category: "izlozba",
+        space: "velikasala",
+        socialMedia: "",
+        age: "mladi",
+        startTime: "",
+        endTime: "",
+        picture: "",
+        logo: ""
+      }
     };
+  },
+  created() {
+    this.$store.dispatch("fetchEvents");
+  },
+  computed: {
+    events() {
+      return this.$store.getters.getCalendarEvents;
+    }
   },
   methods: {
     eventClicked(info) {
-      console.log(info);
+      this.selectedEvent = info.event.extendedProps
       this.$modal.show("modalEventEdit");
     }
   }
@@ -147,11 +153,15 @@ export default {
 .v--modal-overlay {
   .v--modal-box {
     padding: 30px;
+    max-width: 100%;
   }
   ol,
   ul {
     list-style: decimal;
     list-style-position: inside;
+  }
+  .inputfield-row {
+    margin-bottom: 25px;
   }
 }
 
