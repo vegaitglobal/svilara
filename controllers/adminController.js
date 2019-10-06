@@ -566,11 +566,6 @@ function validateEvent(body) {
     return "Picture is required"
   }*/
 
-  if (!body.status || validator.isEmpty(body.status)) {
-    // TODO: check for allowed status enumerations
-    return "Status is required";
-  }
-
   if (!body.category || validator.isEmpty(body.category)) {
     return "Category is required";
   }

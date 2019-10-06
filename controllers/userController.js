@@ -26,7 +26,8 @@ exports.createEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Something went wrong!" });
     }
-    let formAnwers = fields.formAnwers;
+    var email = fields.email;
+    var formAnswers = fields.formAnswers;
     if (files.picture) {
       // check mime type (is image)
       if (
@@ -64,9 +65,10 @@ exports.createEvent = async function(req, res) {
 
     let [err, dbCreated] = await to(
       models.Event.create({
-        formAnwers,
+        formAnswers: formAnswers,
         picture: imageName,
-        logo: logoName
+        logo: logoName,
+        contactEmail: email
       })
     );
 
