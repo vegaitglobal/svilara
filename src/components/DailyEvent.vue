@@ -14,20 +14,29 @@
             <span data-tooltip="Ulaz besplatan">
               <currency-usd-off class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Tribina">
-              <alpha-t class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span data-tooltip="Radionica">
-              <alpha-r class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span data-tooltip="Predavanje">
-              <alpha-p class="daily-event__bottom--icons-ico"/> 
-            </span>
-            <span data-tooltip="Umetnički program">
+            <span data-tooltip="Izložba">
               <artist class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Dečji program">
-              <human-child class="daily-event__bottom--icons-ico"/>
+            <span data-tooltip="Muzički program">
+              <music-clef-treble class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Igranka">
+              <music class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Audio-vizuelni program">
+              <video-vintage class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Festival">
+              <castle class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Predstava">
+              <drama-masks class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Radionica">
+              <puzzle class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span data-tooltip="Predavanje">
+              <script-text-outline class="daily-event__bottom--icons-ico"/> 
             </span>
             <span data-tooltip="Potrebna prijava">
               <file-document-box-plus-outline class="daily-event__bottom--icons-ico"/>
@@ -44,11 +53,14 @@ import DailyImg from "../assets/img/example.png"
 import CurrencyUsdOff from 'vue-material-design-icons/CurrencyUsdOff.vue';
 import CurrencyUsd from 'vue-material-design-icons/CurrencyUsd.vue';
 import Artist from 'vue-material-design-icons/Artist.vue';
-import HumanChild from 'vue-material-design-icons/HumanChild.vue';
-import AlphaR from 'vue-material-design-icons/AlphaR.vue';
-import AlphaP from 'vue-material-design-icons/AlphaP.vue';
-import AlphaT from 'vue-material-design-icons/AlphaT.vue';
+import Puzzle from 'vue-material-design-icons/Puzzle.vue';
+import ScriptTextOutline from 'vue-material-design-icons/ScriptTextOutline.vue';
+import Music from 'vue-material-design-icons/Music.vue';
+import VideoVintage from 'vue-material-design-icons/VideoVintage.vue';
+import MusicClefTreble from 'vue-material-design-icons/MusicClefTreble.vue';
 import FileDocumentBoxPlusOutline from 'vue-material-design-icons/FileDocumentBoxPlusOutline.vue';
+import DramaMasks from 'vue-material-design-icons/DramaMasks.vue';
+import Castle from 'vue-material-design-icons/Castle.vue';
 import moment from 'moment'
 
 export default {
@@ -57,11 +69,15 @@ export default {
     CurrencyUsdOff,
     CurrencyUsd,
     Artist,
-    HumanChild,
     AlphaR,
     AlphaP,
-    AlphaT,
+    MusicClefTreble,
+    Music,
     FileDocumentBoxPlusOutline,
+    VideoVintage,
+    DramaMasks,
+    Castle,
+    ScriptTextOutline
   },
   props: ['event'],
     data: function() {
