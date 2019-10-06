@@ -32,6 +32,9 @@
             <span data-tooltip="Dečji program">
               <human-child class="daily-event__bottom--icons-ico"/>
             </span>
+            <span data-tooltip="Potrebna prijava">
+              <file-document-box-plus-outline class="daily-event__bottom--icons-ico"/>
+            </span>
           </div>
           <button type="button" class="btn btn__orange">Pogledaj opis</button>
         </div>
@@ -47,6 +50,7 @@ import HumanChild from 'vue-material-design-icons/HumanChild.vue';
 import AlphaR from 'vue-material-design-icons/AlphaR.vue';
 import AlphaP from 'vue-material-design-icons/AlphaP.vue';
 import AlphaT from 'vue-material-design-icons/AlphaT.vue';
+import FileDocumentBoxPlusOutline from 'vue-material-design-icons/FileDocumentBoxPlusOutline.vue';
 import moment from 'moment'
 
 export default {
@@ -59,6 +63,7 @@ export default {
     AlphaR,
     AlphaP,
     AlphaT,
+    FileDocumentBoxPlusOutline,
   },
   props: ['event'],
     data: function() {
