@@ -1,53 +1,33 @@
 <template>
-    <div class="accordion">
+    <div class="accordion" v-if="event">
         <badger-accordion>
             <badger-accordion-item>
                 <div slot="header">
                     <div>
-                        <span>ID-2312</span>,
-                        <span>Marko Marković</span>,
-                        <span>06/10/2019</span>
+                        <span>{{event.id}}</span>,
+                        <span>{{event.contactEmail}}</span>,
+                        <span>{{event.startTime}}</span>
                     </div>
-                    <span data-tooltip="Prihvaćen">
+                    <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
                         <check class="ico accepted"/>
                     </span>
-                </div>    
-                <div slot="content">
-                    Content   
-                </div>  
-            </badger-accordion-item>
-        
-            <badger-accordion-item>
-                <div slot="header">
-                    <div>
-                        <span>ID-4234</span>,
-                        <span>Janko Janković</span>,
-                        <span>05/10/2019</span>
-                    </div>
-                    <span data-tooltip="Odbijen">
+
+                    <span v-if="event.status == 'pending'" data-tooltip="Na čekanju">
+                        <timer-sand-empty class="ico pending"/>
+                    </span>
+
+                     <span v-if="event.status == 'declined'" data-tooltip="Odbijen">
                         <close class="ico declined"/>
                     </span>
                 </div>    
                 <div slot="content">
-                   Content  
-                </div>  
-            </badger-accordion-item>
-
-            <badger-accordion-item>
-                <div slot="header">
-                    <div>
-                        <span>ID-23423</span>,
-                        <span>Marko Janković</span>,
-                        <span>05/10/2019</span>
+                    <div v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
+                        <u>{{row.question.id}}. {{row.question.text}}:</u> <b>{{row.answers}}</b>
                     </div>
-                    <span data-tooltip="Na čekanju">
-                        <timer-sand-empty class="ico pending"/>
-                    </span>
-                </div>    
-                <div slot="content">
-                    Content   
+                    
                 </div>  
             </badger-accordion-item>
+        
         </badger-accordion>
     </div>
 </template>
@@ -60,6 +40,7 @@ import Close from 'vue-material-design-icons/Close.vue'
 
 export default {
     name: "Accordion",
+    props: ['event'],
     components: {
         BadgerAccordion,
         BadgerAccordionItem,
