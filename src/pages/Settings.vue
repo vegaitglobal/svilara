@@ -41,15 +41,25 @@ export default {
 </script>
 
 <style lang="scss">
+h3 {
+    margin: 20px 0 10px;
+}
 .settings-input {
     div {
         margin-bottom: 10px;
         display: flex;
         input {
             margin-right: 10px;
+            width: 90%;
         }
         button {
             margin-right: 10px;
+        }
+        .btn.btn__red {
+            font-size: 13px;
+        }
+        .btn.btn__green {
+            font-size: 13px;
         }
     }
 }
