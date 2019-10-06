@@ -179,6 +179,11 @@ export default {
       margin-right: 10px;
     }
   }
+  .button-wrapper {
+    a {
+      margin-right: 10px;
+    }
+  }
 }
 
 .tc-modal {
