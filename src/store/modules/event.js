@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 
 var fuseOptions = {
   shouldSort: true,
-  threshold: 0.6,
+  threshold: 0.4,
   location: 0,
   distance: 100,
   maxPatternLength: 32,
@@ -159,7 +159,7 @@ export default {
 
     SET_SEARCHING(state, status) {
       state.searching = status;
-      state.searchedEvents = events;
+      // state.searchedEvents = state.events;
     }
   },
 
