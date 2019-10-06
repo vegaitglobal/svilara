@@ -6,7 +6,7 @@
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
-        <SearchField />
+        <SearchField v-if="['Welcome'].includes($route.name)" />
         <div class="button-wrapper">
           <button
             class="btn btn__purple btn__large"
@@ -19,14 +19,17 @@
             to="/admin/new-event"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
           >Zahtevi</router-link>
 
-          <button
+          <router-link
+            to="/admin/all-events"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Događaji</button>
+          >Događaji</router-link>
           <button
             class="btn btn__purple btn__large"
             type="button"
