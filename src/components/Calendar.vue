@@ -13,11 +13,11 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa - The event name</span>
-            <input type="text" v-model="name" placeholder="Unesi naziv programa - Enter the event name" />
+            <input type="text" v-model="name" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa - The event description</span>
-            <input type="text" v-model="description" placeholder="Unesi opis programa - Enter the event description" />
+            <input type="text" v-model="description" />
           </li>
 
           <li class="inputfield-row">
@@ -71,11 +71,11 @@
               <option value="drugo">Drugo - Other</option>
             </select>
 
-            <input type="text" v-if="space=='drugo'" placeholder="Unesi ime prostora - Enter the prefered space" />
+            <input type="text" v-if="space=='drugo'"/>
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama - Link to the event on social media</span>
-            <input type="text" v-model="socialMedia" placeholder="Unesi link - Enter the link" />
+            <input type="text" v-model="socialMedia" />
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike - The expected age of visitors</span>
