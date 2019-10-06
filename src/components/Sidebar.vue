@@ -44,6 +44,9 @@ export default {
   @include breakpoint(htab) {
     width: 220px;
   }
+  @include breakpoint(mob) {
+    display: none;
+  }
   &__logo {
     margin: 0 auto 30px;
     display: block;
