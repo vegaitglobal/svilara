@@ -24,6 +24,10 @@
                     <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
                         {{row.question.id}}. {{row.question.text}}: <span class="replies__answer">{{row.answers}}</span>
                     </div>
+                    <div class="button-wrapper">
+                        <button type="button" class="btn btn__green">Prihvati</button>
+                        <button type="button" class="btn btn__red">Odbij</button>
+                    </div>
                 </div>  
             </badger-accordion-item>
         
@@ -59,8 +63,6 @@ export default {
         font-weight: 900;
     }
 }
-
-
 .badger-accordion__header {
     padding: 10px;
     border: 1px solid $purple;
@@ -101,12 +103,19 @@ export default {
         }
     }
 }
-
 .badger-accordion__panel {
     padding: 0 20px;
     overflow: auto;
     .js-badger-accordion-panel-inner > div {
         padding: 20px 0;
+    }
+    .button-wrapper {
+        display: flex;
+        margin-top: 30px;
+        flex-wrap: wrap;
+        .btn:first-of-type {
+            margin-right: 10px;
+        }
     }
 }
 

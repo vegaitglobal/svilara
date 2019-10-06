@@ -7,8 +7,7 @@
       </div>
       <div class="admin-form">
             <h2>Kreiranje novog događaja</h2>
-            <!-- Example form -->
-            <div class="modal-wrapper">
+            <div class="form-wrapper">
                 <ol>
                     <li class="inputfield-row">
                         <span>Naziv programa</span>
@@ -66,8 +65,7 @@
                         <option>Plato</option>
                         <option>Drugo</option>
                         </select>
-
-                        <input type="text" />
+                        <input type="text"/>
                     </li>
                     <li class="inputfield-row">
                         <span>Link ka dogadjaju na društvenim mrežama</span>
@@ -158,6 +156,12 @@ export default {
         }
         @include breakpoint(desk) {
             width: 200px;
+        }
+    }
+    .form-wrapper {
+        .inputfield-row {
+            list-style-type: decimal;
+            margin-bottom: 20px;
         }
     }
 }
