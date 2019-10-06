@@ -19,7 +19,26 @@ export default {
       html: ""
     };
   },
+  mounted() {
+    this.getPage();
+  },
   methods: {
+    getPage() {
+      this.axios
+        .get(
+          `${process.env.VUE_APP_BASE_URL}/admin/event/page/` +
+            this.$route.params.id,
+          {
+            pageData: this.html
+          }
+        )
+        .then(res => {
+          this.html = res.data.data.html;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     createPage() {
       this.axios
         .put(
