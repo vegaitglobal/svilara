@@ -49,11 +49,12 @@ export default {
     }
     input {
       display: block;
-      min-width: 400px;
+      width: 400px;
       padding: 5px 10px;
     }
     select {
-      min-width: 420px;
+      width: 420px;
+      display: block;
     }
     span,
     input,

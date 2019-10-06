@@ -13,23 +13,27 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-            <input type="text" />
+            <input type="text" v-model="name" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
-            <input type="text" />
+            <input type="text" v-model="description" />
           </li>
+          <!--
           <li class="inputfield-row">
             <span>Logo organizacije</span>
-            <input type="file" />
+            <input type="file" v-model="logo" />
           </li>
+          -->
+          <!--
           <li class="inputfield-row">
             <span>Slika</span>
-            <input type="file" />
+            <input type="file" v-model="picture" />
           </li>
+          -->
           <li class="inputfield-row">
             <span>Status programa</span>
-            <select>
+            <select v-model="type">
               <option>Otvoren program (slobodan ulaz bez prijave)</option>
               <option>Otvoren program (slobodan ulaz sa prijavom)</option>
               <option>Zatvoren program</option>
@@ -37,14 +41,14 @@
           </li>
           <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
-            <select>
+            <select v-model="price">
               <option>Da</option>
               <option>Ne</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Kategorija programa</span>
-            <select>
+            <select v-model="category">
               <option>Izložba</option>
               <option>Muzički program</option>
               <option>Igranka</option>
@@ -58,7 +62,7 @@
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
-            <select>
+            <select v-model="space">
               <option>Velika sala</option>
               <option>Mala sala</option>
               <option>Dvorište</option>
@@ -72,11 +76,11 @@
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input type="text" />
+            <input type="text" v-model="socialMedia" />
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
-            <select>
+            <select v-model="age">
               <option>Deca</option>
               <option>Mladi</option>
               <option>Odrasli</option>
@@ -87,11 +91,11 @@
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa</span>
-            <input type="datetime-local" />
+            <input type="datetime-local" v-model="startTime" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
-            <input type="datetime-local" />
+            <input type="datetime-local" v-model="endTime" />
           </li>
         </ol>
       </div>
@@ -113,7 +117,17 @@ export default {
       events: [
         { title: "event 1", date: "2019-10-01" },
         { title: "event 2", date: "2019-10-03" }
-      ]
+      ],
+      name: "",
+      description: "",
+      type: "",
+      price: "",
+      category: "",
+      space: "",
+      socialMedia: "",
+      age: "",
+      startTime: "",
+      endTime: ""
     };
   },
   methods: {
@@ -133,40 +147,9 @@ export default {
   .v--modal-box {
     padding: 30px;
   }
-
   ol,
   ul {
     list-style: decimal;
-    list-style-position: inside;
-  }
-
-  .inputfield-row {
-    margin-bottom: 25px;
-    list-style-type: none;
-    span {
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 16px;
-    }
-    input {
-      display: block;
-      min-width: 400px;
-      padding: 5px 10px;
-    }
-    select {
-      min-width: 420px;
-    }
-    span,
-    input,
-    select {
-      font-size: 16px;
-      border: 0;
-    }
-    input[type="text"],
-    select {
-      border: 0;
-      border-bottom: 1px solid $gray;
-    }
   }
 }
 

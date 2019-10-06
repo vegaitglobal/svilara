@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <div class="wrapper">
     <Sidebar />
-    <Calendar />
+    <NewEventForm />
   </div>
 </template>
 
 <script>
 import Sidebar from "../components/Sidebar.vue";
-import Calendar from "../components/Calendar.vue";
+import NewEventForm from "../components/NewEventForm.vue";
 
 export default {
   components: {
     Sidebar,
-    Calendar
+    NewEventForm
   }
 };
 </script>

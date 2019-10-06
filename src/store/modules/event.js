@@ -14,34 +14,46 @@ var fuseOptions = {
 };
 
 export default {
+  state: {
+    questions: [],
+    answers: [],
+    image: '',
+    selectedMonth: moment(new Date()),
+    events: [],
+    searchedEvents: [],
+    searching: false
+  },
 
-    state: {
-        questions: [],
-        answers: [],
-        image: '',
-        selectedMonth: moment(new Date()),
-        events: [],
-        searchedEvents: [],
-        searching: false
+  getters: {
+    getEvents(state) {
+      return state.events;
     },
 
-    getters: {
-        getEvents(state) {
-            return state.events;
-        },
-        
-        getSelectedMonth(state){
-            var month =  state.selectedMonth.locale("sr").format('MMMM Y')
-            return month.charAt(0).toUpperCase() + month.slice(1)
-        },
+    getSelectedMonth(state) {
+      var month = state.selectedMonth.locale("sr").format('MMMM Y')
+      return month.charAt(0).toUpperCase() + month.slice(1)
+    },
 
-        getSearchedEvents(state){
-            return state.searchedEvents;
-        },
-        
-        getSearching (state) {
-          return state.searching
-        }
+    getSearchedEvents(state) {
+      return state.searchedEvents;
+    },
+
+    getSearching(state) {
+      return state.searching
+    }
+    // getters: {
+    //   getEvents(state) {
+    //     return state.events;
+    //   },
+
+    //   getSelectedMonth(state) {
+    //     var month = state.selectedMonth.locale("sr").format("MMMM Y");
+    //     return month.charAt(0).toUpperCase() + month.slice(1);
+    //   },
+
+    //   getSearchedEvents(state) {
+    //     return state.searchedEvents;
+    //   }
   },
 
   mutations: {
@@ -74,22 +86,23 @@ export default {
     },
 
     SET_IMAGE(state, file) {
-        state.image = file;
-      },
-  
-    SET_EVENTS(state, events) {
-        state.events = events;
-        state.searchedEvents = events;
-    },
-  
-    SET_SEARCHED_EVENTS(state, events) {
-        state.searchedEvents = events;
+      state.image = file;
     },
 
-    SET_SEARCHING(state, status){
+    SET_EVENTS(state, events) {
+      state.events = events;
+      state.searchedEvents = events;
+    },
+
+    SET_SEARCHED_EVENTS(state, events) {
+      state.searchedEvents = events;
+    },
+
+    SET_SEARCHING(state, status) {
       state.searching = status;
+      state.searchedEvents = events;
     }
-},
+  },
 
   actions: {
     async fetchQuestions({ commit }) {
@@ -143,16 +156,15 @@ export default {
         });
     },
 
+    async increaseMonth({ commit, dispatch }) {
+      commit("INCREASE_MONTH");
+      dispatch("filterByMonth");
+    },
 
-        async increaseMonth({commit, dispatch}){
-            commit('INCREASE_MONTH')
-            dispatch('filterByMonth')
-        },
-            
-        async decreaseMonth({commit, dispatch}){
-            commit('DECREASE_MONTH')
-            dispatch('filterByMonth')
-        },
+    async decreaseMonth({ commit, dispatch }) {
+      commit("DECREASE_MONTH");
+      dispatch("filterByMonth");
+    },
 
     async fetchEvents({ commit }) {
       try {
@@ -168,7 +180,7 @@ export default {
 
     async searchEvent({ commit, state }, query) {
       let result;
-      
+
       if (!query == "") {
         commit('SET_SEARCHING', true)
         let fuse = new Fuse(state.events, fuseOptions);
@@ -180,15 +192,20 @@ export default {
       commit("SET_SEARCHED_EVENTS", result);
     },
 
-    async filterByMonth({commit, state}){
-        let filtered = []
-        
-        for (var i = 0; i < state.events.length; i++){
-            if (moment(new Date(state.events[i].startTime)).isSame(state.selectedMonth, 'month')){
-                filtered.push(state.events[i])
-            }
+    async filterByMonth({ commit, state }) {
+      let filtered = [];
+
+      for (var i = 0; i < state.events.length; i++) {
+        if (
+          moment(new Date(state.events[i].startTime)).isSame(
+            state.selectedMonth,
+            "month"
+          )
+        ) {
+          filtered.push(state.events[i]);
         }
-        commit('SET_SEARCHED_EVENTS', filtered)
-    },
+      }
+      commit("SET_SEARCHED_EVENTS", filtered);
     }
+  }
 };

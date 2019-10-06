@@ -58,7 +58,7 @@ export default {
     },
 
     submit() {
-      this.$store.dispatch('submitEvent')
+      this.$store.dispatch("submitEvent");
       // this.answers = this.$store.getters.getEvents;
     }
   }
@@ -66,8 +66,8 @@ export default {
 </script>
 
 <style lang="scss">
-  .v--modal-overlay .v--modal-box {
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
+.v--modal-overlay .v--modal-box {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
 </style>

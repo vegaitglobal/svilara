@@ -2,6 +2,7 @@ import Welcome from "@/pages/Welcome.vue";
 import Admin from "@/pages/Admin.vue";
 import Editor from "../pages/Editor.vue";
 import Login from "@/pages/Login.vue";
+import NewEvent from "@/pages/NewEvent.vue";
 import Register from "@/pages/Register.vue";
 import VerifyEmail from "@/pages/VerifyEmail.vue";
 import Logout from "@/pages/Logout.vue";
@@ -28,6 +29,11 @@ const routes = [
     path: "/admin/editor/:id",
     component: Editor,
     name: "Editor"
+  },
+  {
+    path: "/new-event",
+    component: NewEvent,
+    name: "NewEvent"
   },
   {
     path: "/register",
