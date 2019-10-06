@@ -19,8 +19,11 @@ module.exports = {
       { key: 'instagram', value: ''},
       { key: 'twitter', value: ''},
       { key: 'youtube', value: ''},
-      { key: 'email', value: ''}
-      
+      { key: 'email', value: ''},
+      { key: 'otvorenbp', value: '#fc3a54'},
+      { key: 'otvorensp', value: '#fc3af6'},
+      { key: 'zatvoren', value: '#3a9bfc'},
+      { key: 'placanje', value: '#6bfc03'},
     ], {});
   },
 
