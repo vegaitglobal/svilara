@@ -5,7 +5,7 @@ import routes from "./routes/index"
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     routes,
     linkExactActiveClass: "nav-item active"
 });
