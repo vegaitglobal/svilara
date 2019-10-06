@@ -66,6 +66,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../assets/scss/variables.scss";
+
 .v--modal-overlay .v--modal-box {
   overflow-y: scroll !important;
   overflow-x: hidden;
@@ -83,7 +85,12 @@ export default {
     list-style-type: none !important;
   }
   ::-webkit-scrollbar {
-    // width: 18px;
+    width: 10px;
+    background: $purple-lighter;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $purple;
+    border-radius: 10px;
   }
 }
 </style>
