@@ -30,7 +30,7 @@ export default {
         let vm = this;
         let response = await this.$store.dispatch("login", vm.credentials);
         if (parseInt(response.status) === 200) {
-          this.$router.push("/");
+          this.$router.push("/admin");
         }
       } catch (err) {
         if (parseInt(err.response.status) === 400) {
