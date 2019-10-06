@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="question">
     <h5>{{question.order}}. {{question.text}}</h5>
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
@@ -40,8 +40,9 @@ export default {
 </script>
 
 <style lang="scss">
+
   .inputfield-row {
-    margin-bottom: 25px;
+    list-style-type: none;
     span {
       display: inline-block;
       margin-bottom: 10px;
