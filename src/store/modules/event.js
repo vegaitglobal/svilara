@@ -158,7 +158,7 @@ export default {
       state.image = file;
     },
 
-    SET_EVENTS(state, events) {
+    SET_EVENTS(state, actions, events) {
       state.events = events;
       state.searchedEvents = events;
     },
