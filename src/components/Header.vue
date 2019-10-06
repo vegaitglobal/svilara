@@ -1,12 +1,14 @@
 <template>
   <div>
     <header class="header">
+      <img class="header__logo" src="../assets/img/svilara-logo.jpg" alt="logo"/>
       <div class="header__left-part">
         <h1 v-if="['Welcome','Admin'].includes($route.name)">Kalendar događaja</h1>
         <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
         <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <h1 v-if="['Settings'].includes($route.name)">Podešavanja</h1>
         <h1 v-if="['Editor'].includes($route.name)">Kreiraj stranicu</h1>
+        <h1 v-if="['EventPage'].includes($route.name)">Opis događaja</h1>
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
@@ -171,16 +173,40 @@ export default {
   @include breakpoint(desk-xl) {
     padding-left: 0;
   }
+  @include breakpoint(mob) {
+    flex-direction: column;
+  }
+  &__logo {
+    display: none;
+    @include breakpoint(mob) {
+      display: inline-block;
+      width: 130px;
+      margin-bottom: 10px;
+    }
+  }
   &__left-part {
     display: flex;
     @include breakpoint(desk-) {
       flex-direction: column;
+    }
+    @include breakpoint(mob) {
+      max-width: 100%;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      
     }
     h1 {
       margin-right: 35px;
       @include breakpoint(vtab) {
         max-width: 130px;
         margin-right: 0;
+      }
+      @include breakpoint(mob) {
+        max-width: 100%;
+        padding-left: 0;
+        font-size: 21px;
+        margin-bottom: 20px;
       }
     }
   }
@@ -190,6 +216,17 @@ export default {
     @include breakpoint(desk-xl) {
       flex-direction: column;
       align-items: flex-end;
+    }
+    @include breakpoint(mob) {
+      flex-direction: initial;
+      align-items: center;
+      justify-content: center;
+      margin: 20px 20px 0;
+    }
+    .search-field {
+      @include breakpoint(mob) {
+        margin: 0;
+      }
     }
   }
   .button-wrapper {
@@ -223,16 +260,17 @@ export default {
     position: absolute;
     opacity: 0;
   }
+
   .tc-modal-checkbox:checked + label:after {
     content: "";
     position: absolute;
     left: 3px;
     top: 7px;
-    background: $purple;
+    background: $white;
     width: 2px;
     height: 2px;
-    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white,
-      4px -6px 0 white, 4px -8px 0 white;
+    box-shadow: 2px 0 0 $purple, 4px 0 0 $purple, 4px -2px 0 $purple, 4px -4px 0 $purple,
+      4px -6px 0 $purple, 4px -8px 0 $purple;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
   }
@@ -241,6 +279,7 @@ export default {
     cursor: pointer;
     padding: 0;
     margin-top: 17px;
+    font-size: 14px;
   }
   label {
     &:before {
@@ -250,7 +289,7 @@ export default {
       vertical-align: text-top;
       width: 15px;
       height: 15px;
-      background: $purple;
+      background: $white;
       border: 1px solid $gray;
       border-radius: 2px;
     }

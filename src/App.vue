@@ -7,6 +7,7 @@
         <div class="content">
             <router-view />
         </div>
+        <Footer/>
       </div>
     </div>
   </div>
@@ -14,10 +15,12 @@
 
 <script>
 import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 export default {
   name: "app",
   components: {
-    Header
+    Header,
+    Footer
   }
 }
 </script>
@@ -53,6 +56,10 @@ export default {
   margin: 0 auto 0 340px;
   @include breakpoint(htab) {
     margin-left: 220px;
+  }
+  @include breakpoint(mob) {
+    margin-left: 0;
+    padding: 0;
   }
   .content {
     background-color: $white;
