@@ -14,10 +14,11 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-			<input type="text" v-model="selectedEvent.name" />          </li>
+            <input type="text" v-model="selectedEvent.name" />
+          </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
-            <input type="text" v-model="selectedEvent.description"/>
+            <input type="text" v-model="selectedEvent.description" />
           </li>
 
           <li class="inputfield-row">
@@ -48,7 +49,7 @@
           <li class="inputfield-row">
             <span>Kategorija programa</span>
             <select v-model="selectedEvent.category">
-               <option value="izlozba">Izložba</option>
+              <option value="izlozba">Izložba</option>
               <option value="muzicki">Muzički program</option>
               <option value="igranka">Igranka</option>
               <option value="audiovideo">Audio-vizuelni program</option>
@@ -71,14 +72,16 @@
               <option value="drugo">Drugo</option>
             </select>
 
-			<input type="text" v-if="selectedEvent.space=='drugo'"/>          </li>
+            <input type="text" v-if="selectedEvent.space=='drugo'" />
+          </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input type="text" v-model="selectedEvent.socialMedia" />          </li>
+            <input type="text" v-model="selectedEvent.socialMedia" />
+          </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
             <select v-model="selectedEvent.age">
-               <option value="deca">Deca</option>
+              <option value="deca">Deca</option>
               <option value="mladi">Mladi</option>
               <option value="odrasli">Odrasli</option>
               <option value="stariji">Starija publika</option>
@@ -93,11 +96,10 @@
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
             <input type="datetime-local" v-model="selectedEvent.endTime" />
-
           </li>
         </ol>
       </div>
-      <button class="btn btn__purple btn__large">Sačuvaj</button>
+      <button @click="updateEvent" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
   </div>
 </template>
@@ -115,6 +117,7 @@ export default {
       calendarPlugins: [dayGridPlugin],
 
       selectedEvent: {
+        id: "",
         name: "",
         description: "",
         type: "otvorenbp",
@@ -132,7 +135,7 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchAdminEvents");
-    this.$store.dispatch("fetchSettings")
+    this.$store.dispatch("fetchSettings");
   },
   computed: {
     events() {
@@ -141,8 +144,27 @@ export default {
   },
   methods: {
     eventClicked(info) {
-      this.selectedEvent = info.event.extendedProps
+      this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps)) ;
       this.$modal.show("modalEventEdit");
+    },
+
+    async updateEvent(){
+      try{
+        const res = await this.axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`, this.selectedEvent);
+        if(res.status === 200){
+          this.$swal.fire({
+          type: "success",
+          title: 'Success',
+          text: 'Event updated!'
+        })
+        }
+      }catch(err){
+        this.$swal.fire({
+          type: "error",
+          title: 'Error',
+          text: 'Something went wrong! Try again!'
+        })
+      }
     }
   }
 };
@@ -170,35 +192,35 @@ export default {
 .v--modal-overlay.new-event-modal {
   .v--modal-box {
     overflow: auto;
-      .inputfield-row {
-        list-style-type: decimal;
-        margin-bottom: 20px;
-        span {
-          display: inline-block;
-          margin-bottom: 10px;
-          font-size: 16px;
-        }
-        input {
-          display: block;
-          width: 400px;
-          padding: 5px 10px;
-        }
-        select {
-          width: 420px;
-          display: block;
-        }
-        span,
-        input,
-        select {
-          font-size: 16px;
-          border: 0;
-        }
-        input[type="text"],
-        select {
-          border: 0;
-          border-bottom: 1px solid #939393;
-        }
+    .inputfield-row {
+      list-style-type: decimal;
+      margin-bottom: 20px;
+      span {
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 16px;
       }
+      input {
+        display: block;
+        width: 400px;
+        padding: 5px 10px;
+      }
+      select {
+        width: 420px;
+        display: block;
+      }
+      span,
+      input,
+      select {
+        font-size: 16px;
+        border: 0;
+      }
+      input[type="text"],
+      select {
+        border: 0;
+        border-bottom: 1px solid #939393;
+      }
+    }
   }
 }
 </style>
