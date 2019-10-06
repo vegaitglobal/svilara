@@ -48,6 +48,9 @@ export default {
   position: absolute;
   width: 100%;
   z-index: -1;
+  @include breakpoint(mob-sm) {
+    height: 310px;
+  }
 }
 
 .content--wrapper {

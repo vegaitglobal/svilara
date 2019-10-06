@@ -64,6 +64,9 @@ export default {
     @include breakpoint(desk-xl) {
       width: 142px;
     }
+    @include breakpoint(mob-sm) {
+      border-bottom: 1px solid $purple;
+    }
   }
 }
 </style>
