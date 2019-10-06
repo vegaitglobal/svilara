@@ -26,11 +26,13 @@ export default {
     EventHeadline,
   },
 
-  created(){
-    this.$store.dispatch('fetchEvents')
+  async created(){
+    await this.$store.dispatch('fetchEvents')
+    this.$store.dispatch('filterByMonth')
   },
 
   mounted(){
+
     this.$store.dispatch('filterByMonth')
   },
 
