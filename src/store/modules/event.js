@@ -13,6 +13,11 @@ var fuseOptions = {
   keys: ["title"]
 };
 
+const sortByDate = (a, b) => {
+  return new Date(a.created).getTime() - new Date(b.created).getTime();
+}
+
+
 export default {
   state: {
     questions: [],
@@ -27,6 +32,10 @@ export default {
   getters: {
     getEvents(state) {
       return state.events;
+    },
+
+    eventsSortedByCreationTime(state) {
+      return state.events.sort(sortByDate)
     },
 
     getCalendarEvents(state) {
@@ -172,16 +181,21 @@ export default {
 
     async submitEvent({ commit, state }) {
       var formData = new FormData();
+
       for (var i = 0; i < state.answers.length; i++) {
+        console.log(state.answers)
         if (state.answers[i].type === "file") {
+          formData.append(state.answers[i].name, state.answers[i].answers);
+        }
+        if (state.answers[i].type === "file") {
+          formData.append(state.answers[i].name, state.answers[i].answers);
+        }
+
+        if (state.answers[i].name === 'email'){
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
       }
       formData.set("formAnswers", JSON.stringify(state.answers));
-
-      if (state.answers[i].type === "file") {
-        formData.append(state.answers[i].name, state.answers[i].answers);
-      }
 
       axios
         .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)

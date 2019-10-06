@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{answers}}
     <component
       v-for="(question, index) in questions"
       :key="index"

@@ -1,7 +1,8 @@
 <template>
   <div class="new-event--wrapper">
-      <div class="client-form">
-            <Accordion/>
+      <div class="client-form" v-if="events">
+            <Accordion  v-for="(event, index) in events" :key="index" :event="event"/>
+            <p v-if="events.length === 0">Nema novih zahteva...</p>
       </div>
       <div class="admin-form">
             <!-- Example form -->
@@ -103,6 +104,15 @@ export default {
   name: "NewEvent",
   components: {
       Accordion
+  },
+
+  created(){
+      this.$store.dispatch('fetchEvents')
+  },
+  computed:{
+      events(){
+          return this.$store.getters.eventsSortedByCreationTime
+      }
   }
 };
 </script>
