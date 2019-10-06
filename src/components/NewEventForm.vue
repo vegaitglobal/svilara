@@ -109,11 +109,11 @@ export default {
   },
 
   created(){
-      this.$store.dispatch('fetchEvents')
+      this.$store.dispatch('fetchAdminEvents')
   },
   computed:{
       events(){
-          return this.$store.getters.eventsSortedByCreationTime
+          return this.$store.getters.getEvents
       }
   }
 };

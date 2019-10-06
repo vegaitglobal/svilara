@@ -33,7 +33,7 @@ export default {
 
     computed:{
         startingDay(){
-            return new Date(this.event.startTime).getDay()
+            return moment(this.event.startTime).date();
         },
         startingDateMonth(){
             let month = new Array()

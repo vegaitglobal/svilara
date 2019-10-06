@@ -131,7 +131,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("fetchEvents");
+    this.$store.dispatch("fetchAdminEvents");
     this.$store.dispatch("fetchSettings")
   },
   computed: {
