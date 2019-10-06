@@ -6,7 +6,7 @@
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
-        <SearchField />
+        <SearchField v-if="['Welcome'].includes($route.name)" />
         <div class="button-wrapper">
           <button
             class="btn btn__purple btn__large"
@@ -19,18 +19,23 @@
             to="/admin/new-event"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
           >Zahtevi</router-link>
 
-          <button
+          <router-link
+            to="/admin/all-events"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Događaji</button>
+          >Događaji</router-link>
+          
           <router-link
             to="/admin/settings"
             class="btn btn__purple btn__large"
             type="button"
+            tag="button"
             v-if="['Admin'].includes($route.name)"
           >Podešavanja</router-link>
         </div>
@@ -100,7 +105,7 @@
           <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
         </div>
       </div>
-      <div class="tc-modal" v-if="page==2">
+      <div class="tc-modal" height="600" v-if="page==2">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
 
         <Formular />
@@ -177,6 +182,11 @@ export default {
       align-items: flex-end;
     }
     .btn:first-of-type:not(:only-of-type) {
+      margin-right: 10px;
+    }
+  }
+  .button-wrapper {
+    a {
       margin-right: 10px;
     }
   }

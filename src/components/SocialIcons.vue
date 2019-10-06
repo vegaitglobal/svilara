@@ -1,12 +1,12 @@
 <template>
     <div class="social-icons">
-        <a href="">
+        <a href="https://www.facebook.com/svilara/" target="__blank">
             <facebook-box-icon class="social-icons--ico"/>
         </a>
-        <a href="">
+        <a href="https://www.instagram.com/svilara_ks/?hl=en" target="__blank">
             <instagram-icon class="social-icons--ico"/>
         </a>
-        <a href="">
+        <a href="mailto:svilarans@gmail.com" target="_top">
             <gmail-icon class="social-icons--ico"/>
         </a>
     </div>

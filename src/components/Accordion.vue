@@ -21,10 +21,9 @@
                     </span>
                 </div>    
                 <div slot="content">
-                    <div v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
-                        <u>{{row.question.id}}. {{row.question.text}}:</u> <b>{{row.answers}}</b>
+                    <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
+                        {{row.question.id}}. {{row.question.text}}: <span class="replies__answer">{{row.answers}}</span>
                     </div>
-                    
                 </div>  
             </badger-accordion-item>
         
@@ -53,6 +52,14 @@ export default {
 
 <style lang="scss">
 @import "../assets/scss/variables.scss";
+
+.replies {
+    margin-bottom: 5px;
+    &__answer {
+        font-weight: 900;
+    }
+}
+
 
 .badger-accordion__header {
     padding: 10px;
@@ -97,7 +104,7 @@ export default {
 
 .badger-accordion__panel {
     padding: 0 20px;
-
+    overflow: auto;
     .js-badger-accordion-panel-inner > div {
         padding: 20px 0;
     }
