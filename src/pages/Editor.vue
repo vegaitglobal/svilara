@@ -22,4 +22,10 @@ export default {
 
 <style>
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
+.editr {
+  border: 1px solid #e4e4e4;
+  width: 100%;
+  min-height: 70vh;
+}
 </style>
