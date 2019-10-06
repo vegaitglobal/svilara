@@ -355,7 +355,9 @@ exports.rejectEvent = async (req, res) => {
 
 // UPDATE EVENT PAGE
 exports.updateEventPage = async (req, res) => {
+  console.log(req.params.id);
   let data = req.body.pageData;
+  console.log(data);
   let [err, dbUpdated] = await to(
     models.Event.update(
       {
@@ -373,6 +375,24 @@ exports.updateEventPage = async (req, res) => {
   return ReS(res, {
     //data: dbUpdated,
     msg: "Update  was successfull."
+  });
+};
+
+exports.getEventPage = async function(req, res) {
+  let [err1, dbEventPage] = await to(
+    models.Event.findOne({
+      attributes: ["html"],
+      where: {
+        id: req.params.id
+      }
+    })
+  );
+  if (err1) {
+    console.log(err);
+    return ReE(res, err.message);
+  }
+  return ReS(res, {
+    data: dbEventPage
   });
 };
 
