@@ -183,6 +183,8 @@ export default {
   position: relative;
   margin-right: 2.3%;
   margin-bottom: 32px;
+  flex-direction: column;
+    display: flex;
   @include breakpoint(vtab) {
     margin-right: 0;
   }
@@ -240,7 +242,7 @@ export default {
       position: relative;
       font-size: 21px;
       svg {
-        bottom: -0.025em;
+        bottom: -0.015em !important;
       }
     }
   }
