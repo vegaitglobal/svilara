@@ -189,7 +189,9 @@ exports.updateEvent = async function(req, res) {
           price,
           space,
           socialMedia,
-          age
+          age,
+          logo: logoName,
+          picture: imageName
         },
         { where: { id: req.params.id } }
       )
