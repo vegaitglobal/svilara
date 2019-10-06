@@ -13,90 +13,91 @@
       <div class="modal-wrapper">
         <ol>
           <li class="inputfield-row">
-            <span>Naziv programa - The event name</span>
+            <span>Naziv programa</span>
 			<input type="text" v-model="selectedEvent.name" />          </li>
           <li class="inputfield-row">
-            <span>Opis programa - The event description</span>
+            <span>Opis programa</span>
             <input type="text" v-model="selectedEvent.description"/>
           </li>
 
           <li class="inputfield-row">
-            <span>Logo organizacije - Logo</span>
+            <span>Logo organizacije</span>
             <input type="file" />
           </li>
 
           <li class="inputfield-row">
-            <span>Slika - Image</span>
+            <span>Slika</span>
             <input type="file" />
           </li>
 
           <li class="inputfield-row">
-            <span>Status programa - The event status</span>
+            <span>Status programa</span>
             <select v-model="selectedEvent.type">
-              <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave) - Open event (Visitors do not need to apply beforehand)</option>
-              <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom) - Open event (Visitors need to apply beforehand)</option>
-              <option value="zatvoren">Zatvoren program - Closed event</option>
+              <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
+              <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
+              <option value="zatvoren">Zatvoren program</option>
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Da li se događaj naplaćuje - Is the event free</span>
+            <span>Da li se događaj naplaćuje</span>
             <select v-model="selectedEvent.price">
-              <option value="1">Da / Yes</option>
-              <option value="0">Ne / No</option>
+              <option value="1">Da</option>
+              <option value="0">Ne</option>
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Kategorija programa - Event category</span>
+            <span>Kategorija programa</span>
             <select v-model="selectedEvent.category">
-               <option value="izlozba">Izložba - Exhibition</option>
-              <option value="muzicki">Muzički program - Musical event</option>
-              <option value="igranka">Igranka - Dance</option>
-              <option value="audiovideo">Audio-vizuelni program - Audio-visual event</option>
-              <option value="predstava">Predstava - Play</option>
-              <option value="festival">Festival - Festival</option>
-              <option value="predavanja">Predavanje - Lecture, Seminar</option>
-              <option value="radionica">Radionica - Workshop</option>
-              <option value="drugo">Drugo - Other</option>
+               <option value="izlozba">Izložba</option>
+              <option value="muzicki">Muzički program</option>
+              <option value="igranka">Igranka</option>
+              <option value="audiovideo">Audio-vizuelni program</option>
+              <option value="predstava">Predstava</option>
+              <option value="festival">Festival</option>
+              <option value="predavanja">Predavanje</option>
+              <option value="radionica">Radionica</option>
+              <option value="drugo">Drugo</option>
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Planirani prostor za Vaš program - Prefered space for your event</span>
+            <span>Planirani prostor za Vaš program</span>
             <select v-model="selectedEvent.space">
-              <option value="velikasala">Velika sala - Grand Hall</option>
-              <option value="malasala">Mala sala - Small hall</option>
-              <option value="dvoriste">Dvorište - Courtyard</option>
-              <option value="teren">Sportski tereni sa tribinama - The sports court</option>
-              <option value="drucentar">Društveni centar - Social center</option>
-              <option value="plato">Plato - Plateau</option>
-              <option value="drugo">Drugo - Other</option>
+              <option value="velikasala">Velika sala</option>
+              <option value="malasala">Mala sala</option>
+              <option value="dvoriste">Dvorište</option>
+              <option value="teren">Sportski tereni sa tribinama</option>
+              <option value="drucentar">Društveni centar</option>
+              <option value="plato">Plato</option>
+              <option value="drugo">Drugo</option>
             </select>
 
 			<input type="text" v-if="selectedEvent.space=='drugo'"/>          </li>
           <li class="inputfield-row">
-            <span>Link ka dogadjaju na društvenim mrežama - Link to the event on social media</span>
+            <span>Link ka dogadjaju na društvenim mrežama</span>
             <input type="text" v-model="selectedEvent.socialMedia" />          </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
             <select v-model="selectedEvent.age">
-               <option value="deca">Deca - Children</option>
-              <option value="mladi">Mladi - Youth</option>
-              <option value="odrasli">Odrasli - Adults</option>
-              <option value="stariji">Starija publika - Elderly</option>
-              <option value="profesionalna">Profesionalna publika - Professionals</option>
-              <option value="svi">Svi - All of the above</option>
+               <option value="deca">Deca</option>
+              <option value="mladi">Mladi</option>
+              <option value="odrasli">Odrasli</option>
+              <option value="stariji">Starija publika</option>
+              <option value="profesionalna">Profesionalna publika</option>
+              <option value="svi">Svi</option>
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Vreme početka programa - Start time of the event</span>
+            <span>Vreme početka programa</span>
             <input type="datetime-local" v-model="selectedEvent.startTime" />
           </li>
           <li class="inputfield-row">
-            <span>Vreme kraja programa - End time of the event</span>
+            <span>Vreme kraja programa</span>
             <input type="datetime-local" v-model="selectedEvent.endTime" />
 
           </li>
         </ol>
       </div>
+      <button class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
   </div>
 </template>

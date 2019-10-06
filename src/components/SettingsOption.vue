@@ -2,8 +2,8 @@
   <div>
     <input :disabled="!editing" type="text" v-model="option.key" />
     <input type="text" :disabled="!editing" v-model="option.value" />
-    <button @click="editing = !editing">Edit</button>
-    <button @click="save">Save</button>
+    <button class="btn btn__red btn__small" @click="editing = !editing">Edit</button>
+    <button class="btn btn__green btn__small" @click="save">Save</button>
   </div>
 </template>
 

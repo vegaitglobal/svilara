@@ -2,11 +2,12 @@
     <div>
         <Sidebar />
         <h3>Settings</h3>
-        <SettingsOption v-for="(option, index) in settings" :key="index" :option="option" />
-        <h3>Questions</h3>
-        <!-- {{questions}} -->
-        <Question v-for="(question) in questions" :key="`${question.id}a`" :question="question" />
-
+        <div class="settings-input">
+            <SettingsOption v-for="(option, index) in settings" :key="index" :option="option" />
+            <h3>Questions</h3>
+            <!-- {{questions}} -->
+            <Question v-for="(question) in questions" :key="`${question.id}a`" :question="question" />
+        </div>
     </div>
     
 </template>
@@ -39,6 +40,17 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.settings-input {
+    div {
+        margin-bottom: 10px;
+        display: flex;
+        input {
+            margin-right: 10px;
+        }
+        button {
+            margin-right: 10px;
+        }
+    }
+}
 </style>

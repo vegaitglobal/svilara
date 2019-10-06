@@ -190,13 +190,10 @@ export default {
       flex-direction: column;
       align-items: flex-end;
     }
-    .btn:first-of-type:not(:only-of-type) {
-      margin-right: 10px;
-    }
   }
   .button-wrapper {
-    a {
-      margin-right: 10px;
+    button {
+      margin-left: 10px;
     }
   }
 }
