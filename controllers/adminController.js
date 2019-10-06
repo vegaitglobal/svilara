@@ -136,15 +136,15 @@ exports.updateEvent = async function(req, res) {
     let socialMedia = fields.socialMedia;
     let age = fields.age;
 
-    let validatorMessage = validateEvent(req.body);
-    console.log(validatorMessage);
+    let validatorMessage = validateEvent(fields);
+    
     if (validatorMessage) {
       return ReE(res, {
         msg: validatorMessage
       });
     }
 
-    console.log("dodje");
+
     if (files.picture) {
       // check mime type (is image)
       if (
@@ -616,6 +616,7 @@ function validateQuestion(body) {
 }
 
 function validateEvent(body) {
+
   if (!body.title || validator.isEmpty(body.title)) {
     return "Title is required";
   }
