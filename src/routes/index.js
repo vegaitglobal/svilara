@@ -8,7 +8,7 @@ import Register from "@/pages/Register.vue";
 import VerifyEmail from "@/pages/VerifyEmail.vue";
 import Logout from "@/pages/Logout.vue";
 import ResetPasswordEmail from "@/pages/ResetPasswordEmail.vue";
-import Formular from "../components/Formular.vue";
+import Settings from "@/pages/Settings.vue";
 
 const routes = [
   {
@@ -30,6 +30,11 @@ const routes = [
     path: "/admin/editor/:id",
     component: Editor,
     name: "Editor"
+  },
+  {
+    path: "/admin/settings",
+    component: Settings,
+    name: "Settings"
   },
   {
     path: "/admin/new-event",
@@ -60,12 +65,6 @@ const routes = [
     path: "/logout",
     component: Logout,
     name: "Logout"
-  },
-
-  {
-    path: "/formular",
-    component: Formular,
-    name: "Formular"
   }
 ];
 
