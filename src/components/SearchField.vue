@@ -54,7 +54,7 @@ export default {
     line-height: 20px;
     background-color: transparent;
     border: 0;
-    color: rgba($purple, 0.5);
+    color: $purple;
     padding: 5px;
     &::placeholder {
       font-size: 16px;
