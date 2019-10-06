@@ -1,7 +1,14 @@
 <template>
   <div>
     <Sidebar />
-    <v-client-table :data="tableData" :columns="columns"></v-client-table>
+    <v-client-table :data="tableData" :columns="columns" :options="options">
+      <button
+        class="btn btn__purple"
+        slot="editor"
+        slot-scope="props"
+        @click="$router.push('/admin/editor/' + props.row.id)"
+      >Editor</button>
+    </v-client-table>
   </div>
 </template>
 
@@ -14,18 +21,42 @@ export default {
   },
   data() {
     return {
-      columns: ["id", "title", "contactEmail", "category", "type", "space", "status", "startTime", "endTime"],
-      tableData: [
-      ]
+      columns: [
+        "id",
+        "title",
+        "contactEmail",
+        "category",
+        "type",
+        "space",
+        "status",
+        "startTime",
+        "endTime",
+        "editor"
+      ],
+      options: {
+        headings: {
+          id: "ID",
+          title: "Naslov",
+          contactEmail: "Kontakt",
+          category: "Kategorija",
+          type: "Tip",
+          space: "Prostor",
+          status: "Status",
+          startTime: "Pocetak",
+          endTime: "Kraj",
+          editor: "Editor"
+        }
+      },
+      tableData: []
     };
   },
 
-  created(){
-    this.tableData = this.events
+  created() {
+    this.tableData = this.events;
   },
 
-  computed:{
-    events(){
+  computed: {
+    events() {
       return this.$store.getters.getAdminEvents;
     }
   }
