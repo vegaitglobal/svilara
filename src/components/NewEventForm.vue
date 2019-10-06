@@ -1,10 +1,12 @@
 <template>
   <div class="new-event--wrapper">
       <div class="client-form" v-if="events">
+            <h2>Zahtevi</h2>
             <Accordion  v-for="(event, index) in events" :key="index" :event="event"/>
             <p v-if="events.length === 0">Nema novih zahteva...</p>
       </div>
       <div class="admin-form">
+            <h2>Kreiranje novog događaja</h2>
             <!-- Example form -->
             <div class="modal-wrapper">
                 <ol>
@@ -126,8 +128,12 @@ export default {
     @include breakpoint(vtab) {
         flex-direction: column;
     }
+    h2 {
+        margin-bottom: 55px;
+        text-align: center;
+    }
     .btn {
-        float: right;
+        margin-top: 20px;
     }
     .client-form,
     .admin-form {
