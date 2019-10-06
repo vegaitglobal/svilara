@@ -88,6 +88,7 @@ export default {
             > div {
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
             }
         }
     }

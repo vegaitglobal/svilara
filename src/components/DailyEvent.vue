@@ -5,7 +5,7 @@
         </div>
         <div class="daily-event--image" :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"></div>
         <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
-        <h3>Interaktivna edukativna radionica “Industrijska proslost Almasakog kraja</h3>
+        <h3>{{event.title}}</h3>
         <div class="daily-event__bottom">
           <div class="daily-event__bottom--icons">
             <span data-tooltip="Ulaz besplatan, bez prijave">

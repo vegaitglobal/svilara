@@ -91,6 +91,7 @@
                     </li>
                 </ol>
             </div>
+            <button class="btn btn__purple btn__large mt-20" type="submit">Sačuvaj</button>
       </div>
   </div>
 </template>
@@ -114,6 +115,9 @@ export default {
     flex-direction: row;
     @include breakpoint(vtab) {
         flex-direction: column;
+    }
+    .btn {
+        float: right;
     }
     .client-form,
     .admin-form {

@@ -60,6 +60,9 @@ export default {
     border-radius: 10px;
     flex-wrap: wrap;
     display: flex;
+    > div {
+      width: 100%;
+    }
   }
 }
 </style>

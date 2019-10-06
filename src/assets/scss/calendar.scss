@@ -124,12 +124,13 @@ hr.fc-divider {
 }
 
 .fc-unthemed th {
-    padding: 24px 0;
-    background-color: $purple-lighter;
-    span {
-        font-size: 16px;
-        color: $purple;
-    }
+  padding: 24px 0;
+  background-color: $purple-lighter;
+  span {
+    font-size: 16px;
+    color: $purple;
+    font-weight: 600;
+  }
 }
 
 .fc td.fc-today {
@@ -482,6 +483,7 @@ tr:first-child > td > .fc-day-grid-event {
   /* force events to be one-line tall */
   white-space: nowrap;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .fc-day-grid-event .fc-time {
