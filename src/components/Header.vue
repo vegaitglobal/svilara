@@ -2,7 +2,9 @@
   <div>
     <header class="header">
       <div class="header__left-part">
-        <h1>Kalendar događaja</h1>
+        <h1 v-if="['Welcome','Admin'].includes($route.name)">Kalendar događaja</h1>
+        <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
+        <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
@@ -41,7 +43,7 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="500" width="830">
+    <modal name="userCreateEventModal" height="550" width="830" overlayTransition="overlay-fade">
       <div class="tc-modal" v-if="page==1">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg/Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
