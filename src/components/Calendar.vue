@@ -150,6 +150,7 @@ export default {
   ol,
   ul {
     list-style: decimal;
+    list-style-position: inside;
   }
 }
 
