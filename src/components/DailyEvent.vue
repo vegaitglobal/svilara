@@ -112,7 +112,7 @@ export default {
       month[9] = "oct";
       month[10] = "nov";
       month[11] = "dec";
-      return month[new Date(this.event.startTime).getMonth() - 1];
+      return month[new Date(this.event.startTime).getMonth()];
     },
 
     startingTime() {

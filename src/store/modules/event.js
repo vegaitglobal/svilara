@@ -158,10 +158,10 @@ export default {
       state.image = file;
     },
 
-    SET_EVENTS(state, actions, events) {
-      state.events = events;
-      state.searchedEvents = events;
-    },
+    // SET_EVENTS(state, events) {
+    //   state.events = events;
+    //   // state.searchedEvents = events;
+    // },
 
     SET_SEARCHED_EVENTS(state, events) {
       state.searchedEvents = events;
@@ -290,6 +290,7 @@ export default {
           filtered.push(state.events[i]);
         }
       }
+
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 
