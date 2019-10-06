@@ -44,7 +44,7 @@ export default {
     padding: 5px;
     width: 300px;
   }
-}s
+}
 .VueTables__table {
   td {
     padding: 15px;

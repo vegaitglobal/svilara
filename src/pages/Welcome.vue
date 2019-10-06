@@ -23,7 +23,7 @@ export default {
     Sidebar,
     MainEvent,
     DailyEvent,
-    EventHeadline
+    EventHeadline,
   },
 
   created(){
