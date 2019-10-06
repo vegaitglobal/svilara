@@ -5,6 +5,9 @@ import VueSwal from "vue-sweetalert2";
 import VueMoment from "vue-moment";
 import VModal from "vue-js-modal";
 import wysiwyg from "vue-wysiwyg";
+import { ClientTable } from "vue-tables-2";
+
+Vue.use(ClientTable, {}, false, "bootstrap4");
 
 import store from "./store/index";
 import axios from "axios";

@@ -8,37 +8,37 @@
         <h3>{{event.title}}</h3>
         <div class="daily-event__bottom">
           <div class="daily-event__bottom--icons">
-            <span data-tooltip="Ulaz se naplaćuje">
-              <currency-usd class="daily-event__bottom--icons-ico"/>
-            </span>
-            <span data-tooltip="Ulaz besplatan">
+            <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
               <currency-usd-off class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Izložba">
+            <span v-else data-tooltip="Ulaz se naplaćuje">
+              <currency-usd class="daily-event__bottom--icons-ico"/>
+            </span>
+            <span v-if="event.category=='izlozba'" data-tooltip="Izložba">
               <artist class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Muzički program">
+            <span v-if="event.category=='muzicki'" data-tooltip="Muzički program">
               <music-clef-treble class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Igranka">
+            <span v-if="event.category=='igranka'" data-tooltip="Igranka">
               <music class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Audio-vizuelni program">
+            <span v-if="event.category=='audiovideo'" data-tooltip="Audio-vizuelni program">
               <video-vintage class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Festival">
+            <span v-if="event.category=='festival'" data-tooltip="Festival">
               <castle class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Predstava">
+            <span v-if="event.category=='predstava'" data-tooltip="Predstava">
               <drama-masks class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Radionica">
+            <span v-if="event.category=='radionica'" data-tooltip="Radionica">
               <puzzle class="daily-event__bottom--icons-ico"/>
             </span>
-            <span data-tooltip="Predavanje">
+            <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
               <script-text-outline class="daily-event__bottom--icons-ico"/> 
             </span>
-            <span data-tooltip="Potrebna prijava">
+            <span v-if="event.type=='otvorensp'" data-tooltip="Potrebna prijava">
               <file-document-box-plus-outline class="daily-event__bottom--icons-ico"/>
             </span>
             
@@ -46,12 +46,7 @@
           <button type="button" class="btn btn__orange">Pogledaj opis</button>
         </div>
     </div>
-    <div
-      class="daily-event--image"
-      :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
-    ></div>
-    <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
-    <h3>{{event.title}}</h3>
+    <!--
     <div class="daily-event__bottom">
       <div class="daily-event__bottom--icons">
         <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
@@ -81,19 +76,10 @@
       </div>
       <button type="button" class="btn btn__orange">Pogledaj opis</button>
     </div>
+    -->
   </div>
 </template>
 <script>
-import DailyImg from "../assets/img/example.png";
-import CurrencyUsdOff from "vue-material-design-icons/CurrencyUsdOff.vue";
-import CurrencyUsd from "vue-material-design-icons/CurrencyUsd.vue";
-import Artist from "vue-material-design-icons/Artist.vue";
-import HumanChild from "vue-material-design-icons/HumanChild.vue";
-import AlphaR from "vue-material-design-icons/AlphaR.vue";
-import AlphaP from "vue-material-design-icons/AlphaP.vue";
-import AlphaT from "vue-material-design-icons/AlphaT.vue";
-import FileDocumentBoxPlusOutline from "vue-material-design-icons/FileDocumentBoxPlusOutline.vue";
-import moment from "moment";
 
 import DailyImg from "../assets/img/example.png"
 import CurrencyUsdOff from 'vue-material-design-icons/CurrencyUsdOff.vue';
@@ -115,15 +101,14 @@ export default {
     CurrencyUsdOff,
     CurrencyUsd,
     Artist,
-    AlphaR,
-    AlphaP,
     MusicClefTreble,
     Music,
-    FileDocumentBoxPlusOutline
+    FileDocumentBoxPlusOutline,
     VideoVintage,
     DramaMasks,
     Castle,
-    ScriptTextOutline
+    ScriptTextOutline,
+    Puzzle
   },
   props: ["event"],
   data: function() {
