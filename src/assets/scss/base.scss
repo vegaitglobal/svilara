@@ -37,6 +37,7 @@ a {
     border: 0;
     padding: 6px 10px;
     transition: 0.2s;
+    cursor: pointer;
     &.btn__small {
         font-size: 10px;
         min-width: 78px;
@@ -78,6 +79,7 @@ a {
 
 a.btn {
     text-decoration: none;
+    cursor: pointer;
     &.btn__large {
     padding: 14px 50px;
     }
