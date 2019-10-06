@@ -7,6 +7,7 @@
         <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <h1 v-if="['Settings'].includes($route.name)">Podešavanja</h1>
         <h1 v-if="['Editor'].includes($route.name)">Kreiraj stranicu</h1>
+        <h1 v-if="['EventPage'].includes($route.name)">Opis događaja</h1>
         <DatePicker v-if="['Welcome'].includes($route.name)" />
       </div>
       <div class="header__right-part">
