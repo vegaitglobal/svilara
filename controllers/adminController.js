@@ -598,19 +598,19 @@ function validateQuestion(body) {
   if (!allowedFiledTypes.includes(body.fieldType)) {
     return body.fieldType + " is not allowed as fieldtype";
   }
-  if (!validator.isBoolean(body.mandatory)) {
-    return "mandatory must be boolean";
-  }
-  if (!validator.isNumeric(body.order) || body.order < 0) {
-    return "order must be positive integer";
-  }
-  if (!validator.isJSON(body.values)) {
-    // TODO extra code to check is body.values json string array
-    return "values must be JSON string array";
-  }
-  if (body.id && !validator.isNumeric(body.id)) {
-    return "Id must be numeric";
-  }
+  // if (!validator.isBoolean(body.mandatory)) {
+  //   return "mandatory must be boolean";
+  // }
+  // if (!validator.isNumeric(body.order) || body.order < 0) {
+  //   return "order must be positive integer";
+  // }
+  // if (!validator.isJSON(body.values)) {
+  //   // TODO extra code to check is body.values json string array
+  //   return "values must be JSON string array";
+  // }
+  // if (body.id && !validator.isNumeric(body.id)) {
+  //   return "Id must be numeric";
+  // }
 
   return undefined;
 }
