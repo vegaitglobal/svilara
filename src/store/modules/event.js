@@ -29,6 +29,43 @@ export default {
       return state.events;
     },
 
+    getCalendarEvents(state) {
+      let colors = ['#fcba03', '#6bfc03', '#3a9bfc', '#fc3af6', '#fc3a54']
+      let serializedEvents = []
+      for (var i = 0; i < state.events.length; i++) {
+        let color = colors[Math.floor(Math.random() * 5)]
+        let parsedEvent = {
+          id: state.events[i].id,
+          title: state.events[i].title,
+          start: new Date(state.events[i].startTime),
+          end: new Date(state.events[i].endTime),
+          // backgroundColor: color,
+          borderColor: color,
+          displayEventEnd: true,
+          extendedProps: {
+            name: state.events[i].title,
+            description: state.events[i].description,
+            type: state.events[i].type,
+            price: state.events[i].price,
+            category: state.events[i].category,
+            space: state.events[i].space,
+            socialMedia: state.events[i].socialMedia,
+            age: state.events[i].age,
+            startTime: state.events[i].startTime,
+            endTime: state.events[i].endTime,
+            picture: state.events[i].picture,
+            logo: state.events[i].logo
+          }
+
+
+        };
+        // console.log(parsedEvent)
+        serializedEvents.push(parsedEvent)
+      }
+
+      return serializedEvents;
+    },
+
     getSelectedMonth(state) {
       var month = state.selectedMonth.locale("sr").format('MMMM Y')
       return month.charAt(0).toUpperCase() + month.slice(1)

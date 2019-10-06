@@ -6,6 +6,7 @@
       :events="events"
       @eventClick="eventClicked"
       locale="sr"
+      :displayEventEnd="true"
     />
 
     <modal name="modalEventEdit" height="600" class="new-event-modal">
@@ -13,11 +14,11 @@
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
-            <input type="text" v-model="name" placeholder="Unesi naziv prostora" />
+            <input type="text" v-model="selectedEvent.name" placeholder="Unesi naziv prostora" />
           </li>
           <li class="inputfield-row">
             <span>Opis programa</span>
-            <input type="text" v-model="description" placeholder="Unesi opis prostora" />
+            <input type="text" v-model="selectedEvent.description" placeholder="Unesi opis prostora" />
           </li>
 
           <li class="inputfield-row">
@@ -32,7 +33,7 @@
 
           <li class="inputfield-row">
             <span>Status programa</span>
-            <select v-model="type">
+            <select v-model="selectedEvent.type">
               <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
               <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
               <option value="zatvoren">Zatvoren program</option>
@@ -40,14 +41,14 @@
           </li>
           <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
-            <select v-model="price">
+            <select v-model="selectedEvent.price">
               <option value="1">Da</option>
               <option value="0">Ne</option>
             </select>
           </li>
           <li class="inputfield-row">
             <span>Kategorija programa</span>
-            <select v-model="category">
+            <select v-model="selectedEvent.category">
               <option value="izlozba">Izložba</option>
               <option value="muzicki">Muzički program</option>
               <option value="igranka">Igranka</option>
@@ -61,7 +62,7 @@
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
-            <select v-model="space">
+            <select v-model="selectedEvent.space">
               <option value="velikasala">Velika sala</option>
               <option value="malasala">Mala sala</option>
               <option value="dvoriste">Dvorište</option>
@@ -71,15 +72,15 @@
               <option value="drugo">Drugo</option>
             </select>
 
-            <input type="text" v-if="space=='drugo'" placeholder="Unesi ime prostora" />
+            <input type="text" v-if="selectedEvent.space=='drugo'" placeholder="Unesi ime prostora" />
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input type="text" v-model="socialMedia" placeholder="Unesi link" />
+            <input type="text" v-model="selectedEvent.socialMedia" placeholder="Unesi link" />
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
-            <select v-model="age">
+            <select v-model="selectedEvent.age">
               <option value="deca">Deca</option>
               <option value="mladi">Mladi</option>
               <option value="odrasli">Odrasli</option>
@@ -90,11 +91,11 @@
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa</span>
-            <input type="datetime-local" v-model="startTime" />
+            <input type="datetime-local" v-model="selectedEvent.startTime" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
-            <input type="datetime-local" v-model="endTime" />
+            <input type="datetime-local" v-model="selectedEvent.endTime" />
           </li>
         </ol>
       </div>
@@ -113,27 +114,34 @@ export default {
   data() {
     return {
       calendarPlugins: [dayGridPlugin],
-      events: [
-        { title: "event 1", date: "2019-10-01" },
-        { title: "event 2", date: "2019-10-03" }
-      ],
-      name: "",
-      description: "",
-      type: "otvorenbp",
-      price: "0",
-      category: "izlozba",
-      space: "velikasala",
-      socialMedia: "",
-      age: "mladi",
-      startTime: "",
-      endTime: "",
-      picture: "",
-      logo: ""
+
+      selectedEvent: {
+        name: "",
+        description: "",
+        type: "otvorenbp",
+        price: "0",
+        category: "izlozba",
+        space: "velikasala",
+        socialMedia: "",
+        age: "mladi",
+        startTime: "",
+        endTime: "",
+        picture: "",
+        logo: ""
+      }
     };
+  },
+  created() {
+    this.$store.dispatch("fetchEvents");
+  },
+  computed: {
+    events() {
+      return this.$store.getters.getCalendarEvents;
+    }
   },
   methods: {
     eventClicked(info) {
-      console.log(info);
+      this.selectedEvent = info.event.extendedProps
       this.$modal.show("modalEventEdit");
     }
   }
