@@ -2,11 +2,12 @@
   <div>
     <Sidebar />
     <wysiwyg v-model="html" />
-    <button type="submit" class="btn btn__purple btn__large editr-btn">Sačuvaj</button>
+    <button type="submit" class="btn btn__purple btn__large editr-btn" @click="createPage">Sačuvaj</button>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import Sidebar from "../components/Sidebar.vue";
 
 export default {
@@ -17,6 +18,24 @@ export default {
     return {
       html: ""
     };
+  },
+  methods: {
+    createPage() {
+      this.axios
+        .put(
+          `${process.env.VUE_APP_BASE_URL}/admin/event/page/` +
+            this.$route.params.id,
+          {
+            pageData: this.html
+          }
+        )
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>
