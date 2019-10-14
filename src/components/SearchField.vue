@@ -40,7 +40,7 @@ export default {
   display: flex;
   align-items: flex-start;
   @include breakpoint(desk-xl) {
-    margin: 0 0 12px 0;
+    margin: 0 0 7px 0;
   }
   .search-field--ico {
     font-size: 20px;

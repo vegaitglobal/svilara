@@ -251,8 +251,15 @@ export default {
     }
   }
   .button-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+    @include breakpoint(mob) {
+        justify-content: center;
+    }
     button {
-      margin-left: 10px;
+      margin: 5px 0 0 10px;
     }
   }
 }

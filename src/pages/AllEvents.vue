@@ -81,6 +81,9 @@ export default {
     width: 300px;
   }
 }
+.table-responsive {
+    overflow: auto;
+}
 .VueTables__table {
   td {
     padding: 15px;

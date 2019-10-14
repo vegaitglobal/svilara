@@ -68,8 +68,12 @@ export default {
   width: 100%;
   min-height: 70vh;
 }
-
 .editr-btn {
   margin-top: 20px;
+}
+.editr--content {
+  ul {
+    list-style: disc;
+  }
 }
 </style>

@@ -72,6 +72,7 @@ export default {
 
 .replies {
   margin-bottom: 5px;
+  line-height: 20px;
   &__answer {
     font-weight: 900;
   }
