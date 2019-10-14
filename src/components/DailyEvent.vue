@@ -10,7 +10,7 @@
       class="daily-event--image"
       :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
     ></div>
-    <p class="daily-event--time">Drustveni centar | {{startingTime}}-{{endingTime}}h</p>
+    <p class="daily-event--time">Društveni centar | {{startingTime}}-{{endingTime}}h</p>
     <h3>{{event.title}}</h3>
     <div class="daily-event__bottom">
       <div class="daily-event__bottom--icons">

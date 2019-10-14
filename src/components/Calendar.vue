@@ -149,7 +149,7 @@ export default {
     },
 
     async updateEvent(){
-      try{
+      try {
         const form = new FormData()
           for (var prop in this.selectedEvent){
               form.append(prop, this.selectedEvent[prop])
@@ -166,14 +166,14 @@ export default {
               this.$store.dispatch('fetchAdminEvents')
             }
           });
-        }else{
+        } else{
            this.$swal.fire({
             type: "warning",
             title: "Error",
             text: `${res.data.error.msg}`
-          }); 
+          });
         }
-      }catch(err){
+      } catch(err){
         this.$swal.fire({
           type: "error",
           title: 'Error',
