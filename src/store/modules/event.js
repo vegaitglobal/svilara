@@ -87,7 +87,6 @@ export default {
             logo: state.adminEvents[i].logo
           }
         };
-        // console.log(parsedEvent)
         serializedEvents.push(parsedEvent)
       }
 

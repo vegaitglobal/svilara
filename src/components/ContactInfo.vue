@@ -17,20 +17,20 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .contact-info {
-    margin: 15px 0;
-    display: flex;
-    flex-direction: column;
+  margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  color: $white;
+  align-items: center;
+  &--address,
+  &--phone,
+  &--website {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  &--website {
     color: $white;
-    align-items: center;
-    &--address,
-    &--phone,
-    &--website {
-        display: block;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-    &--website {
-        color: $white;
-    }
+  }
 }
 </style>

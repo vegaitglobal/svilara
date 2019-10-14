@@ -23,15 +23,15 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: $purple;
-    display: none;
-    padding: 10px 0;
-    @include breakpoint(mob) {
-        display: block;
-    }
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $purple;
+  display: none;
+  padding: 10px 0;
+  @include breakpoint(mob) {
+    display: block;
+  }
 }
 </style>

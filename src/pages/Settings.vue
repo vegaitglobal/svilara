@@ -9,7 +9,6 @@
             <Question v-for="(question) in questions" :key="`${question.id}a`" :question="question" />
         </div>
     </div>
-    
 </template>
 
 <script>

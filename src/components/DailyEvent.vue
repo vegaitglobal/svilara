@@ -221,7 +221,7 @@ export default {
     transition: transform 0.3s ease-in-out;
     transform-origin: top;
     background: rgba($gray, 0.7);
-    color: white;
+    color: $white;
     border-radius: 2px;
     font-size: 10px;
     z-index: 1;

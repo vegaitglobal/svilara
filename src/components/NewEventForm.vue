@@ -101,7 +101,7 @@
     </div>
   </div>
 </template>
-    
+
 <script>Event
 import Accordion from "./Accordion";
 
@@ -163,7 +163,7 @@ export default {
             type: "warning",
             title: "Error",
             text: `${res.data.error.msg}`
-          }); 
+          });
         }
       } catch (err) {
         this.$swal.fire({
@@ -205,7 +205,7 @@ export default {
   .admin-form {
     width: 50%;
     border-radius: 10px;
-    border: 2px solid #e6e9f9;
+    border: 2px solid $purple-lighter;
     padding: 20px;
     @include breakpoint(vtab) {
       width: 100%;

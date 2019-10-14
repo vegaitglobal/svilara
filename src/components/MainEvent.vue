@@ -82,7 +82,7 @@ export default {
 .main-event {
   margin-bottom: 48px;
     @include breakpoint(htab) {
-        margin-bottom: 80px;
+      margin-bottom: 80px;
     }
   h2 {
     width: 100%;

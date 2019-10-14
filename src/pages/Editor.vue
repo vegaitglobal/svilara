@@ -61,9 +61,10 @@ export default {
 
 <style lang="scss">
 @import "~vue-wysiwyg/dist/vueWysiwyg.css";
+@import "../assets/scss/variables.scss";
 
 .editr {
-  border: 1px solid #e4e4e4;
+  border: 1px solid $gray-light;
   width: 100%;
   min-height: 70vh;
 }

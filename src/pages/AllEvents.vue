@@ -85,6 +85,7 @@ export default {
   td {
     padding: 15px;
     border: 1px solid $purple-light;
+    text-align: center;
   }
   th {
     padding: 15px;
@@ -101,5 +102,32 @@ thead {
   margin: 40px 0;
   font-size: 16px;
   font-weight: 700;
+}
+select.form-control {
+  margin-left: 12px;
+}
+.VueTables__limit-field {
+  margin-bottom: 15px;
+}
+.VuePagination__pagination {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 10px;
+  li {
+    margin: 0 10px;
+    a {
+      text-decoration: none;
+      color: $gray-dark;
+      font-size: 15px;
+      font-weight: 600;
+      &.active {
+        color: $purple;
+      }
+      &[disabled] {
+        color: $gray;
+        cursor: default;
+      }
+    }
+  }
 }
 </style>

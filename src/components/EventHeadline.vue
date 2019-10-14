@@ -24,8 +24,8 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .event-headline--wrapper {
-    h2 {
-        margin-bottom: 30px;
-    }
+  h2 {
+    margin-bottom: 30px;
+  }
 }
 </style>

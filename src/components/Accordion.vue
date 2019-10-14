@@ -61,7 +61,6 @@ export default {
   },
   methods: {
     showExplanationModal() {
-      console.log("aaaaaaaaaaaaaaaaaaa");
       this.$modal.show("explanationModal");
     }
   }
