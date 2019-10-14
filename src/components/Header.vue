@@ -20,7 +20,7 @@
             @click="showUserCreateEventModal"
             v-if="['Welcome'].includes($route.name)"
           >+ Dodaj događaj</button>
-          
+
           <router-link
             to="/admin/new-event"
             class="btn btn__purple btn__large"

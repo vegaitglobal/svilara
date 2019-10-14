@@ -70,6 +70,7 @@ export default {
     border-radius: 10px;
     flex-wrap: wrap;
     display: flex;
+	min-height: 200px;
     > div {
       width: 100%;
     }

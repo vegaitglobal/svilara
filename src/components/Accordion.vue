@@ -42,7 +42,7 @@
     </modal>
   </div>
 </template>
-    
+
 <script>
 import { BadgerAccordion, BadgerAccordionItem } from "vue-badger-accordion";
 import Check from "vue-material-design-icons/Check.vue";

@@ -79,7 +79,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .v--modal-overlay .v--modal-box {
-  overflow-y: scroll !important;
+  overflow-y: auto !important;
   overflow-x: hidden;
   @include breakpoint(vtab) {
     left: auto !important;
