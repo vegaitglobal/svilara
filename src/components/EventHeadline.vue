@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class="event-headline--wrapper">
         <h2 v-if="!isSearching" class="w-100">Događaji u najavi</h2>
         <h2 v-else class="w-100">Rezultat pretrage</h2>
     </div>
 </template>
-    
+
 <script>
 export default {
   name: 'EventHeadline',
@@ -22,7 +22,10 @@ export default {
 
 <style scoped lang="scss">
 @import "../assets/scss/variables.scss";
+
+.event-headline--wrapper {
     h2 {
-        margin-bottom: 10px;
+        margin-bottom: 30px;
     }
+}
 </style>

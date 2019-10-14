@@ -12,7 +12,6 @@
         class="main-event__box--image w-50"
         :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
       ></div>
-      <!-- <img class="w-60" src="../assets/img/example.png" alt="event-image"> -->
       <div class="main-event__box--text w-50">
         <p>{{event.space}} | {{startingTime}}-{{endingTime}}h</p>
         <h3>{{event.title}}</h3>
@@ -82,10 +81,13 @@ export default {
 
 .main-event {
   margin-bottom: 48px;
+    @include breakpoint(htab) {
+        margin-bottom: 80px;
+    }
   h2 {
     width: 100%;
     font-weight: bold;
-    padding-bottom: 30px;
+    margin-bottom: 30px;
   }
   &__box {
     position: relative;
@@ -127,14 +129,17 @@ export default {
     }
     &--text {
       padding-left: 33px;
+      @include breakpoint(htab) {
+        padding-left: 0;
+      }
       h3 {
         margin: 15px 0;
       }
       p {
         color: $gray;
-      }
-      @include breakpoint(htab) {
-        padding-left: 0;
+        @include breakpoint(htab) {
+            margin-top: 16px;
+        }
       }
       button {
         margin-top: 30px;

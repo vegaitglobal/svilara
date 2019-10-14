@@ -31,22 +31,25 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .social-icons {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    margin: 15px 0 25px;
-    .social-icons--ico {
-        font-size: 25px;
-        svg {
-            fill: $white;
-            transition: 0.2s;
-        }
-        &:hover {
-            svg {
-                fill: rgba($white, 0.6);
-            }
-        }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 25px;
+  a {
+    margin: 0 8px;
+  }
+  .social-icons--ico {
+    font-size: 25px;
+    svg {
+      fill: $white;
+      transition: 0.2s;
     }
+    &:hover {
+      svg {
+          fill: rgba($white, 0.6);
+      }
+    }
+  }
 }
 
 </style>

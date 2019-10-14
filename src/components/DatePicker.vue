@@ -39,16 +39,21 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .date-picker {
-    color: $purple;
-    &--val {
-        font-size: 18px;
-        line-height: 24px;
-        vertical-align: top;
+  color: $purple;
+  &--val {
+    font-size: 18px;
+    line-height: 24px;
+    vertical-align: top;
+  }
+  &--ico.material-design-icon {
+    cursor: pointer;
+    font-size: 20px;
+    @include breakpoint(mob) {
+      font-size: 30px;
+      height: 24px;
+      width: 30px;
     }
-    &--ico {
-        cursor: pointer;
-        font-size: 20px;
-    }
+  }
 }
 
 </style>

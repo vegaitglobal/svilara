@@ -1,7 +1,9 @@
 <template>
   <div>
     <header class="header">
-      <img class="header__logo" src="../assets/img/svilara-logo.jpg" alt="logo"/>
+      <a class="header__link" href="/">
+        <img class="header__logo" src="../assets/img/svilara-logo.jpg" alt="logo"/>
+      </a>
       <div class="header__left-part">
         <h1 v-if="['Welcome','Admin'].includes($route.name)">Kalendar događaja</h1>
         <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
@@ -20,7 +22,6 @@
             @click="showUserCreateEventModal"
             v-if="['Welcome'].includes($route.name)"
           >+ Dodaj događaj</button>
-
           <router-link
             to="/admin/new-event"
             class="btn btn__purple btn__large"
@@ -28,7 +29,6 @@
             tag="button"
             v-if="['Admin'].includes($route.name)"
           >Zahtevi</router-link>
-
           <router-link
             to="/admin/all-events"
             class="btn btn__purple btn__large"
@@ -36,7 +36,6 @@
             tag="button"
             v-if="['Admin'].includes($route.name)"
           >Događaji</router-link>
-          
           <router-link
             to="/admin/settings"
             class="btn btn__purple btn__large"
@@ -56,6 +55,12 @@
             type="button"
             v-if="['Admin'].includes($route.name)"
           >Odjavi se</button>
+          <button
+            @click="$router.go(-1)"
+            class="btn btn__purple btn__large"
+            type="button"
+            v-if="['EventPage'].includes($route.name)"
+          >Nazad</button>
         </div>
       </div>
     </header>
@@ -176,27 +181,31 @@ export default {
 .header {
   width: 100%;
   background-color: transparent;
-  padding: 22px 0 22px 37px;
+  padding: 25px 0 25px 37px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   @include breakpoint(desk-xl) {
     padding-left: 0;
+    align-items: flex-start;
   }
   @include breakpoint(mob) {
     flex-direction: column;
+    align-items: center;
   }
-  &__logo {
+  &__link {
     display: none;
     @include breakpoint(mob) {
       display: inline-block;
-      width: 130px;
-      margin-bottom: 10px;
     }
+  }
+  &__logo {
+    width: 150px;
+    margin-bottom: 15px;
   }
   &__left-part {
     display: flex;
-    @include breakpoint(desk-) {
+    @include breakpoint(desk-xl) {
       flex-direction: column;
     }
     @include breakpoint(mob) {
@@ -204,16 +213,14 @@ export default {
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      
+      margin-bottom: 30px;
     }
     h1 {
       margin-right: 35px;
-      @include breakpoint(vtab) {
-        max-width: 130px;
-        margin-right: 0;
+      @include breakpoint(desk-xl) {
+        margin: 5px 0 25px 0;
       }
       @include breakpoint(mob) {
-        max-width: 100%;
         padding-left: 0;
         font-size: 21px;
         margin-bottom: 20px;
@@ -252,6 +259,9 @@ export default {
 
 .tc-modal {
   padding: 30px;
+    @include breakpoint(mob) {
+        padding: 0;
+    }
   h1 {
     margin-bottom: 40px;
   }

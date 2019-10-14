@@ -78,32 +78,36 @@ export default {
 <style lang="scss">
 @import "../assets/scss/variables.scss";
 
-.v--modal-overlay .v--modal-box {
-  overflow-y: auto !important;
-  overflow-x: hidden;
-  @include breakpoint(vtab) {
-    left: auto !important;
-  }
-  h5 {
-    line-height: 23px;
-  }
-  .question {
-    margin-bottom: 25px;
+.v--modal-overlay {
+  .v--modal-box {
+    padding: 30px;
+    max-width: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden;
+    @include breakpoint(vtab) {
+      left: auto !important;
+    }
     h5 {
-      margin-bottom: 15px;
+      line-height: 23px;
+    }
+    .question {
+      margin-bottom: 25px;
+      h5 {
+        margin-bottom: 15px;
+      }
+    }
+    input[type="checkbox"],
+    input[type="radio"] {
+      list-style-type: none !important;
     }
   }
-  input[type="checkbox"],
-  input[type="radio"] {
-    list-style-type: none !important;
+  ol,
+  ul {
+    list-style: decimal;
+    list-style-position: inside;
   }
-  ::-webkit-scrollbar {
-    width: 10px;
-    background: $purple-lighter;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: $purple;
-    border-radius: 10px;
+  .inputfield-row {
+    margin-bottom: 25px;
   }
 }
 </style>

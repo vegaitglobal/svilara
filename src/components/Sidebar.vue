@@ -1,6 +1,8 @@
 <template>
   <div class="sidebar" :style="{background: `url(${sidebarBg}) no-repeat` }">
-    <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
+    <a href="/">
+        <img class="sidebar__logo" src="../assets/img/svilara-logo.jpg" alt="logo">
+    </a>
     <SocialIcons/>
     <ContactInfo/>
   </div>

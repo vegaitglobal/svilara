@@ -196,22 +196,7 @@ export default {
 @import "../assets/scss/variables.scss";
 @import "../assets/scss/calendar.scss";
 
-.v--modal-overlay {
-  .v--modal-box {
-    padding: 30px;
-    max-width: 100%;
-  }
-  ol,
-  ul {
-    list-style: decimal;
-    list-style-position: inside;
-  }
-  .inputfield-row {
-    margin-bottom: 25px;
-  }
-}
-
-.v--modal-overlay.new-event-modal {
+.new-event-modal {
   .v--modal-box {
     overflow: auto;
     .inputfield-row {
@@ -240,7 +225,7 @@ export default {
       input[type="text"],
       select {
         border: 0;
-        border-bottom: 1px solid #939393;
+        border-bottom: 1px solid $gray;
       }
     }
   }

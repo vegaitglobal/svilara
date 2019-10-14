@@ -22,14 +22,16 @@ export default {
 <style lang="scss">
 @import "../assets/scss/variables.scss";
 
-    .footer {
-        position: fixed;
-        width: 100%;
-        bottom: 0;
-        background: $purple;
-        display: none;
-        @include breakpoint(mob) {
-            display: block;
-        }
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $purple;
+    display: none;
+    padding: 10px 0;
+    @include breakpoint(mob) {
+        display: block;
     }
+}
 </style>

@@ -27,6 +27,7 @@ export default {
     &--website {
         display: block;
         margin-bottom: 10px;
+        text-align: center;
     }
     &--website {
         color: $white;

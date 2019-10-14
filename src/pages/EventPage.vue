@@ -1,7 +1,7 @@
 <template>
   <div>
     <Sidebar />
-    <span v-if="!pageData">Stranica je u izradi...</span>
+    <h3 v-if="!pageData">Stranica je u izradi...</h3>
     <span v-else v-html="pageData"></span>
   </div>
 </template>

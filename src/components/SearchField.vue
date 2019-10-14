@@ -66,6 +66,7 @@ export default {
     }
     @include breakpoint(mob-sm) {
       border-bottom: 1px solid $purple;
+      width: 180px;
     }
   }
 }

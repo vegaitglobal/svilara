@@ -35,6 +35,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $font-color;
+  min-height: 100vh;
+  position: relative;
 }
 
 .wrapper {
@@ -48,8 +50,8 @@ export default {
   position: absolute;
   width: 100%;
   z-index: -1;
-  @include breakpoint(mob-sm) {
-    height: 310px;
+  @include breakpoint(mob) {
+    height: 380px;
   }
 }
 
@@ -70,7 +72,10 @@ export default {
     border-radius: 10px;
     flex-wrap: wrap;
     display: flex;
-	min-height: 200px;
+    min-height: 200px;
+    @include breakpoint(mob) {
+      padding-bottom: 230px;
+    }
     > div {
       width: 100%;
     }
