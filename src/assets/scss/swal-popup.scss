@@ -1,0 +1,19 @@
+@import "./variables.scss";
+
+.swal2-popup  {
+    border-radius: 0 !important;
+    div, h2, p, span, button, a {
+        font-family: "Roboto", Helvetica, Arial, sans-serif;
+        color: $black;
+    }
+}
+.swal2-styled.swal2-confirm {
+    background-color: $purple !important;
+    min-width: 170px;
+    border-radius: 50px !important;
+    line-height: 18px;
+    text-align: center;
+    padding: 15px 10px;
+    transition: 0.2s;
+    margin: 10px 0 20px;
+}

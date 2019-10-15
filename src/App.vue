@@ -52,7 +52,7 @@ export default {
   width: 100%;
   z-index: -1;
   @include breakpoint(mob) {
-    height: 380px;
+    height: 400px;
   }
 }
 

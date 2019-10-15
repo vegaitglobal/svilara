@@ -223,7 +223,7 @@ export default {
       @include breakpoint(mob) {
         padding-left: 0;
         font-size: 21px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
       }
     }
   }

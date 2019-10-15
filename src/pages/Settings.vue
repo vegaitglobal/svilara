@@ -1,10 +1,10 @@
 <template>
     <div>
         <Sidebar />
-        <h3>Settings</h3>
+        <h3>Opšta podešavanja</h3>
         <div class="settings-input">
             <SettingsOption v-for="(option, index) in settings" :key="index" :option="option" />
-            <h3>Questions</h3>
+            <h3>Podešavanja pitanja u formularu</h3>
             <!-- {{questions}} -->
             <Question v-for="(question) in questions" :key="`${question.id}a`" :question="question" />
         </div>
