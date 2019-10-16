@@ -26,14 +26,14 @@
             <span class="replies__answer">{{row.answers}}</span>
           </div>
           <div class="button-wrapper">
-            <button type="button" @click="showExplanationModal" class="btn btn__green">Prihvati</button>
-            <button type="button" @click="showExplanationModal" class="btn btn__red">Odbij</button>
+            <button type="button" class="btn btn__green">Prihvati</button>
+            <button type="button" class="btn btn__red">Odbij</button>
           </div>
         </div>
       </badger-accordion-item>
     </badger-accordion>
 
-    <modal name="explanationModal" height="550" width="830" overlayTransition="overlay-fade">
+    <modal name="explanationModal" height="600" width="830">
       <div class="explanation-modal text-center">
         <h1>Objašnjenje</h1>
         <p>Objašnjenje zašto je (nije) prihvaćen događaj.</p>
@@ -58,11 +58,6 @@ export default {
     Check,
     TimerSandEmpty,
     Close
-  },
-  methods: {
-    showExplanationModal() {
-      this.$modal.show("explanationModal");
-    }
   }
 };
 </script>

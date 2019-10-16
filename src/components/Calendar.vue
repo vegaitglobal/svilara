@@ -9,8 +9,9 @@
       :displayEventEnd="true"
     />
 
-    <modal name="modalEventEdit" height="600" class="new-event-modal">
+    <modal name="modalEventEdit" height="600" width="830" class="new-event-modal">
       <div class="modal-wrapper">
+        <h1>Promeni informacije o programu</h1>
         <ol>
           <li class="inputfield-row">
             <span>Naziv programa</span>
@@ -103,7 +104,7 @@
     </modal>
   </div>
 </template>
-    
+
 <script>
 import FullCalendar from "@fullcalendar/vue";
 import dayGridPlugin from "@fullcalendar/daygrid";
@@ -196,6 +197,11 @@ export default {
 @import "../assets/scss/variables.scss";
 @import "../assets/scss/calendar.scss";
 
+.modal-wrapper {
+  h1 {
+    margin-bottom: 40px;
+  }
+}
 .new-event-modal {
   .v--modal-box {
     overflow: auto;

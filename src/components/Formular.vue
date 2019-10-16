@@ -61,8 +61,8 @@ export default {
 
       this.$swal
         .fire({
-          title: "Dogadjaj poslat.",
-          text: "Predlog dogadjaja poslat je administratorima na procenu.",
+          title: "Događaj poslat.",
+          text: "Predlog događaja poslat je administratorima na procenu.",
           type: "success"
         })
         .then(result => {
@@ -80,12 +80,13 @@ export default {
 
 .v--modal-overlay {
   .v--modal-box {
-    padding: 30px;
+    padding: 60px;
     max-width: 100%;
     overflow-y: auto !important;
     overflow-x: hidden;
     @include breakpoint(vtab) {
       left: auto !important;
+      padding: 30px;
     }
     h5 {
       line-height: 23px;

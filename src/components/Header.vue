@@ -64,9 +64,9 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="550" width="830" overlayTransition="overlay-fade">
+    <modal name="userCreateEventModal" height="600" width="830" overlayTransition="overlay-fade">
       <div class="tc-modal" v-if="page==1">
-        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg/Application form for organising an event in the 'Egység' Cultural Station</h1>
+        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg / Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
           <p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
 
@@ -90,13 +90,13 @@
           <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
           <hr>
 
-          <p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p> 
+          <p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p>
 
           <p>The applications have to be submitted by 15th of the month which precedes the month in which your event is taking place (e.g. if your event takes place in May, you have to submit your application by 15 April). Applications that do not meet this condition will not be taken into consideration.</p>
 
           <p>In order to include your organisation’s event into our schedule, it needs to be approved by the team of the 'Egység' Cultural Station. In case you have more than one event that you wish to be included in the programme of 'Egység' CS, you need to fill in a form for each the events separately.</p>
 
-          <p>By accepting the organisation of the event, the applicant automatically accepts the Rules of Procedure of the 'Egység' Cultural Station and confirms that he/she is familiar with them.
+          <p>By accepting the organisation of the event, the applicant automatically accepts the Rules of Procedure of the 'Egység' Cultural Station and confirms that he / she is familiar with them.
 
           <p>By filling in this application form, the applicant of the exhibition accepts the fact that the Cultural Station is a multi-functional facility and that events of various types may take place during the exhibition, though in such a way that they do not endanger the exhibition or damage it.</p>
 
@@ -128,9 +128,8 @@
           <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
         </div>
       </div>
-      <div class="tc-modal" height="600" v-if="page==2">
+      <div class="tc-modal" v-if="page==2">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
-
         <Formular />
       </div>
     </modal>
@@ -265,17 +264,12 @@ export default {
 }
 
 .tc-modal {
-  padding: 30px;
-    @include breakpoint(mob) {
-        padding: 0;
-    }
+  overflow-y: auto;
+  overflow-x: hidden;
   h1 {
     margin-bottom: 40px;
   }
   &__text {
-    max-height: 400px;
-    overflow-y: scroll;
-    overflow-x: hidden;
     p {
       padding-bottom: 20px;
     }

@@ -27,7 +27,7 @@ export default {
   computed: {
     isRequired() {
       if (this.question.mandatory) return "required";
-      return "";  
+      return "";
     }
   },
 
@@ -40,33 +40,40 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/scss/variables.scss";
 
-  .inputfield-row {
-    list-style-type: none;
-    span {
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 16px;
+.inputfield-row {
+  list-style-type: none;
+  span {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  input {
+    display: block;
+    width: 400px;
+    padding: 5px 10px;
+    @include breakpoint(mob) {
+      width: 300px;
     }
-    input {
-      display: block;
-      width: 400px;
-      padding: 5px 10px;
-    }
-    select {
-      width: 420px;
-      display: block;
-    }
-    span,
-    input,
-    select {
-      font-size: 16px;
-      border: 0;
-    }
-    input[type="text"],
-    select {
-      border: 0;
-      border-bottom: 1px solid #939393;
+    @include breakpoint(mob-sm) {
+      width: 240px;
     }
   }
+  select {
+    width: 420px;
+    display: block;
+  }
+  span,
+  input,
+  select {
+    font-size: 16px;
+    border: 0;
+  }
+  input[type="text"],
+  select {
+    border: 0;
+    border-bottom: 1px solid $gray;
+  }
+}
 </style>
