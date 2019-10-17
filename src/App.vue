@@ -31,6 +31,10 @@ export default {
 @import "assets/scss/base.scss";
 @import "assets/scss/swal-popup.scss";
 
+body {
+  background-color: $blue-light;
+}
+
 #app {
   font-family: $font-primary;
   -webkit-font-smoothing: antialiased;
@@ -58,7 +62,7 @@ export default {
 
 .content--wrapper {
   max-width: 1421px;
-  padding: 33px 20px 0;
+  padding: 33px 20px 50px;
   margin: 0 auto 0 340px;
   @include breakpoint(htab) {
     margin-left: 220px;

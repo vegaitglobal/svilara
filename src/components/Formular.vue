@@ -92,7 +92,7 @@ export default {
       line-height: 23px;
     }
     .question {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       h5 {
         margin-bottom: 15px;
       }
@@ -106,9 +106,6 @@ export default {
   ul {
     list-style: decimal;
     list-style-position: inside;
-  }
-  .inputfield-row {
-    margin-bottom: 25px;
   }
 }
 </style>

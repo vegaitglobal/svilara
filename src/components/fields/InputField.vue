@@ -44,6 +44,7 @@ export default {
 
 .inputfield-row {
   list-style-type: none;
+  margin-bottom: 10px;
   span {
     display: inline-block;
     margin-bottom: 10px;
@@ -52,7 +53,7 @@ export default {
   input {
     display: block;
     width: 400px;
-    padding: 5px 10px;
+    padding: 10px;
     @include breakpoint(mob) {
       width: 300px;
     }
@@ -63,17 +64,22 @@ export default {
   select {
     width: 420px;
     display: block;
+    padding: 10px;
+    & + input {
+        margin-top: 15px;
+    }
   }
   span,
   input,
   select {
     font-size: 16px;
-    border: 0;
   }
   input[type="text"],
   select {
+    border: 1px solid $gray;
+  }
+  input[type="file"] {
     border: 0;
-    border-bottom: 1px solid $gray;
   }
 }
 </style>

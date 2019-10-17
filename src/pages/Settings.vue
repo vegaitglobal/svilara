@@ -50,6 +50,7 @@ h3 {
         input {
             margin-right: 10px;
             width: 90%;
+            padding: 10px;
         }
         button {
             margin-right: 10px;

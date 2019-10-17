@@ -87,11 +87,13 @@ textarea {
     resize: vertical;
 }
 
-input {
-    border-radius: 0;
+input,
+select {
     border: 1px solid $gray;
-    // -webkit-appearance: none;
-    // -moz-appearance: none;
+}
+
+input:disabled {
+    background-color: $gray-light;
 }
 
 /**

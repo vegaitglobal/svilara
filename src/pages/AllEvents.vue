@@ -75,9 +75,8 @@ export default {
   }
   input {
     font-size: 16px;
-    border: 0;
-    border-bottom: 1px solid $gray;
-    padding: 5px;
+    border: 1px solid $gray;
+    padding: 10px;
     width: 300px;
   }
 }

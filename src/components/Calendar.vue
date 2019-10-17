@@ -203,37 +203,9 @@ export default {
   }
 }
 .new-event-modal {
-  .v--modal-box {
-    overflow: auto;
-    .inputfield-row {
-      list-style-type: decimal;
-      margin-bottom: 20px;
-      span {
-        display: inline-block;
-        margin-bottom: 10px;
-        font-size: 16px;
-      }
-      input {
-        display: block;
-        width: 400px;
-        padding: 5px 10px;
-      }
-      select {
-        width: 420px;
-        display: block;
-      }
-      span,
-      input,
-      select {
-        font-size: 16px;
-        border: 0;
-      }
-      input[type="text"],
-      select {
-        border: 0;
-        border-bottom: 1px solid $gray;
-      }
-    }
+  .inputfield-row {
+    list-style-type: decimal;
+    margin-bottom: 20px;
   }
 }
 </style>

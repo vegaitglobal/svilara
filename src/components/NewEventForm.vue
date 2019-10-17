@@ -229,7 +229,6 @@ export default {
   .form-wrapper {
     .inputfield-row {
       list-style-type: decimal;
-      margin-bottom: 20px;
     }
   }
 }
