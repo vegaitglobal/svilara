@@ -305,6 +305,7 @@ export default {
     padding: 0;
     margin-top: 17px;
     font-size: 14px;
+    line-height: 20px;
   }
   label {
     &:before {
@@ -317,6 +318,16 @@ export default {
       background: $white;
       border: 1px solid $gray;
       border-radius: 2px;
+    }
+  }
+  .radio-btn label {
+    &::before {
+      display: none;
+    }
+  }
+  .check-box label {
+    &::before {
+      display: none;
     }
   }
 }

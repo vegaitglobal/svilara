@@ -10,8 +10,9 @@
             @change="onChange($event)"
             :name="value"
             :data-value="value"
+            :id="value"
           />
-          {{value}}
+          <label :for="value">{{value}}</label>
           <input
             v-if="value.toLowerCase() == 'other:'"
             type="text"
@@ -90,5 +91,8 @@ export default {
   .check-box {
     list-style-type: none;
     margin-bottom: 5px;
+    input {
+        margin-right: 10px;
+    }
   }
 </style>

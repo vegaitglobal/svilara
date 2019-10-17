@@ -11,7 +11,7 @@
             :name="question.id"
             :id="value"
           />
-          {{value}}
+          <label :for="value">{{value}}</label>
           <input
             v-if="value.toLowerCase() == 'other:'"
             type="text"
@@ -41,7 +41,7 @@ export default {
     onChange(event) {
       var isChecked = event.target.checked;
       var answer = event.target.id;
-      
+
       if (event.target.type == "text") {
         answer = event.target.value;
       }
@@ -59,7 +59,8 @@ export default {
   .radio-btn {
     list-style-type: none;
     margin-bottom: 5px;
+    input {
+        margin-right: 10px;
+    }
   }
-
-
 </style>
