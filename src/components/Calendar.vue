@@ -9,7 +9,8 @@
       :displayEventEnd="true"
     />
 
-    <modal name="modalEventEdit" height="600" width="830" class="new-event-modal">
+    <modal name="modalEventEdit" height="600" width="700" class="new-event-modal">
+      <button type="button" class="btn btn__close" @click="closeModal"></button>
       <div class="modal-wrapper">
         <h1>Promeni informacije o programu</h1>
         <ol>
@@ -148,7 +149,9 @@ export default {
       this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps)) ;
       this.$modal.show("modalEventEdit");
     },
-
+    closeModal() {
+      this.$modal.hide("modalEventEdit");
+    },
     async updateEvent(){
       try {
         const form = new FormData()

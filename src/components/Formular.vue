@@ -85,8 +85,10 @@ export default {
     overflow-y: auto !important;
     overflow-x: hidden;
     @include breakpoint(vtab) {
-      left: auto !important;
-      padding: 30px;
+      padding: 35px 30px;
+    }
+    @include breakpoint(mob-sm) {
+      top: 0 !important;
     }
     h5 {
       line-height: 23px;
@@ -100,6 +102,15 @@ export default {
     input[type="checkbox"],
     input[type="radio"] {
       list-style-type: none !important;
+    }
+    .btn__close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      @include breakpoint(vtab) {
+        top: 12px;
+        right: 20px;
+      }
     }
   }
   ol,

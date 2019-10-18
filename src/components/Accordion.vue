@@ -32,14 +32,6 @@
         </div>
       </badger-accordion-item>
     </badger-accordion>
-
-    <modal name="explanationModal" height="600" width="830">
-      <div class="explanation-modal text-center">
-        <h1>Objašnjenje</h1>
-        <p>Objašnjenje zašto je (nije) prihvaćen događaj.</p>
-        <button type="submit" class="btn btn__purple btn__large">Sačuvaj</button>
-      </div>
-    </modal>
   </div>
 </template>
 

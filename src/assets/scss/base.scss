@@ -93,6 +93,31 @@ i {
             background-color: rgba($green, 0.6);
         }
     }
+    &.btn__close {
+        color: $gray;
+        min-width: 0;
+        background-color: transparent;
+        height: 20px;
+        &::before,
+        &::after {
+            position: absolute;
+            left: 9px;
+            top: 0;
+            content: ' ';
+            height: 20px;
+            width: 2px;
+            background-color: $gray-dark;
+            @include breakpoint(vtab) {
+                height: 15px;
+            }
+        }
+        &:before {
+            transform: rotate(45deg);
+          }
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
 }
 
 a.btn {

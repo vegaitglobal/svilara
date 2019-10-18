@@ -64,7 +64,8 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="600" width="830" overlayTransition="overlay-fade">
+    <modal name="userCreateEventModal" height="600" width="700" overlayTransition="overlay-fade">
+      <button type="button" class="btn btn__close" @click="closeModal"></button>
       <div class="tc-modal" v-if="page==1">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg / Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
@@ -154,6 +155,9 @@ export default {
       this.terms1accepted = false;
       this.terms2accepted = false;
       this.$modal.show("userCreateEventModal");
+    },
+    closeModal() {
+      this.$modal.hide("userCreateEventModal");
     },
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) return;
@@ -262,10 +266,10 @@ export default {
     }
   }
 }
-
 .tc-modal {
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
   h1 {
     margin-bottom: 40px;
   }
@@ -278,14 +282,13 @@ export default {
     padding-top: 25px;
     display: grid;
   }
-  button {
+  .btn__purple {
     margin-top: 20px;
   }
   .tc-modal-checkbox {
     position: absolute;
     opacity: 0;
   }
-
   .tc-modal-checkbox:checked + label:after {
     content: "";
     position: absolute;
