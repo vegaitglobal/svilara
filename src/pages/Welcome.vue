@@ -5,7 +5,7 @@
     <EventHeadline/>
     <div class="daily-event-wrap">
       <DailyEvent :key="event.id" v-for="(event, index) in events" :event="event"/>
-      <h3 v-if="events.length == 0"> Trenutno nema rezultata za odabrani period.</h3>
+      <h3 v-if="events.length == 0"> Nema rezultata</h3>
     </div>
   </div>
 </template>

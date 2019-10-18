@@ -92,11 +92,11 @@
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa</span>
-            <input type="datetime-local" v-model="selectedEvent.startTime" />
+            <input type="text" v-model="selectedEvent.startTime" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
-            <input type="datetime-local" v-model="selectedEvent.endTime" />
+            <input type="text" v-model="selectedEvent.endTime" />
           </li>
         </ol>
       </div>

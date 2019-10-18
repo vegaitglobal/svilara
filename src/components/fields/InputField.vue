@@ -80,6 +80,17 @@ export default {
   }
   input[type="file"] {
     border: 0;
+    cursor: pointer;
   }
+}
+select {
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    appearance:none;
+    background: url('../../assets/img/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-size: 4%;
+    background-position: 98% 50%;
+    cursor: pointer;
 }
 </style>

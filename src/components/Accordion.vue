@@ -114,7 +114,7 @@ export default {
 }
 .badger-accordion__panel {
   padding: 0 20px;
-  overflow: auto;
+  overflow: hidden;
   .js-badger-accordion-panel-inner > div {
     padding: 20px 0;
   }

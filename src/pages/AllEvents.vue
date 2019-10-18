@@ -116,18 +116,31 @@ select.form-control {
   justify-content: center;
   margin: 30px 0 10px;
   li {
-    margin: 0 10px;
     a {
       text-decoration: none;
       color: $gray-dark;
       font-size: 15px;
       font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid $purple-light;
+      margin-left: -1px;
       &.active {
-        color: $purple;
+        color: $white;
+        background-color: $purple;
+        border-color: $purple;
+        &:hover {
+            background-color: $purple;
+        }
       }
       &[disabled] {
         color: $gray;
-        cursor: default;
+        cursor: not-allowed;
+        &:hover {
+            background-color: $white;
+        }
+      }
+      &:hover {
+        background-color: $gray-light;
       }
     }
   }

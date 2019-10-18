@@ -89,11 +89,11 @@
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa</span>
-            <input v-model="event.startTime" type="datetime-local" />
+            <input v-model="event.startTime" type="text" />
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa</span>
-            <input v-model="event.endTime" type="datetime-local" />
+            <input v-model="event.endTime" type="text" />
           </li>
         </ol>
       </div>
