@@ -5,8 +5,10 @@
       :plugins="calendarPlugins"
       :events="events"
       @eventClick="eventClicked"
-      locale="sr"
+      locale="sr-ME"
       :displayEventEnd="true"
+      :firstDay=1
+      :fixedWeekCount=false
     />
 
     <modal name="modalEventEdit" height="600" width="700" class="new-event-modal">
@@ -188,7 +190,6 @@ export default {
     logoChange(event){
         this.event.logo = event.target.files[0]
     },
-
     imageChange(event){
         this.event.picture = event.target.files[0]
     }
