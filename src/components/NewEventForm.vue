@@ -155,21 +155,21 @@ export default {
         if (res.data.success) {
           this.$swal.fire({
             type: "success",
-            title: "Success",
-            text: "Event created!"
+            title: "Prihvaćeno",
+            text: "Događaj je kreiran!"
           });
         }else{
            this.$swal.fire({
             type: "warning",
-            title: "Error",
+            title: "Greška",
             text: `${res.data.error.msg}`
           });
         }
       } catch (err) {
         this.$swal.fire({
           type: "error",
-          title: "Error",
-          text: "Something went wrong! Try again!"
+          title: "Greška",
+          text: 'Nešto nije u redu. Probajte ponovo!'
         });
       }
     },

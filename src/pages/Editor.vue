@@ -54,6 +54,12 @@ export default {
         .catch(err => {
           console.log(err);
         });
+
+        this.$swal
+        .fire({
+          title: "Stranica je kreirana",
+          type: "success"
+        })
     }
   }
 };

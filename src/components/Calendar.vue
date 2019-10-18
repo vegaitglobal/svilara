@@ -9,6 +9,7 @@
       :displayEventEnd="true"
       :firstDay=1
       :fixedWeekCount=false
+      timeZone=UTC
     />
 
     <modal name="modalEventEdit" height="600" width="700" class="new-event-modal">
@@ -164,8 +165,8 @@ export default {
         if (res.data.success) {
           this.$swal.fire({
             type: "success",
-            title: "Success",
-            text: "Event created!"
+            title: "Prihvaćeno",
+            text: "Događaj je promenjen!"
           }).then(res => {
             if(res.value){
               this.$modal.hide("modalEventEdit");
@@ -175,15 +176,15 @@ export default {
         } else{
            this.$swal.fire({
             type: "warning",
-            title: "Error",
+            title: "Greška",
             text: `${res.data.error.msg}`
           });
         }
       } catch(err){
         this.$swal.fire({
           type: "error",
-          title: 'Error',
-          text: 'Something went wrong! Try again!'
+          title: 'Greška',
+          text: 'Nešto nije u redu. Probajte ponovo!'
         })
       }
     },

@@ -80,6 +80,11 @@ export default {
     width: 300px;
   }
 }
+.VueTables__limit-field {
+  select {
+    padding: 5px;
+  }
+}
 .table-responsive {
     overflow: auto;
 }
