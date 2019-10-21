@@ -105,7 +105,7 @@ export default {
     }
     .btn__close {
       position: absolute;
-      top: 20px;
+      top: 30px;
       right: 30px;
       @include breakpoint(vtab) {
         top: 12px;

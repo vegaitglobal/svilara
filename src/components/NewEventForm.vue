@@ -155,8 +155,7 @@ export default {
         if (res.data.success) {
           this.$swal.fire({
             type: "success",
-            title: "Prihvaćeno",
-            text: "Događaj je kreiran!"
+            title: "Događaj je promenjen!"
           });
         }else{
            this.$swal.fire({

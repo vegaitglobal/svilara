@@ -10,6 +10,7 @@
       :firstDay=1
       :fixedWeekCount=false
       timeZone=UTC
+      :buttonText="{today: 'Danas'}"
     />
 
     <modal name="modalEventEdit" height="600" width="700" class="new-event-modal">
@@ -165,8 +166,7 @@ export default {
         if (res.data.success) {
           this.$swal.fire({
             type: "success",
-            title: "Prihvaćeno",
-            text: "Događaj je promenjen!"
+            title: "Događaj je promenjen!"
           }).then(res => {
             if(res.value){
               this.$modal.hide("modalEventEdit");
