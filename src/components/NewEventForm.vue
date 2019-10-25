@@ -155,9 +155,9 @@ export default {
         if (res.data.success) {
           this.$swal.fire({
             type: "success",
-            title: "Događaj je promenjen!"
+            title: "Događaj je kreiran!"
           });
-        }else{
+        } else {
            this.$swal.fire({
             type: "warning",
             title: "Greška",

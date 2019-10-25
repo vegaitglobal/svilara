@@ -109,7 +109,7 @@ export default {
       right: 30px;
       @include breakpoint(vtab) {
         top: 12px;
-        right: 20px;
+        right: 15px;
       }
     }
   }

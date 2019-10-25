@@ -41,18 +41,18 @@ export default {
 .date-picker {
   color: $purple;
   &--val {
-    font-size: 18px;
-    line-height: 24px;
-    vertical-align: top;
+    font-size: 25px;
+    vertical-align: 10%;
+    font-weight: 600;
+    min-width: 185px;
+    display: inline-block;
+    text-align: center;
   }
   &--ico.material-design-icon {
     cursor: pointer;
-    font-size: 20px;
-    @include breakpoint(mob) {
-      font-size: 30px;
-      height: 24px;
-      width: 30px;
-    }
+    font-size: 30px;
+    height: 24px;
+    width: 30px;
   }
 }
 
