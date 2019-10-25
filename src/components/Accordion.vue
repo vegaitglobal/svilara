@@ -9,15 +9,15 @@
             <span>{{event.startTime}}</span>
           </div>
           <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
-            <check class="ico accepted" />
+            <check class="ico accepted" title=""/>
           </span>
 
           <span v-if="event.status == 'pending'" data-tooltip="Na čekanju">
-            <timer-sand-empty class="ico pending" />
+            <timer-sand-empty class="ico pending" title=""/>
           </span>
 
           <span v-if="event.status == 'declined'" data-tooltip="Odbijen">
-            <close class="ico declined" />
+            <close class="ico declined" title=""/>
           </span>
         </div>
         <div slot="content">

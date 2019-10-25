@@ -1,8 +1,8 @@
 <template>
     <div class="date-picker">
-        <chevron-left-icon @click="decMonth" class="date-picker--ico"/>
+        <chevron-left-icon @click="decMonth" class="date-picker--ico" title=""/>
         <span class="date-picker--val">{{selectedMonth}}</span>
-        <chevron-right-icon @click="incMonth" class="date-picker--ico"/>
+        <chevron-right-icon @click="incMonth" class="date-picker--ico" title=""/>
     </div>
 </template>
 

@@ -15,37 +15,37 @@
     <div class="daily-event__bottom">
       <div class="daily-event__bottom--icons">
         <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
-          <currency-usd-off class="daily-event__bottom--icons-ico" />
+          <currency-usd-off class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-else data-tooltip="Ulaz se naplaćuje">
           <currency-usd class="daily-event__bottom--icons-ico" />
         </span>
         <span v-if="event.category=='izlozba'" data-tooltip="Izložba">
-          <palette class="daily-event__bottom--icons-ico" />
+          <palette class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='muzicki'" data-tooltip="Muzički program">
-          <music class="daily-event__bottom--icons-ico" />
+          <music class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='igranka'" data-tooltip="Igranka">
-          <human-handsup class="daily-event__bottom--icons-ico" />
+          <human-handsup class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='audiovideo'" data-tooltip="Audio-vizuelni program">
-          <video-vintage class="daily-event__bottom--icons-ico" />
+          <video-vintage class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='festival'" data-tooltip="Festival">
-          <castle class="daily-event__bottom--icons-ico" />
+          <castle class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='predstava'" data-tooltip="Predstava">
-          <drama-masks class="daily-event__bottom--icons-ico" />
+          <drama-masks class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='radionica'" data-tooltip="Radionica">
-          <hammer class="daily-event__bottom--icons-ico" />
+          <hammer class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.category=='predavanja'" data-tooltip="Predavanje">
-          <script-text-outline class="daily-event__bottom--icons-ico" />
+          <script-text-outline class="daily-event__bottom--icons-ico" title=""/>
         </span>
         <span v-if="event.type=='otvorensp'" data-tooltip="Potrebna prijava">
-          <file-document-box-plus-outline class="daily-event__bottom--icons-ico" />
+          <file-document-box-plus-outline class="daily-event__bottom--icons-ico" title=""/>
         </span>
       </div>
       <router-link
@@ -228,7 +228,8 @@ export default {
     width: 100px;
     text-align: center;
   }
-  &:hover::before {
+  &:hover::before,
+  &:active::before {
     transform: translateX(-50%) scale(1);
   }
 }
