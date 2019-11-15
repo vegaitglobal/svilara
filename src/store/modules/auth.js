@@ -60,6 +60,25 @@ export default {
           });
       });
     },
+    forgot({ commit }, { email }) {
+      if (email) email = email.trim();
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_BASE_URL}/auth/forgot`, {
+            email: email,
+          })
+          .then(response => {
+            console.log(response);
+            //commit('SET_USER', response.data.user);
+            commit("SET_TOKEN", response.data.token);
+            resolve(response);
+          })
+          .catch(error => {
+            console.log(error);
+            reject(error);
+          });
+      });
+    },
 
     logout({ commit }) {
       return new Promise((resolve, reject) => {
@@ -113,8 +132,26 @@ export default {
               password: data.password,
               password_confirmation: data.password_confirmation,
               old_password: data.old_password
-            },
-            { withCredentials: true }
+            }
+          )
+          .then(response => {
+            resolve(response);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    },
+    resetForgotPassword({ commit }, data) {  //only reset function that is used
+      console.log(`${process.env.VUE_APP_BASE_URL}/auth/reset-password/${data.userId}/${data.token}`);
+      return new Promise((resolve, reject) => {
+        axios
+          .put(
+            `${process.env.VUE_APP_BASE_URL}/auth/reset-password/${data.userId}/${data.token}`,
+            {
+              password: data.password,
+              password_confirmation: data.password_confirmation,
+            }
           )
           .then(response => {
             resolve(response);

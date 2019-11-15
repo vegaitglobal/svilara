@@ -41,5 +41,28 @@ export default {
                 return err
             }
         },
+       
+        async acceptEvent({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${id}`)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        },
+        async rejectEvent({ commit }, id) {
+            return new Promise((resolve, reject) => {
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/reject/${id}`)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
+        }
     }
 }

@@ -4,30 +4,47 @@
       <badger-accordion-item>
         <div slot="header">
           <div>
-            <span>{{event.id}}</span>,
-            <span>{{event.contactEmail}}</span>,
-            <span>{{event.startTime}}</span>
+            <span>{{ event.id }}</span
+            >, <span>{{ event.contactEmail }}</span
+            >,
+            <span>{{ event.startTime }}</span>
           </div>
           <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
-            <check class="ico accepted" title=""/>
+            <check class="ico accepted" title="" />
           </span>
 
           <span v-if="event.status == 'pending'" data-tooltip="Na čekanju">
-            <timer-sand-empty class="ico pending" title=""/>
+            <timer-sand-empty class="ico pending" title="" />
           </span>
 
           <span v-if="event.status == 'declined'" data-tooltip="Odbijen">
-            <close class="ico declined" title=""/>
+            <close class="ico declined" title="" />
           </span>
         </div>
         <div slot="content">
-          <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
-            {{row.question.id}}. {{row.question.text}}:
-            <span class="replies__answer">{{row.answers}}</span>
+          <div
+            class="replies"
+            v-for="(row, index) in JSON.parse(event.formAnswers)"
+            :key="index"
+          >
+            {{ row.question.id }}. {{ row.question.text }}:
+            <span class="replies__answer">{{ row.answers }}</span>
           </div>
           <div class="button-wrapper">
-            <button type="button" class="btn btn__green">Prihvati</button>
-            <button type="button" class="btn btn__red">Odbij</button>
+            <button
+              type="button"
+              class="btn btn__green"
+              @click.prevent="acceptEvent"
+            >
+              Prihvati
+            </button>
+            <button
+              type="button"
+              class="btn btn__red"
+              @click.prevent="rejectEvent"
+            >
+              Odbij
+            </button>
           </div>
         </div>
       </badger-accordion-item>
@@ -50,7 +67,50 @@ export default {
     Check,
     TimerSandEmpty,
     Close
-  }
+  },
+   methods: {
+    async acceptEvent() {
+      try {
+        let vm = this;
+        let response = await this.$store.dispatch("acceptEvent", this.event.id);
+        //console.log(JSON.stringify(response.data.msg))
+        this.$swal({
+            type: "success",
+            title: "Prihvaćeno",
+            text: response.data.msg
+          });
+      } catch (err) {
+      //console.log(JSON.stringify(err))
+      this.$swal({
+            type: "error",
+            title: "Oops...",
+            text: err.response.data.error
+          });
+        this.error = err.response.data;
+      }
+    },
+    async rejectEvent() {
+      try {
+        let vm = this;
+        let response = await this.$store.dispatch("rejectEvent", this.event.id);
+        console.log(JSON.stringify(response))
+        this.$swal({
+            type: "success",
+            title: "Odbijeno",
+            text: response.data.msg
+          });
+      } catch (err) {
+      console.log(JSON.stringify(err))
+       this.$swal({
+            type: "error",
+            title: "Oops...",
+            text: err.response.data.error
+          });
+        this.error = err.response.data;
+      }
+      
+    }
+   }
 };
 </script>
 

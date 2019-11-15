@@ -9,6 +9,7 @@ import Register from "@/pages/Register.vue";
 import VerifyEmail from "@/pages/VerifyEmail.vue";
 import Logout from "@/pages/Logout.vue";
 import ResetPasswordEmail from "@/pages/ResetPasswordEmail.vue";
+import ForgotPassword from "@/pages/ForgotPassword.vue";
 import Settings from "@/pages/Settings.vue";
 
 const routes = [
@@ -25,12 +26,24 @@ const routes = [
   {
     path: "/admin/login",
     component: Login,
-    name: "Login"
+    name: "Login",
+    meta: {
+      guest: true
+    }
+  },
+  {
+    path: "/admin/forgot-password",
+    component: ForgotPassword,
+    name: "ForgotPassword"
   },
   {
     path: "/admin",
     component: Admin,
-    name: "Admin"
+    name: "Admin",
+    meta: {
+      requiresAuth: true,
+      is_admin: true
+    }
   },
   {
     path: "/admin/editor/:id",
@@ -63,7 +76,7 @@ const routes = [
     name: "VerifyEmail"
   },
   {
-    path: "/admin/reset-password/:token",
+    path: "/admin/reset-password/:id/:token",
     component: ResetPasswordEmail,
     name: "ResetPasswordEmail"
   },

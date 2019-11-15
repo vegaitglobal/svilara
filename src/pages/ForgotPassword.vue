@@ -1,11 +1,9 @@
 <template>
   <div id="login">
     <Sidebar />
-    <h1>Login</h1>
+    <h1>Forgot password</h1>
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
-    <input type="password" name="password" v-model="credentials.password" placeholder="Password" />
-    <button type="submit" class="btn btn__purple btn__large" @click.prevent="submit">Login</button>
-    <button @click.prevent="redirectToForgotPasssword">Forgot password</button>
+    <button type="button" class="btn btn__purple btn__large" @click.prevent="sendEmail">Reset password</button>
   </div>
 </template>
 
@@ -13,37 +11,48 @@
 import Sidebar from "../components/Sidebar.vue";
 
 export default {
-  name: "Login",
+  name: "ForgotPassword",
   components: {
     Sidebar
   },
   data() {
     return {
       credentials: {
-        email: "",
-        password: ""
+        email: ""
       }
     };
   },
   methods: {
-    async submit() {
+    async sendEmail() {
       try {
         let vm = this;
-        let response = await this.$store.dispatch("login", vm.credentials);
-       console.log(JSON.stringify(response))
+        let response = await this.$store.dispatch("forgot", vm.credentials);
+        //console.log(JSON.stringify(response))
         if (parseInt(response.status) === 200) {
-          this.$router.push("/admin");
+          console.log('forgot successful')
+           this.$swal({
+            type: "success",
+            title: "Uspešno...",
+            text: "Molimo Vas da pogledate Vaš mejl i da kliknete na poslati link da biste nastavili."
+          });
         }
       } catch (err) {
-       console.log(JSON.stringify(err))
-        if (parseInt(err.response.status) === 400) {
-          
-          this.$swal({
+       if (parseInt(err.response.status) === 404){
+           console.log(err.response.data.error);
+            this.$swal({
             type: "error",
             title: "Oops...",
             text: err.response.data.error
           });
-        } 
+       }
+        //if (parseInt(err.response.status) === 400) {
+          
+          //this.$swal({
+           // type: "error",
+           // title: "Oops...",
+           // text: err.response.data.error
+         // });
+       // } 
         //else if (parseInt(err.response.status) === 401) {
           //this.$swal({
            // type: "error",
@@ -54,9 +63,6 @@ export default {
         this.error = err.response.data;
       }
     },
-    redirectToForgotPasssword() {
-      this.$router.push("/admin/forgot-password");
-    }
   }
 };
 </script>
