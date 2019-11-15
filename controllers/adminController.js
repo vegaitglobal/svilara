@@ -310,9 +310,9 @@ exports.deleteEvent = async (req, res) => {
 
 // ACCEPT EVENT
 exports.acceptEvent = async (req, res) => {
-  let explanation = req.body.explanation;
+  //let explanation = req.body.explanation;
   //let email = req.body.email;
-  let email = "zeka035@gmail.com";
+  let email = "lukicbiljana54@gmail.com";
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "accepted" },
@@ -323,24 +323,28 @@ exports.acceptEvent = async (req, res) => {
       }
     )
   );
+  
   if (err) {
-    return ReE(res, {
-      msg: "Something went wrong"
-    });
+    return ReE(res, "Zahtev nije uspešno prihvaćen.", 400);
+  }
+
+  if (dbUpdated[0] === 0) {
+    return ReE(res, "Zahtev nije pronađen.", 404);
   }
 
   let mailData = {
     from: "Svilara <svilara@test.com>",
     to: email,
-    subject: "Zahtev Prihvacen",
-    text: explanation
+    subject: "Zahtev Prihvaćen",
+    text: 'Vas zahtev je prihvaćen.'
+    //text: explanation
   };
 
   mailgun.messages().send(mailData, function(error, body) {
-    if (error) return console.log(error);
+    if (error) return ReE(res, "Mail nije uspešno poslat.", 400);
     console.log(body);
     return ReS(res, {
-      msg: "Accepted successfully."
+      msg: "Uspešno prihvaćeno."
     });
   });
 };
@@ -348,7 +352,7 @@ exports.acceptEvent = async (req, res) => {
 // REJECT EVENT
 exports.rejectEvent = async (req, res) => {
   let explanation = req.body.explanation;
-  let email = "zeka035@gmail.com";
+  
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "rejected" },
@@ -359,23 +363,29 @@ exports.rejectEvent = async (req, res) => {
       }
     )
   );
+  
+  
   if (err) {
-    return ReE(res, {
-      msg: "Something went wrong"
-    });
+    return ReE(res, "Zahtev nije uspešno odbijen.", 400);
   }
+  
+  if (dbUpdated[0] === 0) {
+    return ReE(res, "Zahtev nije pronađen.", 404);
+  }
+
+  let email = "lukicbiljana54@gmail.com"; // ovde ce biti mail od svilare kao podsetnik da posalju obrazlozenje za odbijanje
   let mailData = {
     from: "Svilara <svilara@test.com>",
     to: email,
     subject: "Zahtev Odbijen",
-    text: explanation
+    text: 'Vas zahtev je odbijen'
   };
 
   mailgun.messages().send(mailData, function(error, body) {
-    if (error) return console.log(error);
+    if (error) return ReE(res, "Podsetnik nije uspešno poslat na mail adresu.", 400);
     console.log(body);
     return ReS(res, {
-      msg: "Rejected successfully."
+      msg: "Uspešno odbijeno."
     });
   });
 };
