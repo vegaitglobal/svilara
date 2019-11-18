@@ -56,6 +56,7 @@ exports.createEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Something went wrong!" });
     }
+    console.log(fields.startTime)
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -147,6 +148,7 @@ exports.updateEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Something went wrong!" });
     }
+    console.log("fields" +JSON.stringify(fields))
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -158,7 +160,7 @@ exports.updateEvent = async function(req, res) {
     let socialMedia = fields.socialMedia;
     let age = fields.age;
 
-    let validatorMessage = validateEvent(req.body);
+    let validatorMessage = validateEvent(fields);
     console.log(validatorMessage);
     if (validatorMessage) {
       return ReE(res, {
@@ -649,6 +651,7 @@ function validateQuestion(body) {
 
 function validateEvent(body) {
   if (!body.title || validator.isEmpty(body.title)) {
+    console.log(JSON.stringify(body))
     return "Title is required";
   }
 

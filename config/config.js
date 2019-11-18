@@ -8,7 +8,8 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    operatorsAliases: false
+    operatorsAliases: false,
+    //timezone: process.env.DB_TIMEZONE
   },
   test: {
     username: process.env.DB_USER,
@@ -16,7 +17,8 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    operatorsAliases: false
+    operatorsAliases: false,
+    //timezone: process.env.DB_TIMEZONE
   },
   production: {
     username: process.env.DB_USER,
@@ -24,6 +26,7 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
-    operatorsAliases: false
+    operatorsAliases: false,
+    //timezone: process.env.DB_TIMEZONE
   }
 };

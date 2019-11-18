@@ -15,6 +15,18 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
     port: process.env.DB_PORT,
+    
+    dialectOptions: {
+    // typeCast: function (field, next) { // for reading from database
+    //   if (field.type === 'DATETIME') {
+    //     return field.string()
+    //   }
+    //     return next()
+    //   },
+      timezone: 'Z',
+   }
+     
+   ,
     define: {
       charset: process.env.DB_CHARSET,
       collate: process.env.DB_COLLATE
