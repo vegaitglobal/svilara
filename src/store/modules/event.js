@@ -134,6 +134,7 @@ export default {
     },
 
     SET_ADMIN_EVENTS(state, events) {
+      console.log(events);
       state.adminEvents = events;
     },
 
@@ -251,6 +252,7 @@ export default {
     },
 
     async fetchAdminEvents({ commit }) {
+      console.log('usao u feth')
       try {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`

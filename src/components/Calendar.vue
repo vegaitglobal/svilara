@@ -7,13 +7,17 @@
       @eventClick="eventClicked"
       locale="sr-ME"
       :displayEventEnd="true"
-      :firstDay=1
-      :fixedWeekCount=false
-      timeZone=UTC
-      :buttonText="{today: 'Danas'}"
+      :firstDay="1"
+      :fixedWeekCount="false"
+      :buttonText="{ today: 'Danas' }"
     />
-
-    <modal name="modalEventEdit" height="600" width="700" class="new-event-modal">
+    <!--timeZone=UTC-->
+    <modal
+      name="modalEventEdit"
+      height="600"
+      width="700"
+      class="new-event-modal"
+    >
       <button type="button" class="btn btn__close" @click="closeModal"></button>
       <div class="modal-wrapper">
         <h1>Promeni informacije o programu</h1>
@@ -40,8 +44,12 @@
           <li class="inputfield-row">
             <span>Status programa</span>
             <select v-model="selectedEvent.type">
-              <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
-              <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
+              <option value="otvorenbp"
+                >Otvoren program (slobodan ulaz bez prijave)</option
+              >
+              <option value="otvorensp"
+                >Otvoren program (slobodan ulaz sa prijavom)</option
+              >
               <option value="zatvoren">Zatvoren program</option>
             </select>
           </li>
@@ -78,7 +86,7 @@
               <option value="drugo">Drugo</option>
             </select>
 
-            <input type="text" v-if="selectedEvent.space=='drugo'" />
+            <input type="text" v-if="selectedEvent.space == 'drugo'" />
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
@@ -96,16 +104,26 @@
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Vreme početka programa</span>
-            <input type="text" v-model="selectedEvent.startTime" />
+            <span>Datum početka programa (npr: 29.11.2019.)</span>
+            <input type="text" v-model="startDate" />
           </li>
           <li class="inputfield-row">
-            <span>Vreme kraja programa</span>
-            <input type="text" v-model="selectedEvent.endTime" />
+            <span>Vreme početka programa (npr: 20:00)</span>
+            <input type="text" v-model="startTime" />
+          </li>
+          <li class="inputfield-row">
+            <span>Datum kraja programa (npr: 29.11.2019)</span>
+            <input type="text" v-model="endDate" />
+          </li>
+          <li class="inputfield-row">
+            <span>Vreme kraja programa (npr: 22:00)</span>
+            <input type="text" v-model="endTime" />
           </li>
         </ol>
       </div>
-      <button @click="updateEvent" class="btn btn__purple btn__large">Sačuvaj</button>
+      <button @click="updateEvent" class="btn btn__purple btn__large">
+        Sačuvaj
+      </button>
     </modal>
   </div>
 </template>
@@ -136,7 +154,11 @@ export default {
         endTime: "",
         picture: "",
         logo: ""
-      }
+      },
+      startDate: "",
+      startTime: "",
+      endDate: "",
+      endTime: ""
     };
   },
   created() {
@@ -150,49 +172,80 @@ export default {
   },
   methods: {
     eventClicked(info) {
-      this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps)) ;
+      this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps));
+
+      let dateStart = new Date(this.selectedEvent.startTime);
+      let dateEnd = new Date(this.selectedEvent.endTime);
+      this.startDateTime = dateStart.toLocaleString('sr-ME');
+      let arraystartDateTime = this.startDateTime.split(" ");
+      this.startDate = arraystartDateTime[0];
+      this.startTime = arraystartDateTime[1];
+      let startTime = this.startTime.split(":");
+      this.startTime = startTime[0] + ":" + startTime[1]
+
+      this.endDateTime = dateEnd.toLocaleString('sr-ME');
+      let arrayEndDateTime = this.endDateTime.split(" ");
+      this.endDate = arrayEndDateTime[0];
+      this.endTime = arrayEndDateTime[1];
+      let endTime = this.endTime.split(":");
+      this.endTime = endTime[0] + ":" + endTime[1]
+
       this.$modal.show("modalEventEdit");
     },
     closeModal() {
       this.$modal.hide("modalEventEdit");
     },
-    async updateEvent(){
+    async updateEvent() {
+      
+      let arrayEndDate =  this.endDate.split(".");
+      let arrayEndTime = this.endTime.split(":");
+      let arrayStartDate = this.startDate.split(".");
+      let arrayStartTime = this.startTime.split(":");
+    
+      this.selectedEvent.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
+      this.selectedEvent.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
+      
       try {
-        const form = new FormData()
-          for (var prop in this.selectedEvent){
-              form.append(prop, this.selectedEvent[prop])
-          }
-        const res = await this.axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`, form);
+        const form = new FormData();
+        for (var prop in this.selectedEvent) {
+          form.append(prop, this.selectedEvent[prop]);
+        }
+        const res = await this.axios.put(
+          `${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`,
+          form
+        );
         if (res.data.success) {
+          this.$swal
+            .fire({
+              type: "success",
+              title: "Događaj je promenjen!"
+            })
+            .then(res => {
+              if (res.value) {
+                this.$modal.hide("modalEventEdit");
+                this.$store.dispatch("fetchAdminEvents");
+              }
+            });
+        } else {
           this.$swal.fire({
-            type: "success",
-            title: "Događaj je promenjen!"
-          }).then(res => {
-            if(res.value){
-              this.$modal.hide("modalEventEdit");
-              this.$store.dispatch('fetchAdminEvents')
-            }
-          });
-        } else{
-           this.$swal.fire({
             type: "warning",
             title: "Greška",
             text: `${res.data.error.msg}`
           });
         }
-      } catch(err){
+      } catch (err) {
         this.$swal.fire({
           type: "error",
-          title: 'Greška',
-          text: 'Nešto nije u redu. Probajte ponovo!'
-        })
+          title: "Greška",
+          text: "Nešto nije u redu. Probajte ponovo!"
+        });
       }
     },
-    logoChange(event){
-        this.event.logo = event.target.files[0]
+    logoChange(event) {
+      this.event.logo = event.target.files[0];
     },
-    imageChange(event){
-        this.event.picture = event.target.files[0]
+    imageChange(event) {
+      this.event.picture = event.target.files[0];
     }
   }
 };

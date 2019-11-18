@@ -4,9 +4,10 @@
       <h2>Zahtevi</h2>
       <Accordion
         v-if="event.status === 'pending'"
-        v-for="(event, index) in events"
+        v-for="(event, index) in this.pendingEvents"
         :key="index"
         :event="event"
+        :index="index"
       />
       <p v-if="events.length === 0">Nema novih zahteva...</p>
     </div>
@@ -88,12 +89,20 @@
             </select>
           </li>
           <li class="inputfield-row">
-            <span>Vreme početka programa</span>
-            <input v-model="event.startTime" type="text" />
+            <span>Datum početka programa (npr: 29.11.2019.)</span>
+            <input v-model="startDate" type="text" />
           </li>
           <li class="inputfield-row">
-            <span>Vreme kraja programa</span>
-            <input v-model="event.endTime" type="text" />
+            <span>Vreme početka programa (npr: 20:00)</span>
+            <input v-model="startTime" type="text" />
+          </li>
+          <li class="inputfield-row">
+            <span>Datum kraja programa (npr: 29.11.2019.)</span>
+            <input v-model="endDate" type="text" />
+          </li>
+          <li class="inputfield-row">
+            <span>Vreme kraja programa (npr: 22:00)</span>
+            <input v-model="endTime" type="text" />
           </li>
         </ol>
       </div>
@@ -127,12 +136,26 @@ export default {
         endTime: "",
         picture: "",
         logo: ""
-      }
+      },
+      pendingEvents: [],
+      startDate: "", 
+      startTime: "",
+      endDate: "", 
+      endTime: ""
     };
   },
 
   created() {
-    this.$store.dispatch("fetchAdminEvents");
+    this.$store.dispatch("fetchAdminEvents").then((data) => {
+      let pendingEvents = [];
+      for (let i = 0; i < data.data.data.length; i++){
+        if (data.data.data[i].status == 'pending'){
+          pendingEvents.push(data.data.data[i]);
+        }
+      }
+      this.pendingEvents = pendingEvents;
+    });
+    
   },
   computed: {
     events() {
@@ -142,6 +165,15 @@ export default {
 
   methods: {
     async createEvent() {
+
+      let arrayEndDate =  this.endDate.split(".");
+      let arrayEndTime = this.endTime.split(":");
+      let arrayStartDate = this.startDate.split(".");
+      let arrayStartTime = this.startTime.split(":");
+    
+      this.event.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
+      this.event.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
+      
       try {
           const form = new FormData()
           for (var prop in this.event){

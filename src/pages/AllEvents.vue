@@ -52,6 +52,8 @@ export default {
   },
 
   created() {
+    // console.log(JSON.stringify(this.events))
+    // this.$store.dispatch("fetchAdminEvents");
     this.tableData = this.events;
   },
 
@@ -59,7 +61,12 @@ export default {
     events() {
       return this.$store.getters.getAdminEvents;
     }
-  }
+  },
+  mounted() {
+
+    //this.tableData = this.events;
+    this.$store.dispatch("fetchAdminEvents").then((data) => this.tableData = data.data.data);
+  },
 };
 </script>
 

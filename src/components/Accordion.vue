@@ -4,9 +4,9 @@
       <badger-accordion-item>
         <div slot="header">
           <div>
-            <span>{{ event.id }}</span
-            >, <span>{{ event.contactEmail }}</span
-            >,
+            <span>{{ index + 1 }}</span>. 
+            <span>{{ event.contactEmail }}</span
+            >{{event.startTime? ',' : ''}}
             <span>{{ event.startTime }}</span>
           </div>
           <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
@@ -60,7 +60,7 @@ import Close from "vue-material-design-icons/Close.vue";
 
 export default {
   name: "Accordion",
-  props: ["event"],
+  props: ["event", "index"],
   components: {
     BadgerAccordion,
     BadgerAccordionItem,
