@@ -200,7 +200,7 @@ export default {
         this.$swal.fire({
           type: "error",
           title: "Greška",
-          text: 'Nešto nije u redu. Probajte ponovo!'
+          text: err.response.data.error
         });
       }
     },

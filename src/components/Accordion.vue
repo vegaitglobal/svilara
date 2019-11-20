@@ -4,9 +4,9 @@
       <badger-accordion-item>
         <div slot="header">
           <div>
-            <span>{{ index + 1 }}</span>. 
-            <span>{{ event.contactEmail }}</span
-            >{{event.startTime? ',' : ''}}
+            <span>{{ index + 1 }}</span
+            >. <span>{{ event.contactEmail }}</span
+            >{{ event.startTime ? "," : "" }}
             <span>{{ event.startTime }}</span>
           </div>
           <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
@@ -28,7 +28,17 @@
             :key="index"
           >
             {{ row.question.id }}. {{ row.question.text }}:
-            <span class="replies__answer">{{ row.answers }}</span>
+            <span v-if="row.question.id!=19" class="replies__answer">{{ row.answers }}</span>
+            <div v-if="row.question.id==19">
+              <a  :href="pictureLink" 
+                >Kliknite da vidite sliku</a
+              >
+            </div>
+            <div v-if="row.question.id==6">
+              <a  :href="logoLink" 
+                >Kliknite da vidite logo</a
+              >
+            </div>
           </div>
           <div class="button-wrapper">
             <button
@@ -68,24 +78,36 @@ export default {
     TimerSandEmpty,
     Close
   },
-   methods: {
+  data() {
+    return {
+      pictureLink: "",
+      logoLink:""
+    };
+  },
+  mounted() {
+    this.pictureLink =
+      process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
+      this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
+    //console.log(process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture);
+  },
+  methods: {
     async acceptEvent() {
       try {
         let vm = this;
         let response = await this.$store.dispatch("acceptEvent", this.event.id);
         //console.log(JSON.stringify(response.data.msg))
         this.$swal({
-            type: "success",
-            title: "Prihvaćeno",
-            text: response.data.msg
-          });
+          type: "success",
+          title: "Prihvaćeno",
+          text: response.data.msg
+        });
       } catch (err) {
-      //console.log(JSON.stringify(err))
-      this.$swal({
-            type: "error",
-            title: "Oops...",
-            text: err.response.data.error
-          });
+        //console.log(JSON.stringify(err))
+        this.$swal({
+          type: "error",
+          title: "Oops...",
+          text: err.response.data.error
+        });
         this.error = err.response.data;
       }
     },
@@ -93,24 +115,23 @@ export default {
       try {
         let vm = this;
         let response = await this.$store.dispatch("rejectEvent", this.event.id);
-        console.log(JSON.stringify(response))
+        console.log(JSON.stringify(response));
         this.$swal({
-            type: "success",
-            title: "Odbijeno",
-            text: response.data.msg
-          });
+          type: "success",
+          title: "Odbijeno",
+          text: response.data.msg
+        });
       } catch (err) {
-      console.log(JSON.stringify(err))
-       this.$swal({
-            type: "error",
-            title: "Oops...",
-            text: err.response.data.error
-          });
+        console.log(JSON.stringify(err));
+        this.$swal({
+          type: "error",
+          title: "Oops...",
+          text: err.response.data.error
+        });
         this.error = err.response.data;
       }
-      
     }
-   }
+  }
 };
 </script>
 

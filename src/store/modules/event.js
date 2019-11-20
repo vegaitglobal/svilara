@@ -206,19 +206,20 @@ export default {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
+        console.log(state.answers[i]);
         if (state.answers[i].type === "file") {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
-        if (state.answers[i].type === "file") {
-          formData.append(state.answers[i].name, state.answers[i].answers);
-        }
+        // if (state.answers[i].type === "file") {
+        //   formData.append(state.answers[i].name, state.answers[i].answers);
+        // }
 
         if (state.answers[i].name === 'email') {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
       }
       formData.set("formAnswers", JSON.stringify(state.answers));
-
+      console.log(state.answers);
       axios
         .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
         .then(res => {

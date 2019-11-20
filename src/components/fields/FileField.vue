@@ -1,9 +1,9 @@
 <template>
   <div class="question">
     <h5>{{question.order}}. {{question.text}}</h5>
-    <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
-      <input type="file" @change="uploadImage($event)" />
-    </ValidationProvider>
+    <!--<ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">-->
+      <input type="file" accept="image/*" @change="uploadImage" />
+    <!--</ValidationProvider>-->
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
 
   methods: {
     uploadImage(event) {
-      console.log(typeof event.target.files[0]);
+      //console.log(event.target.files[0]);
       this.$store.dispatch("answerQuestion", {
         question: this.question,
         answers: event.target.files[0]

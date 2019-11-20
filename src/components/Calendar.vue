@@ -33,12 +33,12 @@
 
           <li class="inputfield-row">
             <span>Logo organizacije</span>
-            <input type="file" />
+            <input type="file" accept="image/*" @change="logoChange"/>
           </li>
 
           <li class="inputfield-row">
             <span>Slika</span>
-            <input type="file" />
+            <input type="file" accept="image/*" @change="imageChange"/>
           </li>
 
           <li class="inputfield-row">
@@ -204,7 +204,7 @@ export default {
     
       this.selectedEvent.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.selectedEvent.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
-      
+      console.log(this.selectedEvent);
       try {
         const form = new FormData();
         for (var prop in this.selectedEvent) {
@@ -242,10 +242,10 @@ export default {
       }
     },
     logoChange(event) {
-      this.event.logo = event.target.files[0];
+      this.selectedEvent.logo = event.target.files[0];
     },
     imageChange(event) {
-      this.event.picture = event.target.files[0];
+      this.selectedEvent.picture = event.target.files[0];
     }
   }
 };

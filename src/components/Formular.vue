@@ -57,19 +57,27 @@ export default {
     },
 
     submit() {
-      this.$store.dispatch("submitEvent");
-
-      this.$swal
-        .fire({
-          title: "Događaj poslat.",
-          text: "Predlog događaja poslat je administratorima na procenu.",
-          type: "success"
-        })
-        .then(result => {
-          if (result.value) {
-            this.$modal.hide("userCreateEventModal");
-          }
-        });
+      try {
+        this.$store.dispatch("submitEvent");
+        this.$swal
+          .fire({
+            title: "Događaj poslat.",
+            text: "Predlog događaja poslat je administratorima na procenu.",
+            type: "success"
+          })
+          .then(result => {
+            if (result.value) {
+              this.$modal.hide("userCreateEventModal");
+            }
+          });
+      } catch (error) {
+        this.$swal
+          .fire({
+            title: "Greška",
+            text:  error.response.data.error,
+            type: "error"
+          })
+      }
     }
   }
 };
