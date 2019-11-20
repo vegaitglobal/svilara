@@ -3,6 +3,7 @@ const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 var formidable = require("formidable");
 const Random = require("random-js").Random;
+var mv = require('mv');
 const random = new Random();
 // GET EVENTS
 exports.getEvents = async function(req, res) {
@@ -38,11 +39,13 @@ exports.getEvents = async function(req, res) {
 
 // CREATE EVENTS
 exports.createEvent = async function(req, res) {
+  
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
     if (error) {
-      return ReE(res, { msg: "Something went wrong!" });
+      return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
+    //console.log(JSON.stringify(files))
     var email = fields.email;
     var formAnswers = fields.formAnswers;
     if (files.picture) {
@@ -51,7 +54,7 @@ exports.createEvent = async function(req, res) {
         files.picture.type !== "image/jpeg" &&
         files.picture.type !== "image/png"
       ) {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { msg: "Pogrešan format slike!" }, 400);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var imageTmpPath = files.picture.path;
@@ -61,14 +64,17 @@ exports.createEvent = async function(req, res) {
         var imageName = fileName + imgExt;
         var newImagePath = "./public/uploads/" + imageName;
       }
-      fs.renameSync(imageTmpPath, newImagePath);
+      mv(imageTmpPath, newImagePath, function(err) {
+        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+      });
+      //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
 
     if (files.logo) {
       console.log("ima logo");
       // check mime type (is image)
       if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { msg: "Pogrešan format logoa!" }, 400);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files.logo.path;
@@ -78,7 +84,10 @@ exports.createEvent = async function(req, res) {
         var logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
-      fs.renameSync(logoTmpPath, newLogoPath);
+      mv(logoTmpPath, newLogoPath, function(err) {
+        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+      });
+      //fs.renameSync(logoTmpPath, newLogoPath);
     } else {
       logoName = "default-picture.png";
     }
@@ -94,11 +103,11 @@ exports.createEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, err.message);
+      return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
 
     return ReS(res, {
-      msg: "Event was created!"
+      msg: "Događaj je kreiran!"
     });
   });
 };

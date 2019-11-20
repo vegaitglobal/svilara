@@ -4,6 +4,7 @@ var fs = require("fs");
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 var formidable = require("formidable");
+var mv = require('mv');
 const Random = require("random-js").Random;
 const random = new Random();
 
@@ -54,7 +55,7 @@ exports.createEvent = async function(req, res) {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Something went wrong!" });
+      return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
     console.log(fields.startTime)
     let title = fields.title;
@@ -91,13 +92,16 @@ exports.createEvent = async function(req, res) {
         var imageName = fileName + imgExt;
         var newImagePath = "./public/uploads/" + imageName;
       }
-      fs.renameSync(imageTmpPath, newImagePath);
+      mv(imageTmpPath, newImagePath, function(err) {
+        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+      });
+      //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
 
     if (files.logo) {
       // check mime type (is image)
       if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { msg: "Pogrešan format logoa!" }, 400);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files.logo.path;
@@ -107,7 +111,10 @@ exports.createEvent = async function(req, res) {
         var logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
-      fs.renameSync(logoTmpPath, newLogoPath);
+      mv(logoTmpPath, newLogoPath, function(err) {
+        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+      });
+      //fs.renameSync(logoTmpPath, newLogoPath);
     } else logoName = "default-picture.png";
 
     let [err, dbCreated] = await to(
@@ -130,7 +137,7 @@ exports.createEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, err.message);
+      return ReE(res, "Došlo je do greške!", 400);
     }
 
     return ReS(res, {
@@ -146,7 +153,7 @@ exports.updateEvent = async function(req, res) {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Something went wrong!" });
+      return ReE(res, { msg: "Something went wrong!" },400);
     }
     console.log("fields" +JSON.stringify(fields))
     let title = fields.title;
@@ -185,7 +192,10 @@ exports.updateEvent = async function(req, res) {
         var imageName = fileName + imgExt;
         var newImagePath = "./public/uploads/" + imageName;
       }
-      fs.renameSync(imageTmpPath, newImagePath);
+      mv(imageTmpPath, newImagePath, function(err) {
+        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+      });
+      //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
 
     if (files.logo) {
@@ -201,7 +211,10 @@ exports.updateEvent = async function(req, res) {
         var logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
-      fs.renameSync(logoTmpPath, newLogoPath);
+      mv(logoTmpPath, newLogoPath, function(err) {
+        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+      });
+      //fs.renameSync(logoTmpPath, newLogoPath);
     } else logoName = "default-picture.png";
 
     let [err, dbUpdated] = await to(
@@ -226,7 +239,7 @@ exports.updateEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, err.message);
+      return ReE(res, err.message, 400);
     }
 
     return ReS(res, {
