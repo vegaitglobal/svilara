@@ -155,7 +155,7 @@ exports.updateEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Something went wrong!" },400);
     }
-    console.log("fields" +JSON.stringify(fields))
+    
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -175,7 +175,6 @@ exports.updateEvent = async function(req, res) {
       });
     }
 
-    console.log("dodje");
     if (files.picture) {
       // check mime type (is image)
       if (
@@ -602,11 +601,45 @@ exports.createSettings = async (req, res) => {
 
 // UPDATE SETTINGS
 exports.updateSettings = async (req, res) => {
-  let [err, dbUpdated] = await to(
+
+  var form = new formidable.IncomingForm();
+  form.parse(req, async function(error, fields, files) {
+    if (error) {
+      console.log(error);
+      return ReE(res, { msg: "Doslo je do greške!" },400);
+    }
+    console.log('fields:  '+  JSON.stringify(fields));
+    let key = fields.key;
+    let value;
+    if (files.value) {
+      console.log('usao')
+      if (
+        files.value.type !== "image/jpeg" &&
+        files.value.type !== "image/png"
+      ) {
+        return ReE(res, { msg: "Pogrešan format slike!" });
+      } else {
+        // set image extenstion and new path (old path is in /tmp)
+        var imageTmpPath = files.value.path;
+        var fileName = random.string("24");
+        if (files.value.type == "image/jpeg") var imgExt = ".jpg";
+        if (files.value.type == "image/png") var imgExt = ".png";
+        var imageName = fileName + imgExt;
+        value = imageName;
+        var newImagePath = "./public/uploads/" + imageName;
+      }
+      mv(imageTmpPath, newImagePath, function(err) {
+        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+      });
+    } else {
+      value = fields.value;
+    }
+console.log(req.params.id)
+    let [err, dbUpdated] = await to(
     models.Settings.update(
       {
-        key: req.body.key,
-        value: req.body.value
+        key,
+        value
       },
       { where: { id: req.params.id } }
     )
@@ -619,6 +652,9 @@ exports.updateSettings = async (req, res) => {
   return ReS(res, {
     msg: "Update successfull."
   });
+
+  });
+  
 };
 
 // DELETE SETTINGS

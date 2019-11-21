@@ -14,7 +14,9 @@ module.exports = {
     */
 
     return queryInterface.bulkInsert('Settings', [
-      { key: 'logo', value: '' },
+      { key: 'glavni logo', value: '' },
+      { key: 'sporedni logo 1', value: '' },
+      { key: 'sporedni logo 2', value: '' },
       { key: 'facebook', value: ''},
       { key: 'instagram', value: ''},
       { key: 'twitter', value: ''},
