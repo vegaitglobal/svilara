@@ -298,7 +298,7 @@ export default {
     content: "";
     position: absolute;
     left: 3px;
-    top: 7px;
+    top: 9px;
     background: $white;
     width: 2px;
     height: 2px;
