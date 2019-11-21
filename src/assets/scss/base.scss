@@ -45,6 +45,16 @@ i {
     font-style: italic;
 }
 
+.link {
+    border: 0;
+    text-decoration: underline;
+    color: $purple;
+    background: transparent;
+    &:hover{
+        text-decoration: none;
+    }
+}
+
 .btn {
     min-width: 170px;
     border-radius: 50px;

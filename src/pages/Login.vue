@@ -5,7 +5,7 @@
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
     <input type="password" name="password" v-model="credentials.password" placeholder="Password" />
     <button type="submit" class="btn btn__purple btn__large" @click.prevent="submit">Login</button>
-    <button @click.prevent="redirectToForgotPasssword">Forgot password</button>
+    <button class="link" @click.prevent="redirectToForgotPasssword">Forgot password</button>
   </div>
 </template>
 
@@ -37,13 +37,13 @@ export default {
       } catch (err) {
        console.log(JSON.stringify(err))
         if (parseInt(err.response.status) === 400) {
-          
+
           this.$swal({
             type: "error",
             title: "Oops...",
             text: err.response.data.error
           });
-        } 
+        }
         //else if (parseInt(err.response.status) === 401) {
           //this.$swal({
            // type: "error",
@@ -61,11 +61,16 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
+@import "../assets/scss/variables.scss";
+
 #login {
   margin: 0 auto;
   padding: 20px;
   text-align: center;
+  @include breakpoint(mob) {
+    padding: 0;
+  }
   h1 {
     margin-bottom: 30px;
   }
@@ -74,9 +79,13 @@ export default {
     margin: 0 auto 20px;
     width: 300px;
     padding: 10px;
+    @include breakpoint(mob) {
+      width: 220px;
+    }
   }
   .btn {
-    margin-top: 30px;
+    display: block;
+    margin: 30px auto 40px;
   }
 }
 </style>

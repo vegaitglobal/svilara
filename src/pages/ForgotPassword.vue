@@ -46,13 +46,12 @@ export default {
           });
        }
         //if (parseInt(err.response.status) === 400) {
-          
           //this.$swal({
            // type: "error",
            // title: "Oops...",
            // text: err.response.data.error
          // });
-       // } 
+       // }
         //else if (parseInt(err.response.status) === 401) {
           //this.$swal({
            // type: "error",
@@ -66,23 +65,3 @@ export default {
   }
 };
 </script>
-
-<style scoped lang="scss">
-#login {
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-  h1 {
-    margin-bottom: 30px;
-  }
-  input {
-    display: block;
-    margin: 0 auto 20px;
-    width: 300px;
-    padding: 10px;
-  }
-  .btn {
-    margin-top: 30px;
-  }
-}
-</style>
