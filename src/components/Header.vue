@@ -86,8 +86,6 @@
 
           <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
 
-          <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
-
           <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
           <hr>
 
@@ -160,7 +158,14 @@ export default {
       this.$modal.hide("userCreateEventModal");
     },
     goNext() {
-      if (!this.terms1accepted || !this.terms2accepted) return;
+      if (!this.terms1accepted || !this.terms2accepted) {
+        this.$swal.fire({
+          type: "info",
+          title: "Informacija",
+          text: "Neophodno je da prihvatite sve uslove pravilnika i tačnost unešenih podataka. To bi značilo i Vama i nama, da na najlakši mogući način organizujemo događaj. Hvala! "
+        });
+        return;
+      }
       this.page = 2;
     },
     logout(){

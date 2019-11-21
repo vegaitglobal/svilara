@@ -3,7 +3,6 @@
     <div class="client-form" v-if="events">
       <h2>Zahtevi</h2>
       <Accordion
-        v-if="event.status === 'pending'"
         v-for="(event, index) in this.pendingEvents"
         :key="index"
         :event="event"
@@ -177,7 +176,6 @@ export default {
       try {
           const form = new FormData()
           for (var prop in this.event){
-              console.log(prop)
               form.append(prop, this.event[prop])
           }
         const res = await this.axios.post(

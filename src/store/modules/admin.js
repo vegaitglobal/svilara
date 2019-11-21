@@ -33,9 +33,9 @@ export default {
             }
         },
 
-        async updateSettings({ commit }, settingsOption) {
+        async updateSettings({ commit }, formIdObject) {
             try {
-                const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${settingsOption.id}`, { key: settingsOption.key, value: settingsOption.value });
+                const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form);
                 return res
             } catch (err) {
                 return err

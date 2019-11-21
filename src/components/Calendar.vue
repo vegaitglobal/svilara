@@ -204,7 +204,7 @@ export default {
     
       this.selectedEvent.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.selectedEvent.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
-      console.log(this.selectedEvent);
+
       try {
         const form = new FormData();
         for (var prop in this.selectedEvent) {
