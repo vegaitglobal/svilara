@@ -1,6 +1,5 @@
 import axios from "axios";
 import * as _ from "lodash";
-import moment from "moment";
 
 export default {
     state: {
@@ -17,25 +16,27 @@ export default {
         SET_SETTINGS(state, settings) {
             state.settings = settings;
         },
-
     },
 
     actions: {
         async fetchSettings({ commit }) {
+
             try {
                 const settings = await axios.get(
                     `${process.env.VUE_APP_BASE_URL}/admin/settings`
                 );
                 commit("SET_SETTINGS", settings.data.data);
-                return events;
+                return settings;
             } catch (err) {
                 return err;
             }
         },
 
-        async updateSettings({ commit }, formIdObject) {
+        async updateSettings({ dispatch }, formIdObject) {
             try {
                 const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form);
+                
+                dispatch('fetchSettings');
                 return res
             } catch (err) {
                 return err

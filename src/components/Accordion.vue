@@ -27,17 +27,14 @@
             v-for="(row, index) in JSON.parse(event.formAnswers)"
             :key="index"
           >
-            {{ row.question.id }}. {{ row.question.text }}:
-            <span v-if="row.question.id!=19" class="replies__answer">{{ row.answers }}</span>
-            <div v-if="row.question.id==19">
-              <a  :href="pictureLink" 
-                >Kliknite da vidite sliku</a
-              >
-            </div>
-            <div v-if="row.question.id==6">
-              <a  :href="logoLink" 
-                >Kliknite da vidite logo</a
-              >
+            {{ row.question.order }}. {{ row.question.text }}:
+            <span
+              v-if="row.type != 'file'"
+              class="replies__answer"
+              >{{ row.answers }}</span
+            >
+            <div v-if="row.type == 'file'">
+              <a :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
             </div>
           </div>
           <div class="button-wrapper">
@@ -81,14 +78,20 @@ export default {
   data() {
     return {
       pictureLink: "",
-      logoLink:""
+      logoLink: "",
+      link: process.env.VUE_APP_MEDIA_BASE_URL
     };
   },
   mounted() {
-    this.pictureLink =
-      process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
-      this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
-    //console.log(process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture);
+    console.log(this.event)
+    if (this.event.picture) {
+      this.pictureLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
+    }
+    if (this.event.logo) {
+      this.logoLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
+    }
   },
   methods: {
     async acceptEvent() {

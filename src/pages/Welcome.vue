@@ -28,6 +28,7 @@ export default {
   async created(){
     await this.$store.dispatch('fetchEvents')
     this.$store.dispatch('filterByMonth')
+    this.$store.dispatch("fetchSettings");
   },
 
   mounted(){

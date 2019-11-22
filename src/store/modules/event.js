@@ -191,7 +191,7 @@ export default {
     async answerQuestion({ commit }, { question, answers }) {
       commit("REMOVE_ANSWER", question.id);
       commit("ANSWER_QUESTION", {
-        question: { id: question.id, text: question.text },
+        question: { id: question.id, text: question.text, order: question.order },
         answers,
         type: question.fieldType,
         name: question.name
@@ -208,7 +208,8 @@ export default {
       for (var i = 0; i < state.answers.length; i++) {
         console.log(state.answers[i]);
         if (state.answers[i].type === "file") {
-          formData.append(state.answers[i].name, state.answers[i].answers);
+          formData.append(state.answers[i].name, state.answers[i].answers, state.answers[i].name);
+          console.log(state.answers[i].name)
         }
         // if (state.answers[i].type === "file") {
         //   formData.append(state.answers[i].name, state.answers[i].answers);
@@ -308,6 +309,24 @@ export default {
     async updateEvent({commit}, question) {
       try{
         const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
+      }catch(err){
+        return err
+      }
+    },
+    async deleteQuestion({ dispatch }, id) {
+      try {
+        const res = await axios.delete(`${process.env.VUE_APP_BASE_URL}/admin/question/${id}`);
+        dispatch('fetchQuestions');
+        return res
+      } catch (err) {
+        return err
+      }
+    },
+
+    async addQuestion({dispatch}, question) {
+      try{
+        const res = await axios.post(`${process.env.VUE_APP_BASE_URL}/admin/question`, question);
+        dispatch('fetchQuestions');
       }catch(err){
         return err
       }

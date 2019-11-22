@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{question.order}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}</h5>
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
       <ul>
         <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
@@ -29,7 +29,7 @@
 import { ValidationProvider } from "vee-validate";
 export default {
   name: "CheckboxField",
-  props: ["name", "question", "mandatory"],
+  props: ["name", "question", "mandatory", "index"],
   components: {
     ValidationProvider
   },

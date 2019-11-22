@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{question.order}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}</h5>
     <!--<ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">-->
       <input type="file" accept="image/*" @change="uploadImage" />
     <!--</ValidationProvider>-->
@@ -11,7 +11,7 @@
 import { ValidationProvider } from "vee-validate";
 export default {
   name: "FileField",
-  props: ["name", "question", "values", "mandatory"],
+  props: ["name", "question", "values", "mandatory", "index"],
   components: {
     ValidationProvider
   },

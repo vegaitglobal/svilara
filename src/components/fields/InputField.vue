@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{question.order}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}</h5>
     <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <input type="text" v-model="data" @change="onChange" />
@@ -14,7 +14,7 @@
 import { ValidationProvider } from "vee-validate";
 export default {
   name: "InputField",
-  props: ["name", "question", "values", "mandatory"],
+  props: ["name", "question", "values", "mandatory", "index"],
   components: {
     ValidationProvider
   },

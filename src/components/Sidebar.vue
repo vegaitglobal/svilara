@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :style="{ background: `url(${sidebarBg}) no-repeat` }">
-    <a href="/">
+    <a v-if="mainLogo !== ''" href="/">
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
     <a v-if="logo1 !== ''" href="/">
@@ -27,31 +27,39 @@ export default {
   },
   data: function() {
     return {
-      sidebarBg: sidebarBg,
-      mainLogo: "",
-      logo1: "",
-      logo2: ""
+      sidebarBg: sidebarBg
     };
   },
-  async mounted() {
-    try {
-      const res = await this.axios.get(
-        `${process.env.VUE_APP_BASE_URL}/admin/settings`
-      );
-      if (res.data.data[0].value) {
-        this.mainLogo =
-          process.env.VUE_APP_MEDIA_BASE_URL + "/" + res.data.data[0].value;
+mounted() {
+  this.$store.dispatch('fetchSettings')
+},
+  computed: {
+    settings() {
+      return this.$store.getters.getSettings;
+    },
+    mainLogo() {
+      if (this.settings.length && this.settings[0].value) {
+        return (
+          process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[0].value
+        );
       }
-      if (res.data.data[1].value) {
-        this.logo1 =
-          process.env.VUE_APP_MEDIA_BASE_URL + "/" + res.data.data[1].value;
+      return "";
+    },
+    logo1() {
+      if (this.settings.length && this.settings[1].value) {
+        return (
+          process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[1].value
+        );
       }
-      if (res.data.data[2].value) {
-        this.logo2 =
-          process.env.VUE_APP_MEDIA_BASE_URL + "/" + res.data.data[2].value;
+      return "";
+    },
+    logo2() {
+      if (this.settings.length && this.settings[2].value) {
+        return (
+          process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[2].value
+        );
       }
-    } catch (err) {
-      
+      return "";
     }
   }
 };
