@@ -4,7 +4,7 @@ var fs = require("fs");
 const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 var formidable = require("formidable");
-var mv = require('mv');
+var mv = require("mv");
 const Random = require("random-js").Random;
 const random = new Random();
 
@@ -57,7 +57,7 @@ exports.createEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
-    console.log(fields.startTime)
+    console.log(fields.startTime);
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -153,9 +153,9 @@ exports.updateEvent = async function(req, res) {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Something went wrong!" },400);
+      return ReE(res, { msg: "Something went wrong!" }, 400);
     }
-    
+
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -166,6 +166,9 @@ exports.updateEvent = async function(req, res) {
     let price = fields.price;
     let socialMedia = fields.socialMedia;
     let age = fields.age;
+
+    let logoName = "";
+    let imageName = "";
 
     let validatorMessage = validateEvent(fields);
     console.log(validatorMessage);
@@ -188,14 +191,14 @@ exports.updateEvent = async function(req, res) {
         var fileName = random.string("24");
         if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
         if (files.picture.type == "image/png") var imgExt = ".png";
-        var imageName = fileName + imgExt;
+        imageName = fileName + imgExt;
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
         if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
       });
       //fs.renameSync(imageTmpPath, newImagePath);
-    } else imageName = "default-picture.png";
+    } else imageName = fields.picture;
 
     if (files.logo) {
       // check mime type (is image)
@@ -207,14 +210,14 @@ exports.updateEvent = async function(req, res) {
         var fileName2 = random.string("24");
         if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
         if (files.logo.type == "image/png") var imgExt2 = ".png";
-        var logoName = fileName2 + imgExt2;
+       logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
         if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
       });
       //fs.renameSync(logoTmpPath, newLogoPath);
-    } else logoName = "default-picture.png";
+    } else logoName = fields.logo;
 
     let [err, dbUpdated] = await to(
       models.Event.update(
@@ -337,7 +340,7 @@ exports.acceptEvent = async (req, res) => {
       }
     )
   );
-  
+
   if (err) {
     return ReE(res, "Zahtev nije uspešno prihvaćen.", 400);
   }
@@ -350,7 +353,7 @@ exports.acceptEvent = async (req, res) => {
     from: "Svilara <svilara@test.com>",
     to: email,
     subject: "Zahtev Prihvaćen",
-    text: 'Vas zahtev je prihvaćen.'
+    text: "Vas zahtev je prihvaćen."
     //text: explanation
   };
 
@@ -366,7 +369,7 @@ exports.acceptEvent = async (req, res) => {
 // REJECT EVENT
 exports.rejectEvent = async (req, res) => {
   let explanation = req.body.explanation;
-  
+
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "rejected" },
@@ -377,12 +380,11 @@ exports.rejectEvent = async (req, res) => {
       }
     )
   );
-  
-  
+
   if (err) {
     return ReE(res, "Zahtev nije uspešno odbijen.", 400);
   }
-  
+
   if (dbUpdated[0] === 0) {
     return ReE(res, "Zahtev nije pronađen.", 404);
   }
@@ -392,11 +394,12 @@ exports.rejectEvent = async (req, res) => {
     from: "Svilara <svilara@test.com>",
     to: email,
     subject: "Zahtev Odbijen",
-    text: 'Vas zahtev je odbijen'
+    text: "Vas zahtev je odbijen"
   };
 
   mailgun.messages().send(mailData, function(error, body) {
-    if (error) return ReE(res, "Podsetnik nije uspešno poslat na mail adresu.", 400);
+    if (error)
+      return ReE(res, "Podsetnik nije uspešno poslat na mail adresu.", 400);
     console.log(body);
     return ReS(res, {
       msg: "Uspešno odbijeno."
@@ -468,13 +471,14 @@ exports.createQuestion = async (req, res) => {
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = null;
+  let name = req.body.name;
 
-  let validatorMessage = validateQuestion(req.body);
-  if (validatorMessage) {
-    return ReE(res, {
-      msg: validatorMessage
-    });
-  }
+  // let validatorMessage = validateQuestion(req.body);
+  // if (validatorMessage) {
+  //   return ReE(res, {
+  //     msg: validatorMessage
+  //   });
+  // }
 
   if (req.body.values) values = req.body.values;
 
@@ -484,7 +488,8 @@ exports.createQuestion = async (req, res) => {
       fieldType,
       values,
       order,
-      mandatory
+      mandatory, 
+      name
     })
   );
 
@@ -502,6 +507,7 @@ exports.createQuestion = async (req, res) => {
 
 // UPDATE QUESTIONS
 exports.updateQuestion = async (req, res) => {
+  console.log('usao u update ======')
   let text = req.body.text;
   let fieldType = req.body.fieldType;
   let order = req.body.order;
@@ -601,18 +607,17 @@ exports.createSettings = async (req, res) => {
 
 // UPDATE SETTINGS
 exports.updateSettings = async (req, res) => {
-
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Doslo je do greške!" },400);
+      return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
-    console.log('fields:  '+  JSON.stringify(fields));
+    console.log("fields:  " + JSON.stringify(fields));
     let key = fields.key;
-    let value;
+    let value = "";
     if (files.value) {
-      console.log('usao')
+      console.log("usao");
       if (
         files.value.type !== "image/jpeg" &&
         files.value.type !== "image/png"
@@ -631,30 +636,26 @@ exports.updateSettings = async (req, res) => {
       mv(imageTmpPath, newImagePath, function(err) {
         if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
       });
-    } else {
-      value = fields.value;
-    }
-console.log(req.params.id)
+    } 
+    console.log(req.params.id);
     let [err, dbUpdated] = await to(
-    models.Settings.update(
-      {
-        key,
-        value
-      },
-      { where: { id: req.params.id } }
-    )
-  );
-  if (err) {
-    return ReE(res, {
-      msg: "Something went wrong"
+      models.Settings.update(
+        {
+          key,
+          value
+        },
+        { where: { id: req.params.id } }
+      )
+    );
+    if (err) {
+      return ReE(res, {
+        msg: "Something went wrong"
+      });
+    }
+    return ReS(res, {
+      msg: "Update successfull."
     });
-  }
-  return ReS(res, {
-    msg: "Update successfull."
   });
-
-  });
-  
 };
 
 // DELETE SETTINGS
@@ -700,7 +701,7 @@ function validateQuestion(body) {
 
 function validateEvent(body) {
   if (!body.title || validator.isEmpty(body.title)) {
-    console.log(JSON.stringify(body))
+    console.log(JSON.stringify(body));
     return "Title is required";
   }
 
