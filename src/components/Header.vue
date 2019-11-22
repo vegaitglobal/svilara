@@ -47,7 +47,7 @@
             @click="$router.go(-1)"
             class="btn btn__purple btn__large"
             type="button"
-            v-if="['NewEvent','AllEvents','Editor', 'Settings'].includes($route.name)"
+            v-if="['NewEvent','AllEvents','Editor', 'Settings', 'ForgotPassword'].includes($route.name)"
           >Nazad</button>
           <button
             @click="logout"
@@ -298,7 +298,7 @@ export default {
     content: "";
     position: absolute;
     left: 3px;
-    top: 7px;
+    top: 9px;
     background: $white;
     width: 2px;
     height: 2px;

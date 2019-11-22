@@ -98,6 +98,7 @@ export default {
     }
     @include breakpoint(mob-sm) {
       top: 0 !important;
+      left: 0 !important;
     }
     h5 {
       line-height: 23px;
