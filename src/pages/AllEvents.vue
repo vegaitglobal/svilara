@@ -7,7 +7,9 @@
         slot="editor"
         slot-scope="props"
         @click="$router.push('/admin/editor/' + props.row.id)"
-      >Editor</button>
+      >
+        Editor
+      </button>
     </v-client-table>
   </div>
 </template>
@@ -52,8 +54,6 @@ export default {
   },
 
   created() {
-    // console.log(JSON.stringify(this.events))
-    // this.$store.dispatch("fetchAdminEvents");
     this.tableData = this.events;
   },
 
@@ -63,10 +63,20 @@ export default {
     }
   },
   mounted() {
-
     //this.tableData = this.events;
-    this.$store.dispatch("fetchAdminEvents").then((data) => this.tableData = data.data.data);
-  },
+    this.$store
+      .dispatch("fetchAdminEvents")
+      .then(data => {
+        let events = [...data.data.data]
+    for (let i = 0; i < events.length; i++) {
+      let dateStart = new Date(events[i].startTime);
+      let dateEnd = new Date(events[i].endTime);
+      events[i].startTime = dateStart.toLocaleString("sr-ME");
+      events[i].endTime = dateEnd.toLocaleString("sr-ME");
+      }
+      this.tableData = events;
+  });
+  }
 };
 </script>
 
@@ -93,7 +103,7 @@ export default {
   }
 }
 .table-responsive {
-    overflow: auto;
+  overflow: auto;
 }
 .VueTables__table {
   td {
@@ -141,14 +151,14 @@ select.form-control {
         background-color: $purple;
         border-color: $purple;
         &:hover {
-            background-color: $purple;
+          background-color: $purple;
         }
       }
       &[disabled] {
         color: $gray;
         cursor: not-allowed;
         &:hover {
-            background-color: $white;
+          background-color: $white;
         }
       }
       &:hover {

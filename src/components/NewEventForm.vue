@@ -58,6 +58,7 @@
               <option value="radionica">Radionica</option>
               <option value="drugo">Drugo</option>
             </select>
+             <input v-if="event.category=='drugo'" type="text" v-model="categoryOther"/>
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
@@ -70,7 +71,7 @@
               <option>Plato</option>
               <option>Drugo</option>
             </select>
-            <input type="text" />
+            <input v-if="event.space=='Drugo'" type="text" v-model="spaceOther"/>
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
@@ -140,7 +141,9 @@ export default {
       startDate: "", 
       startTime: "",
       endDate: "", 
-      endTime: ""
+      endTime: "",
+      spaceOther: "",
+      categoryOther: ""
     };
   },
 
@@ -173,10 +176,19 @@ export default {
       this.event.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.event.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
       
+      let eventCopy = {...this.event};
+      if (eventCopy.category === 'drugo'){
+        eventCopy.category = this.categoryOther;
+      }
+
+      if (eventCopy.space === 'Drugo'){   
+        eventCopy.space = this.spaceOther;
+      }
+      console.log(this.event)
       try {
           const form = new FormData()
-          for (var prop in this.event){
-              form.append(prop, this.event[prop])
+          for (var prop in eventCopy){                 
+              form.append(prop, eventCopy[prop])
           }
         const res = await this.axios.post(
           `${process.env.VUE_APP_BASE_URL}/admin/event`,

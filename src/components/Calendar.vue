@@ -73,6 +73,7 @@
               <option value="radionica">Radionica</option>
               <option value="drugo">Drugo</option>
             </select>
+            <input v-if="selectedEvent.category == 'drugo'" type="text" v-model="categoryOther"/>
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
@@ -86,7 +87,7 @@
               <option value="drugo">Drugo</option>
             </select>
 
-            <input type="text" v-if="selectedEvent.space == 'drugo'" />
+            <input type="text" v-if="selectedEvent.space == 'drugo'" v-model="spaceOther"/>
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
@@ -158,7 +159,9 @@ export default {
       startDate: "",
       startTime: "",
       endDate: "",
-      endTime: ""
+      endTime: "",
+      categoryOther: "",
+      spaceOther:""
     };
   },
   created() {
@@ -173,6 +176,19 @@ export default {
   methods: {
     eventClicked(info) {
       this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps));
+      let cat = this.selectedEvent.category;
+      if (cat !== 'izlozba' && cat !== 'muzicki' && cat !== 'igranka' && cat !== 'audiovideo' && cat !== 'predstava' 
+      && cat !== 'festival'&& cat !== 'predavanja' && cat !== 'radionica'){
+        this.categoryOther = cat;
+        this.selectedEvent.category = 'drugo';
+
+      }
+      let space = this.selectedEvent.space;
+      if (space !== 'velikasala' && space !== 'malasala' && space !== 'dvoriste' && space !== 'teren'
+      && space !== 'drucentar' && space !== 'plato'){
+        this.spaceOther = space;
+        this.selectedEvent.space = 'drugo';
+      }
 
       let dateStart = new Date(this.selectedEvent.startTime);
       let dateEnd = new Date(this.selectedEvent.endTime);
@@ -205,10 +221,19 @@ export default {
       this.selectedEvent.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.selectedEvent.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
 
+      let eventCopy = {...this.selectedEvent};
+      if (eventCopy.category === 'drugo'){
+        eventCopy.category = this.categoryOther;
+      }
+
+      if (eventCopy.space === 'drugo'){    
+        eventCopy.space = this.spaceOther;
+      }
+      
       try {
         const form = new FormData();
-        for (var prop in this.selectedEvent) {
-          form.append(prop, this.selectedEvent[prop]);
+        for (var prop in eventCopy) {
+          form.append(prop, eventCopy[prop]);
         }
         const res = await this.axios.put(
           `${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`,

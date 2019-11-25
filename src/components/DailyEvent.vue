@@ -10,7 +10,7 @@
       class="daily-event--image"
       :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
     ></div>
-    <p class="daily-event--time">Društveni centar | {{startingTime}}-{{endingTime}}h</p>
+    <p class="daily-event--time">{{space}} | {{startingTime}}-{{endingTime}}h</p>
     <h3>{{event.title}}</h3>
     <div class="daily-event__bottom">
       <div class="daily-event__bottom--icons">
@@ -91,8 +91,27 @@ export default {
   data: function() {
     return {
       DailyImg: DailyImg,
-      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL
+      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL,
+      space: ""
     };
+  },
+  mounted(){
+    let space = this.event.space;
+    if (space == 'velikasala') {
+      this.space = 'Velika sala';
+    } else if (space == 'malasala'){
+      this.space = 'Mala sala';
+    } else if (space == 'drucentar'){
+      this.space = 'Društveni centar';
+    } else if (space == 'dvoriste'){
+      this.space = 'Dvorište';
+    } else if (space == 'teren'){
+      this.space = 'Sportski tereni sa tribinama';
+    } else if (space == 'plato'){
+      this.space = 'Plato';
+    } else {
+      this.space = space;
+    }
   },
   computed: {
     startingDay() {
@@ -116,13 +135,13 @@ export default {
     },
 
     startingTime() {
-      var start = new Date(this.event.startTime).getTime();
-      return moment.unix(start).format("hh:mm");
+      var start = new Date(this.event.startTime);
+      return moment(start).format("HH:mm");
     },
 
     endingTime() {
       var start = new Date(this.event.endTime).getTime();
-      return moment.unix(start).format("hh:mm");
+      return moment(start).format("HH:mm");
     }
   }
 };
