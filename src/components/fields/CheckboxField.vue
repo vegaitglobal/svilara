@@ -1,7 +1,7 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">
+    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
       <ul>
         <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
           <input
@@ -19,7 +19,9 @@
             @change="onChange($event)"
             :name="value"
           />
+          
         </li>
+        <span>{{ errors[0] }}</span>
       </ul>
     </ValidationProvider>
   </div>

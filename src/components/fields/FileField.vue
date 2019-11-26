@@ -1,9 +1,10 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <!--<ValidationProvider name="Password" id="password" :rules="isRequired" v-slot="{errors}">-->
+    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
       <input type="file" accept="image/*" @change="uploadImage" />
-    <!--</ValidationProvider>-->
+      <span>{{ errors[0] }}</span>
+    </ValidationProvider>
   </div>
 </template>
 

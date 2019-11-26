@@ -16,6 +16,7 @@ import InputField from "./fields/InputField";
 import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
+import TextareaField from "./fields/TextareaField";
 
 export default {
   name: "Formular",
@@ -23,7 +24,8 @@ export default {
     InputField,
     CheckBoxField,
     FileField,
-    RadioButtonField
+    RadioButtonField,
+    TextareaField
   },
   data() {
     return {
@@ -47,6 +49,8 @@ export default {
           return "FileField";
         case "radiobutton":
           return "RadioButtonField";
+          case "textarea":
+          return "TextareaField";
       }
     },
 
