@@ -3,14 +3,10 @@
     <a v-if="mainLogo !== ''" href="/">
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
-    <a v-if="logo1 !== ''" href="/">
-      <img class="sidebar__logo" :src="logo1" />
-    </a>
-    <a v-if="logo2 !== ''" href="/">
-      <img class="sidebar__logo" :src="logo2" alt="logo" />
-    </a>
     <SocialIcons />
     <ContactInfo />
+    <img class="sidebar__logo" :src="logo1" />
+    <img class="sidebar__logo" :src="logo2" alt="logo" />
   </div>
 </template>
 

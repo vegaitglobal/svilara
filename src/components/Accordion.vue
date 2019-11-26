@@ -30,7 +30,7 @@
           >{{ row.answers }}</span>
 
           <div v-if="row.type == 'file'">
-            <a :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
+            <a target="_blank" :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
           </div>
         </div>
         <div class="button-wrapper">
