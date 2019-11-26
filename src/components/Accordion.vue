@@ -1,111 +1,83 @@
 <template>
-  <div class="accordion" v-if="event">
-    <badger-accordion>
-      <badger-accordion-item>
-        <div slot="header">
-          <div>
-            <span>{{ index + 1 }}</span
-            >. <span>{{ event.contactEmail }}</span
-            >{{ event.startTime ? "," : "" }}
-            <span>{{ event.startTime }}</span>
-          </div>
-          <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
-            <check class="ico accepted" title="" />
-          </span>
-
-          <span v-if="event.status == 'pending'" data-tooltip="Na čekanju">
-            <timer-sand-empty class="ico pending" title="" />
-          </span>
-
-          <span v-if="event.status == 'declined'" data-tooltip="Odbijen">
-            <close class="ico declined" title="" />
-          </span>
+  <badger-accordion>
+    <badger-accordion-item v-for="(event, index) in this.events" :key="event.id">
+      <div slot="header">
+        <div>
+          <span>{{ index + 1 }}</span>.
+          <span>{{ event.contactEmail }}</span>
+          {{ event.startTime ? "," : "" }}
+          <span>{{ event.startTime }}</span>
         </div>
-        <div slot="content">
-          <div
-            class="replies"
-            v-for="(row, index) in JSON.parse(event.formAnswers)"
-            :key="index"
-          >
-            {{ row.question.order }}. {{ row.question.text }}:
-            <span
-              v-if="row.type != 'file'"
-              class="replies__answer"
-              >{{ row.answers }}</span
-            >
-            <div v-if="row.type == 'file'">
-              <a :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
-            </div>
-          </div>
-          <div class="button-wrapper">
-            <button
-              type="button"
-              class="btn btn__green"
-              @click.prevent="acceptEvent"
-            >
-              Prihvati
-            </button>
-            <button
-              type="button"
-              class="btn btn__red"
-              @click.prevent="rejectEvent"
-            >
-              Odbij
-            </button>
+
+        <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
+          <check class="ico accepted" title />
+        </span>
+
+        <span v-if="event.status == 'pending'" data-tooltip="Na čekanju">
+          <timer-sand-empty class="ico pending" title />
+        </span>
+
+        <span v-if="event.status == 'declined'" data-tooltip="Odbijen">
+          <close class="ico declined" title />
+        </span>
+      </div>
+      <div slot="content">
+        <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
+          {{ row.question.order }}. {{ row.question.text }}:
+          <span
+            v-if="row.type != 'file'"
+            class="replies__answer"
+          >{{ row.answers }}</span>
+
+          <div v-if="row.type == 'file'">
+            <a :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
           </div>
         </div>
-      </badger-accordion-item>
-    </badger-accordion>
-  </div>
+        <div class="button-wrapper">
+          <button type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
+          <button type="button" class="btn btn__red" @click.prevent="() => rejectEvent(event.id)">Odbij</button>
+        </div>
+      </div>
+    </badger-accordion-item>
+  </badger-accordion>
 </template>
 
 <script>
-import { BadgerAccordion, BadgerAccordionItem } from "vue-badger-accordion";
 import Check from "vue-material-design-icons/Check.vue";
 import TimerSandEmpty from "vue-material-design-icons/TimerSandEmpty.vue";
 import Close from "vue-material-design-icons/Close.vue";
 
 export default {
   name: "Accordion",
-  props: ["event", "index"],
-  components: {
-    BadgerAccordion,
-    BadgerAccordionItem,
-    Check,
-    TimerSandEmpty,
-    Close
-  },
   data() {
     return {
-      pictureLink: "",
-      logoLink: "",
-      link: process.env.VUE_APP_MEDIA_BASE_URL
+        pictureLink: "",
+        logoLink: "",
+        link: process.env.VUE_APP_MEDIA_BASE_URL
     };
   },
-  mounted() {
-    console.log(this.event)
-    if (this.event.picture) {
-      this.pictureLink =
-        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
-    }
-    if (this.event.logo) {
-      this.logoLink =
-        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
+  components: {
+    Check,
+    TimerSandEmpty,
+	Close
+  },
+  props: {
+    events: {
+      type: Array
     }
   },
   methods: {
-    async acceptEvent() {
+    async acceptEvent(id) {
       try {
         let vm = this;
-        let response = await this.$store.dispatch("acceptEvent", this.event.id);
-        //console.log(JSON.stringify(response.data.msg))
+        let response = await this.$store.dispatch("acceptEvent", id);
+
         this.$swal({
           type: "success",
           title: "Prihvaćeno",
           text: response.data.msg
         });
       } catch (err) {
-        //console.log(JSON.stringify(err))
         this.$swal({
           type: "error",
           title: "Oops...",
@@ -114,18 +86,16 @@ export default {
         this.error = err.response.data;
       }
     },
-    async rejectEvent() {
+    async rejectEvent(id) {
       try {
         let vm = this;
-        let response = await this.$store.dispatch("rejectEvent", this.event.id);
-        console.log(JSON.stringify(response));
+        let response = await this.$store.dispatch("rejectEvent", id);
         this.$swal({
           type: "success",
           title: "Odbijeno",
           text: response.data.msg
         });
       } catch (err) {
-        console.log(JSON.stringify(err));
         this.$swal({
           type: "error",
           title: "Oops...",
@@ -133,6 +103,14 @@ export default {
         });
         this.error = err.response.data;
       }
+    }
+  },
+  mounted() {
+    if (this.event.picture) {
+        this.pictureLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
+    }
+    if (this.event.logo) {
+        this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
     }
   }
 };

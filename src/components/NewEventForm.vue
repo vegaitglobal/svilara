@@ -2,12 +2,9 @@
   <div class="new-event--wrapper">
     <div class="client-form" v-if="events">
       <h2>Zahtevi</h2>
-      <Accordion
-        v-for="(event, index) in this.pendingEvents"
-        :key="index"
-        :event="event"
-        :index="index"
-      />
+
+      <Accordion :events="this.pendingEvents" />
+
       <p v-if="events.length === 0">Nema novih zahteva...</p>
     </div>
     <div class="admin-form">
@@ -117,7 +114,7 @@ import Accordion from "./Accordion";
 export default {
   name: "NewEvent",
   components: {
-    Accordion
+	Accordion
   },
 
   data() {
@@ -157,7 +154,6 @@ export default {
       }
       this.pendingEvents = pendingEvents;
     });
-    
   },
   computed: {
     events() {
@@ -172,22 +168,22 @@ export default {
       let arrayEndTime = this.endTime.split(":");
       let arrayStartDate = this.startDate.split(".");
       let arrayStartTime = this.startTime.split(":");
-    
+
       this.event.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.event.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
-      
+
       let eventCopy = {...this.event};
       if (eventCopy.category === 'drugo'){
         eventCopy.category = this.categoryOther;
       }
 
-      if (eventCopy.space === 'Drugo'){   
+      if (eventCopy.space === 'Drugo'){
         eventCopy.space = this.spaceOther;
       }
       console.log(this.event)
       try {
           const form = new FormData()
-          for (var prop in eventCopy){                 
+          for (var prop in eventCopy){
               form.append(prop, eventCopy[prop])
           }
         const res = await this.axios.post(
