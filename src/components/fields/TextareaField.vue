@@ -3,7 +3,7 @@
     <h5>{{index+1}}. {{question.text}}</h5>
     <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
-          <input type="text" v-model="data" @change="onChange" />
+          <textarea v-model="data" @change="onChange" cols="55" rows="5"/>
           <span>{{ errors[0] }}</span>
         </li>
     </ValidationProvider>
@@ -13,7 +13,7 @@
 <script>
 import { ValidationProvider } from "vee-validate";
 export default {
-  name: "InputField",
+  name: "TextareaField",
   props: ["name", "question", "values", "mandatory", "index"],
   components: {
     ValidationProvider
@@ -50,7 +50,7 @@ export default {
     margin-bottom: 10px;
     font-size: 16px;
   }
-  input {
+  textarea {
     display: block;
     width: 400px;
     padding: 10px;
@@ -70,7 +70,7 @@ export default {
     }
   }
   span,
-  input,
+  textarea,
   select {
     font-size: 16px;
   }

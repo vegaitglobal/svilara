@@ -3,26 +3,50 @@
     <div class="wrapper">
       <div class="top-bar"></div>
       <div class="content--wrapper">
-        <Header/>
+        <Header />
         <div class="content">
-            <router-view />
+          <router-view />
         </div>
-        <Footer/>
+        <Footer />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
+import axios from "axios";
 export default {
   name: "app",
   components: {
     Header,
     Footer
+  },
+  mounted() {
+    axios.get(`${process.env.VUE_APP_BASE_URL}/admin/scripts`).then(data => {
+      let scriptsArrayOfString = data.data.data;
+      var head = document.getElementsByTagName("head")[0];
+
+      let scriptsArray = [];
+      for (let i = 0; i < scriptsArrayOfString.length; i++) {
+        let script = this.stringToHtml(scriptsArrayOfString[i].value);
+        scriptsArray.push(script[0]);
+      }
+
+      for (let j = scriptsArray.length - 1; j >= 0; j--) {
+        head.prepend(scriptsArray[j]);
+      }
+    });
+  },
+  methods: {
+    stringToHtml(str) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, "text/html");
+      return doc.head.children;
+    }
   }
-}
+};
 </script>
 
 <style lang="scss">

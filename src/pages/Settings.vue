@@ -22,6 +22,13 @@
         :question="question"
       />
     </div>
+    <h3>Dodavanje skripte</h3>
+    <p>Dodaj prvu skriptu:</p>
+    <textarea rows="10" cols="90" v-model="firstScript"></textarea>
+    <button @click="addFirstScript">Dodaj skriptu</button>
+    <p>Dodaj drugu skriptu:</p>
+    <textarea rows="10" cols="90" v-model="secondScript"></textarea>
+    <button @click="addSecondScript">Dodaj skriptu</button>
     <modal
       name="adminCreateQuestionText"
       height="300"
@@ -51,6 +58,7 @@
 import Sidebar from "../components/Sidebar.vue";
 import SettingsOption from "../components/SettingsOption.vue";
 import Question from "../components/Question.vue";
+import axios from "axios";
 
 export default {
   name: "Settings",
@@ -59,10 +67,12 @@ export default {
     SettingsOption,
     Question
   },
-  data(){
+  data() {
     return {
-      data: ''
-    }
+      data: "",
+      firstScript: "",
+      secondScript: ""
+    };
   },
   created() {
     this.$store.dispatch("fetchSettings");
@@ -84,32 +94,62 @@ export default {
     showModalQuestionPicture() {
       this.$modal.show("adminCreateQuestionPicture");
     },
-    saveInputText(){
-        let question = {
-            text: this.data,
-            fieldType: 'input',
-            values: "",
-            order: this.questions.length + 1,
-            mandatory: false,
-            name: `question${this.questions[this.questions.length-1].id + 1}`
-        }
-        this.$store.dispatch("addQuestion", question);
-        this.$modal.hide("adminCreateQuestionText");
-        this.data = '';
-    },
-    saveInputFile(){
-        let question = {
-            text: this.data,
-            fieldType: 'file',
-            values: "",
-            order: this.questions.length + 1,
-            mandatory: false,
-             name: `question${this.questions[this.questions.length-1].id + 1}`
-        }
-        this.$store.dispatch("addQuestion", question);
-        this.$modal.hide("adminCreateQuestionPicture");
-        this.data = '';
+    saveInputText() {
+      let question = {
+        text: this.data,
+        fieldType: "input",
+        values: "",
+        order: this.questions.length + 1,
+        mandatory: false,
+        name: `question${this.questions[this.questions.length - 1].id + 1}`
+      };
 
+      this.$store.dispatch("addQuestion", question);
+      this.$modal.hide("adminCreateQuestionText");
+      this.data = "";
+    },
+    saveInputFile() {
+      let question = {
+        text: this.data,
+        fieldType: "file",
+        values: "",
+        order: this.questions.length + 1,
+        mandatory: false,
+        name: `question${this.questions[this.questions.length - 1].id + 1}`
+      };
+
+      this.$store.dispatch("addQuestion", question);
+      this.$modal.hide("adminCreateQuestionPicture");
+      this.data = "";
+    },
+    addFirstScript() {
+      var head = document.getElementsByTagName("head")[0];
+      var html = this.stringToHtml(this.firstScript);
+      head.prepend(html[0]);
+      let script = { value: this.firstScript };
+      axios.post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script);
+    },
+    addSecondScript() {
+      var head = document.getElementsByTagName("head")[0];
+
+      var html = this.stringToHtml(this.secondScript);
+
+      var children = head.children;
+      let numberOfScriptUnderHeadTag = 0;
+      for (let i = 0; i < children.length; i++) {
+        if (children[i].tagName === "SCRIPT") {
+          numberOfScriptUnderHeadTag = numberOfScriptUnderHeadTag + 1;
+        } else break;
+      }
+
+      head.insertBefore(html[0], head.children[numberOfScriptUnderHeadTag]);
+      let script = { value: this.secondScript };
+      axios.post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script);
+    },
+    stringToHtml(str) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, "text/html");
+      return doc.head.children;
     }
   }
 };

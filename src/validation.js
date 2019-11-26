@@ -7,7 +7,7 @@ configure({ bails: false });
 // Validation rules
 extend("required", {
   ...required,
-  message: "{_field_} is required"
+  message: "{_field_} je obavezno"
 });
 extend("email", email);
 extend("lengthBetween", {
@@ -28,5 +28,5 @@ extend('verify_password', {
 });
 extend('confirmed', {
     ...confirmed,
-    message: "Password doesn't match"
+    message: "Šifra se ne poklapa"
 })
