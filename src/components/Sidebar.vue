@@ -5,8 +5,8 @@
     </a>
     <SocialIcons />
     <ContactInfo />
-    <img class="sidebar__logo" :src="logo1" />
-    <img class="sidebar__logo" :src="logo2" alt="logo" />
+    <img class="sidebar__logo--small" :src="logo1" />
+    <img class="sidebar__logo--small" :src="logo2" alt="logo" />
   </div>
 </template>
 
@@ -87,6 +87,11 @@ mounted() {
     margin: 0 auto 30px;
     display: block;
     z-index: 3;
+  }
+  &__logo--small {
+    margin: 0 auto 30px;
+    max-width: 50%;
+    display: block;
   }
 }
 </style>
