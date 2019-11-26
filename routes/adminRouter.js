@@ -24,4 +24,8 @@ router.post("/setting", adminController.createSettings);
 router.put("/setting/:id", adminController.updateSettings);
 router.delete("/setting/:id", adminController.deleteSettings);
 
+router.get("/scripts", adminController.getScripts);
+router.post("/script", adminController.createScript);
+
+
 module.exports = router;

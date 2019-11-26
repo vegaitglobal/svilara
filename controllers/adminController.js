@@ -677,6 +677,38 @@ exports.deleteSettings = async (req, res) => {
   });
 };
 
+exports.getScripts = async function(req, res) {
+  console.log('usao============')
+  let [err, dbScripts] = await to(models.Script.findAll({}));
+
+  if (err) {
+    console.log(err);
+    return ReE(res, err.message);
+  }
+console.log(dbScripts);
+  return ReS(res, {
+    data: dbScripts
+  });
+};
+
+exports.createScript = async (req, res) => {
+  let [err, dbScript] = await to(
+    models.Script.create({
+      value: req.body.value
+    })
+  );
+  if (err) {
+    console.log(err);
+    return ReE(res, {
+      msg: "Something went wrong"
+    });
+  }
+  return ReS(res, {
+    msg: "Successfully created",
+    data: dbScript
+  });
+};
+
 function validateQuestion(body) {
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
   if (!allowedFiledTypes.includes(body.fieldType)) {

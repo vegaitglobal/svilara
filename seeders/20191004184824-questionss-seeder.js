@@ -144,6 +144,14 @@ module.exports = {
           mandatory: true
         },
         {
+          text: "Ukupno trajanje programa(montaža i demontaža)",
+          fieldType: "input",
+          name: "question23",
+          values: "",
+          order: order_number++,
+          mandatory: true
+        },
+        {
           text: "Opis programa - Description of the event",
           fieldType: "input",
           name: "question14",
@@ -226,13 +234,29 @@ module.exports = {
           mandatory: true
         },
         {
+          text: "Da li je potreban volonter? Ako jeste, koja vrsta volontera?",
+          fieldType: "input",
+          name: "question24",
+          values: "",
+          order: order_number++,
+          mandatory: true
+        },
+        {
+          text: "Da li prihvatate da budete deo platforme?",
+          fieldType: "input",
+          name: "question25",
+          values: "",
+          order: order_number++,
+          mandatory: true
+        },
+        {
           text: "Posebne napomene - Special notes",
           fieldType: "input",
           name: "question22",
           values: "",
           order: order_number++,
           mandatory: false
-        }
+        },
       ],
       {}
     );
