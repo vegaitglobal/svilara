@@ -26,9 +26,9 @@ export default {
       sidebarBg: sidebarBg
     };
   },
-mounted() {
-  this.$store.dispatch('fetchSettings')
-},
+  mounted() {
+    this.$store.dispatch('fetchSettings')
+  },
   computed: {
     settings() {
       return this.$store.getters.getSettings;

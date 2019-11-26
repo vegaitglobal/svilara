@@ -103,7 +103,7 @@ body {
     display: flex;
     min-height: 200px;
     @include breakpoint(mob) {
-      padding-bottom: 230px;
+      padding-bottom: 560px;
     }
     > div {
       width: 100%;

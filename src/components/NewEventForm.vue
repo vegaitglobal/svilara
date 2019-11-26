@@ -135,9 +135,9 @@ export default {
         logo: ""
       },
       pendingEvents: [],
-      startDate: "", 
+      startDate: "",
       startTime: "",
-      endDate: "", 
+      endDate: "",
       endTime: "",
       spaceOther: "",
       categoryOther: ""
