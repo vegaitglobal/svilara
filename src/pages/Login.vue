@@ -1,11 +1,11 @@
 <template>
   <div id="login">
     <Sidebar />
-    <h1>Login</h1>
+    <h1>Ulogujte se</h1>
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
-    <input type="password" name="password" v-model="credentials.password" placeholder="Password" />
+    <input type="password" name="password" v-model="credentials.password" placeholder="Lozinka" />
     <button type="submit" class="btn btn__purple btn__large" @click.prevent="submit">Login</button>
-    <button class="link" @click.prevent="redirectToForgotPasssword">Forgot password</button>
+    <button class="link" @click.prevent="redirectToForgotPasssword">Zaboravili ste lozinku?</button>
   </div>
 </template>
 
@@ -71,8 +71,10 @@ export default {
   @include breakpoint(mob) {
     padding: 0;
   }
-  h1 {
-    margin-bottom: 30px;
+  h1,
+  h5 {
+    max-width: 600px;
+    margin: 0 auto 30px;
   }
   input {
     display: block;

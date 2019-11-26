@@ -1,53 +1,58 @@
 <template>
   <div>
     <Sidebar />
-    <label for="password">Password</label>
+    <div class="reset-password">
+        <div class="input-row">
+            <label for="password">Lozinka</label>
+            <ValidationProvider name="Password" vid="password" v-slot="{ errors }">
+            <!--  rules="required|lengthBetween:8,26|verify_password" -->
+                <input
+                    name="password"
+                    class="form-control"
+                    v-model="data.password"
+                    type="password"
+                    value
+                    placeholder="* * * * * * *"
+                />
+                <span class="error-text">
+                    <ul>
+                        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                    </ul>
+                </span>
+            </ValidationProvider>
+        </div>
 
-    <ValidationProvider name="Password" vid="password" v-slot="{ errors }">
-      <!--  rules="required|lengthBetween:8,26|verify_password" -->
-      <input
-        name="password"
-        class="form-control"
-        v-model="data.password"
-        type="password"
-        value
-        placeholder="*******"
-      />
-      <span style="color:red">
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </span>
-    </ValidationProvider>
+        <div class="input-row">
+            <label for="password_confirmation">Ponovite lozinku</label>
+            <ValidationProvider
+            name="Password confirmation"
+            rules="required|confirmed:password"
+            v-slot="{ errors }"
+            >
+            <input
+                name="password_confirmation"
+                class="form-control"
+                v-model="data.password_confirmation"
+                type="password"
+                value
+                placeholder="* * * * * * *"
+            />
+            <span class="error-text">
+                <ul>
+                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+                </ul>
+            </span>
+            </ValidationProvider>
+        </div>
 
-    <label for="password_confirmation">Password Confirmation</label>
-    <ValidationProvider
-      name="Password confirmation"
-      rules="required|confirmed:password"
-      v-slot="{ errors }"
-    >
-      <input
-        name="password_confirmation"
-        class="form-control"
-        v-model="data.password_confirmation"
-        type="password"
-        value
-        placeholder="*******"
-      />
-      <span style="color:red">
-        <ul>
-          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-        </ul>
-      </span>
-    </ValidationProvider>
-
-    <div>
-      <input
-        @click.prevent="resetPassword"
-        class="btn btn-main"
-        type="submit"
-        value="Reset"
-      />
+        <div>
+        <input
+            @click.prevent="resetPassword"
+            class="btn btn-main btn__purple btn__large"
+            type="submit"
+            value="Resetujte lozinku"
+        />
+        </div>
     </div>
   </div>
 </template>
@@ -139,3 +144,36 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import "../assets/scss/variables.scss";
+
+.error-text {
+    color: $red;
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+}
+.reset-password {
+    width: 100%;
+    padding: 20px;
+    .input-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        label {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        input {
+            padding: 10px;
+            width: 300px;
+        }
+    }
+    .btn {
+        margin: 20px auto 0;
+        display: block;
+    }
+}
+</style>

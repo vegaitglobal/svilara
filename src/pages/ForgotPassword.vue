@@ -1,9 +1,10 @@
 <template>
   <div id="login">
     <Sidebar />
-    <h1>Forgot password</h1>
+    <h1>Zaboravili ste lozinku?</h1>
+    <h5>Unesite email adresu na koju će Vam stići email sa podacima za promenu lozinke.</h5>
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
-    <button type="button" class="btn btn__purple btn__large" @click.prevent="sendEmail">Reset password</button>
+    <button type="button" class="btn btn__purple btn__large" @click.prevent="sendEmail">Pošalji</button>
   </div>
 </template>
 

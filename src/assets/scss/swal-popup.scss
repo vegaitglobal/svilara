@@ -17,3 +17,7 @@
     transition: 0.2s;
     margin: 10px 0 20px;
 }
+.swal2-icon.swal2-error [class^=swal2-x-mark-line] {
+    width: 3.5em !important;
+    top: 2.7em !important;
+}
