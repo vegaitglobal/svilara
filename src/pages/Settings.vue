@@ -9,10 +9,10 @@
         :option="option"
       />
       <h3>Podešavanja pitanja u formularu</h3>
-      <button @click="showModalQuestionText">
+      <button @click="showModalQuestionText" class="btn btn__purple settings-button">
         Dodaj pitanje gde je odgovor tekst
       </button>
-      <button @click="showModalQuestionPicture">
+      <button @click="showModalQuestionPicture" class="btn btn__purple settings-button">
         Dodaj pitanje gde je odgovor slika
       </button>
       <!-- {{questions}} -->
@@ -27,20 +27,23 @@
       height="300"
       width="600"
       overlayTransition="overlay-fade"
+      class="modal__create-question"
     >
-    <h5>Unesite pitanje:</h5>
+      <h2>Unesite pitanje:</h2>
       <input type="text" v-model="data" />
-      <button @click="saveInputText">Sačuvaj</button></modal>
+      <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
+    </modal>
     <modal
       name="adminCreateQuestionPicture"
       height="300"
       width="600"
       overlayTransition="overlay-fade"
+      class="modal__create-question"
     >
-      <h5>Unesite pitanje:</h5>
+      <h2>Unesite pitanje:</h2>
       <input type="text" v-model="data" />
-      <button @click="saveInputFile">Sačuvaj</button></modal>
-   
+      <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
+    </modal>
   </div>
 </template>
 
@@ -57,10 +60,9 @@ export default {
     Question
   },
   data(){
-      return {
-        data: ''
-      }
-
+    return {
+      data: ''
+    }
   },
   created() {
     this.$store.dispatch("fetchSettings");
@@ -83,7 +85,6 @@ export default {
       this.$modal.show("adminCreateQuestionPicture");
     },
     saveInputText(){
-        
         let question = {
             text: this.data,
             fieldType: 'input',
@@ -92,7 +93,6 @@ export default {
             mandatory: false,
             name: `question${this.questions[this.questions.length-1].id + 1}`
         }
-        
         this.$store.dispatch("addQuestion", question);
         this.$modal.hide("adminCreateQuestionText");
         this.data = '';
@@ -106,7 +106,6 @@ export default {
             mandatory: false,
              name: `question${this.questions[this.questions.length-1].id + 1}`
         }
-        
         this.$store.dispatch("addQuestion", question);
         this.$modal.hide("adminCreateQuestionPicture");
         this.data = '';
@@ -139,5 +138,26 @@ h3 {
       font-size: 13px;
     }
   }
+}
+.settings-button {
+    margin: 10px 20px 15px 0;
+}
+.modal__create-question {
+    .v--modal {
+        text-align: center;
+        h2 {
+            font-weight: normal;
+            margin-bottom: 30px;
+        }
+        input {
+            margin-right: 10px;
+            padding: 12px;
+            width: 300px;
+        }
+        .btn {
+            display: block;
+            margin: 20px auto 0;
+        }
+    }
 }
 </style>
