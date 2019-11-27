@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar />
     <h3 v-if="!pageData">Stranica je u izradi...</h3>
     <span v-else v-html="pageData"></span>
   </div>
@@ -8,12 +7,8 @@
 
 <script>
 import axios from "axios";
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
-  components: {
-    Sidebar
-  },
   data() {
     return {
       pageData: ""

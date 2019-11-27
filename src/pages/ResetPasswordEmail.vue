@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar />
     <div class="reset-password">
         <div class="input-row">
             <label for="password">Lozinka</label>
@@ -59,13 +58,11 @@
 
 <script>
 import { ValidationProvider } from "vee-validate";
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
   name: "verifyEmail",
   components: {
     ValidationProvider,
-    Sidebar
   },
 
   data() {

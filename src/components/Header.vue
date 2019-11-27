@@ -328,7 +328,8 @@ export default {
       border-radius: 2px;
     }
   }
-  .radio-btn {
+  .radio-btn,
+  .check-box {
     label {
       &::before {
         display: none;
@@ -337,11 +338,6 @@ export default {
         margin-left: 10px;
         padding: 10px;
       }
-    }
-  }
-  .check-box label {
-    &::before {
-      display: none;
     }
   }
 }

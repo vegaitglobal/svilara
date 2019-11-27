@@ -2,6 +2,7 @@
   <div id="app">
     <div class="wrapper">
       <div class="top-bar"></div>
+      <Sidebar/>
       <div class="content--wrapper">
         <Header />
         <div class="content">
@@ -16,12 +17,14 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+import Sidebar from "./components/Sidebar.vue";
 import axios from "axios";
 export default {
   name: "app",
   components: {
     Header,
-    Footer
+    Footer,
+    Sidebar
   },
   mounted() {
     axios.get(`${process.env.VUE_APP_BASE_URL}/admin/scripts`).then(data => {

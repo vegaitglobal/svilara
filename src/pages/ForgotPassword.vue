@@ -1,6 +1,5 @@
 <template>
   <div id="login">
-    <Sidebar />
     <h1>Zaboravili ste lozinku?</h1>
     <h5>Unesite email adresu na koju će Vam stići email sa podacima za promenu lozinke.</h5>
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
@@ -9,13 +8,9 @@
 </template>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
   name: "ForgotPassword",
-  components: {
-    Sidebar
-  },
   data() {
     return {
       credentials: {

@@ -7,7 +7,7 @@
       :is="mapToType(question.fieldType)"
       :index="index"
     ></component>
-    <button class="btn btn__purple btn__large" @click="submit">Submit</button>
+    <button class="btn btn__purple btn__large" @click="submit">Pošalji</button>
   </div>
 </template>
 

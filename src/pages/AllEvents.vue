@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar />
     <v-client-table :data="tableData" :columns="columns" :options="options">
       <button
         class="btn btn__purple"
@@ -15,12 +14,8 @@
 </template>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
-  components: {
-    Sidebar
-  },
   data() {
     return {
       columns: [

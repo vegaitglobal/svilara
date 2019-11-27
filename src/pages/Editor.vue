@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar />
     <wysiwyg v-model="html" />
     <button type="submit" class="btn btn__purple btn__large editr-btn" @click="createPage">Sačuvaj</button>
   </div>
@@ -8,12 +7,8 @@
 
 <script>
 import axios from "axios";
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
-  components: {
-    Sidebar
-  },
   data: function() {
     return {
       html: ""

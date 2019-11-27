@@ -1,6 +1,5 @@
 <template>
   <div id="login">
-    <Sidebar />
     <h1>Ulogujte se</h1>
     <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
     <input type="password" name="password" v-model="credentials.password" placeholder="Lozinka" />
@@ -10,13 +9,9 @@
 </template>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 
 export default {
   name: "Login",
-  components: {
-    Sidebar
-  },
   data() {
     return {
       credentials: {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar/>
     <MainEvent  v-if="!isSearching" :event="events[0]"/>
     <EventHeadline/>
     <div class="daily-event-wrap">
@@ -11,15 +10,12 @@
 </template>
 
 <script>
-
-import Sidebar from '../components/Sidebar.vue'
 import MainEvent from '../components/MainEvent.vue'
 import DailyEvent from '../components/DailyEvent.vue'
 import EventHeadline from '../components/EventHeadline.vue'
 
 export default {
   components: {
-    Sidebar,
     MainEvent,
     DailyEvent,
     EventHeadline,

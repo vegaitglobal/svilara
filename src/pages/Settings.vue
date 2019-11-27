@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Sidebar />
     <h3>Opšta podešavanja</h3>
     <div class="settings-input">
       <SettingsOption
@@ -23,22 +22,26 @@
       />
     </div>
     <h3>Dodavanje skripte</h3>
-    <p>Dodaj prvu skriptu:</p>
-    <textarea rows="10" cols="90" v-model="firstScript"></textarea>
-    <button @click="addFirstScript">Dodaj skriptu</button>
-    <p>Dodaj drugu skriptu:</p>
-    <textarea rows="10" cols="90" v-model="secondScript"></textarea>
-    <button @click="addSecondScript">Dodaj skriptu</button>
+    <div class="script-input">
+        <p>Dodaj skriptu za Google Analytics:</p>
+        <textarea rows="10" cols="90" v-model="firstScript"></textarea>
+        <button @click="addFirstScript" class="btn btn__purple">Dodaj skriptu</button>
+    </div>
+    <div class="script-input">
+        <p>Dodaj skriptu za Google Tag Manager:</p>
+        <textarea rows="10" cols="90" v-model="secondScript"></textarea>
+        <button @click="addSecondScript" class="btn btn__purple">Dodaj skriptu</button>
+    </div>
     <modal
-      name="adminCreateQuestionText"
-      height="300"
-      width="600"
-      overlayTransition="overlay-fade"
-      class="modal__create-question"
+    name="adminCreateQuestionText"
+    height="300"
+    width="600"
+    overlayTransition="overlay-fade"
+    class="modal__create-question"
     >
-      <h2>Unesite pitanje:</h2>
-      <input type="text" v-model="data" />
-      <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
+        <h2>Unesite pitanje:</h2>
+        <input type="text" v-model="data" />
+        <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
     <modal
       name="adminCreateQuestionPicture"
@@ -47,15 +50,14 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
-      <h2>Unesite pitanje:</h2>
-      <input type="text" v-model="data" />
-      <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
+        <h2>Unesite pitanje:</h2>
+        <input type="text" v-model="data" />
+        <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
   </div>
 </template>
 
 <script>
-import Sidebar from "../components/Sidebar.vue";
 import SettingsOption from "../components/SettingsOption.vue";
 import Question from "../components/Question.vue";
 import axios from "axios";
@@ -63,7 +65,6 @@ import axios from "axios";
 export default {
   name: "Settings",
   components: {
-    Sidebar,
     SettingsOption,
     Question
   },
@@ -160,6 +161,7 @@ h3 {
   margin: 20px 0 10px;
 }
 .settings-input {
+  margin-bottom: 40px;
   div {
     margin-bottom: 10px;
     display: flex;
@@ -181,6 +183,19 @@ h3 {
 }
 .settings-button {
     margin: 10px 20px 15px 0;
+}
+.script-input {
+    p {
+        margin-bottom: 10px;
+    }
+    .btn {
+        display: block;
+        margin: 30px 0;
+    }
+    textarea {
+        resize: none;
+        overflow: auto;
+    }
 }
 .modal__create-question {
     .v--modal {
