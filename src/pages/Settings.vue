@@ -38,6 +38,8 @@
     width="600"
     overlayTransition="overlay-fade"
     class="modal__create-question"
+    @opened="disableScroll()"
+    @before-close="enableScroll()"
     >
         <h2>Unesite pitanje:</h2>
         <input type="text" v-model="data" />
@@ -49,6 +51,8 @@
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
     >
         <h2>Unesite pitanje:</h2>
         <input type="text" v-model="data" />
@@ -94,6 +98,12 @@ export default {
     },
     showModalQuestionPicture() {
       this.$modal.show("adminCreateQuestionPicture");
+    },
+    disableScroll() {
+        document.body.style.overflow = 'hidden'
+    },
+    enableScroll() {
+        document.body.style.overflow = 'auto'
     },
     saveInputText() {
       let question = {

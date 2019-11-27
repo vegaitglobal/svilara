@@ -17,6 +17,9 @@
       height="600"
       width="700"
       class="new-event-modal"
+      overlayTransition="overlay-fade"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
     >
       <button type="button" class="btn btn__close" @click="closeModal"></button>
       <div class="modal-wrapper">
@@ -211,13 +214,17 @@ export default {
     closeModal() {
       this.$modal.hide("modalEventEdit");
     },
+    disableScroll() {
+        document.body.style.overflow = 'hidden'
+    },
+    enableScroll() {
+        document.body.style.overflow = 'auto'
+    },
     async updateEvent() {
-      
       let arrayEndDate =  this.endDate.split(".");
       let arrayEndTime = this.endTime.split(":");
       let arrayStartDate = this.startDate.split(".");
       let arrayStartTime = this.startTime.split(":");
-    
       this.selectedEvent.startTime = new Date(arrayStartDate[2], arrayStartDate[1] - 1, arrayStartDate[0], arrayStartTime[0], arrayStartTime[1] ).toISOString();
       this.selectedEvent.endTime = new Date(arrayEndDate[2], arrayEndDate[1] - 1, arrayEndDate[0], arrayEndTime[0], arrayEndTime[1]).toISOString();
 
@@ -226,10 +233,10 @@ export default {
         eventCopy.category = this.categoryOther;
       }
 
-      if (eventCopy.space === 'drugo'){    
+      if (eventCopy.space === 'drugo'){
         eventCopy.space = this.spaceOther;
       }
-      
+
       try {
         const form = new FormData();
         for (var prop in eventCopy) {

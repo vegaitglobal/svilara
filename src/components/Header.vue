@@ -64,8 +64,8 @@
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="600" width="700" overlayTransition="overlay-fade">
-      <button type="button" class="btn btn__close" @click="closeModal"></button>
+    <modal name="userCreateEventModal" height="600" width="700" overlayTransition="overlay-fade" @opened="disableScroll()" @before-close="enableScroll()">
+      <button type="button" class="btn btn__close" @click="closeModal();"></button>
       <div class="tc-modal" v-if="page==1">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg / Application form for organising an event in the 'Egység' Cultural Station</h1>
         <div class="tc-modal__text">
@@ -147,6 +147,13 @@ export default {
     DatePicker,
     Formular
   },
+  data: function() {
+    return {
+      terms1accepted: false,
+      terms2accepted: false,
+      page: 1,
+    };
+  },
   methods: {
     showUserCreateEventModal() {
       this.page = 1;
@@ -156,6 +163,12 @@ export default {
     },
     closeModal() {
       this.$modal.hide("userCreateEventModal");
+    },
+    disableScroll() {
+        document.body.style.overflow = 'hidden'
+    },
+    enableScroll() {
+        document.body.style.overflow = 'auto'
     },
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) {
@@ -172,13 +185,6 @@ export default {
       this.$store.dispatch("logout");
       this.$router.push({ path: '/admin/login' })
     }
-  },
-  data: function() {
-    return {
-      terms1accepted: false,
-      terms2accepted: false,
-      page: 1
-    };
   }
 };
 </script>
