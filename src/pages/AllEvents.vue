@@ -64,18 +64,32 @@ export default {
   },
   mounted() {
     //this.tableData = this.events;
-    this.$store
-      .dispatch("fetchAdminEvents")
-      .then(data => {
-        let events = [...data.data.data]
-    for (let i = 0; i < events.length; i++) {
-      let dateStart = new Date(events[i].startTime);
-      let dateEnd = new Date(events[i].endTime);
-      events[i].startTime = dateStart.toLocaleString("sr-ME");
-      events[i].endTime = dateEnd.toLocaleString("sr-ME");
+    this.$store.dispatch("fetchAdminEvents").then(data => {
+      let events = [...data.data.data];
+      for (let i = 0; i < events.length; i++) {
+        let dateStart = new Date(events[i].startTime);
+        let dateEnd = new Date(events[i].endTime);
+        events[i].startTime = dateStart.toLocaleString("sr-ME");
+        events[i].endTime = dateEnd.toLocaleString("sr-ME");
+
+        let status = events[i].status;
+        if (status == "accepted") {
+          events[i].status = "prihvaćen";
+        } else if (status == "rejected") {
+          events[i].status = "odbijen";
+        } else if (status == "pending") {
+          events[i].status = "na čekanju";
+        }
+        let type = events[i].type;
+        if (type == "otvorenbp"){
+          events[i].type = 'otvoren bez plaćanja';
+        }
+        if (type == "otvorensp"){
+          events[i].type = 'otvoren sa plaćanjem';
+        }
       }
       this.tableData = events;
-  });
+    });
   }
 };
 </script>
