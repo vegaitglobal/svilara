@@ -88,15 +88,17 @@ body {
 }
 
 .content--wrapper {
-  max-width: 1421px;
-  padding: 33px 20px 50px;
-  margin: 0 auto 0 340px;
+  max-width: calc(100% - 305px);
+  margin: 0 0 0 auto;
+  padding: 33px 35px 50px;
   @include breakpoint(htab) {
-    margin-left: 220px;
+    max-width: calc(100% - 220px);
+    padding: 33px 20px 50px;
   }
   @include breakpoint(mob) {
-    margin-left: 0;
+    max-width: none;
     padding: 0;
+    margin: 0;
   }
   .content {
     background-color: $white;
