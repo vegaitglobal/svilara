@@ -4,24 +4,25 @@
     <div class="main-event__box">
       <div class="main-event__box--date">
         <p>
-          {{startingDateMonth}}
-          <span>{{startingDay}}</span>
+          {{ startingDateMonth }}
+          <span>{{ startingDay }}</span>
         </p>
       </div>
       <div
         class="main-event__box--image w-50"
-        :style="{background: `url(${baseMediaUrl}/${this.event.picture})` }"
+        :style="{ background: `url(${baseMediaUrl}/${this.event.picture})` }"
       ></div>
       <div class="main-event__box--text w-50">
-        <p>{{event.space}} | {{startingTime}}-{{endingTime}}h</p>
-        <h3>{{event.title}}</h3>
-        <p>{{event.description}}</p>
+        <p>{{ space }} | {{ startingTime }}-{{ endingTime }}h</p>
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.description }}</p>
         <router-link
           :to="'/event/' + this.event.id"
           type="button"
           tag="button"
           class="btn btn__orange"
-        >Pogledaj opis</router-link>
+          >Pogledaj opis</router-link
+        >
       </div>
     </div>
   </div>
@@ -37,10 +38,10 @@ export default {
   data: function() {
     return {
       MainImg: MainImg,
-      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL
+      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL,
+      //space: ""
     };
   },
-
   computed: {
     startingDay() {
       return moment(this.event.startTime).date();
@@ -65,12 +66,32 @@ export default {
 
     startingTime() {
       var start = new Date(this.event.startTime).getTime();
-      return moment.unix(start).format("hh:mm");
+      return moment(start).format("HH:mm");
     },
 
     endingTime() {
       var start = new Date(this.event.endTime).getTime();
-      return moment.unix(start).format("hh:mm");
+      return moment(start).format("HH:mm");
+    },
+    space() {
+      if (this.event) {
+      let space = this.event.space;
+      if (space == "velikasala") {
+        return "Velika sala";
+      } else if (space == "malasala") {
+        return "Mala sala";
+      } else if (space == "drucentar") {
+        return "Društveni centar";
+      } else if (space == "dvoriste") {
+        return "Dvorište";
+      } else if (space == "teren") {
+        return "Sportski tereni sa tribinama";
+      } else if (space == "plato") {
+        return "Plato";
+      } else {
+       return space;
+      }
+    }
     }
   }
 };
@@ -81,9 +102,9 @@ export default {
 
 .main-event {
   margin-bottom: 48px;
-    @include breakpoint(htab) {
-      margin-bottom: 80px;
-    }
+  @include breakpoint(htab) {
+    margin-bottom: 80px;
+  }
   h2 {
     width: 100%;
     font-weight: bold;
@@ -138,7 +159,7 @@ export default {
       p {
         color: $gray;
         @include breakpoint(htab) {
-            margin-top: 16px;
+          margin-top: 16px;
         }
       }
       button {
