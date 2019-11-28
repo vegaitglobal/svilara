@@ -3,7 +3,7 @@
     <h5>{{index+1}}. {{question.text}}</h5>
     <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
       <input type="file" accept="image/*" @change="uploadImage" />
-      <span>{{ errors[0] }}</span>
+      <span class="error">{{ errors[0] }}</span>
     </ValidationProvider>
   </div>
 </template>

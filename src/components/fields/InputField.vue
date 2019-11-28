@@ -4,7 +4,7 @@
     <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <input type="text" v-model="data" @change="onChange" />
-          <span>{{ errors[0] }}</span>
+          <span class="error">{{ errors[0] }}</span>
         </li>
     </ValidationProvider>
   </div>
@@ -84,13 +84,19 @@ export default {
   }
 }
 select {
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    appearance:none;
-    background: url('../../assets/img/arrow-down.svg');
-    background-repeat: no-repeat;
-    background-size: 4%;
-    background-position: 98% 50%;
-    cursor: pointer;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  appearance:none;
+  background: url('../../assets/img/arrow-down.svg');
+  background-repeat: no-repeat;
+  background-size: 4%;
+  background-position: 98% 50%;
+  cursor: pointer;
+}
+.error {
+  color: $red;
+  margin: 5px 0 10px !important;
+  font-size: 14px !important;
+  display: block;
 }
 </style>

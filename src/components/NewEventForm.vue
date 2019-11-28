@@ -21,7 +21,7 @@
               <li class="inputfield-row">
                 <span>Naziv programa</span>
                 <input v-model="event.title" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -32,7 +32,7 @@
               <li class="inputfield-row">
                 <span>Opis programa</span>
                 <input v-model="event.description" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -46,7 +46,7 @@
                   @change="logoChange($event) || validate($event)"
                   type="file"
                 />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -60,7 +60,7 @@
                   @change="imageChange($event) || validate($event)"
                   type="file"
                 />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -75,7 +75,7 @@
                   <option>Otvoren program (slobodan ulaz sa prijavom)</option>
                   <option>Zatvoren program</option>
                 </select>
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <li class="inputfield-row">
@@ -129,7 +129,7 @@
               <li class="inputfield-row">
                 <span>Link ka dogadjaju na društvenim mrežama</span>
                 <input v-model="event.socialMedia" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <li class="inputfield-row">
@@ -151,8 +151,8 @@
               <li class="inputfield-row">
                 <span>Datum početka programa (npr: 29.11.2019.)</span>
                 <input v-model="startDate" type="text" />
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
-              <span v-if="errors[0]">{{ errors[0] }}</span>
             </ValidationProvider>
             <ValidationProvider
               name="Polje vreme pocetka"
@@ -162,7 +162,7 @@
               <li class="inputfield-row">
                 <span>Vreme početka programa (npr: 20:00)</span>
                 <input v-model="startTime" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -173,7 +173,7 @@
               <li class="inputfield-row">
                 <span>Datum kraja programa (npr: 29.11.2019.)</span>
                 <input v-model="endDate" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
             <ValidationProvider
@@ -184,7 +184,7 @@
               <li class="inputfield-row">
                 <span>Vreme kraja programa (npr: 22:00)</span>
                 <input v-model="endTime" type="text" />
-                <span v-if="errors[0]">{{ errors[0] }}</span>
+                <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
             </ValidationProvider>
           </ol>
@@ -281,7 +281,6 @@ export default {
 
   methods: {
     async createEvent() {
-      
       let arrayEndDate = this.endDate.split(".");
       let arrayEndTime = this.endTime.split(":");
       let arrayStartDate = this.startDate.split(".");
@@ -369,7 +368,7 @@ export default {
     margin-top: 20px;
   }
   .client-form,
-  .admin-form {
+  .client-form + span {
     width: 50%;
     border-radius: 10px;
     border: 2px solid $purple-lighter;

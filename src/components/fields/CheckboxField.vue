@@ -19,9 +19,8 @@
             @change="onChange($event)"
             :name="value"
           />
-          
         </li>
-        <span>{{ errors[0] }}</span>
+        <span class="error">{{ errors[0] }}</span>
       </ul>
     </ValidationProvider>
   </div>

@@ -4,7 +4,7 @@
     <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <textarea v-model="data" @change="onChange" cols="55" rows="5"/>
-          <span>{{ errors[0] }}</span>
+          <span class="error">{{ errors[0] }}</span>
         </li>
     </ValidationProvider>
   </div>
