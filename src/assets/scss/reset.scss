@@ -31,6 +31,10 @@ html, body {
     height: 100%;
 }
 
+body {
+    padding: 0 !important;
+}
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
