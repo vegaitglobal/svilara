@@ -193,7 +193,7 @@
           @click="createEvent"
           class="btn btn__purple btn__large mt-20"
           type="submit"
-          v-if="valid"
+          :disabled="!valid"
         >
           Sačuvaj
         </button>
