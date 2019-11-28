@@ -43,7 +43,7 @@ extend("date_format", {
         arrayDate[0]
       )
       date.toISOString();
-      let flag = new Date().getDate() <= date.getDate();
+      let flag = new Date(new Date().toDateString()) <= date;
       return flag;
     } catch (err) {
       return false;
