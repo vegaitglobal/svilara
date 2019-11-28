@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <button type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
+          <button v-if="formFilled" type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
           <button type="button" class="btn btn__red" @click.prevent="() => rejectEvent(event.id)">Odbij</button>
         </div>
       </div>
@@ -64,7 +64,7 @@ export default {
   props: {
     events: {
       type: Array
-    }
+    },formFilled:{type: Boolean}
   },
   methods: {
     async acceptEvent(id) {
@@ -106,10 +106,10 @@ export default {
     }
   },
   mounted() {
-    if (this.event.picture) {
+    if (this.event && this.event.picture) {
         this.pictureLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
     }
-    if (this.event.logo) {
+    if (this.event && this.event.logo) {
         this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
     }
   }

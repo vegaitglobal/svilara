@@ -38,7 +38,7 @@ export default {
   data: function() {
     return {
       MainImg: MainImg,
-      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL,
+      baseMediaUrl: process.env.VUE_APP_MEDIA_BASE_URL
       //space: ""
     };
   },
@@ -75,23 +75,24 @@ export default {
     },
     space() {
       if (this.event) {
-      let space = this.event.space;
-      if (space == "velikasala") {
-        return "Velika sala";
-      } else if (space == "malasala") {
-        return "Mala sala";
-      } else if (space == "drucentar") {
-        return "Društveni centar";
-      } else if (space == "dvoriste") {
-        return "Dvorište";
-      } else if (space == "teren") {
-        return "Sportski tereni sa tribinama";
-      } else if (space == "plato") {
-        return "Plato";
-      } else {
-       return space;
-      }
-    }
+        let space = this.event.space;
+        if (space == "velikasala") {
+          return "Velika sala";
+        } else if (space == "malasala") {
+          return "Mala sala";
+        } else if (space == "drucentar") {
+          return "Društveni centar";
+        } else if (space == "dvoriste") {
+          return "Dvorište";
+        } else if (space == "teren") {
+          return "Sportski tereni sa tribinama";
+        } else if (space == "plato") {
+          return "Plato";
+        } else {
+          return space;
+        }
+        
+      } return "";
     }
   }
 };
