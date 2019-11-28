@@ -43,24 +43,30 @@
             tag="button"
             v-if="['Admin'].includes($route.name)"
           >Podešavanja</router-link>
-          <button
-            @click="$router.go(-1)"
+          <router-link
+            to="/admin"
             class="btn btn__purple btn__large"
-            type="button"
-            v-if="['NewEvent','AllEvents','Editor', 'Settings', 'ForgotPassword'].includes($route.name)"
-          >Nazad</button>
+            v-if="['NewEvent','AllEvents', 'Settings', 'ForgotPassword'].includes($route.name)">
+              Nazad
+          </router-link>
+          <router-link
+            to="/admin/all-events"
+            class="btn btn__purple btn__large"
+            v-if="['Editor'].includes($route.name)">
+              Nazad
+          </router-link>
+          <router-link
+            to="/"
+            class="btn btn__purple btn__large"
+            v-if="['EventPage'].includes($route.name)">
+              Nazad
+          </router-link>
           <button
             @click="logout"
             class="btn btn__purple btn__large"
             type="button"
             v-if="['Admin'].includes($route.name)"
           >Odjavi se</button>
-          <button
-            @click="$router.go(-1)"
-            class="btn btn__purple btn__large"
-            type="button"
-            v-if="['EventPage'].includes($route.name)"
-          >Nazad</button>
         </div>
       </div>
     </header>
@@ -166,11 +172,9 @@ export default {
     },
     disableScroll() {
         document.body.style.overflow = 'hidden'
-        document.body.style.paddingRight = '17px'
     },
     enableScroll() {
         document.body.style.overflow = 'auto'
-        document.body.style.paddingRight = '0px'
     },
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) {
@@ -179,9 +183,6 @@ export default {
           title: "Informacija",
           text: "Neophodno je da prihvatite sve uslove pravilnika i tačnost unešenih podataka. To bi značilo i Vama i nama, da na najlakši mogući način organizujemo događaj. Hvala! "
         });
-        if(document.body.style.paddingRight = '17px') {
-            return
-        }
         return;
       }
       this.page = 2;

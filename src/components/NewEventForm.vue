@@ -193,7 +193,7 @@
           @click="createEvent"
           class="btn btn__purple btn__large mt-20"
           type="submit"
-          v-if="valid"
+          :disabled="!valid"
         >
           Sačuvaj
         </button>
@@ -259,7 +259,7 @@ export default {
     },
     formFilled() {
       if (this.event) {
-         let e = this.event;
+        let e = this.event;
         if (e.title && e.description &&
           e.logo &&
           e.picture &&
