@@ -259,7 +259,7 @@ export default {
     },
     formFilled() {
       if (this.event) {
-         let e = this.event;
+        let e = this.event;
         if (e.title && e.description &&
           e.logo &&
           e.picture &&
