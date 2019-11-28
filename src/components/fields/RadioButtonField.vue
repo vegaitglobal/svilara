@@ -1,17 +1,28 @@
 <template>
   <div class="question">
-    <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
+    <h5>{{ index + 1 }}. {{ question.text }}</h5>
+    <ValidationProvider
+      :name="`Polje ${index + 1}`"
+      id="password"
+      :rules="isRequired"
+      v-slot="{ errors }"
+    >
       <ul>
-        <li class="radio-btn" v-for="(value, index) in JSON.parse(question.values)" :key="index">
+        <li
+          class="radio-btn"
+          v-for="(value, index) in JSON.parse(question.values)"
+          :key="index"
+        >
           <input
             v-if="value.toLowerCase() !== 'other:'"
             type="radio"
             @change="onChange($event)"
             :name="question.id"
             :id="value"
+            v-model="data"
+            :value="value"
           />
-          <label :for="value">{{value}}</label>
+          <label :for="value">{{ value }}</label>
           <input
             v-if="value.toLowerCase() == 'other:'"
             type="text"
@@ -20,7 +31,7 @@
           />
         </li>
       </ul>
-    </ValidationProvider>
+   </ValidationProvider> 
   </div>
 </template>
 
@@ -32,9 +43,14 @@ export default {
   components: {
     ValidationProvider
   },
+  data() {
+    return {
+      data:""
+    };
+  },
   computed: {
     isRequired() {
-      if (this.mandatory) return "required";
+      if (this.question.mandatory) return "required";
     }
   },
   methods: {
@@ -56,11 +72,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .radio-btn {
-    list-style-type: none;
-    margin-bottom: 5px;
-    input {
-        margin-right: 10px;
-    }
+.radio-btn {
+  list-style-type: none;
+  margin-bottom: 5px;
+  input {
+    margin-right: 10px;
   }
+}
 </style>

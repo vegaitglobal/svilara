@@ -1,7 +1,7 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
+    <ValidationProvider :name="`Polje ${index+1}`" :rules="`atLeastOneFilled:${selectedOptions}`" v-slot="{errors}">
       <ul>
         <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
           <input
@@ -11,6 +11,8 @@
             :name="value"
             :data-value="value"
             :id="value"
+            :value="value"
+            v-model="data"
           />
           <label :for="value">{{value}}</label>
           <input
@@ -38,7 +40,8 @@ export default {
   data() {
     return {
       isChecked: false,
-      selectedOptions: []
+      selectedOptions: [],
+      data:[""],
     };
   },
 
@@ -49,7 +52,8 @@ export default {
   },
   computed: {
     isRequired() {
-      if (this.mandatory) return "required";
+      console.log(this.question.mandatory)
+      if (this.question.mandatory) return "required";
     }
   },
   methods: {

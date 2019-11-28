@@ -1,7 +1,7 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
+    <ValidationProvider :name="`Polje ${index+1}`" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <textarea v-model="data" @change="onChange" cols="55" rows="5"/>
           <span class="error">{{ errors[0] }}</span>
