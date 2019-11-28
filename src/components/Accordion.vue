@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <button v-if="formFilled" type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
+          <button :disabled="!formFilled" type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
           <button type="button" class="btn btn__red" @click.prevent="() => rejectEvent(event.id)">Odbij</button>
         </div>
       </div>
@@ -59,12 +59,15 @@ export default {
   components: {
     Check,
     TimerSandEmpty,
-	Close
+    Close
   },
   props: {
     events: {
       type: Array
-    },formFilled:{type: Boolean}
+    },
+    formFilled:{
+        type: Boolean
+    }
   },
   methods: {
     async acceptEvent(id) {
