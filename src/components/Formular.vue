@@ -1,16 +1,18 @@
 <template>
   <div>
-  <ValidationObserver ref="observer" >
-  <div slot-scope="{ valid }">
-    <component
-      v-for="(question, index) in questions"
-      :key="index"
-      :question="question"
-      :is="mapToType(question.fieldType)"
-      :index="index"
-    ></component>
-    <button v-if="valid" class="btn btn__purple btn__large" @click="submit">Pošalji</button>
-    </div>
+    <ValidationObserver ref="observer">
+      <div slot-scope="{ valid }">
+        <component
+          v-for="(question, index) in questions"
+          :key="index"
+          :question="question"
+          :is="mapToType(question.fieldType)"
+          :index="index"
+        ></component>
+        <button v-if="valid" class="btn btn__purple btn__large" @click="submit">
+          Pošalji
+        </button>
+      </div>
     </ValidationObserver>
   </div>
 </template>
@@ -21,7 +23,7 @@ import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
 import TextareaField from "./fields/TextareaField";
-import {ValidationObserver} from "vee-validate"
+import { ValidationObserver } from "vee-validate";
 
 export default {
   name: "Formular",
@@ -55,7 +57,7 @@ export default {
           return "FileField";
         case "radiobutton":
           return "RadioButtonField";
-          case "textarea":
+        case "textarea":
           return "TextareaField";
       }
     },
@@ -67,28 +69,37 @@ export default {
       });
     },
 
-    submit() {
-      try {
-        this.$store.dispatch("submitEvent");
-        this.$swal
-          .fire({
-            title: "Događaj poslat.",
-            text: "Predlog događaja poslat je administratorima na procenu.",
-            type: "success"
-          })
-          .then(result => {
-            if (result.value) {
-              this.$modal.hide("userCreateEventModal");
-            }
-          });
-      } catch (error) {
-        this.$swal
-          .fire({
+    async submit() {
+      this.$store
+        .dispatch("submitEvent")
+        .then(response => {
+          if (response.data.success) {
+            this.$swal
+              .fire({
+                title: "Događaj poslat.",
+                text: "Predlog događaja poslat je administratorima na procenu.",
+                type: "success"
+              })
+              .then(result => {
+                if (result.value) {
+                  this.$modal.hide("userCreateEventModal");
+                }
+              });
+          } else {
+            this.$swal.fire({
+              title: "Upozorenje",
+              text: response.data.error.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(error => {
+          this.$swal.fire({
             title: "Greška",
-            text:  error.response.data.error,
+            text: error.response.data.error.msg,
             type: "error"
-          })
-      }
+          });
+        });
     }
   }
 };

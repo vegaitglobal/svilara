@@ -1,9 +1,13 @@
 <template>
   <badger-accordion>
-    <badger-accordion-item v-for="(event, index) in this.events" :key="event.id">
+    <badger-accordion-item
+      v-for="(event, index) in this.events"
+      :key="event.id"
+    >
       <div slot="header">
         <div>
-          <span>{{ index + 1 }}</span>.
+          <span>{{ index + 1 }}</span
+          >.
           <span>{{ event.contactEmail }}</span>
           {{ event.startTime ? "," : "" }}
           <span>{{ event.startTime }}</span>
@@ -22,20 +26,38 @@
         </span>
       </div>
       <div slot="content">
-        <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
+        <div
+          class="replies"
+          v-for="(row, index) in sortArray(event.formAnswers)"
+          :key="index"
+        >
           {{ row.question.order }}. {{ row.question.text }}:
-          <span
-            v-if="row.type != 'file'"
-            class="replies__answer"
-          >{{ row.answers }}</span>
+          <span v-if="row.type != 'file'" class="replies__answer">{{
+            row.answers
+          }}</span>
 
           <div v-if="row.type == 'file'">
-            <a target="_blank" :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
+            <a target="_blank" :href="`${link}/${row.answers}`"
+              >Kliknite da vidite sliku</a
+            >
           </div>
         </div>
         <div class="button-wrapper">
-          <button :disabled="!formFilled" type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
-          <button type="button" class="btn btn__red" @click.prevent="() => rejectEvent(event.id)">Odbij</button>
+          <button
+            :disabled="!formFilled"
+            type="button"
+            class="btn btn__green"
+            @click.prevent="() => acceptEvent(event.id)"
+          >
+            Prihvati
+          </button>
+          <button
+            type="button"
+            class="btn btn__red"
+            @click.prevent="() => rejectEvent(event.id)"
+          >
+            Odbij
+          </button>
         </div>
       </div>
     </badger-accordion-item>
@@ -51,9 +73,9 @@ export default {
   name: "Accordion",
   data() {
     return {
-        pictureLink: "",
-        logoLink: "",
-        link: process.env.VUE_APP_MEDIA_BASE_URL
+      pictureLink: "",
+      logoLink: "",
+      link: process.env.VUE_APP_MEDIA_BASE_URL
     };
   },
   components: {
@@ -65,8 +87,8 @@ export default {
     events: {
       type: Array
     },
-    formFilled:{
-        type: Boolean
+    formFilled: {
+      type: Boolean
     }
   },
   methods: {
@@ -106,14 +128,25 @@ export default {
         });
         this.error = err.response.data;
       }
+    },
+    sortArray(stringArray) {
+      let array = JSON.parse(stringArray);
+      if (array && array.length > 0) {
+        array.sort(function(a, b) {
+         return a.question.id - b.question.id;
+        });
+      }
+      return array;
     }
   },
   mounted() {
     if (this.event && this.event.picture) {
-        this.pictureLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
+      this.pictureLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
     }
     if (this.event && this.event.logo) {
-        this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
+      this.logoLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
     }
   }
 };

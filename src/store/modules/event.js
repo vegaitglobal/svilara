@@ -15,21 +15,21 @@ var fuseOptions = {
 
 const sortByDate = (a, b) => {
   return new Date(a.created).getTime() - new Date(b.created).getTime();
-}
+};
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
     if (settings[i].key === type) {
-      return settings[i].value
+      return settings[i].value;
     }
   }
-}
+};
 
 export default {
   state: {
     questions: [],
     answers: [],
-    image: '',
+    image: "",
     selectedMonth: moment(new Date()),
     events: [],
     adminEvents: [],
@@ -47,21 +47,20 @@ export default {
     },
 
     getQuestions(state) {
-      return state.questions
+      return state.questions;
     },
 
     eventsSortedByCreationTime(state) {
-      return state.events.sort(sortByDate)
+      return state.events.sort(sortByDate);
     },
 
     getCalendarEvents(state, rootState) {
+      let settings = rootState.getSettings;
 
-      let settings = rootState.getSettings
-
-      let serializedEvents = []
+      let serializedEvents = [];
       for (var i = 0; i < state.adminEvents.length; i++) {
-        var color = searchColorsByType(settings, state.adminEvents[i].type)
-        var borderColor = searchColorsByType(settings, 'placanje')
+        var color = searchColorsByType(settings, state.adminEvents[i].type);
+        var borderColor = searchColorsByType(settings, "placanje");
 
         let parsedEvent = {
           id: state.adminEvents[i].id,
@@ -69,7 +68,8 @@ export default {
           start: new Date(state.adminEvents[i].startTime),
           end: new Date(state.adminEvents[i].endTime),
           backgroundColor: color,
-          borderColor: state.adminEvents[i].price === 0 ? undefined : borderColor,
+          borderColor:
+            state.adminEvents[i].price === 0 ? undefined : borderColor,
           displayEventEnd: true,
           extendedProps: {
             id: state.adminEvents[i].id,
@@ -87,15 +87,15 @@ export default {
             logo: state.adminEvents[i].logo
           }
         };
-        serializedEvents.push(parsedEvent)
+        serializedEvents.push(parsedEvent);
       }
 
       return serializedEvents;
     },
 
     getSelectedMonth(state) {
-      var month = state.selectedMonth.locale("sr").format('MMMM Y')
-      return month.charAt(0).toUpperCase() + month.slice(1)
+      var month = state.selectedMonth.locale("sr").format("MMMM Y");
+      return month.charAt(0).toUpperCase() + month.slice(1);
     },
 
     getSearchedEvents(state) {
@@ -103,7 +103,7 @@ export default {
     },
 
     getSearching(state) {
-      return state.searching
+      return state.searching;
     }
     // getters: {
     //   getEvents(state) {
@@ -191,7 +191,11 @@ export default {
     async answerQuestion({ commit }, { question, answers }) {
       commit("REMOVE_ANSWER", question.id);
       commit("ANSWER_QUESTION", {
-        question: { id: question.id, text: question.text, order: question.order },
+        question: {
+          id: question.id,
+          text: question.text,
+          order: question.order
+        },
         answers,
         type: question.fieldType,
         name: question.name
@@ -202,33 +206,34 @@ export default {
       commit("SET_IMAGE", file);
     },
 
-    async submitEvent({ commit, state }) {
+     submitEvent({ commit, state }) {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
-        console.log(state.answers[i]);
         if (state.answers[i].type === "file") {
-          formData.append(state.answers[i].name, state.answers[i].answers, state.answers[i].name);
-          console.log(state.answers[i].name)
+          console.log(state.answers[i].answers)
+          formData.append(
+            state.answers[i].name,
+            state.answers[i].answers,
+            state.answers[i].name
+          );
         }
-        // if (state.answers[i].type === "file") {
-        //   formData.append(state.answers[i].name, state.answers[i].answers);
-        // }
-
-        if (state.answers[i].name === 'email') {
+        if (state.answers[i].name === "email") {
           formData.append(state.answers[i].name, state.answers[i].answers);
         }
       }
       formData.set("formAnswers", JSON.stringify(state.answers));
-      console.log(state.answers);
-      axios
+      return new Promise((resolve, reject) => {
+        axios
         .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
         .then(res => {
-          console.log(res);
+          resolve(res);
         })
         .catch(err => {
-          console.log(err);
+          reject(err);
         });
+      })
+     
     },
 
     async increaseMonth({ commit, dispatch }) {
@@ -254,7 +259,7 @@ export default {
     },
 
     async fetchAdminEvents({ commit }) {
-      console.log('usao u feth')
+      console.log("usao u feth");
       try {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`
@@ -270,12 +275,12 @@ export default {
       let result;
 
       if (!query == "") {
-        commit('SET_SEARCHING', true)
+        commit("SET_SEARCHING", true);
         let fuse = new Fuse(state.events, fuseOptions);
         result = fuse.search(query);
       } else {
-        commit('SET_SEARCHING', false)
-        result = state.events
+        commit("SET_SEARCHING", false);
+        result = state.events;
       }
       commit("SET_SEARCHED_EVENTS", result);
     },
@@ -293,42 +298,53 @@ export default {
           filtered.push(state.events[i]);
         }
       }
-      console.log(filtered)
+      console.log(filtered);
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 
     async updateQuestion({ commit }, question) {
       try {
-        const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
-        return res
+        const res = await axios.put(
+          `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
+          question
+        );
+        return res;
       } catch (err) {
-        return err
+        return err;
       }
     },
 
-    async updateEvent({commit}, question) {
-      try{
-        const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question);
-      }catch(err){
-        return err
+    async updateEvent({ commit }, question) {
+      try {
+        const res = await axios.put(
+          `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
+          question
+        );
+      } catch (err) {
+        return err;
       }
     },
     async deleteQuestion({ dispatch }, id) {
       try {
-        const res = await axios.delete(`${process.env.VUE_APP_BASE_URL}/admin/question/${id}`);
-        dispatch('fetchQuestions');
-        return res
+        const res = await axios.delete(
+          `${process.env.VUE_APP_BASE_URL}/admin/question/${id}`
+        );
+        dispatch("fetchQuestions");
+        return res;
       } catch (err) {
-        return err
+        return err;
       }
     },
 
-    async addQuestion({dispatch}, question) {
-      try{
-        const res = await axios.post(`${process.env.VUE_APP_BASE_URL}/admin/question`, question);
-        dispatch('fetchQuestions');
-      }catch(err){
-        return err
+    async addQuestion({ dispatch }, question) {
+      try {
+        const res = await axios.post(
+          `${process.env.VUE_APP_BASE_URL}/admin/question`,
+          question
+        );
+        dispatch("fetchQuestions");
+      } catch (err) {
+        return err;
       }
     }
   }
