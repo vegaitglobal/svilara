@@ -5,8 +5,9 @@
         <div>
           <span>{{ index + 1 }}</span>.
           <span>{{ event.contactEmail }}</span>
-          {{ event.startTime ? "," : "" }}
-          <span>{{ event.startTime }}</span>
+          <span>, {{ getEventData(event).name }}</span>
+          <span>, {{ getEventData(event).date }}</span>
+          <span>, {{ getEventData(event).time }}</span>
         </div>
 
         <span v-if="event.status == 'accepted'" data-tooltip="Prihvaćen">
@@ -22,12 +23,15 @@
         </span>
       </div>
       <div slot="content">
-        <div class="replies" v-for="(row, index) in JSON.parse(event.formAnswers)" :key="index">
-          {{ row.question.order }}. {{ row.question.text }}:
-          <span
-            v-if="row.type != 'file'"
-            class="replies__answer"
-          >{{ row.answers }}</span>
+        <div
+          class="replies"
+          v-for="(row, index) in sortArray(event.formAnswers)"
+          :key="index"
+        >
+          {{ index + 1 }}. {{ row.question.text }}:
+          <span v-if="row.type != 'file'" class="replies__answer">{{
+            row.answers
+          }}</span>
 
           <div v-if="row.type == 'file'">
             <a target="_blank" :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
@@ -115,6 +119,30 @@ export default {
         });
         this.error = err.response.data;
       }
+    },
+    sortArray(stringArray) {
+      let array = JSON.parse(stringArray);
+      if (array && array.length > 0) {
+        array.sort(function(a, b) {
+          return a.question.id - b.question.id;
+        });
+      }
+      return array;
+    },
+    getEventData(event) {
+      let array = JSON.parse(event.formAnswers);
+      let name = "";
+      let date = "";
+      let time = "";
+      if (array) {
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].name == "question6") name = array[i].answers;
+          if (array[i].name == "question12") date = array[i].answers;
+          if (array[i].name == "question13") time = array[i].answers;
+        }
+      }
+
+      return { name, date, time };
     }
   },
   mounted() {
