@@ -43,7 +43,7 @@ extend("date_format", {
         arrayDate[0]
       )
       date.toISOString();
-      let flag = new Date().getDate() <= date.getDate();
+      let flag = new Date(new Date().toDateString()) <= date;
       return flag;
     } catch (err) {
       return false;
@@ -60,3 +60,16 @@ extend("time_format", {
   },
   message: "Vreme nije ispravno"
 });
+extend("atLeastOneFilled", {
+  validate: (value, selectedOptions) => {
+   if (selectedOptions.length > 0){
+     if (selectedOptions.length == 1 && (selectedOptions[0] == "" || selectedOptions[0] == "Other: ") ){
+       return false;
+     }
+    return true;
+   }
+    
+    else return false
+  },
+  message: "Mora bar jedno polje biti popunjeno"
+})

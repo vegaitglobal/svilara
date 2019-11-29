@@ -1,10 +1,11 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
+    <ValidationProvider :name="`Polje ${index+1}`" id="password" :rules="isRequired" v-slot="{errors}">
         <li class="inputfield-row">
           <input type="text" v-model="data" @change="onChange" />
           <span class="error">{{ errors[0] }}</span>
+          <span v-if="question.name=='question25'">Plaforme su tematski povezani kulturno-umetnički programi koji se organizuju od strane Fondacije Evropske prestonice kulture Novi Sad 2021.</span>
         </li>
     </ValidationProvider>
   </div>

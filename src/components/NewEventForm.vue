@@ -71,9 +71,9 @@
               <li class="inputfield-row">
                 <span>Status programa</span>
                 <select v-model="event.type">
-                  <option>Otvoren program (slobodan ulaz bez prijave)</option>
-                  <option>Otvoren program (slobodan ulaz sa prijavom)</option>
-                  <option>Zatvoren program</option>
+                  <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
+                  <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
+                  <option value="zatvoren">Zatvoren program</option>
                 </select>
                 <span v-if="errors[0]" class="error">{{ errors[0] }}</span>
               </li>
@@ -107,16 +107,16 @@
             <li class="inputfield-row">
               <span>Planirani prostor za Vaš program</span>
               <select v-model="event.space">
-                <option>Velika sala</option>
-                <option>Mala sala</option>
-                <option>Dvorište</option>
-                <option>Sportski tereni sa tribinama</option>
-                <option>Društveni centar</option>
-                <option>Plato</option>
-                <option>Drugo</option>
+                <option value="velikasala">Velika sala</option>
+                <option value="malasala">Mala sala</option>
+                <option value="dvoriste">Dvorište</option>
+                <option value="teren">Sportski tereni sa tribinama</option>
+                <option value="drucentar">Društveni centar</option>
+                <option value="plato">Plato</option>
+                <option value="drugo">Drugo</option>
               </select>
               <input
-                v-if="event.space == 'Drugo'"
+                v-if="event.space == 'drugo'"
                 type="text"
                 v-model="spaceOther"
               />
@@ -135,12 +135,12 @@
             <li class="inputfield-row">
               <span>Očekivani uzrast publike</span>
               <select v-model="event.age">
-                <option>Deca</option>
-                <option>Mladi</option>
-                <option>Odrasli</option>
-                <option>Starija publika</option>
-                <option>Profesionalna publika</option>
-                <option>Svi</option>
+                <option value="deca">Deca</option>
+                <option value="mladi">Mladi</option>
+                <option value="odrasli">Odrasli</option>
+                <option value="stariji">Starija publika</option>
+                <option value="profesionalna">Profesionalna publika</option>
+                <option value="svi">Svi</option>
               </select>
             </li>
             <ValidationProvider
@@ -286,7 +286,7 @@ export default {
       let arrayStartDate = this.startDate.split(".");
       let arrayStartTime = this.startTime.split(":");
 
-      this.event.startTime = new Date(
+      try { this.event.startTime = new Date(
         arrayStartDate[2],
         arrayStartDate[1] - 1,
         arrayStartDate[0],
@@ -300,6 +300,13 @@ export default {
         arrayEndTime[0],
         arrayEndTime[1]
       ).toISOString();
+      } catch(err){
+        this.$swal.fire({
+            type: "warning",
+            title: "Upozorenje",
+            text: `Unesite validan datum`
+          });
+      }
 
       let eventCopy = { ...this.event };
       if (eventCopy.category === "drugo") {
@@ -327,7 +334,7 @@ export default {
         } else {
           this.$swal.fire({
             type: "warning",
-            title: "Greška",
+            title: "Upozorenje",
             text: `${res.data.error.msg}`
           });
         }

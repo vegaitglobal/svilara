@@ -1,5 +1,7 @@
 <template>
   <div>
+  <ValidationObserver ref="observer" >
+  <div slot-scope="{ valid }">
     <component
       v-for="(question, index) in questions"
       :key="index"
@@ -7,7 +9,9 @@
       :is="mapToType(question.fieldType)"
       :index="index"
     ></component>
-    <button class="btn btn__purple btn__large" @click="submit">Pošalji</button>
+    <button v-if="valid" class="btn btn__purple btn__large" @click="submit">Pošalji</button>
+    </div>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -17,6 +21,7 @@ import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
 import TextareaField from "./fields/TextareaField";
+import {ValidationObserver} from "vee-validate"
 
 export default {
   name: "Formular",
@@ -25,7 +30,8 @@ export default {
     CheckBoxField,
     FileField,
     RadioButtonField,
-    TextareaField
+    TextareaField,
+    ValidationObserver
   },
   data() {
     return {

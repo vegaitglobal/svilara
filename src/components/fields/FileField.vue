@@ -1,8 +1,8 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider name="Polje" id="password" :rules="isRequired" v-slot="{errors}">
-      <input type="file" accept="image/*" @change="uploadImage" />
+    <ValidationProvider :name="`Polje ${index+1}`" id="password" :rules="isRequired" v-slot="{errors, validate}">
+      <input type="file" accept="image/*" @change="uploadImage($event) || validate($event)" />
       <span class="error">{{ errors[0] }}</span>
     </ValidationProvider>
   </div>
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     isRequired() {
-      if (this.mandatory) return "required";
+      if (this.question.mandatory) return "required";
     }
   },
 
