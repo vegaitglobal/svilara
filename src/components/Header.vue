@@ -46,7 +46,7 @@
           <router-link
             to="/admin"
             class="btn btn__purple btn__large"
-            v-if="['NewEvent','AllEvents', 'Settings', 'ForgotPassword'].includes($route.name)">
+            v-if="['NewEvent','AllEvents', 'Settings'].includes($route.name)">
               Nazad
           </router-link>
           <router-link
@@ -61,6 +61,13 @@
             v-if="['EventPage'].includes($route.name)">
               Nazad
           </router-link>
+          <button
+            @click="logout"
+            class="btn btn__purple btn__large"
+            type="button"
+            v-if="['ForgotPassword'].includes($route.name)">
+              Nazad
+          </button>
           <button
             @click="logout"
             class="btn btn__purple btn__large"

@@ -25,12 +25,12 @@ export default {
       try {
         let vm = this;
         let response = await this.$store.dispatch("login", vm.credentials);
-       console.log(JSON.stringify(response))
+       console.error(JSON.stringify(response))
         if (parseInt(response.status) === 200) {
           this.$router.push("/admin");
         }
       } catch (err) {
-       console.log(JSON.stringify(err))
+       console.error(JSON.stringify(err))
         if (parseInt(err.response.status) === 400) {
 
           this.$swal({

@@ -34,8 +34,17 @@
           </div>
         </div>
         <div class="button-wrapper">
-          <button :disabled="!formFilled" type="button" class="btn btn__green" @click.prevent="() => acceptEvent(event.id)">Prihvati</button>
-          <button type="button" class="btn btn__red" @click.prevent="() => rejectEvent(event.id)">Odbij</button>
+          <button
+            :disabled="!formValid"
+            type="button"
+            class="btn btn__green"
+            @click.prevent="() => acceptEvent(event.id)"
+          >Prihvati</button>
+          <button
+            type="button"
+            class="btn btn__red"
+            @click.prevent="() => rejectEvent(event.id)"
+          >Odbij</button>
         </div>
       </div>
     </badger-accordion-item>
@@ -51,9 +60,9 @@ export default {
   name: "Accordion",
   data() {
     return {
-        pictureLink: "",
-        logoLink: "",
-        link: process.env.VUE_APP_MEDIA_BASE_URL
+      pictureLink: "",
+      logoLink: "",
+      link: process.env.VUE_APP_MEDIA_BASE_URL,
     };
   },
   components: {
@@ -65,8 +74,8 @@ export default {
     events: {
       type: Array
     },
-    formFilled:{
-        type: Boolean
+    formValid: {
+      type: Boolean
     }
   },
   methods: {
@@ -110,10 +119,12 @@ export default {
   },
   mounted() {
     if (this.event && this.event.picture) {
-        this.pictureLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
+      this.pictureLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.picture;
     }
     if (this.event && this.event.logo) {
-        this.logoLink = process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
+      this.logoLink =
+        process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.event.logo;
     }
   }
 };
@@ -140,8 +151,13 @@ export default {
   .js-badger-accordion-header {
     .badger-accordion-toggle {
       flex: 1;
+      color: $white;
 
-      > div {
+      .badger-accordion-title {
+        flex: 0 0 100%;
+      }
+
+      div {
         display: flex;
         justify-content: space-between;
         align-items: center;

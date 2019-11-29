@@ -49,13 +49,13 @@ export default {
             password: password
           })
           .then(response => {
-            console.log(response);
+            console.error(response);
             //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
             resolve(response);
           })
           .catch(error => {
-            console.log(error);
+            console.error(error);
             reject(error);
           });
       });
@@ -68,13 +68,13 @@ export default {
             email: email,
           })
           .then(response => {
-            console.log(response);
+            console.error(response);
             //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
             resolve(response);
           })
           .catch(error => {
-            console.log(error);
+            console.error(error);
             reject(error);
           });
       });
@@ -143,7 +143,7 @@ export default {
       });
     },
     resetForgotPassword({ commit }, data) {  //only reset function that is used
-      console.log(`${process.env.VUE_APP_BASE_URL}/auth/reset-password/${data.userId}/${data.token}`);
+      console.error(`${process.env.VUE_APP_BASE_URL}/auth/reset-password/${data.userId}/${data.token}`);
       return new Promise((resolve, reject) => {
         axios
           .put(

@@ -31,7 +31,7 @@ export default {
           this.pageData = res.data.data.html;
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     }
   }

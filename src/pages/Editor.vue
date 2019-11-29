@@ -31,7 +31,7 @@ export default {
           this.html = res.data.data.html;
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     },
     createPage() {
@@ -44,10 +44,10 @@ export default {
           }
         )
         .then(res => {
-          console.log(res);
+          console.error(res);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
 
         this.$swal

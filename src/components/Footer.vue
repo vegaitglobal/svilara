@@ -1,15 +1,15 @@
 <template>
-    <div class="footer">
-        <SocialIcons/>
-        <ContactInfo/>
-        <img class="footer__logo--small" :src="logo1" />
-        <img class="footer__logo--small" :src="logo2" alt="logo" />
-    </div>
+  <footer class="footer">
+    <SocialIcons />
+    <ContactInfo />
+    <img class="footer__logo--small" :src="logo1" />
+    <img class="footer__logo--small" :src="logo2" alt="logo" />
+  </footer>
 </template>
 
 <script>
-import SocialIcons from './SocialIcons'
-import ContactInfo from './ContactInfo'
+import SocialIcons from "./SocialIcons";
+import ContactInfo from "./ContactInfo";
 
 export default {
   name: "Footer",
@@ -37,8 +37,15 @@ export default {
       }
       return "";
     }
+  },
+  methods: {
+    stringToHtml(str) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, "text/html");
+      return doc.head.children;
+    }
   }
-}
+};
 </script>
 
 

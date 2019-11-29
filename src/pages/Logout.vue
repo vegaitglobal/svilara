@@ -14,7 +14,7 @@ export default {
         let response = await this.$store.dispatch("logout");
         this.$router.push("/login");
       } catch (error) {
-        console.log(error.response);
+        console.error(error.response);
       }
     }
   }

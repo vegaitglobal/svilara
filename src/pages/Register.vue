@@ -117,7 +117,7 @@ export default {
             email: this.data.email
           })
           .then(res => {
-            console.log(res.data);
+            console.error(res.data);
             resolve(res.data);
           })
           .catch(err => {});
@@ -154,7 +154,7 @@ export default {
             text: err.response.data.message
           });
         }
-        console.log(err.response);
+        console.error(err.response);
       }
     }
   }

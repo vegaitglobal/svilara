@@ -23,7 +23,7 @@ export default {
           });
         }
       } catch (error) {
-        console.log(error.response);
+        console.error(error.response);
         if (parseInt(error.response.status) === 400) {
           this.$swal({
             type: "error",

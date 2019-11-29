@@ -23,9 +23,8 @@ export default {
       try {
         let vm = this;
         let response = await this.$store.dispatch("forgot", vm.credentials);
-        //console.log(JSON.stringify(response))
         if (parseInt(response.status) === 200) {
-          console.log('forgot successful')
+          console.error('forgot successful')
            this.$swal({
             type: "success",
             title: "Uspešno...",
@@ -34,7 +33,7 @@ export default {
         }
       } catch (err) {
        if (parseInt(err.response.status) === 404){
-           console.log(err.response.data.error);
+           console.error(err.response.data.error);
             this.$swal({
             type: "error",
             title: "Oops...",

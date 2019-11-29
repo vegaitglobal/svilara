@@ -134,7 +134,6 @@ export default {
     },
 
     SET_ADMIN_EVENTS(state, events) {
-      console.log(events);
       state.adminEvents = events;
     },
 
@@ -206,10 +205,10 @@ export default {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
-        console.log(state.answers[i]);
+        console.error(state.answers[i]);
         if (state.answers[i].type === "file") {
           formData.append(state.answers[i].name, state.answers[i].answers, state.answers[i].name);
-          console.log(state.answers[i].name)
+          console.error(state.answers[i].name)
         }
         // if (state.answers[i].type === "file") {
         //   formData.append(state.answers[i].name, state.answers[i].answers);
@@ -220,14 +219,14 @@ export default {
         }
       }
       formData.set("formAnswers", JSON.stringify(state.answers));
-      console.log(state.answers);
+      console.error(state.answers);
       axios
         .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
         .then(res => {
-          console.log(res);
+          console.error(res);
         })
         .catch(err => {
-          console.log(err);
+          console.error(err);
         });
     },
 
@@ -254,7 +253,6 @@ export default {
     },
 
     async fetchAdminEvents({ commit }) {
-      console.log('usao u feth')
       try {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`
@@ -293,7 +291,7 @@ export default {
           filtered.push(state.events[i]);
         }
       }
-      console.log(filtered)
+      console.error(filtered)
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 
