@@ -279,7 +279,7 @@ export default {
         justify-content: center;
     }
     button {
-      margin: 5px 0 0 10px;
+      margin: 0 0 0 10px;
     }
   }
 }
