@@ -118,22 +118,22 @@
           </li>
           <li class="inputfield-row">
             <span>Datum početka programa (npr: 29.11.2019.)</span>
-            <input v-model="event.startDate" type="text" v-on:keyup="() => set('startDate', event.startDate, form)"/>
+            <input v-model="startDate" type="text" v-on:keyup="() => set('startDate', event.startDate, form)"/>
             <span v-if="form.startDate.error" class="error">{{ form.startDate.error }}</span>
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa (npr: 20:00)</span>
-            <input v-model="event.startTime" type="text"  v-on:keyup="() => set('startTime', event.startTime, form)"/>
+            <input v-model="startTime" type="text"  v-on:keyup="() => set('startTime', event.startTime, form)"/>
             <span v-if="form.startTime.error" class="error">{{ form.startTime.error }}</span>
           </li>
           <li class="inputfield-row">
             <span>Datum kraja programa (npr: 29.11.2019.)</span>
-            <input v-model="event.endDate" type="text"  v-on:keyup="() => set('endDate', event.endDate, form)"/>
+            <input v-model="endDate" type="text"  v-on:keyup="() => set('endDate', event.endDate, form)"/>
             <span v-if="form.endDate.error" class="error">{{ form.endDate.error }}</span>
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa (npr: 22:00)</span>
-            <input v-model="event.endTime" type="text"  v-on:keyup="() => set('endTime', event.endTime, form)"/>
+            <input v-model="endTime" type="text"  v-on:keyup="() => set('endTime', event.endTime, form)"/>
             <span v-if="form.endTime.error" class="error">{{ form.endTime.error }}</span>
           </li>
         </ol>
@@ -142,8 +142,8 @@
         @click="createEvent"
         class="btn btn__purple btn__large mt-20"
         type="submit"
-        :disabled="!validate(form)"
-      >Sačuvaj</button>
+       
+      >Sačuvaj</button><!-- :disabled="!validate(form)"-->
     </div>
   </div>
 </template>
@@ -286,7 +286,9 @@ export default {
     }
   },
   methods: {
+    
     async createEvent() {
+      console.log(this.event)
       let arrayEndDate = this.endDate.split(".");
       let arrayEndTime = this.endTime.split(":");
       let arrayStartDate = this.startDate.split(".");
@@ -320,10 +322,10 @@ export default {
         eventCopy.category = this.categoryOther;
       }
 
-      if (eventCopy.space === "Drugo") {
+      if (eventCopy.space.toLowerCase() === "drugo") {
         eventCopy.space = this.spaceOther;
       }
-
+      console.log(eventCopy)
       try {
         const form = new FormData();
         for (var prop in eventCopy) {

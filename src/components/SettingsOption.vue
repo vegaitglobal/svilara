@@ -1,8 +1,8 @@
 <template>
   <div>
-    <input :disabled="!editing" type="text" v-model="loaclOption.key" />
+    <input :disabled="true" type="text" v-model="loaclOption.key" />
     <input
-      v-if="loaclOption.id != 1 && loaclOption.id != 2 && loaclOption.id != 3"
+      v-if="loaclOption.id != 1 && loaclOption.id != 2 && loaclOption.id != 3 && loaclOption.id != 13"
       type="text"
       :disabled="!editing"
       v-model="loaclOption.value"
@@ -10,7 +10,7 @@
 
     <input
       :disabled="!editing"
-      v-if="loaclOption.id == 1 || loaclOption.id == 2 || loaclOption.id == 3"
+      v-if="loaclOption.id == 1 || loaclOption.id == 2 || loaclOption.id == 3 || loaclOption.id == 13"
       type="file"
       @change="logoChange($event)"
     />
