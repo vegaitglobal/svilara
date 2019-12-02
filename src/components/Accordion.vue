@@ -4,7 +4,7 @@
       <div slot="header">
         <div>
           <span>{{ index + 1 }}</span>.
-          <span> {{ event.contactEmail }}</span>
+          <span>{{ event.contactEmail }}</span>
           <span>, {{ getEventData(event).name }}</span>
           <span>, {{ getEventData(event).date }}</span>
           <span>, {{ getEventData(event).time }}</span>
@@ -189,6 +189,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
       }
     }
   }

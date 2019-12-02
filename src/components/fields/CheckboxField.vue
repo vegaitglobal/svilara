@@ -1,58 +1,52 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider :name="`Polje ${index+1}`" :rules="`atLeastOneFilled:${selectedOptions}`" v-slot="{errors}">
-      <ul>
-        <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
-          <input
-            v-if="value.toLowerCase() !== 'other:'"
-            type="checkbox"
-            @change="onChange($event)"
-            :name="value"
-            :data-value="value"
-            :id="value"
-            :value="value"
-            v-model="data"
-          />
-          <label :for="value">{{value}}</label>
-          <input
-            v-if="value.toLowerCase() == 'other:'"
-            type="text"
-            @change="onChange($event)"
-            :name="value"
-          />
-        </li>
-        <span class="error">{{ errors[0] }}</span>
-      </ul>
-    </ValidationProvider>
+    <ul>
+      <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
+        <input
+          v-if="value.toLowerCase() !== 'other:'"
+          type="checkbox"
+          @change="onChange($event)"
+          :name="value"
+          :data-value="value"
+          :id="value"
+          :value="value"
+          v-model="questionData"
+          v-on:change="e => set('questionData', e.target.value, form)"
+        />
+        <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
+        <label :for="value">{{value}}</label>
+        <input
+          v-if="value.toLowerCase() == 'other:'"
+          type="text"
+          @change="onChange($event)"
+          :name="value"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { set, required, messages } from "vue-val";
+
 export default {
   name: "CheckboxField",
-  props: ["name", "question", "mandatory", "index"],
-  components: {
-    ValidationProvider
-  },
+  props: ["name", "question", "index"],
   data() {
     return {
       isChecked: false,
       selectedOptions: [],
-      data:[""],
+      questionData: [""],
+      set,
+      form: {
+        questionData: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
     };
-  },
-  created() {
-    // for (var i = 0; i < this.question.values; i++) {
-    //   console.log(this.question.values[i]);
-    // }
-  },
-  computed: {
-    isRequired() {
-      console.log(this.question.mandatory)
-      if (this.question.mandatory) return "required";
-    }
   },
   methods: {
     removeOthers() {
@@ -88,11 +82,11 @@ export default {
 </script>
 
 <style lang="scss">
-  .check-box {
-    list-style-type: none;
-    margin-bottom: 5px;
-    input {
-        margin-right: 10px;
-    }
+.check-box {
+  list-style-type: none;
+  margin-bottom: 5px;
+  input {
+    margin-right: 10px;
   }
-</style> 
+}
+</style>

@@ -1,41 +1,52 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider :name="`Polje ${index+1}`" id="password" :rules="isRequired" v-slot="{errors}">
-        <li class="inputfield-row">
-          <input type="text" v-model="data" @change="onChange" />
-          <span class="error">{{ errors[0] }}</span>
-          <span class="hint-text" v-if="question.name=='question25'">* Plaforme su tematski povezani kulturno-umetnički programi koji se organizuju od strane Fondacije Evropske prestonice kulture Novi Sad 2021.</span>
-        </li>
-    </ValidationProvider>
+    <li class="inputfield-row">
+      <input
+        type="text"
+        v-model="questionData"
+        @change="onChange"
+        v-on:keyup="e => set('questionData', e.target.value, form)"
+      />
+      <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
+      <span
+        class="hint-text"
+        v-if="question.name=='question25'"
+      >* Plaforme su tematski povezani kulturno-umetnički programi koji se organizuju od strane Fondacije Evropske prestonice kulture Novi Sad 2021.</span>
+    </li>
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { set, required, messages } from "vue-val";
+
 export default {
   name: "InputField",
-  props: ["name", "question", "values", "mandatory", "index"],
-  components: {
-    ValidationProvider
-  },
-  data(){
+  props: ["name", "question", "index"],
+  data() {
     return {
-      data: ''
-    }
-  },
-  computed: {
-    isRequired() {
-      if (this.question.mandatory) return "required";
-      return "";
-    }
+      questionData: "",
+      set,
+      form: {
+        questionData: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
+    };
   },
   methods: {
     onChange(event) {
-      this.$store.dispatch('answerQuestion', {question: this.question, answers: this.data})
+      this.$store.dispatch("answerQuestion", {
+        question: this.question,
+        answers: this.questionData
+      });
     }
   }
 };
+
+messages.required = () => `Polje je obavezno.`;
 </script>
 
 <style lang="scss">
@@ -56,7 +67,7 @@ export default {
       width: 300px;
     }
     @include breakpoint(mob-sm) {
-      width: 240px;
+      width: 235px;
     }
   }
   select {
@@ -64,7 +75,7 @@ export default {
     display: block;
     padding: 10px;
     & + input {
-        margin-top: 15px;
+      margin-top: 15px;
     }
   }
   span,
@@ -86,10 +97,10 @@ export default {
   }
 }
 select {
-  -moz-appearance:none;
-  -webkit-appearance:none;
-  appearance:none;
-  background: url('../../assets/img/arrow-down.svg');
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: url("../../assets/img/arrow-down.svg");
   background-repeat: no-repeat;
   background-size: 4%;
   background-position: 98% 50%;
@@ -101,4 +112,4 @@ select {
   font-size: 14px !important;
   display: block;
 }
-</style> 
+</style>

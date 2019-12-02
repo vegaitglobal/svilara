@@ -117,10 +117,12 @@ export default {
       this.$modal.show("adminCreateQuestionPicture");
     },
     disableScroll() {
-        document.body.style.overflow = 'hidden'
+        document.body.style.overflowY = 'scroll';
+        document.body.style.position = 'fixed';
     },
     enableScroll() {
-        document.body.style.overflow = 'auto'
+        document.body.style.overflowY = 'auto';
+        document.body.style.position = 'static';
     },
     saveInputText() {
       let question = {

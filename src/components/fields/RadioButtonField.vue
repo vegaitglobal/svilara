@@ -1,57 +1,49 @@
 <template>
   <div class="question">
     <h5>{{ index + 1 }}. {{ question.text }}</h5>
-    <ValidationProvider
-      :name="`Polje ${index + 1}`"
-      id="password"
-      :rules="isRequired"
-      v-slot="{ errors }"
-    >
-      <ul>
-        <li
-          class="radio-btn"
-          v-for="(value, index) in JSON.parse(question.values)"
-          :key="index"
-        >
-          <input
-            v-if="value.toLowerCase() !== 'other:'"
-            type="radio"
-            @change="onChange($event)"
-            :name="question.id"
-            :id="value"
-            v-model="data"
-            :value="value"
-          />
-          <label :for="value">{{ value }}</label>
-          <input
-            v-if="value.toLowerCase() == 'other:'"
-            type="text"
-            @change="onChange($event)"
-            :name="value"
-          />
-        </li>
-      </ul>
-   </ValidationProvider> 
+    <ul>
+      <li class="radio-btn" v-for="(value, index) in JSON.parse(question.values)" :key="index">
+        <input
+          v-if="value.toLowerCase() !== 'other:'"
+          type="radio"
+          @change="onChange($event)"
+          :name="question.id"
+          :id="value"
+          v-model="questionData"
+          :value="value"
+          v-on:change="e => set('questionData', e.target.value, form)"
+        />
+        <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
+        <label :for="value">{{ value }}</label>
+        <input
+          v-if="value.toLowerCase() == 'other:'"
+          type="text"
+          @change="onChange($event)"
+          :name="value"
+        />
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { set, required, messages } from "vue-val";
+
 export default {
   name: "RadioButton",
-  props: ["name", "question", "values", "mandatory", "index"],
-  components: {
-    ValidationProvider
-  },
+  props: ["name", "question", "index"],
   data() {
     return {
-      data:""
+      questionData: "",
+      set,
+      form: {
+        questionData: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
     };
-  },
-  computed: {
-    isRequired() {
-      if (this.question.mandatory) return "required";
-    }
   },
   methods: {
     onChange(event) {
@@ -67,6 +59,8 @@ export default {
     }
   }
 };
+
+messages.required = () => `Polje je obavezno.`;
 </script>
 
 <style lang="scss">

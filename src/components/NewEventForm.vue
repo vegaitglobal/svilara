@@ -52,7 +52,7 @@
 
           <li class="inputfield-row">
             <span>Status programa</span>
-            <select v-model="event.type"  v-on:change="e => set('type', e.target.value, form)">
+            <select v-model="event.type" v-on:change="e => set('type', e.target.value, form)">
               <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
               <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
               <option value="zatvoren">Zatvoren program</option>
@@ -167,7 +167,6 @@ export default {
   components: {
     Accordion
   },
-
   data() {
     return {
       event: {
@@ -268,7 +267,6 @@ export default {
       }
     };
   },
-
   created() {
     this.$store.dispatch("fetchAdminEvents").then(data => {
       let pendingEvents = [];

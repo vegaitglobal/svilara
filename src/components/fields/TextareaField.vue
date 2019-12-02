@@ -1,93 +1,56 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider :name="`Polje ${index+1}`" :rules="isRequired" v-slot="{errors}">
-        <li class="inputfield-row">
-          <textarea v-model="data" @change="onChange" cols="55" rows="5"/>
-          <span class="error">{{ errors[0] }}</span>
-        </li>
-    </ValidationProvider>
+    <li class="inputfield-row">
+      <textarea
+        v-model="questionData"
+        @change="onChange"
+        cols="55"
+        rows="5"
+        v-on:keyup="e => set('questionData', e.target.value, form)"/>
+      <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
+    </li>
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { set, required, messages } from "vue-val";
+
 export default {
   name: "TextareaField",
-  props: ["name", "question", "values", "mandatory", "index"],
-  components: {
-    ValidationProvider
-  },
-  data(){
+  props: ["name", "question", "index"],
+  data() {
     return {
-      data: ''
-    }
-  },
-  computed: {
-    isRequired() {
-      if (this.question.mandatory) return "required";
-      return "";
-    }
+      questionData: "",
+      set,
+      form: {
+        questionData: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
+    };
   },
   methods: {
     onChange(event) {
-      this.$store.dispatch('answerQuestion', {question: this.question, answers: this.data})
+      this.$store.dispatch("answerQuestion", {
+        question: this.question,
+        answers: this.questionData
+      });
     }
   }
 };
+
+messages.required = () => `Polje je obavezno.`;
 </script>
 
 <style lang="scss">
 @import "../../assets/scss/variables.scss";
-.inputfield-row {
-  list-style-type: none;
-  margin-bottom: 10px;
-  span {
-    display: inline-block;
-    margin-bottom: 10px;
-    font-size: 16px;
+
+textarea {
+  @include breakpoint(mob) {
+    max-width: 235px;
   }
-  textarea {
-    display: block;
-    width: 400px;
-    padding: 10px;
-    @include breakpoint(mob) {
-      width: 300px;
-    }
-    @include breakpoint(mob-sm) {
-      width: 240px;
-    }
-  }
-  select {
-    width: 420px;
-    display: block;
-    padding: 10px;
-    & + input {
-        margin-top: 15px;
-    }
-  }
-  span,
-  textarea,
-  select {
-    font-size: 16px;
-  }
-  input[type="text"],
-  select {
-    border: 1px solid $gray;
-  }
-  input[type="file"] {
-    border: 0;
-    cursor: pointer;
-  }
-}
-select {
-    -moz-appearance:none;
-    -webkit-appearance:none;
-    appearance:none;
-    background: url('../../assets/img/arrow-down.svg');
-    background-repeat: no-repeat;
-    background-size: 4%;
-    background-position: 98% 50%;
-    cursor: pointer;
 }
 </style>

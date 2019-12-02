@@ -1,29 +1,36 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <ValidationProvider :name="`Polje ${index+1}`" id="password" :rules="isRequired" v-slot="{errors, validate}">
-      <input type="file" accept="image/*" @change="uploadImage($event) || validate($event)" />
-      <span class="error">{{ errors[0] }}</span>
-    </ValidationProvider>
+    <input
+      type="file"
+      accept="image/*"
+      @change="uploadImage($event) || validate($event)"
+      v-on:change="e => set('questionData', e.target.value, form)"
+    />
   </div>
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import { set, required, messages } from "vue-val";
+
 export default {
   name: "FileField",
-  props: ["name", "question", "values", "mandatory", "index"],
-  components: {
-    ValidationProvider
+  data() {
+    return {
+      questionData: "",
+      set,
+      form: {
+        questionData: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
+    };
   },
-  computed: {
-    isRequired() {
-      if (this.question.mandatory) return "required";
-    }
-  },
+  props: ["name", "question", "index"],
   methods: {
     uploadImage(event) {
-      //console.log(event.target.files[0]);
       this.$store.dispatch("answerQuestion", {
         question: this.question,
         answers: event.target.files[0]
@@ -33,6 +40,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style> 

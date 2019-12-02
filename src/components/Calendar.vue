@@ -215,10 +215,12 @@ export default {
       this.$modal.hide("modalEventEdit");
     },
     disableScroll() {
-        document.body.style.overflow = 'hidden'
+        document.body.style.overflowY = 'scroll';
+        document.body.style.position = 'fixed';
     },
     enableScroll() {
-        document.body.style.overflow = 'auto'
+        document.body.style.overflowY = 'auto';
+        document.body.style.position = 'static';
     },
     async updateEvent() {
       let arrayEndDate =  this.endDate.split(".");

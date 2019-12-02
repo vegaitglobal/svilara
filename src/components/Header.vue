@@ -178,10 +178,13 @@ export default {
       this.$modal.hide("userCreateEventModal");
     },
     disableScroll() {
-        document.body.style.overflow = 'hidden'
+        document.body.style.overflowY = 'scroll';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
     },
     enableScroll() {
-        document.body.style.overflow = 'auto'
+        document.body.style.overflowY = 'auto';
+        document.body.style.position = 'static';
     },
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) {

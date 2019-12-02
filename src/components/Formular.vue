@@ -1,44 +1,40 @@
 <template>
   <div>
-    <ValidationObserver ref="observer">
-      <div slot-scope="{ valid }">
-        <component
-          v-for="(question, index) in questions"
-          :key="index"
-          :question="question"
-          :is="mapToType(question.fieldType)"
-          :index="index"
-        ></component>
-        <button v-if="valid" class="btn btn__purple btn__large" @click="submit">
-          Pošalji
-        </button>
-      </div>
-    </ValidationObserver>
+    <component
+      v-for="(question, index) in questions"
+      :key="index"
+      :question="question"
+      :is="mapToType(question.fieldType)"
+      :index="index"
+    ></component>
+    <button class="btn btn__purple btn__large" @click="submit">Pošalji</button>
   </div>
 </template>
 
 <script>
-import { ValidationObserver } from "vee-validate";
 import InputField from "./fields/InputField";
 import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
 import TextareaField from "./fields/TextareaField";
+import {
+  validate
+} from "vue-val";
 
 export default {
   name: "Formular",
   components: {
-    ValidationObserver,
-     InputField,
+    InputField,
     CheckBoxField,
     FileField,
     RadioButtonField,
-    TextareaField,
+    TextareaField
   },
   data() {
     return {
       questions: [],
-      answers: []
+      answers: [],
+      validate
     };
   },
   async created() {
@@ -57,7 +53,7 @@ export default {
           return "FileField";
         case "radiobutton":
           return "RadioButtonField";
-          case "textarea":
+        case "textarea":
           return "TextareaField";
       }
     },
