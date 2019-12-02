@@ -42,7 +42,12 @@
     @before-close="enableScroll()"
     >
         <h2>Unesite pitanje:</h2>
-        <input type="text" v-model="data" />
+        <input type="text" v-model="data1.text" />
+        <h2>Da li je odgovor obavezan?</h2>
+            <select v-model="data1.mandatory">
+              <option value="1">Da</option>
+              <option value="0">Ne</option>
+            </select>
         <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
     <modal
@@ -55,7 +60,12 @@
       @before-close="enableScroll()"
     >
         <h2>Unesite pitanje:</h2>
-        <input type="text" v-model="data" />
+        <input type="text" v-model="data2.text" />
+        <h2>Da li je odgovor obavezan?</h2>
+            <select v-model="data2.mandatory">
+              <option value="1">Da</option>
+              <option value="0">Ne</option>
+            </select>
         <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
   </div>
@@ -74,7 +84,14 @@ export default {
   },
   data() {
     return {
-      data: "",
+      data1: {
+        text: "",
+        mandatory: ""
+      },
+      data2: {
+        text: "",
+        mandatory: ""
+      },
       firstScript: "",
       secondScript: ""
     };
@@ -107,31 +124,33 @@ export default {
     },
     saveInputText() {
       let question = {
-        text: this.data,
+        text: this.data1.text,
         fieldType: "input",
         values: "",
         order: this.questions.length + 1,
-        mandatory: false,
+        mandatory: this.data1.mandatory,
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
       this.$store.dispatch("addQuestion", question);
       this.$modal.hide("adminCreateQuestionText");
-      this.data = "";
+      this.data1.text = "";
+      this.data1.mandatory = "";
     },
     saveInputFile() {
       let question = {
-        text: this.data,
+        text: this.data2.text,
         fieldType: "file",
         values: "",
         order: this.questions.length + 1,
-        mandatory: false,
+        mandatory: this.data2.mandatory,
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
       this.$store.dispatch("addQuestion", question);
       this.$modal.hide("adminCreateQuestionPicture");
-      this.data = "";
+      this.data2.text = "";
+      this.data2.mandatory = "";
     },
     addFirstScript() {
       var head = document.getElementsByTagName("head")[0];

@@ -19,11 +19,21 @@
 
 <script>
 import { ValidationObserver } from "vee-validate";
+import InputField from "./fields/InputField";
+import CheckBoxField from "./fields/CheckboxField";
+import FileField from "./fields/FileField";
+import RadioButtonField from "./fields/RadioButtonField";
+import TextareaField from "./fields/TextareaField";
 
 export default {
   name: "Formular",
   components: {
-    ValidationObserver
+    ValidationObserver,
+     InputField,
+    CheckBoxField,
+    FileField,
+    RadioButtonField,
+    TextareaField,
   },
   data() {
     return {
@@ -37,6 +47,20 @@ export default {
   },
 
   methods: {
+    mapToType(questionFieldType) {
+      switch (questionFieldType) {
+        case "input":
+          return "InputField";
+        case "checkbox":
+          return "CheckBoxField";
+        case "file":
+          return "FileField";
+        case "radiobutton":
+          return "RadioButtonField";
+          case "textarea":
+          return "TextareaField";
+      }
+    },
     sortQuestions() {
       this.questions.sort(function(a, b) {
         var x = a.order < b.order ? -1 : 1;
