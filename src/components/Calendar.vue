@@ -217,6 +217,7 @@ export default {
     disableScroll() {
         document.body.style.overflowY = 'scroll';
         document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
     },
     enableScroll() {
         document.body.style.overflowY = 'auto';

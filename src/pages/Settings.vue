@@ -34,7 +34,7 @@
     </div>
     <modal
     name="adminCreateQuestionText"
-    height="300"
+    height="400"
     width="600"
     overlayTransition="overlay-fade"
     class="modal__create-question"
@@ -43,7 +43,7 @@
     >
         <h2>Unesite pitanje:</h2>
         <input type="text" v-model="data1.text" />
-        <h2>Da li je odgovor obavezan?</h2>
+        <p>Da li je odgovor obavezan?</p>
             <select v-model="data1.mandatory">
               <option value="1">Da</option>
               <option value="0">Ne</option>
@@ -52,7 +52,7 @@
     </modal>
     <modal
       name="adminCreateQuestionPicture"
-      height="300"
+      height="400"
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
@@ -61,7 +61,7 @@
     >
         <h2>Unesite pitanje:</h2>
         <input type="text" v-model="data2.text" />
-        <h2>Da li je odgovor obavezan?</h2>
+        <p>Da li je odgovor obavezan?</p>
             <select v-model="data2.mandatory">
               <option value="1">Da</option>
               <option value="0">Ne</option>
@@ -119,6 +119,7 @@ export default {
     disableScroll() {
         document.body.style.overflowY = 'scroll';
         document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
     },
     enableScroll() {
         document.body.style.overflowY = 'auto';
@@ -233,16 +234,26 @@ h3 {
         text-align: center;
         h2 {
             font-weight: normal;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         input {
             margin-right: 10px;
             padding: 12px;
             width: 300px;
+            margin-bottom: 20px;
         }
         .btn {
             display: block;
             margin: 20px auto 0;
+        }
+        p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        select {
+            width: 200px;
+            padding: 10px;
+            background-size: 9%;
         }
     }
 }
