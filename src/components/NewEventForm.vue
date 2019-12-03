@@ -288,7 +288,6 @@ export default {
   methods: {
     
     async createEvent() {
-      console.log(this.event)
       let arrayEndDate = this.endDate.split(".");
       let arrayEndTime = this.endTime.split(":");
       let arrayStartDate = this.startDate.split(".");
@@ -325,7 +324,6 @@ export default {
       if (eventCopy.space.toLowerCase() === "drugo") {
         eventCopy.space = this.spaceOther;
       }
-      console.log(eventCopy)
       try {
         const form = new FormData();
         for (var prop in eventCopy) {
