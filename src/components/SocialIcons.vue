@@ -9,6 +9,12 @@
     <a :href="mailLink" target="_top" v-if="mailLink !== ''">
       <gmail-icon class="social-icons--ico" />
     </a>
+    <a href="twitterLink" target="__blank">
+      <twitter-icon class="social-icons--ico" />
+    </a>
+    <a href="youtubeLink" target="__blank">
+      <youtube-icon class="social-icons--ico" />
+    </a>
   </div>
 </template>
 
@@ -16,13 +22,17 @@
 import FacebookBoxIcon from "vue-material-design-icons/FacebookBox.vue";
 import InstagramIcon from "vue-material-design-icons/Instagram.vue";
 import GmailIcon from "vue-material-design-icons/Gmail.vue";
+import TwitterIcon from "vue-material-design-icons/Twitter.vue";
+import YoutubeIcon from "vue-material-design-icons/Youtube.vue";
 
 export default {
   name: "SocialIcons",
   components: {
     FacebookBoxIcon,
     InstagramIcon,
-    GmailIcon
+    GmailIcon,
+    TwitterIcon,
+    YoutubeIcon
   },
   computed: {
     settings() {
@@ -46,7 +56,6 @@ export default {
       }
       return "";
     },
-
   }
 };
 </script>

@@ -31,7 +31,6 @@ export default {
       // var favicon = document.getElementById('favicon');
       //  var title = document.getElementById('title');
       //  favicon.href = this.favicon;
-  
   },
   computed: {
     settings() {
