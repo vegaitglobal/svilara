@@ -57,7 +57,7 @@ exports.createEvent = async function(req, res) {
       console.log(error);
       return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
-    console.log(fields.startTime);
+    console.log(JSON.stringify(fields))
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -69,7 +69,7 @@ exports.createEvent = async function(req, res) {
     let socialMedia = fields.socialMedia;
     let age = fields.age;
 
-    let validatorMessage = validateEvent(fields);
+    let validatorMessage = validateEvent(fields, files);
     if (validatorMessage) {
       return ReE(res, {
         msg: validatorMessage
@@ -170,13 +170,13 @@ exports.updateEvent = async function(req, res) {
     let logoName = "";
     let imageName = "";
 
-    let validatorMessage = validateEvent(fields);
-    console.log(validatorMessage);
-    if (validatorMessage) {
-      return ReE(res, {
-        msg: validatorMessage
-      });
-    }
+    // let validatorMessage = validateEvent(fields, files);
+    // console.log(validatorMessage);
+    // if (validatorMessage) {
+    //   return ReE(res, {
+    //     msg: validatorMessage
+    //   });
+    // }
 
     if (files.picture) {
       // check mime type (is image)
@@ -573,7 +573,9 @@ exports.deleteQuestion = async (req, res) => {
 
 // GET SETTINGS
 exports.getSettings = async (req, res) => {
+  console.log('usao u get')
   let [err, dbSettings] = await to(models.Settings.findAll());
+  console.log("fetch  "+ dbSettings);
   if (err) {
     console.log(err);
     return ReE(res, {
@@ -636,8 +638,10 @@ exports.updateSettings = async (req, res) => {
       mv(imageTmpPath, newImagePath, function(err) {
         if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
       });
-    } 
-    console.log(req.params.id);
+  } else {
+    value = fields.value;
+  }
+   
     let [err, dbUpdated] = await to(
       models.Settings.update(
         {
@@ -647,13 +651,14 @@ exports.updateSettings = async (req, res) => {
         { where: { id: req.params.id } }
       )
     );
+    console.log("updated:  " + dbUpdated);
     if (err) {
       return ReE(res, {
         msg: "Something went wrong"
       });
     }
     return ReS(res, {
-      msg: "Update successfull."
+      data: dbUpdated
     });
   });
 };
@@ -731,41 +736,58 @@ function validateQuestion(body) {
   return undefined;
 }
 
-function validateEvent(body) {
+function validateEvent(body, files) {
   if (!body.title || validator.isEmpty(body.title)) {
-    console.log(JSON.stringify(body));
-    return "Title is required";
+    
+    return "Unesite naslov programa";
+  }
+  
+  if (!files.picture)
+  {
+    return "Unesite sliku"
   }
 
-  // QUESTION: is picture required?
-  /*if (!body.picture || validator.isEmpty(body.picture))
+  if (!files.logo)
   {
-    return "Picture is required"
-  }*/
+    return "Unesite logo"
+  }
+
+
+  if (!body.description || validator.isEmpty(body.description)) {
+    return "Unesite opis programa";
+  }
 
   if (!body.category || validator.isEmpty(body.category)) {
-    return "Category is required";
+    return "Unesite kategoriju programa";
   }
 
   if (!body.type || validator.isEmpty(body.type)) {
-    return "Type is required";
+    return "Unesite tip programa";
+  }
+
+  if (!body.socialMedia || validator.isEmpty(body.socialMedia)) {
+    return "Unesite link";
   }
 
   if (!body.space || validator.isEmpty(body.space)) {
-    return "Space is required";
+    return "Unesite planirani prostor za program";
   }
 
   if (!body.age || validator.isEmpty(body.age)) {
-    return "Age is required";
+    return "Unesite uzrast publike";
   }
-
+  if (!body.startTime || validator.isEmpty(body.startTime)) {
+    return "Unesite datum i vreme početka";
+  }
   // startTime and  endTime validation
   if (body.startTime && !validator.isISO8601(body.startTime)) {
-    return "startTime is not valid ISO-8601 date";
+    return "Datum ili vreme početka nisu validni";
   }
-
+  if (!body.endTime || validator.isEmpty(body.endTime)) {
+    return "Unesite datum i vreme kraja programa";
+  }
   if (body.endTime && !validator.isISO8601(body.endTime)) {
-    return "endTime is not valid ISO-8601 date";
+    return "Datum ili vreme kraja programa nisu validni";
   }
 
   if (
@@ -773,6 +795,6 @@ function validateEvent(body) {
     body.endTime &&
     validator.isBefore(body.endTime, body.startTime)
   ) {
-    return "endTime is before the startTime";
+    return "Vreme kraja programa je pre vremena početka programa";
   }
 }

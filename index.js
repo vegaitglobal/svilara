@@ -53,7 +53,7 @@ app.use(function(req, res, next) {
   );
   //intercepts OPTIONS method
   if ("OPTIONS" === req.method) {
-    res.send(200);
+    res.sendStatus(200);
   } else {
     next();
   }

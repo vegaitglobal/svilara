@@ -43,59 +43,27 @@ exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
     if (error) {
-      return ReE(res, { msg: "Došlo je do greške!" }, 400);
+      return ReE(res, { msg: "Došlo je do greške, probajte ponovo!" });
     }
     var email = fields.email;
     var formAnswers = JSON.parse(fields.formAnswers);
+
+    let [err1, questions] = await to(models.Question.findAll({
+      where: {mandatory: 1}
+    }));
+
+    if (err1) {
+      return ReE(res, { msg: "Došlo je do greške, probajte ponovo!" });
+    }
+
+    if (formAnswers.length < questions.length){
+      return ReE(res, {msg: "Niste popunili sva obavezna pitanja"});
+    }
     
-    // if (files.picture) {
-    //   // check mime type (is image)
-    //   if (
-    //     files.picture.type !== "image/jpeg" &&
-    //     files.picture.type !== "image/png"
-    //   ) {
-    //     return ReE(res, { msg: "Pogrešan format slike!" }, 400);
-    //   } else {
-    //     // set image extenstion and new path (old path is in /tmp)
-    //     var imageTmpPath = files.picture.path;
-    //     var fileName = random.string("24");
-    //     if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
-    //     if (files.picture.type == "image/png") var imgExt = ".png";
-    //     var imageName = fileName + imgExt;
-    //     var newImagePath = "./public/uploads/" + imageName;
-    //   }
-    //   mv(imageTmpPath, newImagePath, function(err) {
-    //     if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
-    //   });
-    //   //fs.renameSync(imageTmpPath, newImagePath);
-    // } else imageName = "default-picture.png";
-
-    // if (files.logo) {
-    //   console.log("ima logo");
-    //   // check mime type (is image)
-    //   if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
-    //     return ReE(res, { msg: "Pogrešan format logoa!" }, 400);
-    //   } else {
-    //     // set image extenstion and new path (old path is in /tmp)
-    //     var logoTmpPath = files.logo.path;
-    //     var fileName2 = random.string("24");
-    //     if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
-    //     if (files.logo.type == "image/png") var imgExt2 = ".png";
-    //     var logoName = fileName2 + imgExt2;
-    //     var newLogoPath = "./public/uploads/" + logoName;
-    //   }
-    //   mv(logoTmpPath, newLogoPath, function(err) {
-    //     if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
-    //   });
-    //   //fs.renameSync(logoTmpPath, newLogoPath);
-    // } else {
-    //   logoName = "default-picture.png";
-    // }
-
     for (prop in files) {
       
       if (files[prop].type !== "image/jpeg" && files[prop].type !== "image/png") {
-        return ReE(res, { msg: "Pogrešan format logoa!" }, 400);
+        return ReE(res, { msg: "Pogrešan format logoa!" });
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files[prop].path;
@@ -106,7 +74,7 @@ exports.createEvent = async function(req, res) {
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
-        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" });
       });
       for (let i= 0; i < formAnswers.length; i++){
        
@@ -129,7 +97,7 @@ exports.createEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, { msg: "Došlo je do greške!" }, 400);
+      return ReE(res, { msg: "Došlo je do greške!" });
     }
 
     return ReS(res, {
