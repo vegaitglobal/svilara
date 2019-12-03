@@ -19,6 +19,12 @@ const sortByDate = (a, b) => {
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
+    if (settings[i].key === 'otvoren bez plaćanja'){
+      settings[i].key = 'otvorenbp';
+    }
+    if (settings[i].key === 'otvoren sa plaćanjem'){
+      settings[i].key = 'otvorensp';
+    }
     if (settings[i].key === type) {
       return settings[i].value;
     }

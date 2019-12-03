@@ -20,27 +20,42 @@ export default {
 
     actions: {
         async fetchSettings({ commit }) {
-
-            try {
-                const settings = await axios.get(
-                    `${process.env.VUE_APP_BASE_URL}/admin/settings`
-                );
-                commit("SET_SETTINGS", settings.data.data);
-                return settings;
-            } catch (err) {
-                return err;
-            }
+            console.log("usao u fetch")
+            return new Promise((resolve, reject) => {
+                axios.get(`${process.env.VUE_APP_BASE_URL}/admin/settings`)
+                .then(response => {
+                    console.log(response);
+                    var favicon = document.getElementById('favicon');
+                    var title = document.getElementById('title');
+                    favicon.href = process.env.VUE_APP_MEDIA_BASE_URL + "/" + response.data.data[12].value;
+                    title.innerText = response.data.data[13].value;
+                    // console.log(response.data.data[13].value);
+                    // console.log('fetchSettings ' + response.data.data[12].value);
+                    commit("SET_SETTINGS", response.data.data);
+                    resolve(response)})
+                .catch(error => {
+                    reject(error);
+                })
+            })
         },
 
         async updateSettings({ dispatch }, formIdObject) {
-            try {
-                const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form);
-                
-                dispatch('fetchSettings');
-                return res
-            } catch (err) {
-                return err
-            }
+            return new Promise((resolve, reject) => {
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form)
+                .then((res) => {
+                    console.log(res);
+                    dispatch('fetchSettings');
+                    resolve()
+                })
+                .catch((error) => reject(error))
+            })
+            // try{  const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form);
+            //     console.log('uspeo update')
+            //     dispatch('fetchSettings');
+            //     return res
+            // } catch (err) {
+            //     return err
+            // }
         },
        
         async acceptEvent({ commit }, id) {
