@@ -1,30 +1,54 @@
 <template>
-    <div class="social-icons">
-        <a href="https://www.facebook.com/svilara/" target="__blank">
-            <facebook-box-icon class="social-icons--ico"/>
-        </a>
-        <a href="https://www.instagram.com/svilara_ks/?hl=en" target="__blank">
-            <instagram-icon class="social-icons--ico"/>
-        </a>
-        <a href="mailto:svilarans@gmail.com" target="_top">
-            <gmail-icon class="social-icons--ico"/>
-        </a>
-    </div>
+  <div class="social-icons">
+    <a :href="facebookLink" target="__blank" v-if="facebookLink !== ''">
+      <facebook-box-icon class="social-icons--ico" />
+    </a>
+    <a :href="instagramLink" target="__blank" v-if="instagramLink !== ''">
+      <instagram-icon class="social-icons--ico" />
+    </a>
+    <a :href="mailLink" target="_top" v-if="mailLink !== ''">
+      <gmail-icon class="social-icons--ico" />
+    </a>
+  </div>
 </template>
 
 <script>
-import FacebookBoxIcon from 'vue-material-design-icons/FacebookBox.vue';
-import InstagramIcon from 'vue-material-design-icons/Instagram.vue';
-import GmailIcon from 'vue-material-design-icons/Gmail.vue';
+import FacebookBoxIcon from "vue-material-design-icons/FacebookBox.vue";
+import InstagramIcon from "vue-material-design-icons/Instagram.vue";
+import GmailIcon from "vue-material-design-icons/Gmail.vue";
 
 export default {
-    name: "SocialIcons",
-    components: {
-        FacebookBoxIcon,
-        InstagramIcon,
-        GmailIcon
-    }
-}
+  name: "SocialIcons",
+  components: {
+    FacebookBoxIcon,
+    InstagramIcon,
+    GmailIcon
+  },
+  computed: {
+    settings() {
+      return this.$store.getters.getSettings;
+    },
+    facebookLink() {
+      if (this.settings.length && this.settings[3].value) {
+        return this.settings[3].value;
+      }
+      return "";
+    },
+    instagramLink() {
+      if (this.settings.length && this.settings[4].value) {
+        return this.settings[4].value;
+      }
+      return "";
+    },
+    mailLink() {
+      if (this.settings.length && this.settings[7].value) {
+        return this.settings[7].value;
+      }
+      return "";
+    },
+
+  }
+};
 </script>
 
 <style lang="scss">
@@ -46,10 +70,9 @@ export default {
     }
     &:hover {
       svg {
-          fill: rgba($white, 0.6);
+        fill: rgba($white, 0.6);
       }
     }
   }
 }
-
 </style>
