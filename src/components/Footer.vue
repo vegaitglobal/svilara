@@ -53,7 +53,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .footer {
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
