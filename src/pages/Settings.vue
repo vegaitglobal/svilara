@@ -203,7 +203,7 @@ export default {
       let setting = {
         key: this.newSetting.keyText,
         value: this.newSetting.valueText,
-        keyShown: keyShown, 
+        keyShown: keyShown,
         sidebar: "1"
       }
       this.$store.dispatch("addSetting", setting);
