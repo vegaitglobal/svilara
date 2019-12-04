@@ -140,7 +140,6 @@ export default {
     },
 
     SET_ADMIN_EVENTS(state, events) {
-      console.log(events);
       state.adminEvents = events;
     },
 
@@ -217,7 +216,6 @@ export default {
 
       for (var i = 0; i < state.answers.length; i++) {
         if (state.answers[i].type === "file") {
-          console.log(state.answers[i].answers)
           formData.append(
             state.answers[i].name,
             state.answers[i].answers,
@@ -265,7 +263,6 @@ export default {
     },
 
     async fetchAdminEvents({ commit }) {
-      console.log("usao u feth");
       try {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`
@@ -304,7 +301,6 @@ export default {
           filtered.push(state.events[i]);
         }
       }
-      console.log(filtered);
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 
