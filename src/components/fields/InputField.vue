@@ -1,43 +1,43 @@
 <template>
   <div class="question">
     <h5>{{index+1}}. {{question.text}}</h5>
-    <li class="inputfield-row">
-      <input
-        type="text"
-        v-model="questionData"
-        @change="onChange"
-        v-on:keyup="e => set('questionData', e.target.value, form)"
-      />
-      <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
+    <div class="inputfield-row">
+      <input type="text" v-model="questionData" @keyup="onChange" />
+      <span class="error">{{ errorMessage }}</span>
       <span
         class="hint-text"
         v-if="question.name=='question25'"
       >* Plaforme su tematski povezani kulturno-umetnički programi koji se organizuju od strane Fondacije Evropske prestonice kulture Novi Sad 2021.</span>
-    </li>
+    </div>
   </div>
 </template>
 
 <script>
-import { set, required, messages } from "vue-val";
-
 export default {
   name: "InputField",
-  props: ["name", "question", "index"],
+  props: ["name", "question", "index", "constraints"],
   data() {
     return {
       questionData: "",
-      set,
-      form: {
-        questionData: {
-          valid: false,
-          error: null,
-          constraints: [required]
-        }
-      }
+      errorMessage: null
     };
   },
   methods: {
     onChange(event) {
+      let fieldValidationObject = {
+        valid: true,
+        message: null
+      };
+
+      for (let j = 0; j < this.constraints.length; j++) {
+        fieldValidationObject = this.constraints[j](this.questionData);
+
+        if (!fieldValidationObject.valid) break;
+      }
+
+      this.errorMessage = fieldValidationObject.valid ? null : fieldValidationObject.message;
+      this.$emit("validate", fieldValidationObject.valid);
+
       this.$store.dispatch("answerQuestion", {
         question: this.question,
         answers: this.questionData
@@ -45,8 +45,6 @@ export default {
     }
   }
 };
-
-messages.required = () => `Polje je obavezno.`;
 </script>
 
 <style lang="scss">

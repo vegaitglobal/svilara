@@ -5,9 +5,15 @@
       :key="index"
       :question="question"
       :is="mapToType(question.fieldType)"
+      :constraints="question.mandatory ? [required] : []"
+      @validate="(isValid) => setQuestion(question.name, isValid)"
       :index="index"
     ></component>
-    <button class="btn btn__purple btn__large" @click="submit">Pošalji</button>
+    <button
+      :disabled="!isFormValid"
+      class="btn btn__purple btn__large"
+      @click="submit"
+    >Pošalji</button>
   </div>
 </template>
 
@@ -17,9 +23,7 @@ import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
 import TextareaField from "./fields/TextareaField";
-import {
-  validate
-} from "vue-val";
+import { required } from "vue-val";
 
 export default {
   name: "Formular",
@@ -32,17 +36,30 @@ export default {
   },
   data() {
     return {
+      required,
       questions: [],
       answers: [],
-      validate
+      isFormValid: false
     };
   },
   async created() {
     this.questions = await this.$store.dispatch("fetchQuestions");
     this.sortQuestions();
   },
-
   methods: {
+    setQuestion(questionName, isValid) {
+      this.questions.map(question => {
+        if (question.name == questionName) question.isValid = isValid;
+      });
+
+      this.questions.map(question => {
+        // Radio buttons and checkboxes shouldn't be validated.
+        if (question.type != "radiobutton" && question.type != "checkbox" && !question.isValid)
+            this.isFormValid = false;
+        else
+            this.isFormValid = true
+      });
+    },
     mapToType(questionFieldType) {
       switch (questionFieldType) {
         case "input":
@@ -63,7 +80,6 @@ export default {
         return x;
       });
     },
-
     async submit() {
       this.$store
         .dispatch("submitEvent")

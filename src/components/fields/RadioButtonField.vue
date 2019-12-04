@@ -11,9 +11,7 @@
           :id="value"
           v-model="questionData"
           :value="value"
-          v-on:change="e => set('questionData', e.target.value, form)"
         />
-        <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
         <label :for="value">{{ value }}</label>
         <input
           v-if="value.toLowerCase() == 'other:'"
@@ -27,22 +25,12 @@
 </template>
 
 <script>
-import { set, required, messages } from "vue-val";
-
 export default {
   name: "RadioButton",
   props: ["name", "question", "index"],
   data() {
     return {
-      questionData: "",
-      set,
-      form: {
-        questionData: {
-          valid: false,
-          error: null,
-          constraints: [required]
-        }
-      }
+      questionData: ""
     };
   },
   methods: {
@@ -59,8 +47,6 @@ export default {
     }
   }
 };
-
-messages.required = () => `Polje je obavezno.`;
 </script>
 
 <style lang="scss">

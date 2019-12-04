@@ -12,9 +12,7 @@
           :id="value"
           :value="value"
           v-model="questionData"
-          v-on:change="e => set('questionData', e.target.value, form)"
         />
-        <span v-if="form.questionData.error" class="error">{{ form.questionData.error }}</span>
         <label :for="value">{{value}}</label>
         <input
           v-if="value.toLowerCase() == 'other:'"
@@ -28,8 +26,6 @@
 </template>
 
 <script>
-import { set, required, messages } from "vue-val";
-
 export default {
   name: "CheckboxField",
   props: ["name", "question", "index"],
@@ -37,15 +33,7 @@ export default {
     return {
       isChecked: false,
       selectedOptions: [],
-      questionData: [""],
-      set,
-      form: {
-        questionData: {
-          valid: false,
-          error: null,
-          constraints: [required]
-        }
-      }
+      questionData: [""]
     };
   },
   methods: {
