@@ -8,7 +8,7 @@ export default {
 
     getters: {
         getSettings(state) {
-            return state.settings;
+            return () => state.settings;
         },
     },
 
@@ -20,17 +20,14 @@ export default {
 
     actions: {
         async fetchSettings({ commit }) {
-            console.log("usao u fetch")
             return new Promise((resolve, reject) => {
                 axios.get(`${process.env.VUE_APP_BASE_URL}/admin/settings`)
                 .then(response => {
-                    console.log(response);
                     var favicon = document.getElementById('favicon');
                     var title = document.getElementById('title');
                     favicon.href = process.env.VUE_APP_MEDIA_BASE_URL + "/" + response.data.data[12].value;
                     title.innerText = response.data.data[13].value;
-                    // console.log(response.data.data[13].value);
-                    // console.log('fetchSettings ' + response.data.data[12].value);
+
                     commit("SET_SETTINGS", response.data.data);
                     resolve(response)})
                 .catch(error => {
@@ -42,20 +39,25 @@ export default {
         async updateSettings({ dispatch }, formIdObject) {
             return new Promise((resolve, reject) => {
                 axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form)
-                .then((res) => {
-                    console.log(res);
+                .then(() => {
                     dispatch('fetchSettings');
                     resolve()
                 })
                 .catch((error) => reject(error))
             })
-            // try{  const res = await axios.put(`${process.env.VUE_APP_BASE_URL}/admin/setting/${formIdObject.id}`, formIdObject.form);
-            //     console.log('uspeo update')
-            //     dispatch('fetchSettings');
-            //     return res
-            // } catch (err) {
-            //     return err
-            // }
+
+        },
+
+        async addSetting({ dispatch }, newSetting) {
+            return new Promise((resolve, reject) => {
+                axios.post(`${process.env.VUE_APP_BASE_URL}/admin/setting`, newSetting)
+                .then(() => {
+                    dispatch('fetchSettings');
+                    resolve()
+                })
+                .catch((error) => reject(error))
+            })
+
         },
        
         async acceptEvent({ commit }, id) {

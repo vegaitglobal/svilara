@@ -9,10 +9,10 @@
     <a :href="mailLink" target="_top" v-if="mailLink !== ''">
       <gmail-icon class="social-icons--ico" />
     </a>
-    <a href="twitterLink" target="__blank">
+    <a :href="twitterLink" target="__blank" v-if="twitterLink !== ''">
       <twitter-icon class="social-icons--ico" />
     </a>
-    <a href="youtubeLink" target="__blank">
+    <a :href="youtubeLink" target="__blank" v-if="youtubeLink !== ''">
       <youtube-icon class="social-icons--ico" />
     </a>
   </div>
@@ -35,8 +35,10 @@ export default {
     YoutubeIcon
   },
   computed: {
-    settings() {
-      return this.$store.getters.getSettings;
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
     },
     facebookLink() {
       if (this.settings.length && this.settings[3].value) {
@@ -53,6 +55,18 @@ export default {
     mailLink() {
       if (this.settings.length && this.settings[7].value) {
         return this.settings[7].value;
+      }
+      return "";
+    },
+    twitterLink() {
+      if (this.settings.length && this.settings[5].value) {
+        return this.settings[5].value;
+      }
+      return "";
+    },
+    youtubeLink() {
+      if (this.settings.length && this.settings[6].value) {
+        return this.settings[6].value;
       }
       return "";
     },

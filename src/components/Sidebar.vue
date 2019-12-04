@@ -4,9 +4,18 @@
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
     <SocialIcons />
-    <ContactInfo />
-    <img class="sidebar__logo--small" :src="logo1" />
-    <img class="sidebar__logo--small" :src="logo2" alt="logo" />
+    <ContactInfo
+      v-for="setting in settingsSidebar"
+      :key="`${setting.id}a`"
+      :setting="setting"
+    />
+    <img v-if="logo1 !== ''" class="sidebar__logo--small" :src="logo1" />
+    <img
+      v-if="logo2 !== ''"
+      class="sidebar__logo--small"
+      :src="logo2"
+      alt="logo"
+    />
   </div>
 </template>
 
@@ -27,14 +36,28 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch('fetchSettings')
-      // var favicon = document.getElementById('favicon');
-      //  var title = document.getElementById('title');
-      //  favicon.href = this.favicon;
+    this.$store.dispatch("fetchSettings");
+    // var favicon = document.getElementById('favicon');
+    //  var title = document.getElementById('title');
+    //  favicon.href = this.favicon;
   },
   computed: {
-    settings() {
-      return this.$store.getters.getSettings;
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    settingsSidebar() {
+      if (this.settings.length){
+        let filteredSettings = [];
+        for (let i = 0; i < this.settings.length; i++){
+          if (this.settings[i].sidebar){
+            filteredSettings.push(this.settings[i]);
+          }
+        }
+        return filteredSettings;
+      }
+      return [];
     },
     mainLogo() {
       if (this.settings.length && this.settings[0].value) {
@@ -59,14 +82,15 @@ export default {
         );
       }
       return "";
-    },
-    favicon(){
-      if (this.settings.length && this.settings[12].value) {
-        return (
-          process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[12].value
-        );
-    }return "";
     }
+    // favicon() {
+    //   if (this.settings.length && this.settings[12].value) {
+    //     return (
+    //       process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[12].value
+    //     );
+    //   }
+    //   return "";
+    // }
   }
 };
 </script>

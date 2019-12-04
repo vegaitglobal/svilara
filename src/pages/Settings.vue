@@ -2,16 +2,34 @@
   <div>
     <h3>Opšta podešavanja</h3>
     <div class="settings-input">
+      <button
+        @click="showModalSettingsLink()"
+        class="btn btn__purple settings-button"
+      >
+        Dodaj link u sidebar
+      </button>
+      <button
+        @click="showModalSettingsText()"
+        class="btn btn__purple settings-button"
+      >
+        Dodaj tekst u sidebar
+      </button>
       <SettingsOption
         v-for="(option, index) in settings"
         :key="index"
         :option="option"
       />
       <h3>Podešavanja pitanja u formularu</h3>
-      <button @click="showModalQuestionText" class="btn btn__purple settings-button">
+      <button
+        @click="showModalQuestionText"
+        class="btn btn__purple settings-button"
+      >
         Dodaj pitanje gde je odgovor tekst
       </button>
-      <button @click="showModalQuestionPicture" class="btn btn__purple settings-button">
+      <button
+        @click="showModalQuestionPicture"
+        class="btn btn__purple settings-button"
+      >
         Dodaj pitanje gde je odgovor slika
       </button>
       <!-- {{questions}} -->
@@ -23,32 +41,38 @@
     </div>
     <h3>Dodavanje skripte</h3>
     <div class="script-input">
-        <p>Dodaj skriptu za Google Analytics:</p>
-        <textarea rows="10" cols="90" v-model="firstScript"></textarea>
-        <button @click="addFirstScript" class="btn btn__purple">Dodaj skriptu</button>
+      <p>Dodaj skriptu za Google Analytics:</p>
+      <textarea rows="10" cols="90" v-model="firstScript"></textarea>
+      <button @click="addFirstScript" class="btn btn__purple">
+        Dodaj skriptu
+      </button>
     </div>
     <div class="script-input">
-        <p>Dodaj skriptu za Google Tag Manager:</p>
-        <textarea rows="10" cols="90" v-model="secondScript"></textarea>
-        <button @click="addSecondScript" class="btn btn__purple">Dodaj skriptu</button>
+      <p>Dodaj skriptu za Google Tag Manager:</p>
+      <textarea rows="10" cols="90" v-model="secondScript"></textarea>
+      <button @click="addSecondScript" class="btn btn__purple">
+        Dodaj skriptu
+      </button>
     </div>
     <modal
-    name="adminCreateQuestionText"
-    height="400"
-    width="600"
-    overlayTransition="overlay-fade"
-    class="modal__create-question"
-    @opened="disableScroll()"
-    @before-close="enableScroll()"
+      name="adminCreateQuestionText"
+      height="400"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
     >
-        <h2>Unesite pitanje:</h2>
-        <input type="text" v-model="data1.text" />
-        <p>Da li je odgovor obavezan?</p>
-            <select v-model="data1.mandatory">
-              <option value="1">Da</option>
-              <option value="0">Ne</option>
-            </select>
-        <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
+      <h2>Unesite pitanje:</h2>
+      <input type="text" v-model="data1.text" />
+      <p>Da li je odgovor obavezan?</p>
+      <select v-model="data1.mandatory">
+        <option value="1">Da</option>
+        <option value="0">Ne</option>
+      </select>
+      <button @click="saveInputText" class="btn btn__purple btn__large">
+        Sačuvaj
+      </button>
     </modal>
     <modal
       name="adminCreateQuestionPicture"
@@ -59,14 +83,52 @@
       @opened="disableScroll()"
       @before-close="enableScroll()"
     >
-        <h2>Unesite pitanje:</h2>
-        <input type="text" v-model="data2.text" />
-        <p>Da li je odgovor obavezan?</p>
-            <select v-model="data2.mandatory">
-              <option value="1">Da</option>
-              <option value="0">Ne</option>
-            </select>
-        <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
+      <h2>Unesite pitanje:</h2>
+      <input type="text" v-model="data2.text" />
+      <p>Da li je odgovor obavezan?</p>
+      <select v-model="data2.mandatory">
+        <option value="1">Da</option>
+        <option value="0">Ne</option>
+      </select>
+      <button @click="saveInputFile" class="btn btn__purple btn__large">
+        Sačuvaj
+      </button>
+    </modal>
+    <modal
+      name="adminCreateSettingsText"
+      height="400"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
+    >
+      <h2>Naslov teksta:</h2>
+      <input type="text" v-model="newSetting.keyText" />
+      <h2>Unesite tekst:</h2>
+      <input type="text" v-model="newSetting.valueText" />
+
+      <button @click="addSettings(0)" class="btn btn__purple btn__large">
+        Sačuvaj
+      </button>
+    </modal>
+    <modal
+      name="adminCreateSettingsLink"
+      height="400"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
+    >
+      <h2>Naslov linka:</h2>
+      <input type="text" v-model="newSetting.keyText" />
+      <h2>Unesite link:</h2>
+      <input type="text" v-model="newSetting.valueText" />
+
+      <button @click="addSettings(1)" class="btn btn__purple btn__large">
+        Sačuvaj
+      </button>
     </modal>
   </div>
 </template>
@@ -92,8 +154,12 @@ export default {
         text: "",
         mandatory: ""
       },
+      newSetting:{
+        keyText:"",
+        valueText:""
+      },
       firstScript: "",
-      secondScript: ""
+      secondScript: "",
     };
   },
   created() {
@@ -102,8 +168,10 @@ export default {
   },
 
   computed: {
-    settings() {
-      return this.$store.getters.getSettings;
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
     },
     questions() {
       return this.$store.getters.getQuestions;
@@ -116,6 +184,12 @@ export default {
     showModalQuestionPicture() {
       this.$modal.show("adminCreateQuestionPicture");
     },
+    showModalSettingsText() {
+      this.$modal.show("adminCreateSettingsText");
+    },
+    showModalSettingsLink() {
+      this.$modal.show("adminCreateSettingsLink");
+    },
     disableScroll() {
         document.body.style.overflowY = 'scroll';
         document.body.style.position = 'fixed';
@@ -124,6 +198,19 @@ export default {
     enableScroll() {
         document.body.style.overflowY = 'auto';
         document.body.style.position = 'static';
+    },
+    addSettings(keyShown){
+      let setting = {
+        key: this.newSetting.keyText,
+        value: this.newSetting.valueText,
+        keyShown: keyShown, 
+        sidebar: "1"
+      }
+      this.$store.dispatch("addSetting", setting);
+      this.$modal.hide("adminCreateSettingsText");
+      this.$modal.hide("adminCreateSettingsLink");
+      this.newSetting.keyText = "";
+      this.newSetting.valueText = "";
     },
     saveInputText() {
       let question = {
@@ -214,47 +301,47 @@ h3 {
   }
 }
 .settings-button {
-    margin: 10px 20px 15px 0;
+  margin: 10px 20px 15px 0;
 }
 .script-input {
-    p {
-        margin-bottom: 10px;
-    }
-    .btn {
-        display: block;
-        margin: 30px 0;
-    }
-    textarea {
-        resize: none;
-        overflow: auto;
-    }
+  p {
+    margin-bottom: 10px;
+  }
+  .btn {
+    display: block;
+    margin: 30px 0;
+  }
+  textarea {
+    resize: none;
+    overflow: auto;
+  }
 }
 .modal__create-question {
-    .v--modal {
-        text-align: center;
-        h2 {
-            font-weight: normal;
-            margin-bottom: 20px;
-        }
-        input {
-            margin-right: 10px;
-            padding: 12px;
-            width: 300px;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: block;
-            margin: 20px auto 0;
-        }
-        p {
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        select {
-            width: 200px;
-            padding: 10px;
-            background-size: 9%;
-        }
+  .v--modal {
+    text-align: center;
+    h2 {
+      font-weight: normal;
+      margin-bottom: 20px;
     }
+    input {
+      margin-right: 10px;
+      padding: 12px;
+      width: 300px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: block;
+      margin: 20px auto 0;
+    }
+    p {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    select {
+      width: 200px;
+      padding: 10px;
+      background-size: 9%;
+    }
+  }
 }
 </style>
