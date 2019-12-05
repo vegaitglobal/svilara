@@ -49,13 +49,11 @@ export default {
             password: password
           })
           .then(response => {
-            console.error(response);
             //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
             resolve(response);
           })
           .catch(error => {
-            console.error(error);
             reject(error);
           });
       });

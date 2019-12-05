@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input :disabled="true" type="text" v-model="loaclOption.key" />
+    <input :disabled="!loaclOption.sidebar || !editing" type="text" v-model="loaclOption.key" />
     <input
       v-if="
         loaclOption.id != 1 &&
@@ -35,6 +35,13 @@
     >
       Sačuvaj
     </button>
+    <button
+      v-if="loaclOption.sidebar"
+      class="btn btn__red btn__small"
+     @click="deleteOption"
+    >
+      Obriši
+    </button>
   </div>
 </template>
 
@@ -42,13 +49,13 @@
 export default {
   name: "SettingsOption",
   props: ["option"],
+ 
   data() {
     return {
       editing: false,
       loaclOption: { ...this.option }
     };
   },
-
   methods: {
     async save() {
       const form = new FormData();
@@ -63,6 +70,10 @@ export default {
     },
     logoChange(event) {
       this.loaclOption.value = event.target.files[0];
+    },
+    async deleteOption(){
+      console.log(this.loaclOption.id);
+      await this.$store.dispatch("deleteSettingsOption", this.loaclOption.id);
     }
   }
 };

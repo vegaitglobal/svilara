@@ -16,7 +16,7 @@
       </button>
       <SettingsOption
         v-for="(option, index) in settings"
-        :key="index"
+        :key="`${option.id}b`"
         :option="option"
       />
       <h3>Podešavanja pitanja u formularu</h3>

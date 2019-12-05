@@ -27,7 +27,7 @@ export default {
                     var title = document.getElementById('title');
                     favicon.href = process.env.VUE_APP_MEDIA_BASE_URL + "/" + response.data.data[12].value;
                     title.innerText = response.data.data[13].value;
-
+                    console.log(response.data.data);
                     commit("SET_SETTINGS", response.data.data);
                     resolve(response)})
                 .catch(error => {
@@ -51,6 +51,18 @@ export default {
         async addSetting({ dispatch }, newSetting) {
             return new Promise((resolve, reject) => {
                 axios.post(`${process.env.VUE_APP_BASE_URL}/admin/setting`, newSetting)
+                .then(() => {
+                    dispatch('fetchSettings');
+                    resolve()
+                })
+                .catch((error) => reject(error))
+            })
+        },
+
+        async deleteSettingsOption({ dispatch }, id) {
+            console.log(id)
+            return new Promise((resolve, reject) => {
+                axios.delete(`${process.env.VUE_APP_BASE_URL}/admin/setting/${id}`)
                 .then(() => {
                     dispatch('fetchSettings');
                     resolve()
