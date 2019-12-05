@@ -404,10 +404,7 @@ messages.isUrl = () => `Morate uneti validan URL.`;
   input,
   select {
     @include breakpoint(desk-xl) {
-      width: 300px;
-    }
-    @include breakpoint(desk) {
-      width: 200px;
+      width: 85%;
     }
   }
   .form-wrapper {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>Opšta podešavanja</h3>
+    <h3 class="settings-heading">Opšta podešavanja</h3>
     <div class="settings-input">
       <button
         @click="showModalSettingsLink()"
@@ -19,7 +19,7 @@
         :key="`${option.id}b`"
         :option="option"
       />
-      <h3>Podešavanja pitanja u formularu</h3>
+      <h3 class="settings-heading">Podešavanja pitanja u formularu</h3>
       <button
         @click="showModalQuestionText"
         class="btn btn__purple settings-button"
@@ -39,7 +39,7 @@
         :question="question"
       />
     </div>
-    <h3>Dodavanje skripte</h3>
+    <h3 class="settings-heading">Dodavanje skripte</h3>
     <div class="script-input">
       <p>Dodaj skriptu za Google Analytics:</p>
       <textarea rows="10" cols="90" v-model="firstScript"></textarea>
@@ -276,32 +276,55 @@ export default {
 </script>
 
 <style lang="scss">
-h3 {
-  margin: 20px 0 10px;
+@import "../assets/scss/variables.scss";
+
+.settings-heading {
+  margin-top: 50px;
 }
 .settings-input {
-  margin-bottom: 40px;
-  div {
-    margin-bottom: 10px;
-    display: flex;
-    input {
-      margin-right: 10px;
-      width: 90%;
-      padding: 10px;
-    }
-    button {
-      margin-right: 10px;
-    }
-    .btn.btn__red {
-      font-size: 13px;
-    }
-    .btn.btn__green {
-      font-size: 13px;
-    }
+  button {
+    margin-right: 10px;
+  }
+  .btn.btn__red {
+    font-size: 13px;
+  }
+  .btn.btn__green {
+    font-size: 13px;
   }
 }
+.settings-form,
+.questions-form {
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 20px;
+  input {
+    padding: 10px;
+    margin: 0 10px 10px 0;
+  }
+}
+.settings-form {
+  input {
+    width: 48%;
+  }
+}
+.questions-form {
+  input {
+    width: 100%;
+  }
+}
+.input-wrapper {
+  max-width: 85%;
+  margin: 0;
+  display: flex;
+  @include breakpoint(desk) {
+    max-width: none;
+  }
+}
+.button-wrapper {
+width: 100%;
+}
 .settings-button {
-  margin: 10px 20px 15px 0;
+  margin: 10px 20px 25px 0;
 }
 .script-input {
   p {

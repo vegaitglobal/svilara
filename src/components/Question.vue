@@ -1,30 +1,34 @@
 <template>
-  <div v-if="question">
-    <!-- {{question}} -->
-    <input :disabled="!editing" type="text" v-model="question.text" />
-    <!-- <input type="text" :disabled="!editing" v-model="option.value" /> -->
-    <button
+  <div v-if="question" class="questions-form">
+    <div class="input-wrapper">
+      <!-- {{question}} -->
+      <input :disabled="!editing" type="text" v-model="question.text" />
+      <!-- <input type="text" :disabled="!editing" v-model="option.value" /> -->
+    </div>
+    <div class="button-wrapper">
+      <button
       v-if="deleteUpdateOption()"
       class="btn btn__red btn__small"
       @click="editing = !editing"
-    >
+      >
       Izmeni
-    </button>
-    <button
+      </button>
+      <button
       v-if="deleteUpdateOption()"
       :disabled="!editing"
       class="btn btn__green btn__small"
       @click="save"
-    >
+      >
       Sačuvaj
-    </button>
-    <button
+      </button>
+      <button
       v-if="deleteUpdateOption()"
       class="btn btn__red btn__small"
       @click="deleteQuestion"
-    >
+      >
       Obriši
-    </button>
+      </button>
+    </div>
   </div>
 </template>
 

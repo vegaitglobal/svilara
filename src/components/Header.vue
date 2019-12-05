@@ -279,17 +279,18 @@ export default {
         margin-bottom: 20px;
       }
     }
-  }
-  .button-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    justify-content: flex-end;
-    @include breakpoint(mob) {
-        justify-content: center;
-    }
-    button {
-      margin: 0 0 0 10px;
+    .button-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: flex-end;
+      @include breakpoint(mob) {
+          justify-content: center;
+      }
+      button,
+      a {
+        margin: 0 0 10px 10px;
+      }
     }
   }
 }

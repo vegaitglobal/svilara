@@ -1,47 +1,51 @@
 <template>
-  <div>
-    <input :disabled="!loaclOption.sidebar || !editing" type="text" v-model="loaclOption.key" />
-    <input
+  <div class="settings-form">
+    <div class="input-wrapper">
+      <input :disabled="!loaclOption.sidebar || !editing" type="text" v-model="loaclOption.key" />
+      <input
       v-if="
         loaclOption.id != 1 &&
-          loaclOption.id != 2 &&
-          loaclOption.id != 3 &&
-          loaclOption.id != 13
+        loaclOption.id != 2 &&
+        loaclOption.id != 3 &&
+        loaclOption.id != 13
       "
       type="text"
       :disabled="!editing"
       v-model="loaclOption.value"
-    />
+      />
 
-    <input
+      <input
       :disabled="!editing"
       v-if="
         loaclOption.id == 1 ||
-          loaclOption.id == 2 ||
-          loaclOption.id == 3 ||
-          loaclOption.id == 13
+        loaclOption.id == 2 ||
+        loaclOption.id == 3 ||
+        loaclOption.id == 13
       "
       type="file"
       @change="logoChange($event)"
-    />
+      />
+    </div>
 
-    <button class="btn btn__red btn__small" @click="editing = !editing">
-      Izmeni
-    </button>
-    <button
-      :disabled="!editing"
-      class="btn btn__green btn__small"
-      @click="save"
-    >
-      Sačuvaj
-    </button>
-    <button
-      v-if="loaclOption.sidebar"
-      class="btn btn__red btn__small"
-     @click="deleteOption"
-    >
-      Obriši
-    </button>
+    <div class="button-wrapper">
+        <button class="btn btn__red btn__small" @click="editing = !editing">
+        Izmeni
+        </button>
+        <button
+        :disabled="!editing"
+        class="btn btn__green btn__small"
+        @click="save"
+        >
+        Sačuvaj
+        </button>
+        <button
+        v-if="loaclOption.sidebar"
+        class="btn btn__red btn__small"
+        @click="deleteOption"
+        >
+        Obriši
+        </button>
+    </div>
   </div>
 </template>
 
@@ -49,7 +53,7 @@
 export default {
   name: "SettingsOption",
   props: ["option"],
- 
+
   data() {
     return {
       editing: false,
