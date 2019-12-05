@@ -27,7 +27,6 @@ export default {
                     var title = document.getElementById('title');
                     favicon.href = process.env.VUE_APP_MEDIA_BASE_URL + "/" + response.data.data[12].value;
                     title.innerText = response.data.data[13].value;
-                    console.log(response.data.data);
                     commit("SET_SETTINGS", response.data.data);
                     resolve(response)})
                 .catch(error => {

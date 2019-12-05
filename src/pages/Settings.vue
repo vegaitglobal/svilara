@@ -154,12 +154,12 @@ export default {
         text: "",
         mandatory: ""
       },
-      newSetting:{
-        keyText:"",
-        valueText:""
+      newSetting: {
+        keyText: "",
+        valueText: ""
       },
       firstScript: "",
-      secondScript: "",
+      secondScript: ""
     };
   },
   created() {
@@ -191,21 +191,21 @@ export default {
       this.$modal.show("adminCreateSettingsLink");
     },
     disableScroll() {
-        document.body.style.overflowY = 'scroll';
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
+      document.body.style.overflowY = "scroll";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
     },
     enableScroll() {
-        document.body.style.overflowY = 'auto';
-        document.body.style.position = 'static';
+      document.body.style.overflowY = "auto";
+      document.body.style.position = "static";
     },
-    addSettings(keyShown){
+    addSettings(keyShown) {
       let setting = {
         key: this.newSetting.keyText,
         value: this.newSetting.valueText,
         keyShown: keyShown,
         sidebar: "1"
-      }
+      };
       this.$store.dispatch("addSetting", setting);
       this.$modal.hide("adminCreateSettingsText");
       this.$modal.hide("adminCreateSettingsLink");
@@ -242,14 +242,37 @@ export default {
       this.data2.text = "";
       this.data2.mandatory = "";
     },
+    validateScript(script) {
+      if (script.substring(0, 8) !== "<script>") {
+        this.$swal.fire({
+          title: "Greška!",
+          text: "Skripta nije dobro unesena.",
+          type: "error"
+        });
+        return false;
+      }
+      return true;
+    },
     addFirstScript() {
+      let valid = this.validateScript(this.firstScript);
+      if (!valid) return;
       var head = document.getElementsByTagName("head")[0];
       var html = this.stringToHtml(this.firstScript);
       head.prepend(html[0]);
       let script = { value: this.firstScript };
-      axios.post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script);
+      axios
+        .post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script)
+        .then(() => {
+          this.$swal.fire({
+            title: "Poslato!",
+            text: "Skripta je uspesno unesena.",
+            type: "success"
+          });
+        });
     },
     addSecondScript() {
+      let valid = this.validateScript(this.secondScript);
+      if (!valid) return;
       var head = document.getElementsByTagName("head")[0];
 
       var html = this.stringToHtml(this.secondScript);
@@ -264,7 +287,15 @@ export default {
 
       head.insertBefore(html[0], head.children[numberOfScriptUnderHeadTag]);
       let script = { value: this.secondScript };
-      axios.post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script);
+      axios
+        .post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script)
+        .then(() => {
+          this.$swal.fire({
+            title: "Poslato!",
+            text: "Skripta je uspesno unesena.",
+            type: "success"
+          });
+        });
     },
     stringToHtml(str) {
       var parser = new DOMParser();

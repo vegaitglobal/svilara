@@ -274,6 +274,18 @@ export default {
       }
     },
 
+    async fetchAdminEventsTable({ commit }) {
+      try {
+        const events = await axios.get(
+          `${process.env.VUE_APP_BASE_URL}/admin/events/table`
+        );
+        //commit("SET_ADMIN_EVENTS", events.data.data);
+        return events;
+      } catch (err) {
+        return err;
+      }
+    },
+
     async searchEvent({ commit, state }, query) {
       let result;
 

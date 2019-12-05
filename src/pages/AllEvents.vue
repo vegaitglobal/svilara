@@ -57,7 +57,13 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch("fetchAdminEvents").then(data => {
+    // this.$store.dispatch("fetchAdminEventsTable").then(data => {
+    //   console.log(data.data.data.length)
+    //   for (let u=0; u<data.data.data.length; u++){
+    //     console.log ("status  " + data.data.data[u].status + "  created:  " + data.data.data[u].created + "  endtime   " + data.data.data[u].endTime)
+    //   }
+    //   })
+    this.$store.dispatch("fetchAdminEventsTable").then(data => {
       let events = [...data.data.data];
       for (let i = 0; i < events.length; i++) {
         if (events[i].status == "accepted") {
@@ -71,7 +77,6 @@ export default {
           let answers = JSON.parse(events[i].formAnswers);
 
           if (answers) {
-            console.log(answers);
             for (let y = 0; y < answers.length; y++) {
               if (answers[y].name === "email") {
                 events[i].email = answers[y].answers;
@@ -96,17 +101,12 @@ export default {
                   let arrayAnswer = answer[j].split("/");
                   answerSerbian.push(arrayAnswer[0]);
                 }
-                //let arrayAnswers = answer.split('/');
-                //console.log(answer)
                 events[i].space = answerSerbian;
               }
             }
           }
-          answers;
+          
         }
-        //  if (events[i].status == "rejected") {
-        //    console.log(events[i]);
-        //  }
         let status = events[i].status;
         if (status == "accepted") {
           events[i].status = "prihvaćen";
@@ -124,7 +124,6 @@ export default {
         }
       }
       this.tableData = events;
-      console.log(this.tableData);
     });
   }
 };
