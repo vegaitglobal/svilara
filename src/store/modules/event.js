@@ -19,10 +19,10 @@ const sortByDate = (a, b) => {
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
-    if (settings[i].key === 'otvoren bez plaćanja'){
+    if (settings[i].key === 'otvoren bez prijave'){
       settings[i].key = 'otvorenbp';
     }
-    if (settings[i].key === 'otvoren sa plaćanjem'){
+    if (settings[i].key === 'otvoren sa prijavom'){
       settings[i].key = 'otvorensp';
     }
     if (settings[i].key === type) {
@@ -61,13 +61,14 @@ export default {
     },
 
     getCalendarEvents(state, rootState) {
-      let settings = rootState.getSettings;
+      let settings = rootState.getSettings();
 
       let serializedEvents = [];
       for (var i = 0; i < state.adminEvents.length; i++) {
         var color = searchColorsByType(settings, state.adminEvents[i].type);
         var borderColor = searchColorsByType(settings, "placanje");
-
+        console.log(color);
+        console.log(state.adminEvents[i].type)
         let parsedEvent = {
           id: state.adminEvents[i].id,
           title: state.adminEvents[i].title,
@@ -95,7 +96,7 @@ export default {
         };
         serializedEvents.push(parsedEvent);
       }
-
+      console.log("-------------------------------------------------------")
       return serializedEvents;
     },
 

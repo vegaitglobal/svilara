@@ -112,10 +112,10 @@ export default {
         }
         let type = events[i].type;
         if (type == "otvorenbp") {
-          events[i].type = "otvoren bez plaćanja";
+          events[i].type = "otvoren bez prijave";
         }
         if (type == "otvorensp") {
-          events[i].type = "otvoren sa plaćanjem";
+          events[i].type = "otvoren sa prijavom";
         }
       }
       this.tableData = events;

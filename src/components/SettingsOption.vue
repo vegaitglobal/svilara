@@ -7,7 +7,9 @@
         loaclOption.id != 1 &&
         loaclOption.id != 2 &&
         loaclOption.id != 3 &&
-        loaclOption.id != 13
+        loaclOption.id != 13 &&
+        loaclOption.id != 16 && 
+        loaclOption.id != 17
       "
       type="text"
       :disabled="!editing"
@@ -25,6 +27,7 @@
       type="file"
       @change="logoChange($event)"
       />
+      <textarea v-if="loaclOption.id == 16 || loaclOption.id == 17" :disabled="!editing" v-model="loaclOption.value" cols="70" rows="8"/>
     </div>
 
     <div class="button-wrapper">

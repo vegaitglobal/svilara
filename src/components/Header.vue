@@ -80,9 +80,9 @@
     <modal name="userCreateEventModal" height="600" width="700" overlayTransition="overlay-fade" @opened="disableScroll()" @before-close="enableScroll()">
       <button type="button" class="btn btn__close" @click="closeModal();"></button>
       <div class="tc-modal" v-if="page==1">
-        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg / Application form for organising an event in the 'Egység' Cultural Station</h1>
+        <h1>{{title}}</h1>
         <div class="tc-modal__text">
-          <p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
+          <!--<p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
 
           <p>Prijave se vrše najkasnije do 15. u mesecu pre onog u kome bi se Vaš događaj održavao. Slanjem formulara u ovom roku realizacija Vašeg događaja nije prihvaćena, već to znači da formulari poslati nakon ovog roka za naredni mesec neće biti razmatrani.</p>
 
@@ -99,10 +99,11 @@
 
           <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
 
-          <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>
+          <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>-->
+          <p>{{textSerbian}}</p>
           <hr>
-
-          <p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p>
+          <p>{{textEnglish}}</p>
+          <!--<p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p>
 
           <p>The applications have to be submitted by 15th of the month which precedes the month in which your event is taking place (e.g. if your event takes place in May, you have to submit your application by 15 April). Applications that do not meet this condition will not be taken into consideration.</p>
 
@@ -117,7 +118,7 @@
 
           <p>During the events organised in the 'Egység' Cultural Station, we usually photograph and record events in order to promote the programme of the 'Novi Sad 2021 - European Capital of Culture' Foundation in accordance with the Law on Personal Data Protection and Law on Public Information, and this application is deemed acceptance to possible publication of the said photographs and video recordings on social networks and websites of the Foundation and Cultural Station.</p>
 
-          <p>By filling in this application form you confirm that the data entered are true and correct.</p>
+          <p>By filling in this application form you confirm that the data entered are true and correct.</p>-->
 
         </div>
         <div class="tc-modal__bottom">
@@ -160,6 +161,31 @@ export default {
     DatePicker,
     Formular
   },
+   computed: {
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    title(){
+      if (this.settings.length && this.settings[14]){
+        return this.settings[14].value;
+      }
+      return "";
+    },
+    textSerbian(){
+      if (this.settings.length && this.settings[15]){
+        return this.settings[15].value;
+      }
+      return "";
+    },
+    textEnglish(){
+      if (this.settings.length && this.settings[16]){
+        return this.settings[16].value;
+      }
+      return "";
+    }
+    },
   data: function() {
     return {
       terms1accepted: false,
