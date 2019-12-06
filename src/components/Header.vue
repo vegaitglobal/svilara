@@ -2,10 +2,16 @@
   <div>
     <header class="header">
       <a class="header__link" href="/">
-        <img class="header__logo" src="../assets/img/svilara-logo.jpg" alt="logo"/>
+        <img
+          class="header__logo"
+          src="../assets/img/svilara-logo.jpg"
+          alt="logo"
+        />
       </a>
       <div class="header__left-part">
-        <h1 v-if="['Welcome','Admin'].includes($route.name)">Kalendar događaja</h1>
+        <h1 v-if="['Welcome', 'Admin'].includes($route.name)">
+          Kalendar događaja
+        </h1>
         <h1 v-if="['NewEvent'].includes($route.name)">Kreiraj događaj</h1>
         <h1 v-if="['AllEvents'].includes($route.name)">Svi događaji</h1>
         <h1 v-if="['Settings'].includes($route.name)">Podešavanja</h1>
@@ -21,66 +27,88 @@
             type="button"
             @click="showUserCreateEventModal"
             v-if="['Welcome'].includes($route.name)"
-          >+ Dodaj događaj</button>
+          >
+            + Dodaj događaj
+          </button>
           <router-link
             to="/admin/new-event"
             class="btn btn__purple btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Zahtevi</router-link>
+            >Zahtevi</router-link
+          >
           <router-link
             to="/admin/all-events"
             class="btn btn__purple btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Događaji</router-link>
+            >Događaji</router-link
+          >
           <router-link
             to="/admin/settings"
             class="btn btn__purple btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
-          >Podešavanja</router-link>
+            >Podešavanja</router-link
+          >
           <router-link
             to="/admin"
             class="btn btn__purple btn__large"
-            v-if="['NewEvent','AllEvents', 'Settings'].includes($route.name)">
-              Nazad
+            v-if="['NewEvent', 'AllEvents', 'Settings'].includes($route.name)"
+          >
+            Nazad
           </router-link>
           <router-link
             to="/admin/all-events"
             class="btn btn__purple btn__large"
-            v-if="['Editor'].includes($route.name)">
-              Nazad
+            v-if="['Editor'].includes($route.name)"
+          >
+            Nazad
           </router-link>
           <router-link
             to="/"
             class="btn btn__purple btn__large"
-            v-if="['EventPage'].includes($route.name)">
-              Nazad
+            v-if="['EventPage'].includes($route.name)"
+          >
+            Nazad
           </router-link>
           <button
             @click="logout"
             class="btn btn__purple btn__large"
             type="button"
-            v-if="['ForgotPassword'].includes($route.name)">
-              Nazad
+            v-if="['ForgotPassword'].includes($route.name)"
+          >
+            Nazad
           </button>
           <button
             @click="logout"
             class="btn btn__purple btn__large"
             type="button"
             v-if="['Admin'].includes($route.name)"
-          >Odjavi se</button>
+          >
+            Odjavi se
+          </button>
         </div>
       </div>
     </header>
-    <modal name="userCreateEventModal" height="600" width="700" overlayTransition="overlay-fade" @opened="disableScroll()" @before-close="enableScroll()">
-      <button type="button" class="btn btn__close" @click="closeModal();"></button>
-      <div class="tc-modal" v-if="page==1">
-        <h1>{{title}}</h1>
+    <modal
+      name="userCreateEventModal"
+      height="600"
+      width="700"
+      overlayTransition="overlay-fade"
+      @opened="disableScroll()"
+      @before-close="enableScroll()"
+    >
+      <button
+        type="button"
+        class="btn btn__close"
+        @click="closeModal()"
+      ></button>
+      <div class="tc-modal" v-if="page == 1">
+        <h1>{{ title }}</h1>
         <div class="tc-modal__text">
           <!--<p>Popunjavanjem ovog formulara aplicirate za korišćenje prostora Kulturne stanice Eđšeg i pristajete na uslove i pravila korišćenja iste.</p>
 
@@ -100,9 +128,9 @@
           <p>Prilikom održavanja događaja u kulturnoj stanici Eđšeg biće fotografisanja i snimanja prisutnih u cilju promocije programa Fondacije „Novi Sad 2021 - Evropska prestonica kulture" i u skladu sa Zakonom o zaštiti podataka o ličnosti i Zakona o javnom informisanju, ovo se smatra pristanakom na eventualno objavljivanje predmetnih fotografija i video-zapisa na društvenim mrežama, sajtu Fondacije i kulturne stanice.</p>
 
           <p>Popunjavanjem upitnika potvrđujete verodostojnost i tačnost unetih podataka.</p>-->
-          <p>{{textSerbian}}</p>
-          <hr>
-          <p>{{textEnglish}}</p>
+          <p v-for="(paragraph, index) in textSerbian"  :key="`${index}c`">{{paragraph}}</p>
+          <hr />
+           <p v-for="(paragraph, index) in textEnglish"  :key="`${index}d`">{{paragraph}}</p>
           <!--<p>By filling in this application form you are applying to use facilities of the 'Egység' Cultural Station and you agree to its terms and conditions.</p>
 
           <p>The applications have to be submitted by 15th of the month which precedes the month in which your event is taking place (e.g. if your event takes place in May, you have to submit your application by 15 April). Applications that do not meet this condition will not be taken into consideration.</p>
@@ -119,7 +147,6 @@
           <p>During the events organised in the 'Egység' Cultural Station, we usually photograph and record events in order to promote the programme of the 'Novi Sad 2021 - European Capital of Culture' Foundation in accordance with the Law on Personal Data Protection and Law on Public Information, and this application is deemed acceptance to possible publication of the said photographs and video recordings on social networks and websites of the Foundation and Cultural Station.</p>
 
           <p>By filling in this application form you confirm that the data entered are true and correct.</p>-->
-
         </div>
         <div class="tc-modal__bottom">
           <input
@@ -128,20 +155,28 @@
             type="checkbox"
             v-model="terms1accepted"
           />
-          <label for="tc-modal-checkbox">Pročitao sam i prihvatam sve uslove pravilnika. / I read the Rules of Procerure and I accept them.</label>
+          <label for="tc-modal-checkbox"
+            >Pročitao sam i prihvatam sve uslove pravilnika. / I read the Rules
+            of Procerure and I accept them.</label
+          >
           <input
             class="tc-modal-checkbox"
             id="tc-modal-checkbox-2"
             type="checkbox"
             v-model="terms2accepted"
           />
-          <label for="tc-modal-checkbox-2">Potvrđujem verodostojnost i tačnost unetih podataka. / I confirm that the data entered are true and correct.</label>
+          <label for="tc-modal-checkbox-2"
+            >Potvrđujem verodostojnost i tačnost unetih podataka. / I confirm
+            that the data entered are true and correct.</label
+          >
         </div>
         <div class="text-center">
-          <button class="btn btn__purple btn__large" @click="goNext">Dalje</button>
+          <button class="btn btn__purple btn__large" @click="goNext">
+            Dalje
+          </button>
         </div>
       </div>
-      <div class="tc-modal" v-if="page==2">
+      <div class="tc-modal" v-if="page == 2">
         <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
         <Formular />
       </div>
@@ -161,36 +196,38 @@ export default {
     DatePicker,
     Formular
   },
-   computed: {
+  computed: {
     settings: {
       get: function() {
         return this.$store.getters.getSettings();
       }
     },
-    title(){
-      if (this.settings.length && this.settings[14]){
+    title() {
+      if (this.settings.length && this.settings[14]) {
         return this.settings[14].value;
       }
       return "";
     },
-    textSerbian(){
-      if (this.settings.length && this.settings[15]){
-        return this.settings[15].value;
+    textSerbian() {
+      if (this.settings.length && this.settings[15]) {
+        let arrayOftext = this.settings[15].value.split("\n");
+        return arrayOftext;
       }
       return "";
     },
-    textEnglish(){
-      if (this.settings.length && this.settings[16]){
-        return this.settings[16].value;
+    textEnglish() {
+      if (this.settings.length && this.settings[16]) {
+        let arrayOftext = this.settings[16].value.split("\n");
+        return arrayOftext;
       }
       return "";
     }
-    },
+  },
   data: function() {
     return {
       terms1accepted: false,
       terms2accepted: false,
-      page: 1,
+      page: 1
     };
   },
   methods: {
@@ -204,28 +241,29 @@ export default {
       this.$modal.hide("userCreateEventModal");
     },
     disableScroll() {
-        document.body.style.overflowY = 'scroll';
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
+      document.body.style.overflowY = "scroll";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
     },
     enableScroll() {
-        document.body.style.overflowY = 'auto';
-        document.body.style.position = 'static';
+      document.body.style.overflowY = "auto";
+      document.body.style.position = "static";
     },
     goNext() {
       if (!this.terms1accepted || !this.terms2accepted) {
         this.$swal.fire({
           type: "info",
           title: "Informacija",
-          text: "Neophodno je da prihvatite sve uslove pravilnika i tačnost unešenih podataka. To bi značilo i Vama i nama, da na najlakši mogući način organizujemo događaj. Hvala! "
+          text:
+            "Neophodno je da prihvatite sve uslove pravilnika i tačnost unešenih podataka. To bi značilo i Vama i nama, da na najlakši mogući način organizujemo događaj. Hvala! "
         });
         return;
       }
       this.page = 2;
     },
-    logout(){
+    logout() {
       this.$store.dispatch("logout");
-      this.$router.push({ path: '/admin/login' })
+      this.$router.push({ path: "/admin/login" });
     }
   }
 };
@@ -311,7 +349,7 @@ export default {
       align-items: flex-end;
       justify-content: flex-end;
       @include breakpoint(mob) {
-          justify-content: center;
+        justify-content: center;
       }
       button,
       a {
@@ -351,8 +389,8 @@ export default {
     background: $white;
     width: 2px;
     height: 2px;
-    box-shadow: 2px 0 0 $purple, 4px 0 0 $purple, 4px -2px 0 $purple, 4px -4px 0 $purple,
-      4px -6px 0 $purple, 4px -8px 0 $purple;
+    box-shadow: 2px 0 0 $purple, 4px 0 0 $purple, 4px -2px 0 $purple,
+      4px -4px 0 $purple, 4px -6px 0 $purple, 4px -8px 0 $purple;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
   }
