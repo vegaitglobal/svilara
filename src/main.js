@@ -21,6 +21,7 @@ import "./validation";
 import "vue-material-design-icons/styles.css";
 
 Vue.config.productionTip = false;
+//Vue.config.runtimeCompiler = true;
 
 Vue.use(VueAxios, axios);
 Vue.use(VueSwal);

@@ -57,12 +57,7 @@ export default {
     }
   },
   mounted() {
-    // this.$store.dispatch("fetchAdminEventsTable").then(data => {
-    //   console.log(data.data.data.length)
-    //   for (let u=0; u<data.data.data.length; u++){
-    //     console.log ("status  " + data.data.data[u].status + "  created:  " + data.data.data[u].created + "  endtime   " + data.data.data[u].endTime)
-    //   }
-    //   })
+    
     this.$store.dispatch("fetchAdminEventsTable").then(data => {
       let events = [...data.data.data];
       for (let i = 0; i < events.length; i++) {
