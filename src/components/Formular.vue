@@ -2,7 +2,7 @@
   <div>
     <component
       v-for="(question, index) in questions"
-      :key="index"
+      :key="question.name"
       :question="question"
       :is="mapToType(question.fieldType)"
       :constraints="question.mandatory ? [required] : []"
@@ -54,7 +54,8 @@ export default {
 
       this.questions.map(question => {
         // Radio buttons and checkboxes shouldn't be validated.
-        if (question.type != "radiobutton" && question.type != "checkbox" && !question.isValid)
+        if (question.type != "file" &&
+            !question.isValid)
             this.isFormValid = false;
         else
             this.isFormValid = true

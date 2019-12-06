@@ -4,65 +4,81 @@
     <ul>
       <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
         <input
-          v-if="value.toLowerCase() !== 'other:'"
           type="checkbox"
           @change="onChange($event)"
           :name="value"
-          :data-value="value"
-          :id="value"
+          :id="value + question.id"
           :value="value"
-          v-model="questionData"
         />
-        <label :for="value">{{value}}</label>
+        <label :for="value + question.id">{{value}}</label>
+      </li>
+      <li class="check-box">
         <input
-          v-if="value.toLowerCase() == 'other:'"
+          v-if="answers && includeOtherData"
+          @keyup="onOtherChange($event)"
           type="text"
-          @change="onChange($event)"
-          :name="value"
+          v-model="otherData"
+          class="other-input"
         />
+        <span class="error radio-error" v-if="includeOtherData">{{ errorMessage }}</span>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import { required } from "vue-val";
+
 export default {
   name: "CheckboxField",
   props: ["name", "question", "index"],
   data() {
     return {
-      isChecked: false,
-      selectedOptions: [],
-      questionData: [""]
+      oldOtherData: null,
+      otherData: null,
+      includeOtherData: false,
+      answers: [],
+      errorMessage: 'Polje je obavezno.'
     };
   },
   methods: {
-    removeOthers() {
-      for (var i = 0; i < this.selectedOptions.length; i++) {
-        if (this.selectedOptions[i].startsWith("Other:")) {
-          this.selectedOptions.splice(i, 1);
-        }
+    onChange(event) {
+      let isChecked = event.target.checked;
+      let answer = event.target.name;
+
+      if(answer == 'Other:') {
+        this.includeOtherData = isChecked;
+
+        return;
+      }
+
+      if (isChecked) {
+        this.answers.push(answer);
+      } else {
+        this.answers = this.answers.filter(e => e !== answer);
       }
     },
-    onChange(event) {
-      var isChecked = event.target.checked;
-      var answer = event.target.name;
-      if (isChecked) {
-        this.selectedOptions.push(answer);
-      } else {
-        this.selectedOptions = this.selectedOptions.filter(e => e !== answer);
+    onOtherChange() {
+      const validationResult = required(this.otherData);
+        console.log(validationResult);
+      this.errorMessage = validationResult.valid ? null : validationResult.message;
+
+      if(this.oldOtherData) {
+        this.answers = this.answers.filter(e => e !== this.oldOtherData);
       }
-      if (event.target.type == "text") {
-        this.removeOthers();
-        this.selectedOptions.push(`Other: ${event.target.value}`);
+
+      if(this.otherData) {
+        this.answers.push(this.otherData);
       }
+
+      this.oldOtherData = this.otherData;
     }
   },
   watch: {
-    selectedOptions() {
+    answers() {
       this.$store.dispatch("answerQuestion", {
         question: this.question,
-        answers: this.selectedOptions
+        answers: this.answers
       });
     }
   }
