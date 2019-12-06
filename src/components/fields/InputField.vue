@@ -93,6 +93,9 @@ export default {
     font-size: 13px;
     margin-top: 10px;
   }
+  textarea {
+    max-width: 400px;
+  }
 }
 select {
   -moz-appearance: none;

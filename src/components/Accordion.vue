@@ -1,7 +1,7 @@
 <template>
-  <badger-accordion>
-    <badger-accordion-item v-for="(event, index) in this.events" :key="event.id">
-      <div slot="header">
+  <bulma-accordion>
+    <bulma-accordion-item v-for="(event, index) in this.events" :key="event.id">
+      <div class="acc-header" slot="title">
         <div>
           <span>{{ index + 1 }}</span>.
           <span>{{ event.contactEmail }}</span>
@@ -22,7 +22,7 @@
           <close class="ico declined" title />
         </span>
       </div>
-      <div slot="content">
+      <div class="acc-body" slot="content">
         <div
           class="replies"
           v-for="(row, index) in sortArray(event.formAnswers)"
@@ -51,8 +51,8 @@
           >Odbij</button>
         </div>
       </div>
-    </badger-accordion-item>
-  </badger-accordion>
+    </bulma-accordion-item>
+  </bulma-accordion>
 </template>
 
 <script>
@@ -161,6 +161,27 @@ export default {
 <style lang="scss">
 @import "../assets/scss/variables.scss";
 
+.card-header {
+  position: relative;
+  .card-header-icon {
+    display: none;
+  }
+}
+.acc-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid $purple;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  background-color: $purple;
+  color: $white;
+  cursor: pointer;
+}
+.acc-body {
+  padding: 20px;
+  overflow: hidden;
+}
 .replies {
   margin-bottom: 5px;
   line-height: 20px;
@@ -168,32 +189,7 @@ export default {
     font-weight: 900;
   }
 }
-.badger-accordion__header {
-  padding: 10px;
-  border: 1px solid $purple;
-  margin-bottom: 4px;
-  border-radius: 10px;
-  background-color: $purple;
-  color: $white;
-
-  .js-badger-accordion-header {
-    .badger-accordion-toggle {
-      flex: 1;
-      color: $white;
-
-      .badger-accordion-title {
-        flex: 0 0 100%;
-      }
-
-      div {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-    }
-  }
-
+.accordion {
   .ico {
     border-radius: 30px;
     text-align: center;
@@ -213,22 +209,10 @@ export default {
       background: $red;
     }
   }
-}
-.badger-accordion__panel {
-  padding: 0 20px;
-  overflow: hidden;
-  .js-badger-accordion-panel-inner > div {
-    padding: 20px 0;
-  }
   .button-wrapper {
-    display: flex;
-    margin-top: 30px;
-    flex-wrap: wrap;
     .btn {
-      min-width: 100px;
-    }
-    .btn:first-of-type {
       margin-right: 10px;
+      min-width: 100px;
     }
   }
 }

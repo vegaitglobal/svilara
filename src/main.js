@@ -6,7 +6,7 @@ import VueMoment from "vue-moment";
 import VModal from "vue-js-modal";
 import wysiwyg from "vue-wysiwyg";
 import { ClientTable } from "vue-tables-2";
-import { BadgerAccordion, BadgerAccordionItem } from "vue-badger-accordion";
+import { BulmaAccordion, BulmaAccordionItem } from "vue-bulma-accordion";
 
 Vue.use(ClientTable, {}, false, "bootstrap4");
 
@@ -29,8 +29,8 @@ Vue.use(VueMoment);
 Vue.use(VModal);
 Vue.use(wysiwyg, {});
 
-Vue.component('badger-accordion', BadgerAccordion);
-Vue.component('badger-accordion-item', BadgerAccordionItem);
+Vue.component('bulma-accordion', BulmaAccordion);
+Vue.component('bulma-accordion-item', BulmaAccordionItem);
 
 new Vue({
   el: "#app",

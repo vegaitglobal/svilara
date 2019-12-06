@@ -70,6 +70,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/scss/variables.scss";
+
 .radio-btn {
   list-style-type: none;
   margin-bottom: 5px;
@@ -84,5 +86,6 @@ export default {
 .radio-error {
   padding-left: 25px;
   display: block;
+  color: $purple;
 }
 </style>
