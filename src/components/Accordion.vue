@@ -170,6 +170,7 @@ export default {
 .acc-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   border: 1px solid $purple;
   margin-bottom: 4px;
