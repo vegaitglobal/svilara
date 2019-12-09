@@ -5,8 +5,12 @@ const models = require("../models");
 const { to, ReS, ReE } = require("../helpers/utils");
 var formidable = require("formidable");
 var mv = require("mv");
+let Sequelize = require("sequelize");
+
 const Random = require("random-js").Random;
 const random = new Random();
+
+const Op = Sequelize.Op;
 
 var mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
@@ -48,6 +52,46 @@ exports.getEvents = async function(req, res) {
     data: dbEvents
   });
 };
+
+exports.getEventsTable = async function(req, res) {
+  let [err, dbEvents] = await to(
+    models.Event.findAll({
+      attributes: [
+        "id",
+        "title",
+        "description",
+        "logo",
+        "picture",
+        "status",
+        "category",
+        "type",
+        "space",
+        "price",
+        "socialMedia",
+        "age",
+        "contactEmail",
+        "formAnswers",
+        "startTime",
+        "endTime",
+        "created"
+      ],
+      where:{
+        [Op.or]: [{status: 'pending'}, {status: 'rejected', created:{[Op.gt]: new Date(new Date() - 30 * 24 * 60 * 60 * 1000)}}, 
+        {status: 'accepted', endTime:{[Op.gt]: new Date()}}]
+      }
+    })
+  );
+
+  if (err) {
+    console.log(err);
+    return ReE(res, err.message);
+  }
+
+  return ReS(res, {
+    data: dbEvents
+  });
+};
+
 
 // CREATE EVENT
 exports.createEvent = async function(req, res) {
@@ -575,7 +619,6 @@ exports.deleteQuestion = async (req, res) => {
 exports.getSettings = async (req, res) => {
   console.log('usao u get')
   let [err, dbSettings] = await to(models.Settings.findAll());
-  console.log("fetch  "+ dbSettings);
   if (err) {
     console.log(err);
     return ReE(res, {
@@ -589,12 +632,16 @@ exports.getSettings = async (req, res) => {
 
 // CREATE SETTINGS
 exports.createSettings = async (req, res) => {
+  console.log(JSON.stringify(req.body))
   let [err, dbSettings] = await to(
     models.Settings.create({
       key: req.body.key,
-      value: req.body.value
+      value: req.body.value,
+      sidebar: req.body.sidebar,
+      keyShown: req.body.keyShown
     })
   );
+  console.log(JSON.stringify(dbSettings))
   if (err) {
     console.log(err);
     return ReE(res, {
@@ -615,11 +662,9 @@ exports.updateSettings = async (req, res) => {
       console.log(error);
       return ReE(res, { msg: "Došlo je do greške!" }, 400);
     }
-    console.log("fields:  " + JSON.stringify(fields));
     let key = fields.key;
     let value = "";
     if (files.value) {
-      console.log("usao");
       if (
         files.value.type !== "image/jpeg" &&
         files.value.type !== "image/png"
@@ -638,7 +683,10 @@ exports.updateSettings = async (req, res) => {
       mv(imageTmpPath, newImagePath, function(err) {
         if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
       });
-  } else {
+  } else if (key == 'glavni logo' || key == 'sporedni logo 1' || key == 'sporedni logo 2'){
+      value = "";
+  }
+  else {
     value = fields.value;
   }
    
@@ -651,7 +699,6 @@ exports.updateSettings = async (req, res) => {
         { where: { id: req.params.id } }
       )
     );
-    console.log("updated:  " + dbUpdated);
     if (err) {
       return ReE(res, {
         msg: "Something went wrong"

@@ -22,12 +22,13 @@ module.exports = {
       { key: 'twitter', value: ''},
       { key: 'youtube', value: ''},
       { key: 'email', value: 'mailto:svilarans@gmail.com'},
-      { key: 'otvoren bez plaćanja', value: '#fc3a54'},
-      { key: 'otvoren sa plaćanjem', value: '#fc3af6'},
+      { key: 'otvoren bez prijave', value: '#fc3a54'},
+      { key: 'otvoren sa prijavom', value: '#fc3af6'},
       { key: 'zatvoren', value: '#3a9bfc'},
       { key: 'placanje', value: '#6bfc03'},
       { key: 'favicon', value: 'default-picture.png'},
-      { key: 'naslov', value: 'Kulturna stanica'},
+      { key: 'naslov sajta', value: 'Kulturna stanica'},
+      { key: 'naziv u pravilniku', value: 'Svilara'},
     ], {});
   },
 

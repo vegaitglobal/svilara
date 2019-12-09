@@ -3,6 +3,7 @@ var router = express.Router();
 const adminController = require("../controllers/adminController");
 
 router.get("/events", adminController.getEvents);
+router.get("/events/table", adminController.getEventsTable);
 router.post("/event", adminController.createEvent);
 router.put("/event/:id", adminController.updateEvent);
 router.put("/event/picture/:id", adminController.updateEventPicture);

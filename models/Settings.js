@@ -16,6 +16,14 @@ module.exports = (sequelize, DataTypes) => {
       value: {
         type: DataTypes.TEXT,
         allowNull: false
+      },
+      keyShown: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
+      sidebar: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     },
     {

@@ -86,7 +86,7 @@ module.exports = {
           fieldType: "radiobutton",
           name: "question7",
           values:
-            '["Izložba / Exhibition", "Muzički program / Musical event", "Igranka / Dance", "Audio-vizuelni program / Audio-visual event", "Predstava / Play", "Festival / Festival", "Predavanje / Lecture, Seminar", "Radionica / Workshop", "Other:"]',
+            '["Izložba / Exhibition", "Muzički program / Musical event", "Igranka / Dance", "Audio-vizuelni program / Audio-visual event", "Predstava / Play", "Festival / Festival", "Predavanje / Lecture, Seminar", "Radionica / Workshop", "Drugo / Other"]',
           order: order_number++,
           mandatory: true
         },
@@ -165,7 +165,7 @@ module.exports = {
           fieldType: "checkbox",
           name: "question15",
           values:
-            '["Velika sala / Grand Hall", "Mala sala / Small hall", "Dvorište / Courtyard", "Sportski tereni sa tribinama / The sports court", "Other:"]',
+            '["Velika sala / Grand Hall", "Mala sala / Small hall", "Dvorište / Courtyard", "Sportski tereni sa tribinama / The sports court", "Drugo / Other"]',
           order: order_number++,
           mandatory: true
         },
