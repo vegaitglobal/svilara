@@ -59,7 +59,6 @@ export default {
         },
 
         async deleteSettingsOption({ dispatch }, id) {
-            console.log(id)
             return new Promise((resolve, reject) => {
                 axios.delete(`${process.env.VUE_APP_BASE_URL}/admin/setting/${id}`)
                 .then(() => {

@@ -67,8 +67,6 @@ export default {
       for (var i = 0; i < state.adminEvents.length; i++) {
         var color = searchColorsByType(settings, state.adminEvents[i].type);
         var borderColor = searchColorsByType(settings, "placanje");
-        console.log(color);
-        console.log(state.adminEvents[i].type)
         let parsedEvent = {
           id: state.adminEvents[i].id,
           title: state.adminEvents[i].title,
@@ -96,7 +94,6 @@ export default {
         };
         serializedEvents.push(parsedEvent);
       }
-      console.log("-------------------------------------------------------")
       return serializedEvents;
     },
 

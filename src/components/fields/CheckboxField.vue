@@ -46,7 +46,7 @@ export default {
       let isChecked = event.target.checked;
       let answer = event.target.name;
 
-      if(answer == 'Other:') {
+      if(answer == 'Drugo / Other') {
         this.includeOtherData = isChecked;
 
         return;
@@ -60,7 +60,6 @@ export default {
     },
     onOtherChange() {
       const validationResult = required(this.otherData);
-        console.log(validationResult);
       this.errorMessage = validationResult.valid ? null : validationResult.message;
 
       if(this.oldOtherData) {

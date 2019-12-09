@@ -246,7 +246,7 @@ export default {
       if (script.substring(0, 8) !== "<script>") {
         this.$swal.fire({
           title: "Greška!",
-          text: "Skripta nije dobro unesena.",
+          text: "Skripta nije dobro unešena.",
           type: "error"
         });
         return false;
@@ -265,7 +265,7 @@ export default {
         .then(() => {
           this.$swal.fire({
             title: "Poslato!",
-            text: "Skripta je uspesno unesena.",
+            text: "Skripta je uspesno unešena.",
             type: "success"
           });
         });
@@ -292,7 +292,7 @@ export default {
         .then(() => {
           this.$swal.fire({
             title: "Poslato!",
-            text: "Skripta je uspesno unesena.",
+            text: "Skripta je uspesno unešena.",
             type: "success"
           });
         });

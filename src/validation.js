@@ -63,7 +63,7 @@ extend("time_format", {
 extend("atLeastOneFilled", {
   validate: (value, selectedOptions) => {
    if (selectedOptions.length > 0){
-     if (selectedOptions.length == 1 && (selectedOptions[0] == "" || selectedOptions[0] == "Other: ") ){
+     if (selectedOptions.length == 1 && (selectedOptions[0] == "" || selectedOptions[0] == "Drugo / Other") ){
        return false;
      }
     return true;

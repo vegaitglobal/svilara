@@ -90,7 +90,6 @@ export default {
       this.loaclOption.value = event.target.files[0];
     },
     async deleteOption(){
-      console.log(this.loaclOption.id);
       await this.$store.dispatch("deleteSettingsOption", this.loaclOption.id);
     }
   }

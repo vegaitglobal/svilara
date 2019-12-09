@@ -15,7 +15,7 @@
       </li>
       <li class="radio-btn">
         <input
-          v-if="answer == 'Other:'"
+          v-if="answer == 'Drugo / Other'"
           @keyup="onChange($event)"
           type="text"
           v-model="otherData"
@@ -42,7 +42,7 @@ export default {
     onChange(event) {
       let finalAnswer = this.answer;
 
-      if (this.answer == "Other:") {
+      if (this.answer == "Drugo / Other") {
         finalAnswer = this.otherData;
       }
       let fieldValidationObject = {
