@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :style="{ background: `url(${sidebarBg}) no-repeat` }">
-    <a v-if="mainLogo !== ''" href="/">
+    <a v-if="mainLogo" href="/">
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
     <SocialIcons />
@@ -37,9 +37,6 @@ export default {
   },
   mounted() {
     this.$store.dispatch("fetchSettings");
-    // var favicon = document.getElementById('favicon');
-    //  var title = document.getElementById('title');
-    //  favicon.href = this.favicon;
   },
   computed: {
     settings: {
@@ -83,14 +80,6 @@ export default {
       }
       return "";
     }
-    // favicon() {
-    //   if (this.settings.length && this.settings[12].value) {
-    //     return (
-    //       process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[12].value
-    //     );
-    //   }
-    //   return "";
-    // }
   }
 };
 </script>

@@ -164,7 +164,7 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchSettings");
-    this.$store.dispatch("fetchQuestions");
+    this.$store.dispatch("fetchQuestions").catch((err) => {});
   },
 
   computed: {

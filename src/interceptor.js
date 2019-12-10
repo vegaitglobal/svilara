@@ -1,28 +1,34 @@
-import axios from 'axios'
-import router from './router'
+import axios from "axios";
+import router from "./router";
+import store from "./store/index";
 
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use(
+  function(config) {
     try {
-        let token = JSON.parse(localStorage.getItem('vuex')).auth.token;
-
-        config.headers.Authorization = `Bearer ${ token }`;
-    } catch (err) {}
+      let token = localStorage.getItem("token");
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } catch (err) {
+        return Promise.reject(err);
+    }
 
     return config;
-}, function (error) {
+  },
+  function(error) {
     return Promise.reject(error);
-});
+  }
+);
 
-axios.interceptors.response.use(function (response) {
-    if (response.data.error === 'No credentials sent.' || response.data.message == 'Access token has expired.') {
-        localStorage.removeItem('vuex');
-        router.push(`/login?info_message=Your session has expired.`)
-    }
+axios.interceptors.response.use(
+  function(response) {
     return response;
-}, function (error) {
-    if (error.response.data.message === 'Access token has expired.') {
-        localStorage.removeItem('vuex');
-        router.push(`/login?info_message=Your session has expired.`)
+  },
+  function(error) {
+    if (parseInt(error.response.status) == 401) {
+      store.dispatch("logout");
+      router.push("/admin/login");
     }
     return Promise.reject(error);
-});
+  }
+);

@@ -14,14 +14,34 @@ import store from "./store/index";
 import axios from "axios";
 import router from "./router";
 
-//import './interceptor'
+import './interceptor'
 //import './permissions'
 import "./validation";
 
 import "vue-material-design-icons/styles.css";
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isLoggedIn) {
+      next({
+        path: "/admin/login"
+      });
+    } else next();
+    
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (store.getters.isLoggedIn) {
+      next({
+        path: "/admin"
+      });
+    } else next();
+    
+  }
+  else {
+    next();
+  }
+});
+
 Vue.config.productionTip = false;
-//Vue.config.runtimeCompiler = true;
 
 Vue.use(VueAxios, axios);
 Vue.use(VueSwal);
@@ -29,8 +49,8 @@ Vue.use(VueMoment);
 Vue.use(VModal);
 Vue.use(wysiwyg, {});
 
-Vue.component('bulma-accordion', BulmaAccordion);
-Vue.component('bulma-accordion-item', BulmaAccordionItem);
+Vue.component("bulma-accordion", BulmaAccordion);
+Vue.component("bulma-accordion-item", BulmaAccordionItem);
 
 new Vue({
   el: "#app",

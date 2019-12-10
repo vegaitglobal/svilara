@@ -1,15 +1,32 @@
 <template>
   <div id="login">
     <h1>Ulogujte se</h1>
-    <input type="text" name="email" v-model="credentials.email" placeholder="Email" />
-    <input type="password" name="password" v-model="credentials.password" placeholder="Lozinka" />
-    <button type="submit" class="btn btn__purple btn__large" @click.prevent="submit">Login</button>
-    <button class="link" @click.prevent="redirectToForgotPasssword">Zaboravili ste lozinku?</button>
+    <input
+      type="text"
+      name="email"
+      v-model="credentials.email"
+      placeholder="Email"
+    />
+    <input
+      type="password"
+      name="password"
+      v-model="credentials.password"
+      placeholder="Lozinka"
+    />
+    <button
+      type="submit"
+      class="btn btn__purple btn__large"
+      @click.prevent="submit"
+    >
+      Login
+    </button>
+    <button class="link" @click.prevent="redirectToForgotPasssword">
+      Zaboravili ste lozinku?
+    </button>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "Login",
   data() {
@@ -25,27 +42,32 @@ export default {
       try {
         let vm = this;
         let response = await this.$store.dispatch("login", vm.credentials);
-       console.error(JSON.stringify(response))
-        if (parseInt(response.status) === 200) {
+        if (response.data.success) {
           this.$router.push("/admin");
-        }
-      } catch (err) {
-       console.error(JSON.stringify(err))
-        if (parseInt(err.response.status) === 400) {
-
+        } else {
           this.$swal({
-            type: "error",
+            type: "warning",
             title: "Oops...",
-            text: err.response.data.error
+            text: response.data.error
           });
         }
+      } catch (err) {
+        //console.error(JSON.stringify(err))
+        //if (parseInt(err.response.status) === 400) {
+
+        this.$swal({
+          type: "error",
+          title: "Oops...",
+          text: err.response.data.error
+        });
+        //}
         //else if (parseInt(err.response.status) === 401) {
-          //this.$swal({
-           // type: "error",
-            //title: "Oops...",
-            //text: err.response.data.message
-          //});
-       // }
+        //this.$swal({
+        // type: "error",
+        //title: "Oops...",
+        //text: err.response.data.message
+        //});
+        // }
         this.error = err.response.data;
       }
     },

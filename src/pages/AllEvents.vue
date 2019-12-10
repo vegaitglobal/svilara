@@ -57,68 +57,68 @@ export default {
     }
   },
   mounted() {
-    
     this.$store.dispatch("fetchAdminEventsTable").then(data => {
-      let events = [...data.data.data];
-      for (let i = 0; i < events.length; i++) {
-        if (events[i].status == "accepted") {
-          let dateStart = new Date(events[i].startTime);
-          let dateEnd = new Date(events[i].endTime);
-          events[i].startTime = dateStart.toLocaleString("sr-ME");
-          events[i].endTime = dateEnd.toLocaleString("sr-ME");
-        }
+      if (data.data && data.data.data) {
+        let events = [...data.data.data];
+        for (let i = 0; i < events.length; i++) {
+          if (events[i].status == "accepted") {
+            let dateStart = new Date(events[i].startTime);
+            let dateEnd = new Date(events[i].endTime);
+            events[i].startTime = dateStart.toLocaleString("sr-ME");
+            events[i].endTime = dateEnd.toLocaleString("sr-ME");
+          }
 
-        if (events[i].status !== "accepted") {
-          let answers = JSON.parse(events[i].formAnswers);
+          if (events[i].status !== "accepted") {
+            let answers = JSON.parse(events[i].formAnswers);
 
-          if (answers) {
-            for (let y = 0; y < answers.length; y++) {
-              if (answers[y].name === "email") {
-                events[i].email = answers[y].answers;
-              }
-              if (answers[y].name === "title") {
-                events[i].title = answers[y].answers;
-              }
-              if (answers[y].name === "category") {
-                let answer = answers[y].answers;
-                let arrayAnswers = answer.split("/");
-                events[i].category = arrayAnswers[0];
-              }
-              if (answers[y].name === "type") {
-                let answer = answers[y].answers;
-                let arrayAnswers = answer.split("/");
-                events[i].type = arrayAnswers[0];
-              }
-              if (answers[y].name === "space") {
-                let answer = answers[y].answers;
-                let answerSerbian = [];
-                for (let j = 0; j < answer.length; j++) {
-                  let arrayAnswer = answer[j].split("/");
-                  answerSerbian.push(arrayAnswer[0]);
+            if (answers) {
+              for (let y = 0; y < answers.length; y++) {
+                if (answers[y].name === "email") {
+                  events[i].email = answers[y].answers;
                 }
-                events[i].space = answerSerbian;
+                if (answers[y].name === "title") {
+                  events[i].title = answers[y].answers;
+                }
+                if (answers[y].name === "category") {
+                  let answer = answers[y].answers;
+                  let arrayAnswers = answer.split("/");
+                  events[i].category = arrayAnswers[0];
+                }
+                if (answers[y].name === "type") {
+                  let answer = answers[y].answers;
+                  let arrayAnswers = answer.split("/");
+                  events[i].type = arrayAnswers[0];
+                }
+                if (answers[y].name === "space") {
+                  let answer = answers[y].answers;
+                  let answerSerbian = [];
+                  for (let j = 0; j < answer.length; j++) {
+                    let arrayAnswer = answer[j].split("/");
+                    answerSerbian.push(arrayAnswer[0]);
+                  }
+                  events[i].space = answerSerbian;
+                }
               }
             }
           }
-          
+          let status = events[i].status;
+          if (status == "accepted") {
+            events[i].status = "prihvaćen";
+          } else if (status == "rejected") {
+            events[i].status = "odbijen";
+          } else if (status == "pending") {
+            events[i].status = "na čekanju";
+          }
+          let type = events[i].type;
+          if (type == "otvorenbp") {
+            events[i].type = "otvoren bez prijave";
+          }
+          if (type == "otvorensp") {
+            events[i].type = "otvoren sa prijavom";
+          }
         }
-        let status = events[i].status;
-        if (status == "accepted") {
-          events[i].status = "prihvaćen";
-        } else if (status == "rejected") {
-          events[i].status = "odbijen";
-        } else if (status == "pending") {
-          events[i].status = "na čekanju";
-        }
-        let type = events[i].type;
-        if (type == "otvorenbp") {
-          events[i].type = "otvoren bez prijave";
-        }
-        if (type == "otvorensp") {
-          events[i].type = "otvoren sa prijavom";
-        }
+        this.tableData = events;
       }
-      this.tableData = events;
     });
   }
 };

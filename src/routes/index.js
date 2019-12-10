@@ -42,28 +42,40 @@ const routes = [
     name: "Admin",
     meta: {
       requiresAuth: true,
-      is_admin: true
+      //is_admin: true
     }
   },
   {
     path: "/admin/editor/:id",
     component: Editor,
-    name: "Editor"
+    name: "Editor",
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: "/admin/settings",
     component: Settings,
-    name: "Settings"
+    name: "Settings",
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: "/admin/new-event",
     component: NewEvent,
-    name: "NewEvent"
+    name: "NewEvent",
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: "/admin/all-events",
     component: AllEvents,
-    name: "AllEvents"
+    name: "AllEvents",
+    meta: {
+      requiresAuth: true,
+    }
   },
   {
     path: "/register",
@@ -83,7 +95,10 @@ const routes = [
   {
     path: "/logout",
     component: Logout,
-    name: "Logout"
+    name: "Logout",
+    meta: {
+      requiresAuth: true,
+    }
   }
 ];
 

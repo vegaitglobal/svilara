@@ -4,7 +4,7 @@ import * as _ from "lodash";
 export default {
   state: {
     user: {},
-    token: ""
+    token: localStorage.getItem("token") || ""
   },
 
   getters: {
@@ -49,8 +49,8 @@ export default {
             password: password
           })
           .then(response => {
-            //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
+            window.localStorage.setItem('token', response.data.token);
             resolve(response);
           })
           .catch(error => {
@@ -66,13 +66,13 @@ export default {
             email: email,
           })
           .then(response => {
-            console.error(response);
+            //console.error(response);
             //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
             resolve(response);
           })
           .catch(error => {
-            console.error(error);
+            //console.error(error);
             reject(error);
           });
       });
@@ -81,8 +81,8 @@ export default {
     logout({ commit }) {
       return new Promise((resolve, reject) => {
         try {
-          //commit("REMOVE_USER");
           commit("REMOVE_TOKEN");
+          localStorage.removeItem('token');
           resolve();
         } catch (err) {
           reject(err);
@@ -141,7 +141,7 @@ export default {
       });
     },
     resetForgotPassword({ commit }, data) {  //only reset function that is used
-      console.error(`${process.env.VUE_APP_BASE_URL}/auth/reset-password/${data.userId}/${data.token}`);
+
       return new Promise((resolve, reject) => {
         axios
           .put(

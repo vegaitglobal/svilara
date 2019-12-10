@@ -19,7 +19,9 @@
               v-model="event.title"
               type="text"
             />
-            <span v-if="form.title.error" class="error">{{ form.title.error }}</span>
+            <span v-if="form.title.error" class="error">{{
+              form.title.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -29,7 +31,9 @@
               v-model="event.description"
               type="text"
             />
-            <span v-if="form.description.error" class="error">{{ form.description.error }}</span>
+            <span v-if="form.description.error" class="error">{{
+              form.description.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -37,8 +41,11 @@
             <input
               @change="logoChange($event) || validate($event)"
               type="file"
-              v-on:change="() => set('logo', event.logo, form)"/>
-            <span v-if="form.logo.error" class="error">{{ form.logo.error }}</span>
+              v-on:change="() => set('logo', event.logo, form)"
+            />
+            <span v-if="form.logo.error" class="error">{{
+              form.logo.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -46,32 +53,52 @@
             <input
               @change="imageChange($event) || validate($event)"
               type="file"
-              v-on:change="() => set('picture', event.picture, form)" />
-            <span v-if="form.picture.error" class="error">{{ form.picture.error }}</span>
+              v-on:change="() => set('picture', event.picture, form)"
+            />
+            <span v-if="form.picture.error" class="error">{{
+              form.picture.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
             <span>Status programa</span>
-            <select v-model="event.type" v-on:change="e => set('type', e.target.value, form)">
-              <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
-              <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
+            <select
+              v-model="event.type"
+              v-on:change="e => set('type', e.target.value, form)"
+            >
+              <option value="otvorenbp"
+                >Otvoren program (slobodan ulaz bez prijave)</option
+              >
+              <option value="otvorensp"
+                >Otvoren program (slobodan ulaz sa prijavom)</option
+              >
               <option value="zatvoren">Zatvoren program</option>
             </select>
-            <span v-if="form.type.error" class="error">{{ form.type.error }}</span>
+            <span v-if="form.type.error" class="error">{{
+              form.type.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
-            <select v-model="event.price" v-on:change="e => set('price', e.target.value, form)">
+            <select
+              v-model="event.price"
+              v-on:change="e => set('price', e.target.value, form)"
+            >
               <option value="1">Da</option>
               <option value="0">Ne</option>
             </select>
-            <span v-if="form.price.error" class="error">{{ form.price.error }}</span>
+            <span v-if="form.price.error" class="error">{{
+              form.price.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
             <span>Kategorija programa</span>
-            <select v-model="event.category" v-on:change="e => set('category', e.target.value, form)">
+            <select
+              v-model="event.category"
+              v-on:change="e => set('category', e.target.value, form)"
+            >
               <option value="izlozba">Izložba</option>
               <option value="muzickiprogram">Muzički program</option>
               <option value="igranka">Igranka</option>
@@ -82,12 +109,21 @@
               <option value="radionica">Radionica</option>
               <option value="drugo">Drugo</option>
             </select>
-            <span v-if="form.category.error" class="error">{{ form.category.error }}</span>
-            <input v-if="event.category == 'drugo'" type="text" v-model="categoryOther" />
+            <span v-if="form.category.error" class="error">{{
+              form.category.error
+            }}</span>
+            <input
+              v-if="event.category == 'drugo'"
+              type="text"
+              v-model="categoryOther"
+            />
           </li>
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
-            <select v-model="event.space" v-on:change="e => set('space', e.target.value, form)">
+            <select
+              v-model="event.space"
+              v-on:change="e => set('space', e.target.value, form)"
+            >
               <option value="velikasala">Velika sala</option>
               <option value="malasala">Mala sala</option>
               <option value="dvoriste">Dvorište</option>
@@ -96,17 +132,32 @@
               <option value="plato">Plato</option>
               <option value="drugo">Drugo</option>
             </select>
-            <span v-if="form.space.error" class="error">{{ form.space.error }}</span>
-            <input v-if="event.space == 'drugo'" type="text" v-model="spaceOther" />
+            <span v-if="form.space.error" class="error">{{
+              form.space.error
+            }}</span>
+            <input
+              v-if="event.space == 'drugo'"
+              type="text"
+              v-model="spaceOther"
+            />
           </li>
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
-            <input v-model="event.socialMedia" type="text" v-on:keyup="e => set('socialMedia', e.target.value, form)"/>
-            <span v-if="form.socialMedia.error" class="error">{{ form.socialMedia.error }}</span>
+            <input
+              v-model="event.socialMedia"
+              type="text"
+              v-on:keyup="e => set('socialMedia', e.target.value, form)"
+            />
+            <span v-if="form.socialMedia.error" class="error">{{
+              form.socialMedia.error
+            }}</span>
           </li>
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
-            <select v-model="event.age" v-on:change="e => set('age', e.target.value, form)">
+            <select
+              v-model="event.age"
+              v-on:change="e => set('age', e.target.value, form)"
+            >
               <option value="deca">Deca</option>
               <option value="mladi">Mladi</option>
               <option value="odrasli">Odrasli</option>
@@ -114,27 +165,53 @@
               <option value="profesionalna">Profesionalna publika</option>
               <option value="svi">Svi</option>
             </select>
-            <span v-if="form.age.error" class="error">{{ form.age.error }}</span>
+            <span v-if="form.age.error" class="error">{{
+              form.age.error
+            }}</span>
           </li>
           <li class="inputfield-row">
             <span>Datum početka programa (npr: 29.11.2019.)</span>
-            <input v-model="startDate" type="text" v-on:keyup="() => set('startDate', startDate, form)"/>
-            <span v-if="form.startDate.error" class="error">{{ form.startDate.error }}</span>
+            <input
+              v-model="startDate"
+              type="text"
+              v-on:keyup="() => set('startDate', startDate, form)"
+            />
+            <span v-if="form.startDate.error" class="error">{{
+              form.startDate.error
+            }}</span>
           </li>
           <li class="inputfield-row">
             <span>Vreme početka programa (npr: 20:00)</span>
-            <input v-model="startTime" type="text"  v-on:keyup="() => set('startTime', startTime, form)"/>
-            <span v-if="form.startTime.error" class="error">{{ form.startTime.error }}</span>
+            <input
+              v-model="startTime"
+              type="text"
+              v-on:keyup="() => set('startTime', startTime, form)"
+            />
+            <span v-if="form.startTime.error" class="error">{{
+              form.startTime.error
+            }}</span>
           </li>
           <li class="inputfield-row">
             <span>Datum kraja programa (npr: 29.11.2019.)</span>
-            <input v-model="endDate" type="text"  v-on:keyup="() => set('endDate', endDate, form)"/>
-            <span v-if="form.endDate.error" class="error">{{ form.endDate.error }}</span>
+            <input
+              v-model="endDate"
+              type="text"
+              v-on:keyup="() => set('endDate', endDate, form)"
+            />
+            <span v-if="form.endDate.error" class="error">{{
+              form.endDate.error
+            }}</span>
           </li>
           <li class="inputfield-row">
             <span>Vreme kraja programa (npr: 22:00)</span>
-            <input v-model="endTime" type="text"  v-on:keyup="() => set('endTime', endTime, form)"/>
-            <span v-if="form.endTime.error" class="error">{{ form.endTime.error }}</span>
+            <input
+              v-model="endTime"
+              type="text"
+              v-on:keyup="() => set('endTime', endTime, form)"
+            />
+            <span v-if="form.endTime.error" class="error">{{
+              form.endTime.error
+            }}</span>
           </li>
         </ol>
       </div>
@@ -143,7 +220,9 @@
         class="btn btn__purple btn__large mt-20"
         type="submit"
         :disabled="!validate(form)"
-      >Sačuvaj</button>
+      >
+        Sačuvaj
+      </button>
     </div>
   </div>
 </template>
@@ -217,22 +296,49 @@ export default {
         type: {
           valid: false,
           error: null,
-          constraints: [required, isValue(['otvorenbp', 'otvorensp', 'zatvoren'])]
+          constraints: [
+            required,
+            isValue(["otvorenbp", "otvorensp", "zatvoren"])
+          ]
         },
         price: {
           valid: false,
           error: null,
-          constraints: [required, isValue(['1', '0'])]
+          constraints: [required, isValue(["1", "0"])]
         },
         category: {
           valid: false,
           error: null,
-          constraints: [required, isValue(['izlozba', 'muzickiprogram', 'igranka', 'audiovideo', 'predstava', 'festival', 'predavanja', 'radionica', 'drugo'])]
+          constraints: [
+            required,
+            isValue([
+              "izlozba",
+              "muzickiprogram",
+              "igranka",
+              "audiovideo",
+              "predstava",
+              "festival",
+              "predavanja",
+              "radionica",
+              "drugo"
+            ])
+          ]
         },
         space: {
           valid: false,
           error: null,
-          constraints: [required, isValue(['velikasala', 'malasala', 'dvoriste', 'teren', 'drucentar', 'plato', 'drugo'])]
+          constraints: [
+            required,
+            isValue([
+              "velikasala",
+              "malasala",
+              "dvoriste",
+              "teren",
+              "drucentar",
+              "plato",
+              "drugo"
+            ])
+          ]
         },
         socialMedia: {
           valid: false,
@@ -242,7 +348,17 @@ export default {
         age: {
           valid: false,
           error: null,
-          constraints: [required, isValue(['deca', 'mladi', 'odrasli', 'stariji', 'profesionalna', 'svi'])]
+          constraints: [
+            required,
+            isValue([
+              "deca",
+              "mladi",
+              "odrasli",
+              "stariji",
+              "profesionalna",
+              "svi"
+            ])
+          ]
         },
         startTime: {
           valid: false,
@@ -269,13 +385,15 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchAdminEvents").then(data => {
-      let pendingEvents = [];
-      for (let i = 0; i < data.data.data.length; i++) {
-        if (data.data.data[i].status == "pending") {
-          pendingEvents.push(data.data.data[i]);
+      if (data.data && data.data.data) {
+        let pendingEvents = [];
+        for (let i = 0; i < data.data.data.length; i++) {
+          if (data.data.data[i].status == "pending") {
+            pendingEvents.push(data.data.data[i]);
+          }
         }
+        this.pendingEvents = pendingEvents;
       }
-      this.pendingEvents = pendingEvents;
     });
   },
   computed: {
@@ -284,7 +402,6 @@ export default {
     }
   },
   methods: {
-    
     async createEvent() {
       let arrayEndDate = this.endDate.split(".");
       let arrayEndTime = this.endTime.split(":");
@@ -365,7 +482,8 @@ export default {
 messages.required = () => `Polje je obavezno.`;
 messages.isDate = () => `Datum mora biti u validnom formatu: dd.mm.yyyy.`;
 messages.isTime = () => `Vreme mora biti u validnom formatu: hh:mm`;
-messages.isValue = (value) => `Morate izabrati jednu od sledecih vrednosti: ${value} `;
+messages.isValue = value =>
+  `Morate izabrati jednu od sledecih vrednosti: ${value} `;
 messages.isUrl = () => `Morate uneti validan URL.`;
 </script>
 
