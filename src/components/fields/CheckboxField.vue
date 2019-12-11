@@ -20,9 +20,10 @@
           v-model="otherData"
           class="other-input"
         />
-        <span class="error radio-error" v-if="includeOtherData">{{ errorMessage }}</span>
+        <span class="error radio-error" v-if="includeOtherData">{{ otherErrorMessage }}</span>
       </li>
     </ul>
+    <span class="error">{{ errorMessage }}</span>
   </div>
 </template>
 
@@ -38,7 +39,8 @@ export default {
       otherData: null,
       includeOtherData: false,
       answers: [],
-      errorMessage: 'Polje je obavezno.'
+      errorMessage: null,
+      otherErrorMessage: 'Unesite drugi planirani prostor za Vaš program.'
     };
   },
   methods: {
@@ -46,7 +48,7 @@ export default {
       let isChecked = event.target.checked;
       let answer = event.target.name;
 
-      if(answer == 'Drugo / Other') {
+      if (answer == "Drugo / Other") {
         this.includeOtherData = isChecked;
 
         return;
@@ -57,18 +59,29 @@ export default {
       } else {
         this.answers = this.answers.filter(e => e !== answer);
       }
+
+      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno 2.";
+      else this.errorMessage = null;
+
+      this.$emit("validate", this.answers.length > 0);
     },
     onOtherChange() {
       const validationResult = required(this.otherData);
-      this.errorMessage = validationResult.valid ? null : validationResult.message;
+      this.otherErrorMessage = validationResult.valid
+        ? null
+        : validationResult.message;
 
-      if(this.oldOtherData) {
+      if (this.oldOtherData) {
         this.answers = this.answers.filter(e => e !== this.oldOtherData);
       }
 
-      if(this.otherData) {
+      if (this.otherData) {
         this.answers.push(this.otherData);
+        this.$emit("validate", this.answers.length > 0);
       }
+
+      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno 3.";
+      else this.errorMessage = null;
 
       this.oldOtherData = this.otherData;
     }

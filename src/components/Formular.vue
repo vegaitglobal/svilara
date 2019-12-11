@@ -44,7 +44,7 @@ export default {
   },
   async created() {
     this.questions = await this.$store.dispatch("fetchQuestions");
-    this.sortQuestions();
+	this.sortQuestions();
   },
   methods: {
     setQuestion(questionName, isValid) {
@@ -52,15 +52,13 @@ export default {
         if (question.name == questionName) question.isValid = isValid;
       });
 
-      this.questions.map(question => {
-        // Radio buttons and checkboxes shouldn't be validated.
-        if (question.type != "file" &&
-            !question.isValid)
-            this.isFormValid = false;
-        else
-            this.isFormValid = true
-      });
-    },
+      this.validateQuestions();
+	},
+	validateQuestions() {
+		const questionValidity = this.questions.map(q => (!q.mandatory || q.fieldType == "file") ? true : q.isValid ? true : false);
+
+		this.isFormValid = questionValidity.every(valid => valid == true);
+	},
     mapToType(questionFieldType) {
       switch (questionFieldType) {
         case "input":
