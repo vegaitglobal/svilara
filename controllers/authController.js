@@ -28,7 +28,7 @@ exports.loginAdmin = async function (req, res) {
   // });
 
   if (!email || !password) {
-    return ReE(res, "Invalid Params!", 400);
+    return ReE(res, "Nevalidni parametri!", 400);
   }
 
 
@@ -40,29 +40,30 @@ exports.loginAdmin = async function (req, res) {
     })
   );
 
-  if (err) return err, err.message;
-
+  if (err) return ReE(res, "Nešto nije u redu!", 400);
+  
   if (dbAdmin == null) {
-    return ReE(res, "Wrong email or password!", 400);
+    return ReE(res, "Korisnik sa datim mejlom ne postoji!", 400);
   }
 
 
   let [err2, result] = await to(bcrypt.compare(password, dbAdmin.password));
 
-  if (err2) return err, err.message;
+  if (err2) return ReE(res, "Nešto nije u redu!", 400);
 
   if (result) {
     let token = jwt.sign(
       {
         id: dbAdmin.id
       },
-      process.env.ADMIN_SECRET
+      process.env.ADMIN_SECRET,
+      { expiresIn: 14400 } 
     );
     return ReS(res, {
-      msg: "You have been successfully logged in",
+      msg: "Uspešno ste se ulogovali.",
       token: token
     });
-  } else return ReE(res, "Wrong email or password!", 400);
+  } else return ReE(res, "Pogrešan mejl ili šifra!", 400);
 };
 
 

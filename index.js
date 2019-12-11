@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 let authRouter = require("./routes/authRouter");
 let adminRouter = require("./routes/adminRouter");
 let userRouter = require("./routes/userRouter");
+let adminMiddleware = require("./middlewares/adminMiddleware");
 const app = express();
 
 app.use(bodyParser.json());
@@ -58,6 +59,9 @@ app.use(function(req, res, next) {
     next();
   }
 });
+
+app.use(adminMiddleware.auth);
+
 
 //* vue app
 app.get("/", function(req, res) {

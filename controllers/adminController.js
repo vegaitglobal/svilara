@@ -617,7 +617,6 @@ exports.deleteQuestion = async (req, res) => {
 
 // GET SETTINGS
 exports.getSettings = async (req, res) => {
-  console.log('usao u get')
   let [err, dbSettings] = await to(models.Settings.findAll());
   if (err) {
     console.log(err);
@@ -730,7 +729,6 @@ exports.deleteSettings = async (req, res) => {
 };
 
 exports.getScripts = async function(req, res) {
-  console.log('usao============')
   let [err, dbScripts] = await to(models.Script.findAll({}));
 
   if (err) {
