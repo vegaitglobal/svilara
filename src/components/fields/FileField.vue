@@ -8,11 +8,6 @@
 <script>
 export default {
   name: "FileField",
-  data() {
-    return {
-      errorMessage: null
-    };
-  },
   props: ["name", "question", "index", "constraints"],
   methods: {
     uploadImage(event) {
@@ -20,7 +15,9 @@ export default {
         question: this.question,
         answers: event.target.files[0]
       });
+
       this.$store.dispatch("setImage", event.target.files[0]);
+      this.$emit("validate", !!event.target.files[0]);
     }
   }
 };

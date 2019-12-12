@@ -44,7 +44,7 @@ export default {
   },
   async created() {
     this.questions = await this.$store.dispatch("fetchQuestions");
-	this.sortQuestions();
+    this.sortQuestions();
   },
   methods: {
     setQuestion(questionName, isValid) {
@@ -53,12 +53,12 @@ export default {
       });
 
       this.validateQuestions();
-	},
-	validateQuestions() {
-		const questionValidity = this.questions.map(q => (!q.mandatory || q.fieldType == "file") ? true : q.isValid ? true : false);
+    },
+    validateQuestions() {
+        const questionValidity = this.questions.map(q => (!q.mandatory) ? true : q.isValid ? true : false);
 
-		this.isFormValid = questionValidity.every(valid => valid == true);
-	},
+        this.isFormValid = questionValidity.every(valid => valid == true);
+    },
     mapToType(questionFieldType) {
       switch (questionFieldType) {
         case "input":

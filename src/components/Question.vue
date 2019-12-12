@@ -3,7 +3,6 @@
     <div class="input-wrapper">
       <!-- {{question}} -->
       <input :disabled="!editing" type="text" v-model="question.text" />
-      <!-- <input type="text" :disabled="!editing" v-model="option.value" /> -->
     </div>
     <div class="button-wrapper">
       <button
