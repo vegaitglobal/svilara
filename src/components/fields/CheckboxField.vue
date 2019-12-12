@@ -60,7 +60,7 @@ export default {
         this.answers = this.answers.filter(e => e !== answer);
       }
 
-      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno 2.";
+      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno.";
       else this.errorMessage = null;
 
       this.$emit("validate", this.answers.length > 0);
@@ -80,7 +80,7 @@ export default {
         this.$emit("validate", this.answers.length > 0);
       }
 
-      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno 3.";
+      if (this.answers.length < 1) this.errorMessage = "Polje je obavezno.";
       else this.errorMessage = null;
 
       this.oldOtherData = this.otherData;
