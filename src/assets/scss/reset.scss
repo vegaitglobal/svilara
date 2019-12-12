@@ -98,7 +98,8 @@ select {
     border: 1px solid $gray;
 }
 
-input:disabled {
+input:disabled,
+textarea:disabled {
     background-color: $gray-light;
 }
 

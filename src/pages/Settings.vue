@@ -48,7 +48,6 @@
         v-model="firstScript"
         v-on:keyup="() => set('firstScript', firstScript, form)">
       </textarea>
-      <span v-if="form.firstScript.error" class="error">{{form.firstScript.error}}</span>
 
       <button :disabled="validate(firstScript)" @click="addFirstScript" class="btn btn__purple">
         Dodaj skriptu
@@ -60,9 +59,8 @@
         rows="10"
         cols="90"
         v-model="secondScript"
-        v-on:keyup="() => set('secondScript', secondScript, form)">>
+        v-on:keyup="() => set('secondScript', secondScript, form)">
       </textarea>
-      <span v-if="form.secondScript.error" class="error">{{form.secondScript.error}}</span>
 
       <button :disabled="validate(secondScript)" @click="addSecondScript" class="btn btn__purple">
         Dodaj skriptu
@@ -184,12 +182,10 @@ export default {
       form: {
         firstScript: {
           valid: false,
-          error: null,
           constraints: [required]
         },
         secondScript: {
           valid: false,
-          error: null,
           constraints: [required]
         }
       }
