@@ -42,15 +42,29 @@
     <h3 class="settings-heading">Dodavanje skripte</h3>
     <div class="script-input">
       <p>Dodaj skriptu za Google Analytics:</p>
-      <textarea rows="10" cols="90" v-model="firstScript"></textarea>
-      <button @click="addFirstScript" class="btn btn__purple">
+      <textarea
+        rows="10"
+        cols="90"
+        v-model="firstScript"
+        v-on:keyup="() => set('firstScript', firstScript, form)">
+      </textarea>
+      <span v-if="form.firstScript.error" class="error">{{form.firstScript.error}}</span>
+
+      <button :disabled="validate(firstScript)" @click="addFirstScript" class="btn btn__purple">
         Dodaj skriptu
       </button>
     </div>
     <div class="script-input">
       <p>Dodaj skriptu za Google Tag Manager:</p>
-      <textarea rows="10" cols="90" v-model="secondScript"></textarea>
-      <button @click="addSecondScript" class="btn btn__purple">
+      <textarea
+        rows="10"
+        cols="90"
+        v-model="secondScript"
+        v-on:keyup="() => set('secondScript', secondScript, form)">>
+      </textarea>
+      <span v-if="form.secondScript.error" class="error">{{form.secondScript.error}}</span>
+
+      <button :disabled="validate(secondScript)" @click="addSecondScript" class="btn btn__purple">
         Dodaj skriptu
       </button>
     </div>
@@ -137,6 +151,11 @@
 import SettingsOption from "../components/SettingsOption.vue";
 import Question from "../components/Question.vue";
 import axios from "axios";
+import {
+  required,
+  set,
+  validate
+} from "vue-val";
 
 export default {
   name: "Settings",
@@ -159,7 +178,21 @@ export default {
         valueText: ""
       },
       firstScript: "",
-      secondScript: ""
+      secondScript: "",
+      set,
+      validate,
+      form: {
+        firstScript: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        },
+        secondScript: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      }
     };
   },
   created() {
