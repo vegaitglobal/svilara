@@ -373,7 +373,10 @@ export default {
 }
 .questions-form {
   input {
-    width: 100%;
+    width: 97%;
+  }
+  .input-wrapper {
+    flex-direction: column;
   }
 }
 .input-wrapper {
