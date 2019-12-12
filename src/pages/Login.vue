@@ -6,17 +6,22 @@
       name="email"
       v-model="credentials.email"
       placeholder="Email"
+      v-on:keyup="() => set('email', credentials.email, form)"
     />
+    <span v-if="form.email.error" class="error">{{form.email.error}}</span>
     <input
       type="password"
       name="password"
       v-model="credentials.password"
       placeholder="Lozinka"
+      v-on:keyup="() => set('password', credentials.password, form)"
     />
+    <span v-if="form.password.error" class="error">{{form.password.error}}</span>
     <button
       type="submit"
       class="btn btn__purple btn__large"
       @click.prevent="submit"
+      :disabled="!validate(form)"
     >
       Login
     </button>
@@ -27,6 +32,13 @@
 </template>
 
 <script>
+import {
+  required,
+  set,
+  validate,
+  messages
+} from "vue-val";
+
 export default {
   name: "Login",
   data() {
@@ -34,6 +46,20 @@ export default {
       credentials: {
         email: "",
         password: ""
+      },
+      set,
+      validate,
+      form: {
+        email: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        },
+        password: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
       }
     };
   },
@@ -101,6 +127,11 @@ export default {
     @include breakpoint(mob) {
       width: 220px;
     }
+  }
+  .error {
+    text-align: left;
+    max-width: 322px;
+    margin: -10px auto 20px !important;
   }
   .btn {
     display: block;
