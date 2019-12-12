@@ -12,7 +12,6 @@
         name="name"
       />
       <label for="email">Email</label>
-      <ValidationProvider name="Email" rules="required|email" v-slot="{errors}">
         <input
           class="form-control"
           v-model="data.email"
@@ -27,15 +26,8 @@
             <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
           </ul>
         </span>
-      </ValidationProvider>
 
       <label for="password">Password</label>
-      <ValidationProvider
-        name="Password"
-        id="password"
-        rules="required|lengthBetween:8,26|verify_password"
-        v-slot="{errors}"
-      >
         <input
           name="password"
           class="form-control"
@@ -50,14 +42,8 @@
             <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
           </ul>
         </span>
-      </ValidationProvider>
 
       <label for="password_confirmation">Password Confirmation</label>
-      <ValidationProvider
-        name="Password confirmation"
-        rules="required|confirmed:password"
-        v-slot="{errors}"
-      >
         <input
           name="password_confirmation"
           class="form-control"
@@ -72,7 +58,6 @@
             <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
           </ul>
         </span>
-      </ValidationProvider>
     </form>
 
     <div>
@@ -91,13 +76,9 @@
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
 
 export default {
   name: "register",
-  components: {
-    ValidationProvider
-  },
   data() {
     return {
       data: {

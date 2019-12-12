@@ -3,31 +3,20 @@
     <div class="reset-password">
         <div class="input-row">
             <label for="password">Lozinka</label>
-            <ValidationProvider name="Password" vid="password" v-slot="{ errors }">
-            <!--  rules="required|lengthBetween:8,26|verify_password" -->
-                <input
-                    name="password"
-                    class="form-control"
-                    v-model="data.password"
-                    type="password"
-                    value
-                    placeholder="* * * * * * *"
-                />
-                <span class="error-text">
-                    <ul>
-                        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                    </ul>
-                </span>
-            </ValidationProvider>
+            <input
+                name="password"
+                class="form-control"
+                v-model="data.password"
+                type="password"
+                value
+                placeholder="* * * * * * *"
+                v-on:keyup="() => set('password', data.password, form)"
+            />
+            <span v-if="form.password.error" class="error">{{form.password.error}}</span>
         </div>
 
         <div class="input-row">
             <label for="password_confirmation">Ponovite lozinku</label>
-            <ValidationProvider
-            name="Password confirmation"
-            rules="required|confirmed:password"
-            v-slot="{ errors }"
-            >
             <input
                 name="password_confirmation"
                 class="form-control"
@@ -35,13 +24,9 @@
                 type="password"
                 value
                 placeholder="* * * * * * *"
+                v-on:keyup="() => set('password_confirmation', data.password_confirmation, form)"
             />
-            <span class="error-text">
-                <ul>
-                    <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-                </ul>
-            </span>
-            </ValidationProvider>
+            <span v-if="form.password_confirmation.error" class="error">{{form.password_confirmation.error}}</span>
         </div>
 
         <div>
@@ -50,6 +35,7 @@
             class="btn btn-main btn__purple btn__large"
             type="submit"
             value="Resetujte lozinku"
+            :disabled="!validate(form)"
         />
         </div>
     </div>
@@ -57,19 +43,33 @@
 </template>
 
 <script>
-import { ValidationProvider } from "vee-validate";
+import {
+  required,
+  set,
+  validate
+} from "vue-val";
 
 export default {
-  name: "verifyEmail",
-  components: {
-    ValidationProvider,
-  },
-
+  name: "ResetPasswordEmail",
   data() {
     return {
       data: {
         password: null,
-        password_confirmation: null
+        password_confirmation: null,
+      },
+      set,
+      validate,
+      form: {
+        password: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        },
+        password_confirmation: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
       }
     };
   },
@@ -153,15 +153,15 @@ export default {
 }
 .reset-password {
     width: 100%;
+    max-width: 325px;
+    margin: 0 auto;
     padding: 20px;
     .input-row {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         margin-bottom: 20px;
         label {
             margin-bottom: 15px;
             font-size: 18px;
+            display: block;
         }
         input {
             padding: 10px;
@@ -169,7 +169,7 @@ export default {
         }
     }
     .btn {
-        margin: 20px auto 0;
+        margin-top: 20px;
         display: block;
     }
 }
