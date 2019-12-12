@@ -35,8 +35,7 @@
 import {
   required,
   set,
-  validate,
-  messages
+  validate
 } from "vue-val";
 
 export default {
