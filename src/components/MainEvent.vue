@@ -91,7 +91,6 @@ export default {
         } else {
           return space;
         }
-        
       } return "";
     }
   }
@@ -141,6 +140,7 @@ export default {
       background-size: cover !important;
       background-position: center !important;
       background-repeat: no-repeat !important;
+      min-height: 214px;
       @include breakpoint(htab) {
         height: 170px;
         width: 100%;
