@@ -32,7 +32,7 @@
               v-model="selectedEvent.title"
               v-on:keyup="() => set('title', selectedEvent.title, form)"
             />
-            <span v-if="form.title.error" class="error">{{form.title.error}}</span>
+            <span v-if="form.title.error" class="error">{{ form.title.error }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -42,7 +42,7 @@
               v-model="selectedEvent.description"
               v-on:keyup="() => set('description', selectedEvent.description, form)"
             />
-            <span v-if="form.description.error" class="error">{{form.description.error}}</span>
+            <span v-if="form.description.error" class="error">{{ form.description.error }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -50,10 +50,10 @@
             <input
               type="file"
               accept="image/*"
-              @change="logoChange"
-              v-on:change="() => set('logo', selectedEvent.logo, form)"
+              @change="set('logo', selectedEvent.logo, form) && (logoChange($event) || validate($event))"
             />
-            <span v-if="form.logo.error" class="error">{{form.logo.error}}</span>
+
+            <span v-if="form.logo.error" class="error">{{ form.logo.error }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -61,38 +61,43 @@
             <input
               type="file"
               accept="image/*"
-              @change="imageChange"
+              @change="imageChange($event) || validate($event)"
               v-on:change="() => set('picture', selectedEvent.picture, form)"
             />
-            <span v-if="form.picture.error" class="error">{{form.picture.error}}</span>
+            <span v-if="form.picture.error" class="error">{{ form.picture.error }}</span>
           </li>
 
           <li class="inputfield-row">
             <span>Status programa</span>
             <select
               v-model="selectedEvent.type"
-              v-on:change="e => set('type', e.target.value, form)">
+              v-on:change="e => set('type', e.target.value, form)"
+            >
               <option value="otvorenbp">Otvoren program (slobodan ulaz bez prijave)</option>
               <option value="otvorensp">Otvoren program (slobodan ulaz sa prijavom)</option>
               <option value="zatvoren">Zatvoren program</option>
             </select>
-            <span v-if="form.type.error" class="error">{{form.type.error}}</span>
+            <span v-if="form.type.error" class="error">{{ form.type.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
             <select
               v-model="selectedEvent.price"
-              v-on:change="e => set('price', e.target.value, form)">
+              v-on:change="e => set('price', e.target.value, form)"
+            >
               <option value="1">Da</option>
               <option value="0">Ne</option>
             </select>
-            <span v-if="form.price.error" class="error">{{form.price.error}}</span>
+            <span v-if="form.price.error" class="error">{{ form.price.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Kategorija programa</span>
             <select
               v-model="selectedEvent.category"
-              v-on:change="e => set('category', e.target.value, form)">
+              v-on:change="e => set('category', e.target.value, form)"
+            >
               <option value="izlozba">Izložba</option>
               <option value="muzicki">Muzički program</option>
               <option value="igranka">Igranka</option>
@@ -103,14 +108,16 @@
               <option value="radionica">Radionica</option>
               <option value="drugo">Drugo</option>
             </select>
-            <span v-if="form.category.error" class="error">{{form.category.error}}</span>
+            <span v-if="form.category.error" class="error">{{ form.category.error }}</span>
             <input v-if="selectedEvent.category == 'drugo'" type="text" v-model="categoryOther" />
           </li>
+
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
             <select
               v-model="selectedEvent.space"
-              v-on:change="e => set('space', e.target.value, form)">
+              v-on:change="e => set('space', e.target.value, form)"
+            >
               <option value="velikasala">Velika sala</option>
               <option value="malasala">Mala sala</option>
               <option value="dvoriste">Dvorište</option>
@@ -119,9 +126,10 @@
               <option value="plato">Plato</option>
               <option value="drugo">Drugo</option>
             </select>
-            <span v-if="form.space.error" class="error">{{form.space.error}}</span>
+            <span v-if="form.space.error" class="error">{{ form.space.error }}</span>
             <input type="text" v-if="selectedEvent.space == 'drugo'" v-model="spaceOther" />
           </li>
+
           <li class="inputfield-row">
             <span>Link ka dogadjaju na društvenim mrežama</span>
             <input
@@ -129,13 +137,12 @@
               v-model="selectedEvent.socialMedia"
               v-on:keyup="e => set('socialMedia', e.target.value, form)"
             />
-            <span v-if="form.socialMedia.error" class="error">{{form.socialMedia.error}}</span>
+            <span v-if="form.socialMedia.error" class="error">{{ form.socialMedia.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Očekivani uzrast publike</span>
-            <select
-              v-model="selectedEvent.age"
-              v-on:change="e => set('age', e.target.value, form)">
+            <select v-model="selectedEvent.age" v-on:change="e => set('age', e.target.value, form)">
               <option value="deca">Deca</option>
               <option value="mladi">Mladi</option>
               <option value="odrasli">Odrasli</option>
@@ -143,8 +150,9 @@
               <option value="profesionalna">Profesionalna publika</option>
               <option value="svi">Svi</option>
             </select>
-            <span v-if="form.age.error" class="error">{{form.age.error}}</span>
+            <span v-if="form.age.error" class="error">{{ form.age.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Datum početka programa (npr: 29.11.2019.)</span>
             <input
@@ -152,8 +160,9 @@
               v-model="startDate"
               v-on:keyup="() => set('startDate', startDate, form)"
             />
-            <span v-if="form.startDate.error" class="error">{{form.startDate.error}}</span>
+            <span v-if="form.startDate.error" class="error">{{ form.startDate.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Vreme početka programa (npr: 20:00)</span>
             <input
@@ -161,28 +170,23 @@
               v-model="startTime"
               v-on:keyup="() => set('startTime', startTime, form)"
             />
-            <span v-if="form.startTime.error" class="error">{{form.startTime.error}}</span>
+            <span v-if="form.startTime.error" class="error">{{ form.startTime.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Datum kraja programa (npr: 29.11.2019)</span>
-            <input
-              type="text"
-              v-model="endDate"
-              v-on:keyup="() => set('endDate', endDate, form)"
-            />
-            <span v-if="form.endDate.error" class="error">{{form.endDate.error}}</span>
+            <input type="text" v-model="endDate" v-on:keyup="() => set('endDate', endDate, form)" />
+            <span v-if="form.endDate.error" class="error">{{ form.endDate.error }}</span>
           </li>
+
           <li class="inputfield-row">
             <span>Vreme kraja programa (npr: 22:00)</span>
-            <input
-              type="text"
-              v-model="endTime"
-              v-on:keyup="() => set('endTime', endTime, form)"
-            />
-            <span v-if="form.endTime.error" class="error">{{form.endTime.error}}</span>
+            <input type="text" v-model="endTime" v-on:keyup="() => set('endTime', endTime, form)" />
+            <span v-if="form.endTime.error" class="error">{{ form.endTime.error }}</span>
           </li>
         </ol>
       </div>
+
       <button
         @click="updateEvent"
         class="btn btn__purple btn__large"
@@ -233,27 +237,27 @@ export default {
       validate,
       form: {
         title: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         },
         description: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         },
         logo: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         },
         picture: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         },
         type: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [
             required,
@@ -261,12 +265,12 @@ export default {
           ]
         },
         price: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required, isValue(["1", "0"])]
         },
         category: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [
             required,
@@ -284,7 +288,7 @@ export default {
           ]
         },
         space: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [
             required,
@@ -300,12 +304,12 @@ export default {
           ]
         },
         socialMedia: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         },
         age: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [
             required,
@@ -320,22 +324,22 @@ export default {
           ]
         },
         startTime: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required, isTime]
         },
         endTime: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required, isTime]
         },
         startDate: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required, isDate]
         },
         endDate: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required, isDate]
         }
@@ -407,15 +411,34 @@ export default {
     },
     openModal() {
       this.disableScroll();
-      this.resetFormValidation();
+      this.checkForm();
     },
     closeModal() {
       this.$modal.hide("modalEventEdit");
     },
-    resetFormValidation() {
+    checkForm() {
       for (let key in this.form) {
-        this.form[key].valid = true;
-        this.form[key].error = null;
+        for (let constraintIndex in this.form[key].constraints) {
+          const constraint = this.form[key].constraints[constraintIndex];
+
+		  const validationResult = {};
+		  
+          if (["startDate", "endDate", "startTime", "endTime", "categoryOther", "spaceOther"].includes(key)) {
+            validationResult = constraint(this[key]);
+          } else {
+            validationResult = constraint(this.selectedEvent[key]);
+		  }
+
+          if (validationResult.valid) {
+            this.form[key].valid = true;
+            this.form[key].error = null;
+          } else {
+            this.form[key].valid = false;
+            this.form[key].error = validationResult.message;
+
+            break;
+          }
+        }
       }
     },
     disableScroll() {

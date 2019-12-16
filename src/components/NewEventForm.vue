@@ -43,9 +43,7 @@
               type="file"
               v-on:change="() => set('logo', event.logo, form)"
             />
-            <span v-if="form.logo.error" class="error">{{
-              form.logo.error
-            }}</span>
+            <span v-if="form.logo.error" class="error">{{form.logo.error}}</span>
           </li>
 
           <li class="inputfield-row">
@@ -55,9 +53,7 @@
               type="file"
               v-on:change="() => set('picture', event.picture, form)"
             />
-            <span v-if="form.picture.error" class="error">{{
-              form.picture.error
-            }}</span>
+            <span v-if="form.picture.error" class="error">{{form.picture.error}}</span>
           </li>
 
           <li class="inputfield-row">

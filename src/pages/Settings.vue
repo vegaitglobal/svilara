@@ -366,6 +366,9 @@ export default {
   input {
     width: 48%;
   }
+  textarea {
+    margin-bottom: 10px;
+  }
 }
 .questions-form {
   input {
