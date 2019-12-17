@@ -49,7 +49,7 @@
             <span>Logo organizacije</span>
             <div class="input-file-wrapper">
                 <div v-if="selectedEvent.logo">
-                    <a href="" target="_blank" class="image-link">Kliknite da vidite logo</a>
+                    <a :href="`${link}/${selectedEvent.logo}`" target="_blank" class="image-link">Kliknite da vidite logo</a>
                 </div>
                 <div class="input-container">
                     <span>Ako želite da promenite logo, dodajte novi:</span>
@@ -68,7 +68,7 @@
             <span>Slika</span>
             <div class="input-file-wrapper">
                 <div v-if="selectedEvent.picture">
-                    <a href="" target="_blank" class="image-link">Kliknite da vidite sliku</a>
+                    <a :href="`${link}/${selectedEvent.picture}`" target="_blank" class="image-link">Kliknite da vidite sliku</a>
                 </div>
                 <div class="input-container">
                     <span>Ako želite da promenite sliku, dodajte novu:</span>
@@ -236,6 +236,7 @@ export default {
   },
   data() {
     return {
+      link: process.env.VUE_APP_MEDIA_BASE_URL,
       calendarPlugins: [dayGridPlugin],
       selectedEvent: {
         id: "",
