@@ -46,43 +46,22 @@ export default {
   },
   methods: {
     async sendEmail() {
-      try {
-        let vm = this;
-        let response = await this.$store.dispatch("forgot", vm.credentials);
-        if (parseInt(response.status) === 200) {
-          //console.error('forgot successful')
-          this.$swal({
+      await this.$store.dispatch("forgot", this.credentials)
+      .then(() => {
+        this.$swal({
             type: "success",
             title: "Uspešno...",
             text:
               "Molimo Vas da pogledate Vaš mejl i da kliknete na poslati link da biste nastavili."
           });
-        }
-      } catch (err) {
-        if (parseInt(err.response.status) === 404) {
-          //console.error(err.response.data.error);
-          this.$swal({
+      })
+      .catch((err) => {
+           this.$swal({
             type: "error",
             title: "Oops...",
             text: err.response.data.error
           });
-        }
-        //if (parseInt(err.response.status) === 400) {
-        //this.$swal({
-        // type: "error",
-        // title: "Oops...",
-        // text: err.response.data.error
-        // });
-        // }
-        //else if (parseInt(err.response.status) === 401) {
-        //this.$swal({
-        // type: "error",
-        //title: "Oops...",
-        //text: err.response.data.message
-        //});
-        // }
-        this.error = err.response.data;
-      }
+      });
     }
   }
 };

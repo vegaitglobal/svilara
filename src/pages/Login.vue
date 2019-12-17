@@ -77,23 +77,11 @@ export default {
           });
         }
       } catch (err) {
-        //console.error(JSON.stringify(err))
-        //if (parseInt(err.response.status) === 400) {
-
         this.$swal({
           type: "error",
           title: "Oops...",
           text: err.response.data.error
         });
-        //}
-        //else if (parseInt(err.response.status) === 401) {
-        //this.$swal({
-        // type: "error",
-        //title: "Oops...",
-        //text: err.response.data.message
-        //});
-        // }
-        this.error = err.response.data;
       }
     },
     redirectToForgotPasssword() {

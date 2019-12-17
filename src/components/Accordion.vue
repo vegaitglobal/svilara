@@ -3,7 +3,8 @@
     <bulma-accordion-item v-for="(event, index) in this.events" :key="event.id">
       <div class="acc-header" slot="title">
         <div>
-          <span>{{ index + 1 }}</span>.
+          <span>{{ index + 1 }}</span
+          >.
           <span>{{ event.contactEmail }}</span>
           <span>, {{ getEventData(event).name }}</span>
           <span>, {{ getEventData(event).date }}</span>
@@ -34,7 +35,9 @@
           }}</span>
 
           <div v-if="row.type == 'file'" class="link-container">
-            <a target="_blank" :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
+            <a target="_blank" :href="`${link}/${row.answers}`"
+              >Kliknite da vidite sliku</a
+            >
           </div>
         </div>
         <div class="button-wrapper">
@@ -43,12 +46,16 @@
             type="button"
             class="btn btn__green"
             @click.prevent="() => acceptEvent(event.id)"
-          >Prihvati</button>
+          >
+            Prihvati
+          </button>
           <button
             type="button"
             class="btn btn__red"
             @click.prevent="() => rejectEvent(event.id)"
-          >Odbij</button>
+          >
+            Odbij
+          </button>
         </div>
       </div>
     </bulma-accordion-item>
@@ -66,7 +73,7 @@ export default {
     return {
       pictureLink: "",
       logoLink: "",
-      link: process.env.VUE_APP_MEDIA_BASE_URL,
+      link: process.env.VUE_APP_MEDIA_BASE_URL
     };
   },
   components: {
@@ -85,9 +92,7 @@ export default {
   methods: {
     async acceptEvent(id) {
       try {
-        let vm = this;
         let response = await this.$store.dispatch("acceptEvent", id);
-
         this.$swal({
           type: "success",
           title: "Prihvaćeno",
@@ -104,7 +109,6 @@ export default {
     },
     async rejectEvent(id) {
       try {
-        let vm = this;
         let response = await this.$store.dispatch("rejectEvent", id);
         this.$swal({
           type: "success",

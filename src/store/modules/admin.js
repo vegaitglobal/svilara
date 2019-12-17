@@ -91,6 +91,18 @@ export default {
                     reject(error);
                 })
             })
+        },
+        async addEvent({ commit }, form) {
+            return new Promise((resolve, reject) => {
+                axios.post(`${process.env.VUE_APP_BASE_URL}/admin/event`,
+                form)
+                .then(response => {
+                    resolve(response);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+            })
         }
     }
 }
