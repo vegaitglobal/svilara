@@ -275,7 +275,7 @@ export default {
       if (script.substring(0, 8) !== "<script>") {
         this.$swal.fire({
           title: "Greška!",
-          text: "Skripta nije dobro unešena.",
+          text: "Skripta nije dobro unešena!",
           type: "error"
         });
         return false;
@@ -294,8 +294,15 @@ export default {
         .then(() => {
           this.$swal.fire({
             title: "Poslato!",
-            text: "Skripta je uspesno unešena.",
+            text: "Skripta je uspešno unešena.",
             type: "success"
+          });
+        })
+        .catch(error => {
+          this.$swal.fire({
+            title: "Greška!",
+            text: error.response.data.error,
+            type: "error"
           });
         });
     },
@@ -314,15 +321,24 @@ export default {
         } else break;
       }
 
-      head.insertBefore(html[0], head.children[numberOfScriptUnderHeadTag]);
+     if (html[0]) {
+        head.insertBefore(html[0], head.children[numberOfScriptUnderHeadTag]);
+      }
       let script = { value: this.secondScript };
       axios
         .post(`${process.env.VUE_APP_BASE_URL}/admin/script`, script)
         .then(() => {
           this.$swal.fire({
             title: "Poslato!",
-            text: "Skripta je uspesno unešena.",
+            text: "Skripta je uspešno unešena.",
             type: "success"
+          });
+        })
+         .catch(error => {
+          this.$swal.fire({
+            title: "Greška!",
+            text: error.response.data.error,
+            type: "error"
           });
         });
     },

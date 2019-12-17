@@ -224,7 +224,7 @@
 </template>
 
 <script>
-Event;
+
 import Accordion from "./Accordion";
 import {
   required,
@@ -435,34 +435,26 @@ export default {
       if (eventCopy.space.toLowerCase() === "drugo") {
         eventCopy.space = this.spaceOther;
       }
-      try {
-        const form = new FormData();
-        for (var prop in eventCopy) {
-          form.append(prop, eventCopy[prop]);
-        }
-        const res = await this.axios.post(
-          `${process.env.VUE_APP_BASE_URL}/admin/event`,
-          form
-        );
-        if (res.data.success) {
+
+      const form = new FormData();
+      for (var prop in eventCopy) {
+        form.append(prop, eventCopy[prop]);
+      }
+      this.$store
+        .dispatch("addEvent", form)
+        .then(() =>
           this.$swal.fire({
             type: "success",
             title: "Događaj je kreiran!"
-          });
-        } else {
+          })
+        )
+        .catch(err =>
           this.$swal.fire({
-            type: "warning",
-            title: "Upozorenje",
-            text: `${res.data.error.msg}`
-          });
-        }
-      } catch (err) {
-        this.$swal.fire({
-          type: "error",
-          title: "Greška",
-          text: err.response.data.error
-        });
-      }
+            type: "error",
+            title: "Greška",
+            text: err.response.data.error
+          })
+        );
     },
 
     logoChange(event) {

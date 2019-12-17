@@ -510,16 +510,16 @@ export default {
         eventCopy.space = this.spaceOther;
       }
 
-      try {
-        const form = new FormData();
-        for (var prop in eventCopy) {
-          form.append(prop, eventCopy[prop]);
-        }
-        const res = await this.axios.put(
+      const form = new FormData();
+      for (var prop in eventCopy) {
+        form.append(prop, eventCopy[prop]);
+      }
+      await this.axios
+        .put(
           `${process.env.VUE_APP_BASE_URL}/admin/event/${this.selectedEvent.id}`,
           form
-        );
-        if (res.data.success) {
+        )
+        .then(() => {
           this.$swal
             .fire({
               type: "success",
@@ -531,20 +531,14 @@ export default {
                 this.$store.dispatch("fetchAdminEvents");
               }
             });
-        } else {
+        })
+        .catch(err => {
           this.$swal.fire({
-            type: "warning",
+            type: "error",
             title: "Greška",
-            text: `${res.data.error.msg}`
+            text: err.response.data.error
           });
-        }
-      } catch (err) {
-        this.$swal.fire({
-          type: "error",
-          title: "Greška",
-          text: "Nešto nije u redu. Probajte ponovo!"
         });
-      }
     },
     logoChange(event) {
       this.selectedEvent.logo = event.target.files[0];
