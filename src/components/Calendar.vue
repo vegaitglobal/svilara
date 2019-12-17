@@ -237,7 +237,9 @@ import {
   isUrl,
   set,
   validate,
-  messages
+  messages,
+  notNull,
+  notUndefined
 } from "vue-val";
 
 export default {
@@ -297,7 +299,7 @@ export default {
         price: {
           valid: true,
           error: null,
-          constraints: [required, isValue(["1", "0"])]
+          constraints: [notNull, notUndefined]
         },
         category: {
           valid: true,
@@ -336,7 +338,7 @@ export default {
         socialMedia: {
           valid: true,
           error: null,
-          constraints: [required]
+          constraints: [required, isUrl]
         },
         age: {
           valid: true,
