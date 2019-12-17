@@ -33,7 +33,7 @@
             row.answers
           }}</span>
 
-          <div v-if="row.type == 'file'">
+          <div v-if="row.type == 'file'" class="link-container">
             <a target="_blank" :href="`${link}/${row.answers}`">Kliknite da vidite sliku</a>
           </div>
         </div>
@@ -188,6 +188,12 @@ export default {
   line-height: 20px;
   &__answer {
     font-weight: 900;
+  }
+  .link-container {
+    margin: 5px 0 8px;
+    a {
+      font-size: 16px;
+    }
   }
 }
 .accordion {

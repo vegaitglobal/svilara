@@ -48,25 +48,18 @@
           <li class="inputfield-row">
             <span>Logo organizacije</span>
             <div class="input-file-wrapper">
-                <div>
-                    <label for="attachment-logo" class="upload-btn">
-                        Dodaj fajl
-                    </label>
+                <div v-if="selectedEvent.logo">
+                    <a href="" target="_blank" class="image-link">Kliknite da vidite logo</a>
+                </div>
+                <div class="input-container">
+                    <span>Ako želite da promenite logo, dodajte novi:</span>
                     <input
                       type="file"
                       accept="image/*"
                       @change="logoChange($event) || validate($event)"
                       v-on:change="() => set('logo', selectedEvent.logo, form)"
-                      id="attachment-logo"
-                      name="attachment-logo"
-                      class="upload-btn-hidden"
                     />
                 </div>
-                <div>
-                    <span v-if="selectedEvent.logo">{{ selectedEvent.logo }}</span>
-                    <span v-else>Fajl nije dodat</span>
-                </div>
-
                 <span v-if="form.logo.error" class="error">{{ form.logo.error }}</span>
             </div>
           </li>
@@ -74,23 +67,17 @@
           <li class="inputfield-row">
             <span>Slika</span>
             <div class="input-file-wrapper">
-                <div>
-                    <label for="attachment-picture" class="upload-btn">
-                        Dodaj fajl
-                    </label>
+                <div v-if="selectedEvent.picture">
+                    <a href="" target="_blank" class="image-link">Kliknite da vidite sliku</a>
+                </div>
+                <div class="input-container">
+                    <span>Ako želite da promenite sliku, dodajte novu:</span>
                     <input
                       type="file"
                       accept="image/*"
                       @change="imageChange($event) || validate($event)"
                       v-on:change="() => set('picture', selectedEvent.picture, form)"
-                      id="attachment-picture"
-                      name="attachment-picture"
-                      class="upload-btn-hidden"
                     />
-                </div>
-                <div>
-                    <span v-if="selectedEvent.picture">{{ selectedEvent.picture }}</span>
-                    <span v-else>Fajl nije dodat</span>
                 </div>
 
                 <span v-if="form.picture.error" class="error">{{ form.picture.error }}</span>
@@ -573,16 +560,18 @@ export default {
 }
 .input-file-wrapper {
   display: flex;
-  margin-top: 15px;
-}
-.inputfield-row .upload-btn-hidden {
-  display: none;
-}
-.upload-btn {
-  border: 1px solid $gray;
-  padding: 10px;
-  cursor: pointer;
-  margin-right: 10px;
-  background: $gray-light;
+  flex-direction: column;
+  margin-top: 5px;
+  .input-container {
+    margin-top: 20px;
+    span {
+      padding-left: 11px;
+      margin: 0;
+    }
+  }
+  .image-link {
+    padding-left: 11px;
+    font-size: 16px;
+  }
 }
 </style>
