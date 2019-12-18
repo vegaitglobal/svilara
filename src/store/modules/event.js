@@ -19,11 +19,11 @@ const sortByDate = (a, b) => {
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
-    if (settings[i].key === 'otvoren bez prijave'){
-      settings[i].key = 'otvorenbp';
+    if (settings[i].key === "otvoren bez prijave") {
+      settings[i].key = "otvorenbp";
     }
-    if (settings[i].key === 'otvoren sa prijavom'){
-      settings[i].key = 'otvorensp';
+    if (settings[i].key === "otvoren sa prijavom") {
+      settings[i].key = "otvorensp";
     }
     if (settings[i].key === type) {
       return settings[i].value;
@@ -209,7 +209,7 @@ export default {
       commit("SET_IMAGE", file);
     },
 
-     submitEvent({ commit, state }) {
+    submitEvent({ commit, state }) {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
@@ -227,15 +227,14 @@ export default {
       formData.set("formAnswers", JSON.stringify(state.answers));
       return new Promise((resolve, reject) => {
         axios
-        .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
-        .then(res => {
-          resolve(res);
-        })
-        .catch(err => {
-          reject(err);
-        });
-      })
-     
+          .post(`${process.env.VUE_APP_BASE_URL}/user/event`, formData)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     },
 
     async increaseMonth({ commit, dispatch }) {
@@ -265,6 +264,7 @@ export default {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`
         );
+        console.log(events);
         commit("SET_ADMIN_EVENTS", events.data.data);
         return events;
       } catch (err) {
@@ -286,14 +286,29 @@ export default {
 
     async searchEvent({ commit, state }, query) {
       let result;
-
+      let eventsWithoutDuplicates = state.events.filter(ev => {
+        for (let prop in ev) {
+          if (ev[prop] == null) {
+            return false;
+          }
+        }
+        return true;
+      });
       if (!query == "") {
         commit("SET_SEARCHING", true);
-        let fuse = new Fuse(state.events, fuseOptions);
-        result = fuse.search(query);
+        result = eventsWithoutDuplicates.filter((ev) => {
+          if (ev.title.toLowerCase().includes(query.toLowerCase())){
+            return true;
+          }
+          return false;
+        })
+        // let fuse = new Fuse(eventsWithoutDuplicates, fuseOptions);
+        // result = fuse.search(query);
+        console.log(result);
       } else {
         commit("SET_SEARCHING", false);
-        result = state.events;
+        result = eventsWithoutDuplicates;
+        console.log(result);
       }
       commit("SET_SEARCHED_EVENTS", result);
     },
