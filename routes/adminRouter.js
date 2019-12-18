@@ -6,8 +6,8 @@ router.get("/events", adminController.getEvents);
 router.get("/events/table", adminController.getEventsTable);
 router.post("/event", adminController.createEvent);
 router.put("/event/:id", adminController.updateEvent);
-router.put("/event/picture/:id", adminController.updateEventPicture);
-router.delete("/event/:id", adminController.deleteEvent);
+//router.put("/event/picture/:id", adminController.updateEventPicture);
+//router.delete("/event/:id", adminController.deleteEvent);
 
 router.put("/event/accept/:id", adminController.acceptEvent);
 router.put("/event/reject/:id", adminController.rejectEvent);
