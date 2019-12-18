@@ -1,17 +1,17 @@
 import axios from "axios";
 import * as _ from "lodash";
 import moment from "moment";
-import Fuse from "fuse.js";
+// import Fuse from "fuse.js";
 
-var fuseOptions = {
-  shouldSort: true,
-  threshold: 0.4,
-  location: 0,
-  distance: 100,
-  maxPatternLength: 32,
-  minMatchCharLength: 1,
-  keys: ["title"]
-};
+// var fuseOptions = {
+//   shouldSort: true,
+//   threshold: 0.4,
+//   location: 0,
+//   distance: 100,
+//   maxPatternLength: 32,
+//   minMatchCharLength: 1,
+//   keys: ["title"]
+// };
 
 const sortByDate = (a, b) => {
   return new Date(a.created).getTime() - new Date(b.created).getTime();
@@ -100,6 +100,20 @@ export default {
     getSelectedMonth(state) {
       var month = state.selectedMonth.locale("sr").format("MMMM Y");
       return month.charAt(0).toUpperCase() + month.slice(1);
+    },
+    getIsSelectedCurrentMonth(state){
+      return moment(new Date()).isSame(
+        state.selectedMonth,
+        "month"
+      )
+     
+    },
+
+    getIsSelectedMonthPassed(state){
+      return moment().isAfter(
+        state.selectedMonth,
+        "month"
+      )
     },
 
     getSearchedEvents(state) {
@@ -264,7 +278,6 @@ export default {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events`
         );
-        console.log(events);
         commit("SET_ADMIN_EVENTS", events.data.data);
         return events;
       } catch (err) {
@@ -304,11 +317,9 @@ export default {
         })
         // let fuse = new Fuse(eventsWithoutDuplicates, fuseOptions);
         // result = fuse.search(query);
-        console.log(result);
       } else {
         commit("SET_SEARCHING", false);
         result = eventsWithoutDuplicates;
-        console.log(result);
       }
       commit("SET_SEARCHED_EVENTS", result);
     },

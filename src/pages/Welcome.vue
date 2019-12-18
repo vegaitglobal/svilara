@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MainEvent  v-if="!isSearching" :event="events[0]"/>
+    <MainEvent  v-if="!isSearching && isCurrentMonth" :event="nextEvent"/>
     <EventHeadline/>
     <div class="daily-event-wrap">
       <DailyEvent :key="event.id" v-for="(event, index) in events" :event="event"/>
@@ -22,8 +22,8 @@ export default {
   },
 
   async created(){
-    await this.$store.dispatch('fetchEvents')
-    this.$store.dispatch('filterByMonth')
+    await this.$store.dispatch('fetchEvents');
+    this.$store.dispatch('filterByMonth');
     this.$store.dispatch("fetchSettings");
   },
 
@@ -37,6 +37,12 @@ export default {
     },
     isSearching(){
       return this.$store.getters.getSearching;
+    },
+    isCurrentMonth(){
+      return this.$store.getters.getIsSelectedCurrentMonth;
+    },
+    nextEvent(){
+      return this.events.find((ev) => new Date(ev.startTime) > new Date())
     }
   },
 
