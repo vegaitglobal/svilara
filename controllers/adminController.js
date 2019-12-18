@@ -45,7 +45,7 @@ exports.getEvents = async function(req, res) {
 
   if (err) {
     console.log(err);
-    return ReE(res, err.message);
+    return ReE(res, { message: "Došlo je do greške!" }, 500);
   }
 
   return ReS(res, {
@@ -84,7 +84,7 @@ exports.getEventsTable = async function(req, res) {
 
   if (err) {
     console.log(err);
-    return ReE(res, err.message);
+    return ReE(res, { message: "Došlo je do greške!" }, 500);
   }
 
   return ReS(res, {
@@ -99,9 +99,8 @@ exports.createEvent = async function(req, res) {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Došlo je do greške!" }, 400);
+      return ReE(res, { message: "Došlo je do greške!" }, 400);
     }
-    console.log(JSON.stringify(fields))
     let title = fields.title;
     let description = fields.description;
     let startTime = fields.startTime;
@@ -116,8 +115,8 @@ exports.createEvent = async function(req, res) {
     let validatorMessage = validateEvent(fields, files);
     if (validatorMessage) {
       return ReE(res, {
-        msg: validatorMessage
-      });
+        message: validatorMessage
+      }, 400);
     }
 
     if (files.picture) {
@@ -126,7 +125,7 @@ exports.createEvent = async function(req, res) {
         files.picture.type !== "image/jpeg" &&
         files.picture.type !== "image/png"
       ) {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { message: "Pogrešan format slike!" }, 415);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var imageTmpPath = files.picture.path;
@@ -137,7 +136,7 @@ exports.createEvent = async function(req, res) {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
       });
       //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
@@ -145,7 +144,7 @@ exports.createEvent = async function(req, res) {
     if (files.logo) {
       // check mime type (is image)
       if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
-        return ReE(res, { msg: "Pogrešan format logoa!" }, 400);
+        return ReE(res, { message: "Pogrešan format logoa!" }, 415);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files.logo.path;
@@ -156,7 +155,7 @@ exports.createEvent = async function(req, res) {
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
-        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+        if (err) return ReE(res, { message: "Logo nije uspešno upisan!" }, 500);
       });
       //fs.renameSync(logoTmpPath, newLogoPath);
     } else logoName = "default-picture.png";
@@ -186,7 +185,7 @@ exports.createEvent = async function(req, res) {
 
     return ReS(res, {
       data: dbCreated,
-      msg: "Event was created!"
+      msg: "Događaj je kreiran!"
     });
   });
 };
@@ -197,7 +196,7 @@ exports.updateEvent = async function(req, res) {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Something went wrong!" }, 400);
+      return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 400);
     }
 
     let title = fields.title;
@@ -214,13 +213,12 @@ exports.updateEvent = async function(req, res) {
     let logoName = "";
     let imageName = "";
 
-    // let validatorMessage = validateEvent(fields, files);
-    // console.log(validatorMessage);
-    // if (validatorMessage) {
-    //   return ReE(res, {
-    //     msg: validatorMessage
-    //   });
-    // }
+    let validatorMessage = validateEvent(fields, files);
+    if (validatorMessage) {
+      return ReE(res, {
+        message: validatorMessage
+      }, 400);
+    }
 
     if (files.picture) {
       // check mime type (is image)
@@ -228,7 +226,7 @@ exports.updateEvent = async function(req, res) {
         files.picture.type !== "image/jpeg" &&
         files.picture.type !== "image/png"
       ) {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { message: "Pogrešan format slike!" }, 415);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var imageTmpPath = files.picture.path;
@@ -239,7 +237,7 @@ exports.updateEvent = async function(req, res) {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 400);
       });
       //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = fields.picture;
@@ -247,7 +245,7 @@ exports.updateEvent = async function(req, res) {
     if (files.logo) {
       // check mime type (is image)
       if (files.logo.type !== "image/jpeg" && files.logo.type !== "image/png") {
-        return ReE(res, { msg: "Wrong image format!" });
+        return ReE(res, { message: "Pogrešan format logoa!" }, 415);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files.logo.path;
@@ -258,7 +256,7 @@ exports.updateEvent = async function(req, res) {
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
-        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" }, 400);
+        if (err) return ReE(res, { message: "Logo nije uspešno upisan!" }, 400);
       });
       //fs.renameSync(logoTmpPath, newLogoPath);
     } else logoName = fields.logo;
@@ -285,89 +283,87 @@ exports.updateEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, err.message, 400);
+      return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
     }
 
     return ReS(res, {
-      msg: "Event was updated!"
+      msg: "Događaj je izmenjen"
     });
   });
 };
 
-exports.updateEventPicture = async function(req, res) {
-  var form = new formidable.IncomingForm();
-  form.parse(req, async function(error, fields, files) {
-    if (error) {
-      console.log(error);
-      return ReE(res, { msg: "Something went wrong!" });
-    }
+// exports.updateEventPicture = async function(req, res) {
+//   var form = new formidable.IncomingForm();
+//   form.parse(req, async function(error, fields, files) {
+//     if (error) {
+//       console.log(error);
+//       return ReE(res, { msg: "Something went wrong!" });
+//     }
 
-    if (files.picture) {
-      if (
-        files.picture.type !== "image/jpeg" &&
-        files.picture.type !== "image/png"
-      ) {
-        return res.json({ status: "error", msg: "Wrong image format!" });
-      } else {
-        let [err1, dbEvent] = await to(
-          models.Event.findOne({
-            attributes: ["id", "picture"],
-            where: {
-              id: req.params.id
-            }
-          })
-        );
-        if (err1) {
-          console.log(err);
-          return ReE(res, err.message);
-        }
-        var imageTmpPath = files.picture.path;
-        if (dbEvent.picture == "default-picture.png")
-          var fileName = random.string("24");
-        else {
-          fs.unlinkSync("./public/uploads/" + dbEvent.picture); //remove old picture
-          var fileName = random.string("24");
-        }
-        if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
-        if (files.picture.type == "image/png") var imgExt = ".png";
-        var imageName = fileName + imgExt;
-        var newImagePath = "./public/uploads/" + imageName;
-        fs.renameSync(imageTmpPath, newImagePath);
-        let [err2, dbUpdated] = await to(
-          dbEvent.update({ picture: imageName })
-        );
-        if (err2) {
-          console.log(err);
-          return ReE(res, err.message);
-        }
+//     if (files.picture) {
+//       if (
+//         files.picture.type !== "image/jpeg" &&
+//         files.picture.type !== "image/png"
+//       ) {
+//         return res.json({ status: "error", msg: "Wrong image format!" });
+//       } else {
+//         let [err1, dbEvent] = await to(
+//           models.Event.findOne({
+//             attributes: ["id", "picture"],
+//             where: {
+//               id: req.params.id
+//             }
+//           })
+//         );
+//         if (err1) {
+//           console.log(err);
+//           return ReE(res, err.message);
+//         }
+//         var imageTmpPath = files.picture.path;
+//         if (dbEvent.picture == "default-picture.png")
+//           var fileName = random.string("24");
+//         else {
+//           fs.unlinkSync("./public/uploads/" + dbEvent.picture); //remove old picture
+//           var fileName = random.string("24");
+//         }
+//         if (files.picture.type == "image/jpeg") var imgExt = ".jpg";
+//         if (files.picture.type == "image/png") var imgExt = ".png";
+//         var imageName = fileName + imgExt;
+//         var newImagePath = "./public/uploads/" + imageName;
+//         fs.renameSync(imageTmpPath, newImagePath);
+//         let [err2, dbUpdated] = await to(
+//           dbEvent.update({ picture: imageName })
+//         );
+//         if (err2) {
+//           console.log(err);
+//           return ReE(res, err.message);
+//         }
 
-        return ReS(res, {
-          data: dbUpdated,
-          msg: "Picture was updated!"
-        });
-      }
-    }
-  });
-};
+//         return ReS(res, {
+//           data: dbUpdated,
+//           msg: "Picture was updated!"
+//         });
+//       }
+//     }
+//   });
+// };
 
 // DELETE EVENT
-exports.deleteEvent = async (req, res) => {
-  let [err, dbDeleted] = await to(
-    models.Event.destroy({
-      where: {
-        id: req.params.id
-      }
-    })
-  );
-  if (err) {
-    return ReE(res, {
-      msg: "Something went wrong"
-    });
-  }
-  return ReS(res, {
-    msg: "Deleted successfully."
-  });
-};
+// exports.deleteEvent = async (req, res) => {
+//   let [err, dbDeleted] = await to(
+//     models.Event.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     })
+//   );
+//   if (err) {
+//     return ReE(res, { message: "Logo nije uspešno upisan!" }, 500);
+//   }
+//   return ReS(res, {
+//     msg: "Deleted successfully."
+//   });
+// };
 
 // ACCEPT EVENT
 exports.acceptEvent = async (req, res) => {
@@ -466,13 +462,11 @@ exports.updateEventPage = async (req, res) => {
   );
   if (err) {
     console.log(err);
-    return ReE(res, {
-      msg: "Something went wrong"
-    });
+    return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
   }
   return ReS(res, {
     //data: dbUpdated,
-    msg: "Update  was successfull."
+    msg: "Uspešno promenjeno."
   });
 };
 
@@ -487,7 +481,7 @@ exports.getEventPage = async function(req, res) {
   );
   if (err1) {
     console.log(err);
-    return ReE(res, err.message);
+    return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
   }
   return ReS(res, {
     data: dbEventPage
@@ -500,7 +494,7 @@ exports.getQuestions = async function(req, res) {
 
   if (err) {
     console.log(err);
-    return ReE(res, err.message);
+    return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
   }
 
   return ReS(res, {
@@ -539,13 +533,11 @@ exports.createQuestion = async (req, res) => {
 
   if (err) {
     console.log(err);
-    return ReE(res, {
-      msg: "Something went wrong"
-    });
+    return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
   }
   return ReS(res, {
     data: dbCreated,
-    msg: "Create was successfull."
+    msg: "Uspešno kreirano pitanje."
   });
 };
 
@@ -561,8 +553,8 @@ exports.updateQuestion = async (req, res) => {
   let validatorMessage = validateQuestion(req.body);
   if (validatorMessage) {
     return ReE(res, {
-      msg: validatorMessage
-    });
+      message: validatorMessage
+    }, 400);
   }
 
   if (req.body.values) values = req.body.values;
@@ -570,8 +562,8 @@ exports.updateQuestion = async (req, res) => {
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
   if (!allowedFiledTypes.includes(fieldType))
     return ReE(res, {
-      msg: "Wrong Params!."
-    });
+      messsage: "Pogrešni parametri!"
+    }, 400);
 
   let [err, dbUpdated] = await to(
     models.Question.update(
@@ -588,11 +580,11 @@ exports.updateQuestion = async (req, res) => {
   if (err) {
     console.log(err);
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Nešto nije u redu, probajte ponovo."
+    }, 500);
   }
   return ReS(res, {
-    msg: "Update  was successfull."
+    msg: "Uspešno promenjeno."
   });
 };
 
@@ -607,11 +599,11 @@ exports.deleteQuestion = async (req, res) => {
   );
   if (err) {
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Nešto nije u redu, probajte ponovo."
+    }, 500);
   }
   return ReS(res, {
-    msg: "Deleted was successfully."
+    msg: "Uspešno obrisano."
   });
 };
 
@@ -621,8 +613,8 @@ exports.getSettings = async (req, res) => {
   if (err) {
     console.log(err);
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Nešto nije u redu, probajte ponovo."
+    }, 500);
   }
   return ReS(res, {
     data: dbSettings
@@ -631,7 +623,6 @@ exports.getSettings = async (req, res) => {
 
 // CREATE SETTINGS
 exports.createSettings = async (req, res) => {
-  console.log(JSON.stringify(req.body))
   let [err, dbSettings] = await to(
     models.Settings.create({
       key: req.body.key,
@@ -640,15 +631,14 @@ exports.createSettings = async (req, res) => {
       keyShown: req.body.keyShown
     })
   );
-  console.log(JSON.stringify(dbSettings))
   if (err) {
     console.log(err);
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Nešto nije u redu, probajte ponovo."
+    }, 500);
   }
   return ReS(res, {
-    msg: "Successfully created",
+    msg: "Uspešno kreirano",
     data: dbSettings
   });
 };
@@ -659,7 +649,7 @@ exports.updateSettings = async (req, res) => {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { msg: "Došlo je do greške!" }, 400);
+      return ReE(res, { message: "Došlo je do greške!" }, 400);
     }
     let key = fields.key;
     let value = "";
@@ -668,7 +658,7 @@ exports.updateSettings = async (req, res) => {
         files.value.type !== "image/jpeg" &&
         files.value.type !== "image/png"
       ) {
-        return ReE(res, { msg: "Pogrešan format slike!" });
+        return ReE(res, { message: "Pogrešan format slike!" }, 400);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var imageTmpPath = files.value.path;
@@ -680,7 +670,7 @@ exports.updateSettings = async (req, res) => {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { msg: "Slika nije uspešno upisana!" }, 400);
+        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 400);
       });
   } else if (key == 'glavni logo' || key == 'sporedni logo 1' || key == 'sporedni logo 2'){
       value = "";
@@ -700,8 +690,8 @@ exports.updateSettings = async (req, res) => {
     );
     if (err) {
       return ReE(res, {
-        msg: "Something went wrong"
-      });
+        message: "Došlo je do greške!"
+      }, 500);
     }
     return ReS(res, {
       data: dbUpdated
@@ -720,11 +710,11 @@ exports.deleteSettings = async (req, res) => {
   );
   if (err) {
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Došlo je do greške!"
+    }, 500);
   }
   return ReS(res, {
-    msg: "Deleted successfully."
+    msg: "Uspešno obrisano"
   });
 };
 
@@ -732,26 +722,32 @@ exports.getScripts = async function(req, res) {
   let [err, dbScripts] = await to(models.Script.findAll({}));
 
   if (err) {
-    console.log(err);
-    return ReE(res, err.message);
+    return ReE(res, {
+      message: "Došlo je do greške!"
+    }, 500);
   }
-console.log(dbScripts);
   return ReS(res, {
     data: dbScripts
   });
 };
 
 exports.createScript = async (req, res) => {
+  let script = req.body.value;
+
+  if (!script || script.substring(0, 8) !== "<script>"){
+    return ReE(res, {message: "Nevalidni parametri!"}, 400);
+  }
+
   let [err, dbScript] = await to(
     models.Script.create({
-      value: req.body.value
+      value: script
     })
   );
   if (err) {
     console.log(err);
     return ReE(res, {
-      msg: "Something went wrong"
-    });
+      message: "Nesto nije u redu, probajte ponovo!"
+    }, 500);
   }
   return ReS(res, {
     msg: "Successfully created",
@@ -786,13 +782,12 @@ function validateEvent(body, files) {
     
     return "Unesite naslov programa";
   }
-  
-  if (!files.picture)
+  if (!files.picture && !body.picture)
   {
     return "Unesite sliku"
   }
 
-  if (!files.logo)
+  if (!files.logo && !body.logo)
   {
     return "Unesite logo"
   }

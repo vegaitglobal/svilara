@@ -3,10 +3,10 @@ let jwt = require("jsonwebtoken");
 exports.auth = function(req, res, next) {
   const bearerHeader = req.headers.authorization;
   if (
-    req.originalUrl.startsWith("/api/user") || req.originalUrl.startsWith("/api/auth") ||
+    req.originalUrl.startsWith("/api/user") || req.originalUrl.startsWith("/api/auth") ||  req.originalUrl.startsWith("/uploads/") ||
     (req.method === 'GET' && (req.originalUrl === "/api/admin/scripts" ||
     req.originalUrl === "/api/admin/settings" ||
-    req.originalUrl === "/uploads/"))
+    req.originalUrl === "/api/admin/questions"))
   ) {
     next();
   } else {

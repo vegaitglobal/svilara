@@ -71,7 +71,9 @@ exports.loginAdmin = async function (req, res) {
 exports.forgotPassword = async function (req, res) {
   let email = req.body.email;
 
-  console.log(email);
+  if (!email){
+    return ReE(res, "Nevalidni parametri!", 400);
+  }
 
   let [err, dbAdmin] = await to(
     models.Admin.findOne({
@@ -105,15 +107,11 @@ exports.forgotPassword = async function (req, res) {
       text: `Stigao Vam je ovaj email jer ste trazili promenu sifre za Vas nalog.\nKliknite na sledeci link da zavrsite proces: 
       \n${resetUrl}\n
       Ukoliko niste Vi ti koji zahtevate promenu sifre, ignorisite ovaj mail i sifra ce ostati nepromenjena.`,
-      // html: `<p>Stigao Vam je ovaj email jer ste trazili promenu sifre za Vas nalog.</p>
-      // <p>Kliknite na sledeci link da zavrsite proces: </p>
-      // <a>${resetUrl}</a><p>Ukoliko niste Vi ti koji zahtevate promenu sifre, ignorisite ovaj mail i sifra ce ostati nepromenjena.</p>`
     };
-    console.log(JSON.stringify(email))
 
     mailgun.messages().send(mailData, function (error, body) {
       if (error) return console.log(error);
-      console.log(body);
+
       return ReS(res, {
         msg: "Mail with link sent successfully."
       });
@@ -123,10 +121,12 @@ exports.forgotPassword = async function (req, res) {
 }
 
 exports.changeForgotPassword = async function (req, res) {
-  console.log(JSON.stringify(req.params));
   const { userId, token } = req.params;
   const { password, password_confirmation } = req.body;
 
+  if (!password || !password_confirmation){
+    return ReE(res, "Nevalidni parametri!", 400);
+  }
   if (password !== password_confirmation){
     return ReE(res, "Šifra i potvrdna šifra nisu iste!", 400);
   }
@@ -142,7 +142,7 @@ exports.changeForgotPassword = async function (req, res) {
   if (err) return err, err.message;
 
   if (dbAdmin == null) {
-    return ReE(res, "Ne možemo da nađemo tog korisnika!", 404);
+    return ReE(res, "Korisnik ne postoji!", 404);
   } else {
 
       const secret = dbAdmin.password + "-" + dbAdmin.createdAt;

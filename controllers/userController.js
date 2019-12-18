@@ -43,7 +43,7 @@ exports.createEvent = async function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, async function(error, fields, files) {
     if (error) {
-      return ReE(res, { msg: "Došlo je do greške, probajte ponovo!" });
+      return ReE(res, { message: "Došlo je do greške, probajte ponovo!" }, 400);
     }
     var email = fields.email;
     var formAnswers = JSON.parse(fields.formAnswers);
@@ -53,17 +53,17 @@ exports.createEvent = async function(req, res) {
     }));
 
     if (err1) {
-      return ReE(res, { msg: "Došlo je do greške, probajte ponovo!" });
+      return ReE(res, { message: "Došlo je do greške, probajte ponovo!" }, 500);
     }
 
     if (formAnswers.length < questions.length){
-      return ReE(res, {msg: "Niste popunili sva obavezna pitanja"});
+      return ReE(res, {message: "Niste popunili sva obavezna pitanja"}, 400);
     }
     
     for (prop in files) {
       
       if (files[prop].type !== "image/jpeg" && files[prop].type !== "image/png") {
-        return ReE(res, { msg: "Pogrešan format logoa!" });
+        return ReE(res, { message: "Pogrešan format slike!" }, 415);
       } else {
         // set image extenstion and new path (old path is in /tmp)
         var logoTmpPath = files[prop].path;
@@ -74,7 +74,7 @@ exports.createEvent = async function(req, res) {
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
-        if (err) return ReE(res, { msg: "Logo nije uspešno upisan!" });
+        if (err) return ReE(res, { message: "Logo nije uspešno upisan!" }, 415);
       });
       for (let i= 0; i < formAnswers.length; i++){
        
@@ -97,7 +97,7 @@ exports.createEvent = async function(req, res) {
 
     if (err) {
       console.log(err);
-      return ReE(res, { msg: "Došlo je do greške!" });
+      return ReE(res, { message: "Došlo je do greške!" }, 500);
     }
 
     return ReS(res, {
