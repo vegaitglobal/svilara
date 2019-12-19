@@ -121,7 +121,7 @@
             <span>Kategorija programa</span>
             <select
               v-model="selectedEvent.category"
-              v-on:change="e => set('category', e.target.value, form)"
+              v-on:change="e => onCategoryChange(e)"
             >
               <option value="izlozba">Izložba</option>
               <option value="muzicki">Muzički program</option>
@@ -133,15 +133,15 @@
               <option value="radionica">Radionica</option>
               <option value="drugo">Drugo</option>
             </select>
+            <input v-if="selectedEvent.category == 'drugo'" type="text" v-model="categoryOther" @keyup="e => set('category', e.target.value, form)" />
             <span v-if="form.category.error" class="error">{{ form.category.error }}</span>
-            <input v-if="selectedEvent.category == 'drugo'" type="text" v-model="categoryOther" />
           </li>
 
           <li class="inputfield-row">
             <span>Planirani prostor za Vaš program</span>
             <select
               v-model="selectedEvent.space"
-              v-on:change="e => set('space', e.target.value, form)"
+              v-on:change="e => onSpaceChange(e)"
             >
               <option value="velikasala">Velika sala</option>
               <option value="malasala">Mala sala</option>
@@ -151,8 +151,8 @@
               <option value="plato">Plato</option>
               <option value="drugo">Drugo</option>
             </select>
+            <input type="text" v-if="selectedEvent.space == 'drugo'" v-model="spaceOther" @keyup="e => set('space', e.target.value, form)" />
             <span v-if="form.space.error" class="error">{{ form.space.error }}</span>
-            <input type="text" v-if="selectedEvent.space == 'drugo'" v-model="spaceOther" />
           </li>
 
           <li class="inputfield-row">
@@ -301,34 +301,14 @@ export default {
           valid: true,
           error: null,
           constraints: [
-            required,
-            isValue([
-              "izlozba",
-              "muzickiprogram",
-              "igranka",
-              "audiovideo",
-              "predstava",
-              "festival",
-              "predavanja",
-              "radionica",
-              "drugo"
-            ])
+            required
           ]
         },
         space: {
           valid: true,
           error: null,
           constraints: [
-            required,
-            isValue([
-              "velikasala",
-              "malasala",
-              "dvoriste",
-              "teren",
-              "drucentar",
-              "plato",
-              "drugo"
-            ])
+            required
           ]
         },
         socialMedia: {
@@ -390,6 +370,26 @@ export default {
     }
   },
   methods: {
+	onCategoryChange(e) {
+		set('category', e.target.value, this.form);
+
+		if(e.target.value == 'drugo') {
+			const validationResult = required(this.categoryOther);
+
+			this.form.category.valid = validationResult.valid;
+			this.form.category.error = validationResult.valid ? null : validationResult.message;
+		}
+	},
+	onSpaceChange(e) {
+		set('space', e.target.value, this.form);
+
+		if(e.target.value == 'drugo') {
+			const validationResult = required(this.spaceOther);
+
+			this.form.space.valid = validationResult.valid;
+			this.form.space.error = validationResult.valid ? null : validationResult.message;
+		}
+	},
     eventClicked(info) {
       this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps));
       let cat = this.selectedEvent.category;

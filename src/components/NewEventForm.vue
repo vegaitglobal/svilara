@@ -233,8 +233,7 @@ import {
   isValue,
   isUrl,
   set,
-  validate,
-  messages
+  validate
 } from "vue-val";
 
 export default {
@@ -466,12 +465,6 @@ export default {
     }
   }
 };
-
-messages.required = () => `Polje je obavezno.`;
-messages.isDate = () => `Datum mora biti u validnom formatu: dd.mm.yyyy.`;
-messages.isTime = () => `Vreme mora biti u validnom formatu: hh:mm`;
-messages.isValue = value => `Morate izabrati jednu od sledecih vrednosti: ${value} `;
-messages.isUrl = () => `Morate uneti validan URL.`;
 </script>
 
 <style lang="scss">
