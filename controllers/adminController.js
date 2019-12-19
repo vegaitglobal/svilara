@@ -511,6 +511,10 @@ exports.createQuestion = async (req, res) => {
   let values = null;
   let name = req.body.name;
 
+  if (text === '' || mandatory === ''){
+    return ReE(res, { message: "Nevalidni parametri!" }, 400);
+  }
+
   // let validatorMessage = validateQuestion(req.body);
   // if (validatorMessage) {
   //   return ReE(res, {
@@ -543,19 +547,24 @@ exports.createQuestion = async (req, res) => {
 
 // UPDATE QUESTIONS
 exports.updateQuestion = async (req, res) => {
-  console.log('usao u update ======')
   let text = req.body.text;
   let fieldType = req.body.fieldType;
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = req.body.values;
 
-  let validatorMessage = validateQuestion(req.body);
-  if (validatorMessage) {
+  if (text == ''){
     return ReE(res, {
-      message: validatorMessage
+      message: 'Nevalidni parametri!'
     }, 400);
   }
+
+  // let validatorMessage = validateQuestion(req.body);
+  // if (validatorMessage) {
+  //   return ReE(res, {
+  //     message: validatorMessage
+  //   }, 400);
+  // }
 
   if (req.body.values) values = req.body.values;
 
@@ -623,12 +632,22 @@ exports.getSettings = async (req, res) => {
 
 // CREATE SETTINGS
 exports.createSettings = async (req, res) => {
+  let key = req.body.key;
+  let value = req.body.value;
+  let keyShown =req.body.keyShown;
+
+  if (key === '' || value === ''){
+    return ReE(res, {message: "Nevalidni parametri!"}, 400);
+  }
+  else if (keyShown && !validator.isURL(value)){
+    return ReE(res, {message: "Nevalidan link!"}, 400);
+  }
   let [err, dbSettings] = await to(
     models.Settings.create({
-      key: req.body.key,
-      value: req.body.value,
+      key,
+      value,
       sidebar: req.body.sidebar,
-      keyShown: req.body.keyShown
+      keyShown
     })
   );
   if (err) {
@@ -649,10 +668,11 @@ exports.updateSettings = async (req, res) => {
   form.parse(req, async function(error, fields, files) {
     if (error) {
       console.log(error);
-      return ReE(res, { message: "Došlo je do greške!" }, 400);
+      return ReE(res, { message: "Došlo je do greške!" }, 500);
     }
     let key = fields.key;
     let value = "";
+    
     if (files.value) {
       if (
         files.value.type !== "image/jpeg" &&
@@ -677,6 +697,9 @@ exports.updateSettings = async (req, res) => {
   }
   else {
     value = fields.value;
+    if (value === '' || key === ''){
+      return ReE(res, { message: "Nevalidni parametri!" }, 400);
+    }
   }
    
     let [err, dbUpdated] = await to(
@@ -805,8 +828,8 @@ function validateEvent(body, files) {
     return "Unesite tip programa";
   }
 
-  if (!body.socialMedia || validator.isEmpty(body.socialMedia)) {
-    return "Unesite link";
+  if (!body.socialMedia || validator.isEmpty(body.socialMedia)  || !validator.isURL(body.socialMedia)) {
+    return "Unesite validan link";
   }
 
   if (!body.space || validator.isEmpty(body.space)) {
