@@ -48,39 +48,47 @@
           <li class="inputfield-row">
             <span>Logo organizacije</span>
             <div class="input-file-wrapper">
-                <div v-if="selectedEvent.logo">
-                    <a :href="`${link}/${selectedEvent.logo}`" target="_blank" class="image-link">Kliknite da vidite logo</a>
-                </div>
-                <div class="input-container">
-                    <span>Ako želite da promenite logo, dodajte novi:</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      @change="logoChange($event) || validate($event)"
-                      v-on:change="() => set('logo', selectedEvent.logo, form)"
-                    />
-                </div>
-                <span v-if="form.logo.error" class="error">{{ form.logo.error }}</span>
+              <div v-if="selectedEvent.logo">
+                <a
+                  :href="`${link}/${selectedEvent.logo}`"
+                  target="_blank"
+                  class="image-link"
+                >Kliknite da vidite logo</a>
+              </div>
+              <div class="input-container">
+                <span>Ako želite da promenite logo, dodajte novi:</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="logoChange($event) || validate($event)"
+                  v-on:change="() => set('logo', selectedEvent.logo, form)"
+                />
+              </div>
+              <span v-if="form.logo.error" class="error">{{ form.logo.error }}</span>
             </div>
           </li>
 
           <li class="inputfield-row">
             <span>Slika</span>
             <div class="input-file-wrapper">
-                <div v-if="selectedEvent.picture">
-                    <a :href="`${link}/${selectedEvent.picture}`" target="_blank" class="image-link">Kliknite da vidite sliku</a>
-                </div>
-                <div class="input-container">
-                    <span>Ako želite da promenite sliku, dodajte novu:</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      @change="imageChange($event) || validate($event)"
-                      v-on:change="() => set('picture', selectedEvent.picture, form)"
-                    />
-                </div>
+              <div v-if="selectedEvent.picture">
+                <a
+                  :href="`${link}/${selectedEvent.picture}`"
+                  target="_blank"
+                  class="image-link"
+                >Kliknite da vidite sliku</a>
+              </div>
+              <div class="input-container">
+                <span>Ako želite da promenite sliku, dodajte novu:</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  @change="imageChange($event) || validate($event)"
+                  v-on:change="() => set('picture', selectedEvent.picture, form)"
+                />
+              </div>
 
-                <span v-if="form.picture.error" class="error">{{ form.picture.error }}</span>
+              <span v-if="form.picture.error" class="error">{{ form.picture.error }}</span>
             </div>
           </li>
 
@@ -441,8 +449,19 @@ export default {
         for (let constraintIndex in this.form[key].constraints) {
           const constraint = this.form[key].constraints[constraintIndex];
 
+          if (!constraint) break;
+
           const validationResult = {};
-          if (["startDate", "endDate", "startTime", "endTime", "categoryOther", "spaceOther"].includes(key)) {
+          if (
+            [
+              "startDate",
+              "endDate",
+              "startTime",
+              "endTime",
+              "categoryOther",
+              "spaceOther"
+            ].includes(key)
+          ) {
             validationResult = constraint(this[key]);
           } else {
             validationResult = constraint(this.selectedEvent[key]);

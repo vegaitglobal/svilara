@@ -25,7 +25,7 @@
     "vue-router": "3.0.6",
     "vue-sweetalert2": "2.1.1",
     "vue-tables-2": "^1.4.70",
-    "vue-val": "^1.1.9",
+    "vue-val": "^1.2.1",
     "vue-wysiwyg": "^1.7.2",
     "vuex": "^3.1.1",
     "vuex-persist": "^2.0.1"
