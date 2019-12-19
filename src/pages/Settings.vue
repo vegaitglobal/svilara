@@ -31,11 +31,11 @@
         rows="10"
         cols="90"
         v-model="firstScript"
-        v-on:keyup="() => set('firstScript', firstScript, form)"
+        v-on:keyup="() => set('firstScript', firstScript, analyticsForm)"
       ></textarea>
 
       <button
-        :disabled="!validate(firstScript)"
+        :disabled="!validate(analyticsForm)"
         @click="addFirstScript"
         class="btn btn__purple"
       >Dodaj skriptu</button>
@@ -47,11 +47,11 @@
         rows="10"
         cols="90"
         v-model="secondScript"
-        v-on:keyup="() => set('secondScript', secondScript, form)"
+        v-on:keyup="() => set('secondScript', secondScript, gtmForm)"
       ></textarea>
 
       <button
-        :disabled="!validate(secondScript)"
+        :disabled="!validate(gtmForm)"
         @click="addSecondScript"
         class="btn btn__purple"
       >Dodaj skriptu</button>
@@ -64,8 +64,7 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="disableScroll()"
-      @before-close="enableScroll()"
-    >
+      @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -95,8 +94,7 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="disableScroll()"
-      @before-close="enableScroll()"
-    >
+      @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input type="text" v-model="data2.text" />
@@ -120,8 +118,7 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewSettings() && disableScroll()"
-      @before-close="enableScroll()"
-    >
+      @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Naslov teksta:</h2>
         <input
@@ -156,8 +153,7 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewSettings() && disableScroll()"
-      @before-close="enableScroll()"
-    >
+      @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Naslov linka:</h2>
         <input
@@ -235,6 +231,18 @@ export default {
         value: {
           valid: false,
           constraints: [required, isUrl]
+        }
+	  },
+	  analyticsForm: {
+        firstScript: {
+          valid: false,
+          constraints: [required]
+        }
+	  },
+	  gtmForm: {
+        secondScript: {
+          valid: false,
+          constraints: [required]
         }
       },
       form: {
