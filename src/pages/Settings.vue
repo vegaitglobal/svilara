@@ -338,11 +338,21 @@ export default {
         keyShown: keyShown,
         sidebar: "1"
       };
-      this.$store.dispatch("addSetting", setting);
-      this.$modal.hide("adminCreateSettingsText");
-      this.$modal.hide("adminCreateSettingsLink");
-      this.newSetting.key = "";
-      this.newSetting.value = "";
+      this.$store
+        .dispatch("addSetting", setting)
+        .then(() => {
+          this.$modal.hide("adminCreateSettingsText");
+          this.$modal.hide("adminCreateSettingsLink");
+          this.newSetting.keyText = "";
+          this.newSetting.valueText = "";
+        })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error.response.data.error
+          });
+        });
     },
     saveInputText() {
       let question = {
@@ -354,11 +364,20 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question);
-      this.$modal.hide("adminCreateQuestionText");
-      this.data1.text = "";
-      this.data1.mandatory = "";
-    },
+      this.$store.dispatch("addQuestion", question)
+      .then(() => {
+        this.$modal.hide("adminCreateQuestionText");
+        this.data1.text = "";
+        this.data1.mandatory = "";
+      })
+      .catch((error) => {
+        this.$swal.fire({
+          type: "error",
+          title: "Greška!",
+          text: error.response.data.error
+        });
+      })
+    }, 
     saveInputFile() {
       let question = {
         text: this.data2.text,
@@ -369,10 +388,19 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question);
+      this.$store.dispatch("addQuestion", question)
+      .then(() => {
       this.$modal.hide("adminCreateQuestionPicture");
       this.data2.text = "";
       this.data2.mandatory = "";
+      })
+      .catch(error => {
+        this.$swal.fire({
+          type: "error",
+          title: "Greška!",
+          text: error.response.data.error
+        });
+      });
     },
     validateScript(script) {
       if (script.substring(0, 8) !== "<script>") {

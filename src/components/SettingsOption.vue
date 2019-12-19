@@ -75,21 +75,29 @@ export default {
   },
   methods: {
     async save() {
-
       const form = new FormData();
       for (var prop in this.loaclOption) {
         form.append(prop, this.loaclOption[prop]);
       }
       let formIdObject = { id: this.loaclOption.id, form: form };
 
-      await this.$store.dispatch("updateSettings", formIdObject);
+      this.$store
+        .dispatch("updateSettings", formIdObject)
+        .then(() => { this.editing = false; })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error.response.data.error
+          });
+        });
 
-      this.editing = false;
+     
     },
     logoChange(event) {
       this.loaclOption.value = event.target.files[0];
     },
-    async deleteOption(){
+    async deleteOption() {
       await this.$store.dispatch("deleteSettingsOption", this.loaclOption.id);
     }
   }
