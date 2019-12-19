@@ -341,15 +341,25 @@ export default {
     },
 
     async updateQuestion({ commit }, question) {
-      try {
-        const res = await axios.put(
-          `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
-          question
-        );
-        return res;
-      } catch (err) {
-        return err;
-      }
+      return new Promise((resolve, reject) => {
+        axios
+          .put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question)
+          .then(() => {
+            resolve();
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+      // try {
+      //   const res = await axios.put(
+      //     `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
+      //     question
+      //   );
+      //   return res;
+      // } catch (err) {
+      //   return err;
+      // }
     },
 
     async updateEvent({ commit }, question) {
@@ -375,15 +385,18 @@ export default {
     },
 
     async addQuestion({ dispatch }, question) {
-      try {
-        const res = await axios.post(
-          `${process.env.VUE_APP_BASE_URL}/admin/question`,
-          question
-        );
-        dispatch("fetchQuestions");
-      } catch (err) {
-        return err;
-      }
+
+      return new Promise((resolve, reject) => {
+        axios
+          .post(`${process.env.VUE_APP_BASE_URL}/admin/question`, question)
+          .then(() => {
+            dispatch("fetchQuestions");
+            resolve();
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
     }
   }
 };

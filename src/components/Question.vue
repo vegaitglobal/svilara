@@ -27,7 +27,6 @@
       >
       Sačuvaj
       </button>
-
       <button
       v-if="deleteUpdateOption()"
       class="btn btn__red btn__small"
@@ -66,8 +65,18 @@ export default {
 
   methods: {
     save() {
-      this.$store.dispatch("updateQuestion", this.question);
+      this.$store.dispatch("updateQuestion", this.question)
+      .then(() => {
       this.editing = false;
+      })
+      .catch(error => {
+        console.log('usao je')
+        this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error.response.data.error
+          });
+      });
     },
     deleteQuestion() {
       this.$store.dispatch("deleteQuestion", this.question.id);

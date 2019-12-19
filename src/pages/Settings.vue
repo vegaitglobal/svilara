@@ -46,10 +46,15 @@
         rows="10"
         cols="90"
         v-model="firstScript"
-        v-on:keyup="() => set('firstScript', firstScript, form)">
+        v-on:keyup="() => set('firstScript', firstScript, form)"
+      >
       </textarea>
 
-      <button :disabled="validate(firstScript)" @click="addFirstScript" class="btn btn__purple">
+      <button
+        :disabled="validate(firstScript)"
+        @click="addFirstScript"
+        class="btn btn__purple"
+      >
         Dodaj skriptu
       </button>
     </div>
@@ -59,10 +64,15 @@
         rows="10"
         cols="90"
         v-model="secondScript"
-        v-on:keyup="() => set('secondScript', secondScript, form)">
+        v-on:keyup="() => set('secondScript', secondScript, form)"
+      >
       </textarea>
 
-      <button :disabled="validate(secondScript)" @click="addSecondScript" class="btn btn__purple">
+      <button
+        :disabled="validate(secondScript)"
+        @click="addSecondScript"
+        class="btn btn__purple"
+      >
         Dodaj skriptu
       </button>
     </div>
@@ -149,11 +159,7 @@
 import SettingsOption from "../components/SettingsOption.vue";
 import Question from "../components/Question.vue";
 import axios from "axios";
-import {
-  required,
-  set,
-  validate
-} from "vue-val";
+import { required, set, validate } from "vue-val";
 
 export default {
   name: "Settings",
@@ -193,7 +199,7 @@ export default {
   },
   created() {
     this.$store.dispatch("fetchSettings");
-    this.$store.dispatch("fetchQuestions").catch((err) => {});
+    this.$store.dispatch("fetchQuestions").catch(err => {});
   },
 
   computed: {
@@ -235,11 +241,21 @@ export default {
         keyShown: keyShown,
         sidebar: "1"
       };
-      this.$store.dispatch("addSetting", setting);
-      this.$modal.hide("adminCreateSettingsText");
-      this.$modal.hide("adminCreateSettingsLink");
-      this.newSetting.keyText = "";
-      this.newSetting.valueText = "";
+      this.$store
+        .dispatch("addSetting", setting)
+        .then(() => {
+          this.$modal.hide("adminCreateSettingsText");
+          this.$modal.hide("adminCreateSettingsLink");
+          this.newSetting.keyText = "";
+          this.newSetting.valueText = "";
+        })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error.response.data.error
+          });
+        });
     },
     saveInputText() {
       let question = {
@@ -251,11 +267,20 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question);
-      this.$modal.hide("adminCreateQuestionText");
-      this.data1.text = "";
-      this.data1.mandatory = "";
-    },
+      this.$store.dispatch("addQuestion", question)
+      .then(() => {
+        this.$modal.hide("adminCreateQuestionText");
+        this.data1.text = "";
+        this.data1.mandatory = "";
+      })
+      .catch((error) => {
+        this.$swal.fire({
+          type: "error",
+          title: "Greška!",
+          text: error.response.data.error
+        });
+      })
+    }, 
     saveInputFile() {
       let question = {
         text: this.data2.text,
@@ -266,10 +291,19 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question);
+      this.$store.dispatch("addQuestion", question)
+      .then(() => {
       this.$modal.hide("adminCreateQuestionPicture");
       this.data2.text = "";
       this.data2.mandatory = "";
+      })
+      .catch(error => {
+        this.$swal.fire({
+          type: "error",
+          title: "Greška!",
+          text: error.response.data.error
+        });
+      });
     },
     validateScript(script) {
       if (script.substring(0, 8) !== "<script>") {
@@ -321,7 +355,7 @@ export default {
         } else break;
       }
 
-     if (html[0]) {
+      if (html[0]) {
         head.insertBefore(html[0], head.children[numberOfScriptUnderHeadTag]);
       }
       let script = { value: this.secondScript };
@@ -334,7 +368,7 @@ export default {
             type: "success"
           });
         })
-         .catch(error => {
+        .catch(error => {
           this.$swal.fire({
             title: "Greška!",
             text: error.response.data.error,
@@ -403,7 +437,7 @@ export default {
   }
 }
 .button-wrapper {
-width: 100%;
+  width: 100%;
 }
 .settings-button {
   margin: 10px 20px 25px 0;
