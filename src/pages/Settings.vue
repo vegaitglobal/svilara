@@ -5,23 +5,40 @@
       <button
         @click="showModalSettingsLink()"
         class="btn btn__purple settings-button"
-      >Dodaj link u sidebar</button>
+      >
+        Dodaj link u sidebar
+      </button>
       <button
         @click="showModalSettingsText()"
         class="btn btn__purple settings-button"
-      >Dodaj tekst u sidebar</button>
-      <SettingsOption v-for="(option) in settings" :key="`${option.id}b`" :option="option" />
+      >
+        Dodaj tekst u sidebar
+      </button>
+      <SettingsOption
+        v-for="option in settings"
+        :key="`${option.id}b`"
+        :option="option"
+      />
       <h3 class="settings-heading">Podešavanja pitanja u formularu</h3>
       <button
         @click="showModalQuestionText"
         class="btn btn__purple settings-button"
-      >Dodaj pitanje gde je odgovor tekst</button>
+      >
+        Dodaj pitanje gde je odgovor tekst
+      </button>
       <button
         @click="showModalQuestionPicture"
         class="btn btn__purple settings-button"
-      >Dodaj pitanje gde je odgovor slika</button>
+      >
+        Dodaj pitanje gde je odgovor slika
+      </button>
       <!-- {{questions}} -->
-      <Question v-for="question in questions" :key="`${question.id}a`" :question="question" />
+      <Question
+        v-for="question in questions"
+        :key="`${question.id}a`"
+        :question="question"
+        :showModalQuestionDeleteProp="showModalQuestionDelete"
+      />
     </div>
 
     <h3 class="settings-heading">Dodavanje skripte</h3>
@@ -38,7 +55,9 @@
         :disabled="!validate(analyticsForm)"
         @click="addFirstScript"
         class="btn btn__purple"
-      >Dodaj skriptu</button>
+      >
+        Dodaj skriptu
+      </button>
     </div>
 
     <div class="script-input">
@@ -54,7 +73,9 @@
         :disabled="!validate(gtmForm)"
         @click="addSecondScript"
         class="btn btn__purple"
-      >Dodaj skriptu</button>
+      >
+        Dodaj skriptu
+      </button>
     </div>
 
     <modal
@@ -137,7 +158,9 @@
           v-model="newSettingText.keyText"
           v-on:keyup="e => set('key', e.target.value, textModalForm)"
         />
-        <span v-if="textModalForm.key.error" class="error">{{ textModalForm.key.error }}</span>
+        <span v-if="textModalForm.key.error" class="error">{{
+          textModalForm.key.error
+        }}</span>
       </div>
 
       <div class="question-wrapper">
@@ -147,14 +170,18 @@
           v-model="newSettingText.valueText"
           v-on:keyup="e => set('value', e.target.value, textModalForm)"
         />
-        <span v-if="textModalForm.value.error" class="error">{{ textModalForm.value.error }}</span>
+        <span v-if="textModalForm.value.error" class="error">{{
+          textModalForm.value.error
+        }}</span>
       </div>
 
       <button
         :disabled="!validate(textModalForm)"
         @click="addSettingsText()"
         class="btn btn__purple btn__large"
-      >Sačuvaj</button>
+      >
+        Sačuvaj
+      </button>
     </modal>
 
     <modal
@@ -172,7 +199,9 @@
           v-model="newSettingLink.keyText"
           v-on:keyup="e => set('key', e.target.value, linkModalForm)"
         />
-        <span v-if="linkModalForm.key.error" class="error">{{ linkModalForm.key.error }}</span>
+        <span v-if="linkModalForm.key.error" class="error">{{
+          linkModalForm.key.error
+        }}</span>
       </div>
 
       <div class="question-wrapper">
@@ -182,14 +211,38 @@
           v-model="newSettingLink.valueText"
           v-on:keyup="e => set('value', e.target.value, linkModalForm)"
         />
-        <span v-if="linkModalForm.value.error" class="error">{{ linkModalForm.value.error }}</span>
+        <span v-if="linkModalForm.value.error" class="error">{{
+          linkModalForm.value.error
+        }}</span>
       </div>
 
       <button
         :disabled="!validate(linkModalForm)"
         @click="addSettingsLink()"
         class="btn btn__purple btn__large"
-      >Sačuvaj</button>
+      >
+        Sačuvaj
+      </button>
+    </modal>
+    <modal
+      name="deleteQuestion"
+      height="450"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+    >
+      <div class="question-wrapper">
+        <h2>Da li ste sigurni da želite da obrišete ovo pitanje?</h2>
+      </div>
+      <button
+        @click="hideModalQuestionDelete"
+        class="btn btn__purple btn__large"
+      >
+        Odustani
+      </button>
+      <button @click="deleteQuestion" class="btn btn__purple btn__large">
+        Obriši
+      </button>
     </modal>
   </div>
 </template>
@@ -208,6 +261,7 @@ export default {
   },
   data() {
     return {
+      idDelete: "",
       data1: {
         text: "",
         mandatory: ""
@@ -220,7 +274,7 @@ export default {
         keyText: "",
         valueText: ""
       },
-       newSettingLink: {
+      newSettingLink: {
         keyText: "",
         valueText: ""
       },
@@ -317,6 +371,19 @@ export default {
     }
   },
   methods: {
+    showModalQuestionDelete(id) {
+      console.log('usao')
+      this.idDelete = id;
+      this.$modal.show("deleteQuestion");
+    },
+    hideModalQuestionDelete() {
+      this.$modal.hide("deleteQuestion");
+    },
+    deleteQuestion() {
+      this.$store
+        .dispatch("deleteQuestion", this.idDelete)
+        .then(() => this.hideModalQuestionDelete());
+    },
     showModalQuestionText() {
       this.$modal.show("adminCreateQuestionText");
     },
@@ -474,19 +541,20 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question)
-      .then(() => {
-        this.$modal.hide("adminCreateQuestionText");
-        this.data1.text = "";
-        this.data1.mandatory = "";
-      })
-      .catch((error) => {
-        this.$swal.fire({
-          type: "error",
-          title: "Greška!",
-          text: error.response.data.error
+      this.$store
+        .dispatch("addQuestion", question)
+        .then(() => {
+          this.$modal.hide("adminCreateQuestionText");
+          this.data1.text = "";
+          this.data1.mandatory = "";
+        })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška!",
+            text: error.response.data.error
+          });
         });
-      })
     },
     saveInputFile() {
       let question = {
@@ -498,19 +566,20 @@ export default {
         name: `question${this.questions[this.questions.length - 1].id + 1}`
       };
 
-      this.$store.dispatch("addQuestion", question)
-      .then(() => {
-      this.$modal.hide("adminCreateQuestionPicture");
-      this.data2.text = "";
-      this.data2.mandatory = "";
-      })
-      .catch(error => {
-        this.$swal.fire({
-          type: "error",
-          title: "Greška!",
-          text: error.response.data.error
+      this.$store
+        .dispatch("addQuestion", question)
+        .then(() => {
+          this.$modal.hide("adminCreateQuestionPicture");
+          this.data2.text = "";
+          this.data2.mandatory = "";
+        })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška!",
+            text: error.response.data.error
+          });
         });
-      });
     },
     validateScript(script) {
       if (script.substring(0, 8) !== "<script>") {
