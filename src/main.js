@@ -16,8 +16,6 @@ import axios from "axios";
 import router from "./router";
 
 import './interceptor'
-//import './permissions'
-import "./validation";
 
 import "vue-material-design-icons/styles.css";
 

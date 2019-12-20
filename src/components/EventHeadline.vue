@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import moment from "moment";
+
 export default {
   name: 'EventHeadline',
   props: {
@@ -22,7 +22,7 @@ export default {
     isSelectedMonthPassed(){
       return this.$store.getters.getIsSelectedMonthPassed;
     }
-  } 
+  }
 }
 </script>
 

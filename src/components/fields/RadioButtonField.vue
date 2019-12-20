@@ -39,7 +39,7 @@ export default {
     };
   },
   methods: {
-    onChange(event) {
+    onChange() {
       let finalAnswer = this.answer;
 
       if (this.answer == "Drugo / Other") {

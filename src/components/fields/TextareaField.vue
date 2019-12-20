@@ -19,7 +19,7 @@ export default {
     };
   },
   methods: {
-    onChange(event) {
+    onChange() {
       let fieldValidationObject = {
         valid: true,
         message: null

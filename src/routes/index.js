@@ -5,9 +5,6 @@ import Editor from "../pages/Editor.vue";
 import Login from "@/pages/Login.vue";
 import NewEvent from "@/pages/NewEvent.vue";
 import AllEvents from "@/pages/AllEvents.vue";
-import Register from "@/pages/Register.vue";
-import VerifyEmail from "@/pages/VerifyEmail.vue";
-import Logout from "@/pages/Logout.vue";
 import ResetPasswordEmail from "@/pages/ResetPasswordEmail.vue";
 import ForgotPassword from "@/pages/ForgotPassword.vue";
 import Settings from "@/pages/Settings.vue";
@@ -78,27 +75,9 @@ const routes = [
     }
   },
   {
-    path: "/register",
-    component: Register,
-    name: "Register"
-  },
-  {
-    path: "/verify-email/:token",
-    component: VerifyEmail,
-    name: "VerifyEmail"
-  },
-  {
     path: "/admin/reset-password/:id/:token",
     component: ResetPasswordEmail,
     name: "ResetPasswordEmail"
-  },
-  {
-    path: "/logout",
-    component: Logout,
-    name: "Logout",
-    meta: {
-      requiresAuth: true,
-    }
   }
 ];
 

@@ -63,28 +63,31 @@
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
-      @opened="disableScroll()"
+      @opened="cleanNewTextQuestion() && disableScroll()"
       @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
           type="text"
           v-model="data1.text"
-          v-on:keyup="() => set('text', e.target.value, form)"
+          v-on:keyup="() => set('text', data1.text, newTextQuestionForm)"
         />
-        <!-- <span v-if="form.text.error" class="error">{{ form.text.error }}</span> -->
+        <span v-if="newTextQuestionForm.text.error" class="error">{{ newTextQuestionForm.text.error }}</span>
       </div>
 
       <div class="question-wrapper">
         <p>Da li je odgovor obavezan?</p>
-        <select v-model="data1.mandatory" v-on:change="e => set('mandatory', e.target.value, form)">
+        <select
+          v-model="data1.mandatory"
+          v-on:change="e => set('mandatory', e.target.value, newTextQuestionForm)"
+        >
           <option value="1">Da</option>
           <option value="0">Ne</option>
         </select>
-        <!-- <span v-if="form.text.error" class="error">{{ form.text.error }}</span> -->
+        <span v-if="newTextQuestionForm.mandatory.error" class="error">{{ newTextQuestionForm.mandatory.error }}</span>
       </div>
 
-      <button @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
+      <button :disabled="!validate(newTextQuestionForm)" @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
 
     <modal
@@ -93,22 +96,30 @@
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
-      @opened="disableScroll()"
+      @opened="cleanNewImageQuestion() && disableScroll()"
       @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
-        <input type="text" v-model="data2.text" />
+        <input
+          type="text"
+          v-model="data2.text"
+          v-on:keyup="() => set('text', data2.text, newImageQuestionForm)"
+        />
+        <span v-if="newImageQuestionForm.text.error" class="error">{{ newImageQuestionForm.text.error }}</span>
       </div>
 
       <div class="question-wrapper">
         <p>Da li je odgovor obavezan?</p>
-        <select v-model="data2.mandatory">
+        <select
+          v-model="data2.mandatory"
+          v-on:change="e => set('mandatory', e.target.value, newImageQuestionForm)">
           <option value="1">Da</option>
           <option value="0">Ne</option>
         </select>
+        <span v-if="newImageQuestionForm.mandatory.error" class="error">{{ newImageQuestionForm.mandatory.error }}</span>
       </div>
 
-      <button @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
+      <button :disabled="!validate(newImageQuestionForm)" @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
     </modal>
 
     <modal
@@ -245,6 +256,26 @@ export default {
           constraints: [required]
         }
       },
+      newTextQuestionForm: {
+        text: {
+          valid: false,
+          constraints: [required]
+        },
+        mandatory: {
+          valid: false,
+          constraints: [required]
+        }
+      },
+      newImageQuestionForm: {
+        text: {
+          valid: false,
+          constraints: [required]
+        },
+        mandatory: {
+          valid: false,
+          constraints: [required]
+        }
+      },
       form: {
         firstScript: {
           valid: false,
@@ -271,7 +302,6 @@ export default {
     this.$store.dispatch("fetchSettings");
     this.$store.dispatch("fetchQuestions").catch(err => {});
   },
-
   computed: {
     settings: {
       get: function() {
@@ -310,6 +340,36 @@ export default {
         value: {
           valid: false,
           constraints: [required, isUrl]
+        }
+      };
+    },
+    cleanNewTextQuestion() {
+      this.data1.text = "";
+      this.data1.mandatory = "";
+
+      this.newTextQuestionForm = {
+        text: {
+          valid: false,
+          constraints: [required]
+        },
+        mandatory: {
+          valid: false,
+          constraints: [required]
+        }
+      };
+    },
+    cleanNewImageQuestion() {
+      this.data2.text = "";
+      this.data2.mandatory = "";
+
+      this.newImageQuestionForm = {
+        text: {
+          valid: false,
+          constraints: [required]
+        },
+        mandatory: {
+          valid: false,
+          constraints: [required]
         }
       };
     },

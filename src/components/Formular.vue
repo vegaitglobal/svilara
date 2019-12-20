@@ -5,7 +5,7 @@
       :key="question.name"
       :question="question"
       :is="mapToType(question.fieldType)"
-      :constraints="resolveQuestionConstraints(question)"
+      :constraints="question.mandatory ? [required] : []"
       @validate="(isValid) => setQuestion(question.name, isValid)"
       :index="index"
     ></component>
@@ -19,7 +19,7 @@ import CheckBoxField from "./fields/CheckboxField";
 import FileField from "./fields/FileField";
 import RadioButtonField from "./fields/RadioButtonField";
 import TextareaField from "./fields/TextareaField";
-import { required, isEmail, isNumeric, isUrl } from "vue-val";
+import { required } from "vue-val";
 
 export default {
   name: "Formular",
@@ -43,23 +43,6 @@ export default {
     this.sortQuestions();
   },
   methods: {
-    resolveQuestionConstraints(question) {
-		const constraints = [];
-		const constraintTable = {
-			email: [isEmail],
-			question3: [isNumeric],
-			question5: [isUrl],
-			question19: [isNumeric],
-		};
-
-		if(question.mandatory)
-			constraints.push(required);
-
-		if(constraintTable[question.name])
-			constraints.push(...constraintTable[question.name]);
-
-      return constraints;
-    },
     setQuestion(questionName, isValid) {
       this.questions.map(question => {
         if (question.name == questionName) question.isValid = isValid;

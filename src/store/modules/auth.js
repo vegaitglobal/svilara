@@ -66,59 +66,26 @@ export default {
             email: email,
           })
           .then(response => {
-            //console.error(response);
             //commit('SET_USER', response.data.user);
             commit("SET_TOKEN", response.data.token);
             resolve(response);
           })
           .catch(error => {
-            //console.error(error);
             reject(error);
           });
       });
     },
 
     logout({ commit }) {
-      return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
         try {
-          commit("REMOVE_TOKEN");
-          localStorage.removeItem('token');
-          resolve();
+        commit("REMOVE_TOKEN");
+        localStorage.removeItem('token');
+        resolve();
         } catch (err) {
-          reject(err);
+        reject(err);
         }
-      });
-    },
-
-    register({ commit }, data) {
-      return new Promise((resolve, reject) => {
-        axios
-          .post(`${process.env.VUE_APP_API_BASE_URL}/users/register`, {
-            email: data.email,
-            password: data.password,
-            password_confirmation: data.password_confirmation,
-            name: data.name
-          })
-          .then(response => {
-            resolve(response);
-          })
-          .catch(error => {
-            reject(error);
-          });
-      });
-    },
-
-    verifyEmail({ commit }, token) {
-      return new Promise((resolve, reject) => {
-        axios
-          .get(`${process.env.VUE_APP_API_BASE_URL}/users/verify/${token}`)
-          .then(response => {
-            resolve(response);
-          })
-          .catch(error => {
-            reject(error);
-          });
-      });
+        });
     },
 
     resetPassword({ commit }, data) {
