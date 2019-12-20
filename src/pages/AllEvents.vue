@@ -150,6 +150,8 @@ export default {
   overflow: auto;
 }
 .VueTables__table {
+  width: calc(100% - 1px);
+  overflow: visible !important;
   td {
     padding: 15px;
     border: 1px solid $purple-light;
