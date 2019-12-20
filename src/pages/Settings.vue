@@ -134,7 +134,7 @@
         <h2>Naslov teksta:</h2>
         <input
           type="text"
-          v-model="newSetting.key"
+          v-model="newSettingText.keyText"
           v-on:keyup="e => set('key', e.target.value, textModalForm)"
         />
         <span v-if="textModalForm.key.error" class="error">{{ textModalForm.key.error }}</span>
@@ -144,7 +144,7 @@
         <h2>Unesite tekst:</h2>
         <input
           type="text"
-          v-model="newSetting.value"
+          v-model="newSettingText.valueText"
           v-on:keyup="e => set('value', e.target.value, textModalForm)"
         />
         <span v-if="textModalForm.value.error" class="error">{{ textModalForm.value.error }}</span>
@@ -152,7 +152,7 @@
 
       <button
         :disabled="!validate(textModalForm)"
-        @click="addSettings(0)"
+        @click="addSettingsText()"
         class="btn btn__purple btn__large"
       >Sačuvaj</button>
     </modal>
@@ -169,7 +169,7 @@
         <h2>Naslov linka:</h2>
         <input
           type="text"
-          v-model="newSetting.key"
+          v-model="newSettingLink.keyText"
           v-on:keyup="e => set('key', e.target.value, linkModalForm)"
         />
         <span v-if="linkModalForm.key.error" class="error">{{ linkModalForm.key.error }}</span>
@@ -179,7 +179,7 @@
         <h2>Unesite link:</h2>
         <input
           type="text"
-          v-model="newSetting.value"
+          v-model="newSettingLink.valueText"
           v-on:keyup="e => set('value', e.target.value, linkModalForm)"
         />
         <span v-if="linkModalForm.value.error" class="error">{{ linkModalForm.value.error }}</span>
@@ -187,7 +187,7 @@
 
       <button
         :disabled="!validate(linkModalForm)"
-        @click="addSettings(1)"
+        @click="addSettingsLink()"
         class="btn btn__purple btn__large"
       >Sačuvaj</button>
     </modal>
@@ -216,12 +216,16 @@ export default {
         text: "",
         mandatory: ""
       },
+      newSettingText: {
+        keyText: "",
+        valueText: ""
+      },
+       newSettingLink: {
+        keyText: "",
+        valueText: ""
+      },
       firstScript: "",
       secondScript: "",
-      newSetting: {
-        key: "",
-        value: ""
-      },
       set,
       validate,
       textModalForm: {
@@ -317,8 +321,8 @@ export default {
       this.$modal.show("adminCreateQuestionText");
     },
     cleanNewSettings() {
-      this.newSetting.key = "";
-      this.newSetting.value = "";
+      // this.newSetting.key = "";
+      // this.newSetting.value = "";
 
       // Reset validation on both forms to the original state.
       this.textModalForm = {
@@ -391,20 +395,41 @@ export default {
       document.body.style.overflowY = "auto";
       document.body.style.position = "static";
     },
-    addSettings(keyShown) {
+    addSettingsText() {
       let setting = {
-        key: this.newSetting.key,
-        value: this.newSetting.value,
-        keyShown: keyShown,
-        sidebar: "1"
+        key: this.newSettingText.keyText,
+        value: this.newSettingText.valueText,
+        keyShown: 0,
+        sidebar: 1
       };
       this.$store
         .dispatch("addSetting", setting)
         .then(() => {
           this.$modal.hide("adminCreateSettingsText");
+          this.newSettingText.keyText = "";
+          this.newSettingText.valueText = "";
+        })
+        .catch(error => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error.response.data.error
+          });
+        });
+    },
+    addSettingsLink() {
+      let setting = {
+        key: this.newSettingLink.keyText,
+        value: this.newSettingLink.valueText,
+        keyShown: 1,
+        sidebar: 1
+      };
+      this.$store
+        .dispatch("addSetting", setting)
+        .then(() => {
           this.$modal.hide("adminCreateSettingsLink");
-          this.newSetting.keyText = "";
-          this.newSetting.valueText = "";
+          this.newSettingLink.keyText = "";
+          this.newSettingLink.valueText = "";
         })
         .catch(error => {
           this.$swal.fire({
