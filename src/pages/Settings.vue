@@ -18,6 +18,7 @@
         v-for="option in settings"
         :key="`${option.id}b`"
         :option="option"
+        :showModalSettingsDeleteProp="showModalSettingsDelete"
       />
       <h3 class="settings-heading">Podešavanja pitanja u formularu</h3>
       <button
@@ -244,6 +245,26 @@
         Obriši
       </button>
     </modal>
+    <modal
+      name="deleteSettings"
+      height="450"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+    >
+      <div class="question-wrapper">
+        <h2>Da li ste sigurni da želite da obrišete ovo podešavanje?</h2>
+      </div>
+      <button
+        @click="hideModalSettingsDelete"
+        class="btn btn__purple btn__large"
+      >
+        Odustani
+      </button>
+      <button @click="deleteSettings" class="btn btn__purple btn__large">
+        Obriši
+      </button>
+    </modal>
   </div>
 </template>
 
@@ -262,6 +283,7 @@ export default {
   data() {
     return {
       idDelete: "",
+      settingsIdDelete: "",
       data1: {
         text: "",
         mandatory: ""
@@ -371,8 +393,19 @@ export default {
     }
   },
   methods: {
+    showModalSettingsDelete(id) {
+      this.settingsIdDelete = id;
+      this.$modal.show("deleteSettings");
+    },
+    hideModalSettingsDelete() {
+      this.$modal.hide("deleteSettings");
+    },
+    deleteSettings() {
+      this.$store
+        .dispatch("deleteSettingsOption", this.settingsIdDelete)
+        .then(() => this.hideModalSettingsDelete());
+    },
     showModalQuestionDelete(id) {
-      console.log('usao')
       this.idDelete = id;
       this.$modal.show("deleteQuestion");
     },

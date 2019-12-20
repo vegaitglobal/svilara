@@ -54,7 +54,7 @@
       <button
         v-if="loaclOption.sidebar"
         class="btn btn__red btn__small"
-        @click="deleteOption"
+        @click="showModalSettingsDelete(option.id)"
       >
         Obriši
       </button>
@@ -65,7 +65,7 @@
 <script>
 export default {
   name: "SettingsOption",
-  props: ["option"],
+  props: ["option", "showModalSettingsDeleteProp"],
 
   data() {
     return {
@@ -74,6 +74,9 @@ export default {
     };
   },
   methods: {
+    showModalSettingsDelete(id){
+      this.showModalSettingsDeleteProp(id);
+    },
     async save() {
       const form = new FormData();
       for (var prop in this.loaclOption) {
@@ -96,9 +99,6 @@ export default {
     },
     logoChange(event) {
       this.loaclOption.value = event.target.files[0];
-    },
-    async deleteOption() {
-      await this.$store.dispatch("deleteSettingsOption", this.loaclOption.id);
     }
   }
 };
