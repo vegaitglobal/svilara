@@ -232,7 +232,6 @@ import {
   isUrl,
   set,
   validate,
-  messages,
   notNull,
   notUndefined
 } from "vue-val";

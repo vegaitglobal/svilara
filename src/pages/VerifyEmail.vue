@@ -18,18 +18,17 @@ export default {
             type: "success",
             title: "Mail verified",
             text: "You can now login to your account"
-          }).then(function(result) {
+          }).then(function() {
             window.location.href = "/#/login";
           });
         }
       } catch (error) {
-        console.error(error.response);
         if (parseInt(error.response.status) === 400) {
           this.$swal({
             type: "error",
             title: "Oops...",
             text: error.response.data.message
-          }).then(function(result) {
+          }).then(function() {
             window.location.href = "/#/register";
           });
         }

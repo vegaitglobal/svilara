@@ -126,7 +126,7 @@ export default {
             type: "success",
             title: "Šifra uspešno promenjena",
             text: "Sada možete da se ulogujete na Vaš nalog."
-          }).then(function(result) {
+          }).then(function() {
             window.location.href = "/#/admin/login";
           });
         }

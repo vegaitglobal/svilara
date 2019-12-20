@@ -3,7 +3,7 @@
     <MainEvent  v-if="!isSearching && isCurrentMonth" :event="nextEvent"/>
     <EventHeadline/>
     <div class="daily-event-wrap">
-      <DailyEvent :key="event.id" v-for="(event, index) in events" :event="event"/>
+      <DailyEvent :key="event.id" v-for="(event) in events" :event="event"/>
       <h3 v-if="events.length == 0"> Nema rezultata</h3>
     </div>
   </div>

@@ -232,14 +232,14 @@ export default {
           valid: false,
           constraints: [required, isUrl]
         }
-	  },
-	  analyticsForm: {
+      },
+      analyticsForm: {
         firstScript: {
           valid: false,
           constraints: [required]
         }
-	  },
-	  gtmForm: {
+      },
+      gtmForm: {
         secondScript: {
           valid: false,
           constraints: [required]
@@ -377,7 +377,7 @@ export default {
           text: error.response.data.error
         });
       })
-    }, 
+    },
     saveInputFile() {
       let question = {
         text: this.data2.text,
