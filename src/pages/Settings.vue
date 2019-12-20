@@ -128,7 +128,7 @@
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
-      @opened="cleanNewSettings() && disableScroll()"
+      @opened="cleanNewSettingText() && disableScroll()"
       @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Naslov teksta:</h2>
@@ -163,7 +163,7 @@
       width="600"
       overlayTransition="overlay-fade"
       class="modal__create-question"
-      @opened="cleanNewSettings() && disableScroll()"
+      @opened="cleanNewSettingLink() && disableScroll()"
       @before-close="enableScroll()">
       <div class="question-wrapper">
         <h2>Naslov linka:</h2>
@@ -320,11 +320,36 @@ export default {
     showModalQuestionText() {
       this.$modal.show("adminCreateQuestionText");
     },
-    cleanNewSettings() {
-      // this.newSetting.key = "";
-      // this.newSetting.value = "";
+    cleanNewSettingText() {
+      this.newSettingText.keyText = "";
+      this.newSettingText.valueText = "";
 
-      // Reset validation on both forms to the original state.
+      this.textModalForm = {
+        key: {
+          valid: false,
+          constraints: [required]
+        },
+        value: {
+          valid: false,
+          constraints: [required]
+        }
+      };
+
+      this.linkModalForm = {
+        key: {
+          valid: false,
+          constraints: [required]
+        },
+        value: {
+          valid: false,
+          constraints: [required, isUrl]
+        }
+      };
+    },
+    cleanNewSettingLink() {
+      this.newSettingLink.keyText = "";
+      this.newSettingLink.valueText = "";
+
       this.textModalForm = {
         key: {
           valid: false,
