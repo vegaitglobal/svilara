@@ -86,6 +86,6 @@ export default {
 .radio-error {
   padding-left: 25px;
   display: block;
-  color: $purple;
+  color: $main;
 }
 </style>

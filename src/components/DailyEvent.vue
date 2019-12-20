@@ -187,7 +187,7 @@ export default {
   }
   &--date {
     text-transform: uppercase;
-    background: $purple;
+    background: $main;
     height: 53px;
     width: 53px;
     position: absolute;
@@ -216,7 +216,7 @@ export default {
     }
     &--icons-ico {
       margin-right: 5px;
-      background: $purple;
+      background: $main;
       border-radius: 30px;
       text-align: center;
       color: $white;

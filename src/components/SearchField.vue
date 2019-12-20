@@ -47,7 +47,7 @@ export default {
     font-size: 20px;
     margin-bottom: 6px;
     svg {
-      fill: $purple;
+      fill: $main;
     }
   }
   &--input {
@@ -55,18 +55,18 @@ export default {
     line-height: 20px;
     background-color: transparent;
     border: 0;
-    color: $purple;
+    color: $main;
     padding: 5px;
     &::placeholder {
       font-size: 16px;
       line-height: 20px;
-      color: rgba($purple, 0.5);
+      color: rgba($main, 0.5);
     }
     @include breakpoint(desk-xl) {
       width: 142px;
     }
     @include breakpoint(mob-sm) {
-      border-bottom: 1px solid $purple;
+      border-bottom: 1px solid $main;
       width: 180px;
     }
   }

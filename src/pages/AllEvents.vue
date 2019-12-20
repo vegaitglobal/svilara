@@ -194,10 +194,10 @@ select.form-control {
       margin-left: -1px;
       &.active {
         color: $white;
-        background-color: $purple;
-        border-color: $purple;
+        background-color: $main;
+        border-color: $main;
         &:hover {
-          background-color: $purple;
+          background-color: $main;
         }
       }
       &[disabled] {

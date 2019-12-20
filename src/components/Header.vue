@@ -355,8 +355,8 @@ export default {
     background: $white;
     width: 2px;
     height: 2px;
-    box-shadow: 2px 0 0 $purple, 4px 0 0 $purple, 4px -2px 0 $purple,
-      4px -4px 0 $purple, 4px -6px 0 $purple, 4px -8px 0 $purple;
+    box-shadow: 2px 0 0 $main, 4px 0 0 $main, 4px -2px 0 $main,
+      4px -4px 0 $main, 4px -6px 0 $main, 4px -8px 0 $main;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
   }

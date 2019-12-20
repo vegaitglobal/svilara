@@ -176,10 +176,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid $purple;
+  border: 1px solid $main;
   margin-bottom: 4px;
   border-radius: 10px;
-  background-color: $purple;
+  background-color: $main;
   color: $white;
   cursor: pointer;
 }

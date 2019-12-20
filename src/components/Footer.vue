@@ -57,7 +57,7 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: $purple;
+  background: $main;
   display: none;
   padding: 10px 0;
   @include breakpoint(mob) {

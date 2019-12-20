@@ -39,7 +39,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .date-picker {
-  color: $purple;
+  color: $main;
   &--val {
     font-size: 25px;
     vertical-align: 10%;

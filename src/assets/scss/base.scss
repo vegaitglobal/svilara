@@ -48,7 +48,7 @@ i {
 .link {
     border: 0;
     text-decoration: underline;
-    color: $purple;
+    color: $main;
     background: transparent;
     &:hover{
         text-decoration: none;
@@ -76,10 +76,10 @@ i {
         line-height: 20px;
     }
     &.btn__purple {
-      background-color: $purple;
+      background-color: $main;
       &:hover,
       &:active {
-        background-color: rgba($purple, 0.6);
+        background-color: rgba($main, 0.6);
       }
     }
     &.btn__orange {
