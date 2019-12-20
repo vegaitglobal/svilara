@@ -447,12 +447,13 @@ export default {
             title: "Događaj je kreiran!"
           })
         )
-        .catch(err =>
-          this.$swal.fire({
+        .catch(err => { console.log(err);
+           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: err.response.data.error
+            text: err && err.response ? err.response.data.error : 'Doslo je do greške!'
           })
+          }
         );
     },
 

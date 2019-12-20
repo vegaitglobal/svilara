@@ -25,9 +25,11 @@ axios.interceptors.response.use(
     return response;
   },
   function(error) {
-    if (parseInt(error.response.status) == 401) {
-      store.dispatch("logout");
-      router.push("/admin/login");
+    if (error.response){
+      if (parseInt(error.response.status) == 401) {
+        store.dispatch("logout");
+        router.push("/admin/login");
+      }
     }
     return Promise.reject(error);
   }
