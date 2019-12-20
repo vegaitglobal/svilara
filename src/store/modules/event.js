@@ -223,7 +223,7 @@ export default {
       commit("SET_IMAGE", file);
     },
 
-    submitEvent({ commit, state }) {
+    submitEvent(state) {
       var formData = new FormData();
 
       for (var i = 0; i < state.answers.length; i++) {
@@ -285,7 +285,7 @@ export default {
       }
     },
 
-    async fetchAdminEventsTable({ commit }) {
+    async fetchAdminEventsTable() {
       try {
         const events = await axios.get(
           `${process.env.VUE_APP_BASE_URL}/admin/events/table`
@@ -340,7 +340,7 @@ export default {
       commit("SET_SEARCHED_EVENTS", filtered);
     },
 
-    async updateQuestion({ commit }, question) {
+    async updateQuestion(question) {
       return new Promise((resolve, reject) => {
         axios
           .put(`${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`, question)
@@ -362,7 +362,7 @@ export default {
       // }
     },
 
-    async updateEvent({ commit }, question) {
+    async updateEvent(question) {
       try {
         const res = await axios.put(
           `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
