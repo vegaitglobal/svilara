@@ -153,7 +153,7 @@
       @opened="cleanNewSettingText() && disableScroll()"
       @before-close="enableScroll()">
       <div class="question-wrapper">
-        <h2>Naslov teksta:</h2>
+        <h2>Naziv tekstualnog polja:</h2>
         <input
           type="text"
           v-model="newSettingText.keyText"

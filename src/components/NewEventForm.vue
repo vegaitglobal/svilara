@@ -215,9 +215,9 @@
         @click="createEvent"
         class="btn btn__purple btn__large mt-20"
         type="submit"
-        :disabled="!validate(form)"
+       :disabled="!validate(form)"
       >
-        Sačuvaj
+        Sačuvaj 
       </button>
     </div>
   </div>

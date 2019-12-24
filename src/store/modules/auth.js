@@ -88,7 +88,7 @@ export default {
         });
     },
 
-    resetPassword(data) {
+    resetPassword({ commit }, data) {
       return new Promise((resolve, reject) => {
         axios
           .put(
@@ -107,7 +107,7 @@ export default {
           });
       });
     },
-    resetForgotPassword(data) {  //only reset function that is used
+    resetForgotPassword({ commit }, data) {  //only reset function that is used
 
       return new Promise((resolve, reject) => {
         axios
@@ -172,7 +172,7 @@ export default {
       });
     },
 
-    getUserById(id) {
+    getUserById({ commit }, id) {
       return new Promise((resolve, reject) => {
         axios
           .get(`${process.env.VUE_APP_API_BASE_URL}/auth/users/${id}`)
@@ -201,7 +201,7 @@ export default {
       });
     },
 
-    resetPasswordEmail(email) {
+    resetPasswordEmail({ commit }, email) {
       return new Promise((resolve, reject) => {
         axios
           .post(`${process.env.VUE_APP_API_BASE_URL}/users/send-reset-email`, {
@@ -216,7 +216,7 @@ export default {
       });
     },
 
-    resetPasswordJWT(data) {
+    resetPasswordJWT({ commit }, data) {
       return new Promise((resolve, reject) => {
         axios
           .post(

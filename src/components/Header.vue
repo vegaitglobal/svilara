@@ -143,7 +143,7 @@
         </div>
       </div>
       <div class="tc-modal" v-if="page == 2">
-        <h1>Upitnik za prijavu programa u kulturnoj stanici Eđšeg</h1>
+        <h1>{{userFormTitle}}</h1>
         <Formular />
       </div>
     </modal>
@@ -185,6 +185,12 @@ export default {
       if (this.settings.length && this.settings[16]) {
         let arrayOftext = this.settings[16].value.split("\n");
         return arrayOftext;
+      }
+      return "";
+    },
+    userFormTitle() {
+      if (this.settings.length && this.settings[17]) {
+        return this.settings[17].value;
       }
       return "";
     }

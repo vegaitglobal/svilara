@@ -70,7 +70,7 @@ export default {
 
         },
 
-        async acceptEvent(id) {
+        async acceptEvent({ commit }, id) {
             return new Promise((resolve, reject) => {
                 axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${id}`)
                 .then(response => {
@@ -81,7 +81,7 @@ export default {
                 })
             })
         },
-        async rejectEvent(id) {
+        async rejectEvent({ commit }, id) {
             return new Promise((resolve, reject) => {
                 axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/reject/${id}`)
                 .then(response => {
@@ -92,7 +92,7 @@ export default {
                 })
             })
         },
-        async addEvent(form) {
+        async addEvent({ commit }, form) {
             return new Promise((resolve, reject) => {
                 axios.post(`${process.env.VUE_APP_BASE_URL}/admin/event`,
                 form)
