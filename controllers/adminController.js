@@ -690,7 +690,7 @@ exports.updateSettings = async (req, res) => {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 400);
+        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
       });
   } else if (key == 'glavni logo' || key == 'sporedni logo 1' || key == 'sporedni logo 2'){
       value = "";

@@ -32,7 +32,6 @@ module.exports.ReS = function(res, data, code = null, log = false) {
   if (code !== null) res.statusCode = code;
 
   res.set('Cache-Control', 'no-cache');
-  
   return res.json(send_data);
 };
 

@@ -5,14 +5,25 @@ let authRouter = require("./routes/authRouter");
 let adminRouter = require("./routes/adminRouter");
 let userRouter = require("./routes/userRouter");
 let adminMiddleware = require("./middlewares/adminMiddleware");
+var cors = require('cors');
 const app = express();
-
+var corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: false
   })
 );
+
+// app.use(bodyParser.urlencoded({
+//   limit: "50mb",
+//   extended: false
+// }));
+// app.use(bodyParser.json({limit: "50mb"}));
 
 app.use(express.static("public"));
 
