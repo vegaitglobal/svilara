@@ -111,6 +111,7 @@ exports.createEvent = async function(req, res) {
     let price = fields.price;
     let socialMedia = fields.socialMedia;
     let age = fields.age;
+    let contactEmail = fields.contactEmail;
 
     let validatorMessage = validateEvent(fields, files);
     if (validatorMessage) {
@@ -174,6 +175,7 @@ exports.createEvent = async function(req, res) {
         space,
         socialMedia,
         age,
+        contactEmail,
         status: "accepted"
       })
     );

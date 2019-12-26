@@ -2,11 +2,9 @@ let jwt = require("jsonwebtoken");
 
 exports.auth = function(req, res, next) {
   const bearerHeader = req.headers.authorization;
-  console.log(req.headers)
-  console.log(bearerHeader);
-  console.log(req.originalUrl)
   if (
-    req.originalUrl.startsWith("/api/user") || req.originalUrl.startsWith("/api/auth") ||  req.originalUrl.startsWith("/favicon.ico") ||
+    req.originalUrl.startsWith("/api/user") || req.originalUrl.startsWith("/api/auth") ||  
+    req.originalUrl.startsWith("/favicon.ico") || req.originalUrl.startsWith("/uploads/") ||
     (req.method === 'GET' && (req.originalUrl === "/api/admin/scripts" ||
     req.originalUrl === "/api/admin/settings" ||
     req.originalUrl === "/api/admin/questions"))
