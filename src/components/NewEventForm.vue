@@ -258,7 +258,6 @@ export default {
         picture: "",
         logo: ""
       },
-      pendingEvents: [],
       startDate: "",
       startTime: "",
       endDate: "",
@@ -379,21 +378,17 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("fetchAdminEvents").then(data => {
-      if (data.data && data.data.data) {
-        let pendingEvents = [];
-        for (let i = 0; i < data.data.data.length; i++) {
-          if (data.data.data[i].status == "pending") {
-            pendingEvents.push(data.data.data[i]);
-          }
-        }
-        this.pendingEvents = pendingEvents;
-      }
-    });
+    this.$store.dispatch("fetchAdminEvents");
   },
   computed: {
     events() {
       return this.$store.getters.getAdminEvents;
+    },
+    pendingEvents() {
+      if (this.events) {
+        let pendingEvents = this.events.filter((event) => event.status == "pending");
+        return pendingEvents;
+      }
     }
   },
   methods: {

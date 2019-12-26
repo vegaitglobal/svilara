@@ -70,10 +70,11 @@ export default {
 
         },
 
-        async acceptEvent({ commit }, id) {
+        async acceptEvent({ dispatch }, id) {
             return new Promise((resolve, reject) => {
                 axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${id}`)
                 .then(response => {
+                    dispatch('fetchAdminEvents');
                     resolve(response);
                 })
                 .catch(error => {
@@ -81,10 +82,11 @@ export default {
                 })
             })
         },
-        async rejectEvent({ commit }, id) {
+        async rejectEvent({ dispatch }, id) {
             return new Promise((resolve, reject) => {
                 axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/reject/${id}`)
                 .then(response => {
+                    dispatch('fetchAdminEvents');
                     resolve(response);
                 })
                 .catch(error => {
