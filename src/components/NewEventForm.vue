@@ -447,7 +447,7 @@ export default {
             title: "Događaj je kreiran!"
           })
         )
-        .catch(err => { console.log(err);
+        .catch(err => {
            this.$swal.fire({
             type: "error",
             title: "Greška",

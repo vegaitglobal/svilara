@@ -6,6 +6,7 @@
         slot="editor"
         slot-scope="props"
         @click="$router.push('/admin/editor/' + props.row.id)"
+        v-if="props.row.status === 'prihvaćen'"
       >
         Editor
       </button>

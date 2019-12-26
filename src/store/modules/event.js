@@ -19,13 +19,19 @@ const sortByDate = (a, b) => {
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
-    if (settings[i].key === "otvoren bez prijave") {
-      settings[i].key = "otvorenbp";
-    }
-    if (settings[i].key === "otvoren sa prijavom") {
-      settings[i].key = "otvorensp";
-    }
+    // if (settings[i].key === "otvoren bez prijave") {
+    //   settings[i].key = "otvorenbp";
+    // }
+    // if (settings[i].key === "otvoren sa prijavom") {
+    //   settings[i].key = "otvorensp";
+    // }
     if (settings[i].key === type) {
+      return settings[i].value;
+    }
+    if (settings[i].key === "otvoren bez prijave" && type === "otvorenbp"){
+      return settings[i].value;
+    }
+    if (settings[i].key === "otvoren sa prijavom" && type === "otvorensp"){
       return settings[i].value;
     }
   }
@@ -225,7 +231,6 @@ export default {
 
     submitEvent({ commit, state }) {
       var formData = new FormData();
-      console.log(state.answers)
       for (var i = 0; i < state.answers.length; i++) {
         if (state.answers[i].type === "file") {
           formData.append(
@@ -353,16 +358,16 @@ export default {
       });
     },
 
-    async updateEvent({ commit }, question) {
-      try {
-        const res = await axios.put(
-          `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
-          question
-        );
-      } catch (err) {
-        return err;
-      }
-    },
+    // async updateEvent({ commit }, question) {
+    //   try {
+    //     const res = await axios.put(
+    //       `${process.env.VUE_APP_BASE_URL}/admin/question/${question.id}`,
+    //       question
+    //     );
+    //   } catch (err) {
+    //     return err;
+    //   }
+    // },
     async deleteQuestion({ dispatch }, id) {
       try {
         const res = await axios.delete(

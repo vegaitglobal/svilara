@@ -140,7 +140,7 @@ export default {
       let time = "";
       if (array) {
         for (let i = 0; i < array.length; i++) {
-          if (array[i].name == "question6") name = array[i].answers;
+          if (array[i].name == "title") name = array[i].answers;
           if (array[i].name == "question12") date = array[i].answers;
           if (array[i].name == "question13") time = array[i].answers;
         }
