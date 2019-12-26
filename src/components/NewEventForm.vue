@@ -37,6 +37,18 @@
           </li>
 
           <li class="inputfield-row">
+            <span>Kontakt i-mejl</span>
+            <input
+              v-on:keyup="() => set('contactEmail', event.contactEmail, form)"
+              v-model="event.contactEmail"
+              type="text"
+            />
+            <span v-if="form.contactEmail.error" class="error">{{
+              form.contactEmail.error
+            }}</span>
+          </li>
+
+          <li class="inputfield-row">
             <span>Logo organizacije</span>
             <input
               @change="logoChange($event) || validate($event)"
@@ -233,7 +245,7 @@ import {
   isValue,
   isUrl,
   set,
-  validate
+  validate, isEmail
 } from "vue-val";
 
 export default {
@@ -256,7 +268,8 @@ export default {
         startTime: "",
         endTime: "",
         picture: "",
-        logo: ""
+        logo: "",
+        contactEmail: ""
       },
       startDate: "",
       startTime: "",
@@ -373,6 +386,11 @@ export default {
           valid: false,
           error: null,
           constraints: [required, isDate]
+        },
+        contactEmail: {
+          valid: false,
+          error: null,
+          constraints: [required, isEmail]
         }
       }
     };
@@ -429,7 +447,7 @@ export default {
       if (eventCopy.space.toLowerCase() === "drugo") {
         eventCopy.space = this.spaceOther;
       }
-
+      console.log(eventCopy);
       const form = new FormData();
       for (var prop in eventCopy) {
         form.append(prop, eventCopy[prop]);
