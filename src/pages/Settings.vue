@@ -78,17 +78,34 @@
         Dodaj skriptu
       </button>
     </div>
+
     <h3 class="settings-heading">Dodavanje admina</h3>
-    
-      <input type="text" v-model="admin.mail" placeholder="Email"/>
-      <input type="text" v-model="admin.password" placeholder="Password"/>
-      <button
-        @click="saveAdmin"
-        class="btn btn__purple"
-      >
-        Dodaj admina
-      </button>
-   
+
+    <div class="admin-settings">
+        <input
+          type="text"
+          v-model="admin.email"
+          placeholder="Email"
+          v-on:keyup="() => set('email', admin.email, adminForm)"
+        />
+        <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
+
+        <input
+          type="text"
+          v-model="admin.password"
+          placeholder="Password"
+          v-on:keyup="() => set('password', admin.password, adminForm)"
+        />
+        <span v-if="adminForm.password.error" class="error">{{ adminForm.password.error }}</span>
+
+        <button
+          @click="saveAdmin"
+          class="btn btn__purple"
+          :disabled="!validate(adminForm)">
+          Dodaj admina
+        </button>
+    </div>
+
     <modal
       name="adminCreateQuestionText"
       height="500"
@@ -311,7 +328,7 @@
 import SettingsOption from "../components/SettingsOption.vue";
 import Question from "../components/Question.vue";
 import axios from "axios";
-import { required, set, validate, isUrl } from "vue-val";
+import { required, set, validate, isUrl, isEmail } from "vue-val";
 
 export default {
   name: "Settings",
@@ -414,6 +431,18 @@ export default {
           constraints: [required, isUrl]
         },
         key: {
+          valid: false,
+          error: null,
+          constraints: [required]
+        }
+      },
+      adminForm: {
+        email: {
+          valid: false,
+          error: null,
+          constraints: [required, isEmail]
+        },
+        password: {
           valid: false,
           error: null,
           constraints: [required]
@@ -858,5 +887,17 @@ export default {
       background-size: 9%;
     }
   }
+}
+.admin-settings {
+    input {
+        padding: 10px;
+        display: block;
+        margin-bottom: 10px;
+        min-width: 350px;
+
+        & + .btn {
+            margin-top: 10px;
+        }
+    }
 }
 </style>

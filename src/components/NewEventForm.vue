@@ -229,7 +229,7 @@
         type="submit"
        :disabled="!validate(form)"
       >
-        Sačuvaj 
+        Sačuvaj
       </button>
     </div>
   </div>
