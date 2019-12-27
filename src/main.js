@@ -7,6 +7,7 @@ import VModal from "vue-js-modal";
 import wysiwyg from "vue-wysiwyg";
 import { ClientTable } from "vue-tables-2";
 import { BulmaAccordion, BulmaAccordionItem } from "vue-bulma-accordion";
+import { Tab, Tabs } from 'vue-tmn-tabs';
 import { messages } from "vue-val";
 
 Vue.use(ClientTable, {}, false, "bootstrap4");
@@ -50,6 +51,8 @@ Vue.use(wysiwyg, {});
 
 Vue.component("bulma-accordion", BulmaAccordion);
 Vue.component("bulma-accordion-item", BulmaAccordionItem);
+Vue.component("tab", Tab);
+Vue.component("tabs", Tabs);
 
 messages.required = () => `Polje je obavezno.`;
 messages.isDate = () => `Datum mora biti u validnom formatu: dd.mm.yyyy.`;

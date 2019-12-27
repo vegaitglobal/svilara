@@ -1,110 +1,116 @@
 <template>
   <div>
-    <h3 class="settings-heading">Opšta podešavanja</h3>
-    <div class="settings-input">
-      <button
-        @click="showModalSettingsLink()"
-        class="btn btn__purple settings-button"
-      >
-        Dodaj link u sidebar
-      </button>
-      <button
-        @click="showModalSettingsText()"
-        class="btn btn__purple settings-button"
-      >
-        Dodaj tekst u sidebar
-      </button>
-      <SettingsOption
-        v-for="option in settings"
-        :key="`${option.id}b`"
-        :option="option"
-        :showModalSettingsDeleteProp="showModalSettingsDelete"
-      />
-      <h3 class="settings-heading">Podešavanja pitanja u formularu</h3>
-      <button
-        @click="showModalQuestionText"
-        class="btn btn__purple settings-button"
-      >
-        Dodaj pitanje gde je odgovor tekst
-      </button>
-      <button
-        @click="showModalQuestionPicture"
-        class="btn btn__purple settings-button"
-      >
-        Dodaj pitanje gde je odgovor slika
-      </button>
-      <!-- {{questions}} -->
-      <Question
-        v-for="question in questions"
-        :key="`${question.id}a`"
-        :question="question"
-        :showModalQuestionDeleteProp="showModalQuestionDelete"
-      />
-    </div>
 
-    <h3 class="settings-heading">Dodavanje skripte</h3>
-    <div class="script-input">
-      <p>Dodaj skriptu za Google Analytics:</p>
-      <textarea
-        rows="10"
-        cols="90"
-        v-model="firstScript"
-        v-on:keyup="() => set('firstScript', firstScript, analyticsForm)"
-      ></textarea>
+    <tabs transitionName="fade">
+        <tab :title="'Opšta podešavanja'">
+            <div class="settings-input">
+                <button
+                    @click="showModalSettingsLink()"
+                    class="btn btn__purple settings-button"
+                >
+                    Dodaj link u sidebar
+                </button>
+                <button
+                    @click="showModalSettingsText()"
+                    class="btn btn__purple settings-button"
+                >
+                    Dodaj tekst u sidebar
+                </button>
+                <SettingsOption
+                    v-for="option in settings"
+                    :key="`${option.id}b`"
+                    :option="option"
+                    :showModalSettingsDeleteProp="showModalSettingsDelete"
+                />
+            </div>
+        </tab>
+        <tab :title="'Podešavanja pitanja'">
+            <div class="settings-input">
+                <button
+                    @click="showModalQuestionText"
+                    class="btn btn__purple settings-button"
+                >
+                    Dodaj pitanje gde je odgovor tekst
+                </button>
+                <button
+                    @click="showModalQuestionPicture"
+                    class="btn btn__purple settings-button"
+                >
+                    Dodaj pitanje gde je odgovor slika
+                </button>
+                <!-- {{questions}} -->
+                <Question
+                    v-for="question in questions"
+                    :key="`${question.id}a`"
+                    :question="question"
+                    :showModalQuestionDeleteProp="showModalQuestionDelete"
+                />
+                </div>
+        </tab>
+        <tab :title="'Dodavanje skripte'">
+            <div class="script-input">
+                <h3>Dodaj skriptu za Google Analytics:</h3>
+                <textarea
+                    rows="10"
+                    cols="90"
+                    v-model="firstScript"
+                    v-on:keyup="() => set('firstScript', firstScript, analyticsForm)"
+                ></textarea>
 
-      <button
-        :disabled="!validate(analyticsForm)"
-        @click="addFirstScript"
-        class="btn btn__purple"
-      >
-        Dodaj skriptu
-      </button>
-    </div>
+                <button
+                    :disabled="!validate(analyticsForm)"
+                    @click="addFirstScript"
+                    class="btn btn__purple"
+                >
+                    Dodaj skriptu
+                </button>
+            </div>
 
-    <div class="script-input">
-      <p>Dodaj skriptu za Google Tag Manager:</p>
-      <textarea
-        rows="10"
-        cols="90"
-        v-model="secondScript"
-        v-on:keyup="() => set('secondScript', secondScript, gtmForm)"
-      ></textarea>
+            <div class="script-input">
+                <h3>Dodaj skriptu za Google Tag Manager:</h3>
+                <textarea
+                    rows="10"
+                    cols="90"
+                    v-model="secondScript"
+                    v-on:keyup="() => set('secondScript', secondScript, gtmForm)"
+                ></textarea>
 
-      <button
-        :disabled="!validate(gtmForm)"
-        @click="addSecondScript"
-        class="btn btn__purple"
-      >
-        Dodaj skriptu
-      </button>
-    </div>
+                <button
+                    :disabled="!validate(gtmForm)"
+                    @click="addSecondScript"
+                    class="btn btn__purple"
+                >
+                    Dodaj skriptu
+                </button>
+            </div>
+        </tab>
+        <tab :title="'Dodavanje admina'">
+            <div class="admin-settings">
+                <input
+                type="text"
+                v-model="admin.email"
+                placeholder="Email"
+                v-on:keyup="() => set('email', admin.email, adminForm)"
+                />
+                <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
 
-    <h3 class="settings-heading">Dodavanje admina</h3>
+                <input
+                type="text"
+                v-model="admin.password"
+                placeholder="Password"
+                v-on:keyup="() => set('password', admin.password, adminForm)"
+                />
+                <span v-if="adminForm.password.error" class="error">{{ adminForm.password.error }}</span>
 
-    <div class="admin-settings">
-        <input
-          type="text"
-          v-model="admin.email"
-          placeholder="Email"
-          v-on:keyup="() => set('email', admin.email, adminForm)"
-        />
-        <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
-
-        <input
-          type="text"
-          v-model="admin.password"
-          placeholder="Password"
-          v-on:keyup="() => set('password', admin.password, adminForm)"
-        />
-        <span v-if="adminForm.password.error" class="error">{{ adminForm.password.error }}</span>
-
-        <button
-          @click="saveAdmin"
-          class="btn btn__purple"
-          :disabled="!validate(adminForm)">
-          Dodaj admina
-        </button>
-    </div>
+                <button
+                @click="saveAdmin"
+                class="btn btn__purple"
+                :disabled="!validate(adminForm)">
+                Dodaj admina
+                </button>
+            </div>
+        </tab>
+    </tabs>
 
     <modal
       name="adminCreateQuestionText"
@@ -899,5 +905,37 @@ export default {
             margin-top: 10px;
         }
     }
+}
+.vue-tabs__nav {
+    margin-bottom: 60px;
+}
+.vue-tabs__nav-item {
+    border: 0;
+    background: rgba($purple-lighter, 0.7);
+    border: 1px solid $purple-lighter;
+    border-top: 1px solid $purple-lighter;
+    padding: 10px;
+    position: relative;
+    &:hover,
+    &:active,
+    &.--active {
+        &::before {
+            position: absolute;
+            display: block;
+            content: '';
+            width: calc(100% + 2px);
+            height: 2px;
+            background: $main;
+            top: -1px;
+            left: -1px;
+        }
+    }
+    &.--active {
+        border-bottom: 0;
+        background: $white;
+    }
+}
+.vue-tabs__panel {
+    outline: 0;
 }
 </style>
