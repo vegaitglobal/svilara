@@ -735,7 +735,7 @@ export default {
     },
     saveAdmin() {
       axios
-      .post(`${process.env.VUE_APP_BASE_URL}/admin/registration`, admin)
+      .post(`${process.env.VUE_APP_BASE_URL}/auth/registration`, this.admin)
       .then(() => {
           this.$swal.fire({
             title: "Poslato!",
