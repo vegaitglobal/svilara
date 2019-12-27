@@ -10,6 +10,8 @@
           v-on:keyup="() => set('text', question.text, form)"
         />
         <span v-if="form.text.error" class="error">{{ form.text.error }}</span>
+         <!--<p>Ponuđeni odgovori:</p>
+      <input v-if="deleteUpdateOption()" v-for="(option, index) in JSON.parse(question.values)" v-model="question.values[index]"/>-->
       </div>
       <div class="button-wrapper">
         <button

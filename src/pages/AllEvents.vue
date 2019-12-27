@@ -11,6 +11,7 @@
         Editor
       </button>
     </v-client-table>
+    <p>* U tabeli su prikazani svi događaji koji su na čekanju, prihvaćeni događaji koji jos nisu prošli i odbijeni događaji čiji su zahtevi stigli pre manje od mesec dana.</p>
   </div>
 </template>
 
@@ -19,7 +20,7 @@ export default {
   data() {
     return {
       columns: [
-        "id",
+        "ordNumber",
         "title",
         "contactEmail",
         "category",
@@ -32,7 +33,7 @@ export default {
       ],
       options: {
         headings: {
-          id: "ID",
+          ordNumber: "Redni broj",
           title: "Naslov",
           contactEmail: "Kontakt",
           category: "Kategorija",
@@ -119,6 +120,12 @@ export default {
           }
         }
         this.tableData = events;
+        let number = 0;
+        for (let z = 0; z < this.tableData.length; z++){
+            number++;
+            this.tableData[z].ordNumber = number + '.';
+           
+        }
       }
     });
   }

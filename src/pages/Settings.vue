@@ -78,7 +78,17 @@
         Dodaj skriptu
       </button>
     </div>
-
+    <h3 class="settings-heading">Dodavanje admina</h3>
+    
+      <input type="text" v-model="admin.mail" placeholder="Email"/>
+      <input type="text" v-model="admin.password" placeholder="Password"/>
+      <button
+        @click="saveAdmin"
+        class="btn btn__purple"
+      >
+        Dodaj admina
+      </button>
+   
     <modal
       name="adminCreateQuestionText"
       height="500"
@@ -86,7 +96,8 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewTextQuestion() && disableScroll()"
-      @before-close="enableScroll()">
+      @before-close="enableScroll()"
+    >
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -94,22 +105,34 @@
           v-model="data1.text"
           v-on:keyup="() => set('text', data1.text, newTextQuestionForm)"
         />
-        <span v-if="newTextQuestionForm.text.error" class="error">{{ newTextQuestionForm.text.error }}</span>
+        <span v-if="newTextQuestionForm.text.error" class="error">{{
+          newTextQuestionForm.text.error
+        }}</span>
       </div>
 
       <div class="question-wrapper">
         <p>Da li je odgovor obavezan?</p>
         <select
           v-model="data1.mandatory"
-          v-on:change="e => set('mandatory', e.target.value, newTextQuestionForm)"
+          v-on:change="
+            e => set('mandatory', e.target.value, newTextQuestionForm)
+          "
         >
           <option value="1">Da</option>
           <option value="0">Ne</option>
         </select>
-        <span v-if="newTextQuestionForm.mandatory.error" class="error">{{ newTextQuestionForm.mandatory.error }}</span>
+        <span v-if="newTextQuestionForm.mandatory.error" class="error">{{
+          newTextQuestionForm.mandatory.error
+        }}</span>
       </div>
 
-      <button :disabled="!validate(newTextQuestionForm)" @click="saveInputText" class="btn btn__purple btn__large">Sačuvaj</button>
+      <button
+        :disabled="!validate(newTextQuestionForm)"
+        @click="saveInputText"
+        class="btn btn__purple btn__large"
+      >
+        Sačuvaj
+      </button>
     </modal>
 
     <modal
@@ -119,7 +142,8 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewImageQuestion() && disableScroll()"
-      @before-close="enableScroll()">
+      @before-close="enableScroll()"
+    >
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -127,21 +151,34 @@
           v-model="data2.text"
           v-on:keyup="() => set('text', data2.text, newImageQuestionForm)"
         />
-        <span v-if="newImageQuestionForm.text.error" class="error">{{ newImageQuestionForm.text.error }}</span>
+        <span v-if="newImageQuestionForm.text.error" class="error">{{
+          newImageQuestionForm.text.error
+        }}</span>
       </div>
 
       <div class="question-wrapper">
         <p>Da li je odgovor obavezan?</p>
         <select
           v-model="data2.mandatory"
-          v-on:change="e => set('mandatory', e.target.value, newImageQuestionForm)">
+          v-on:change="
+            e => set('mandatory', e.target.value, newImageQuestionForm)
+          "
+        >
           <option value="1">Da</option>
           <option value="0">Ne</option>
         </select>
-        <span v-if="newImageQuestionForm.mandatory.error" class="error">{{ newImageQuestionForm.mandatory.error }}</span>
+        <span v-if="newImageQuestionForm.mandatory.error" class="error">{{
+          newImageQuestionForm.mandatory.error
+        }}</span>
       </div>
 
-      <button :disabled="!validate(newImageQuestionForm)" @click="saveInputFile" class="btn btn__purple btn__large">Sačuvaj</button>
+      <button
+        :disabled="!validate(newImageQuestionForm)"
+        @click="saveInputFile"
+        class="btn btn__purple btn__large"
+      >
+        Sačuvaj
+      </button>
     </modal>
 
     <modal
@@ -151,7 +188,8 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewSettingText() && disableScroll()"
-      @before-close="enableScroll()">
+      @before-close="enableScroll()"
+    >
       <div class="question-wrapper">
         <h2>Naziv tekstualnog polja:</h2>
         <input
@@ -192,7 +230,8 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
       @opened="cleanNewSettingLink() && disableScroll()"
-      @before-close="enableScroll()">
+      @before-close="enableScroll()"
+    >
       <div class="question-wrapper">
         <h2>Naslov linka:</h2>
         <input
@@ -299,6 +338,10 @@ export default {
       newSettingLink: {
         keyText: "",
         valueText: ""
+      },
+      admin: {
+        password: "",
+        email: ""
       },
       firstScript: "",
       secondScript: "",
@@ -689,6 +732,24 @@ export default {
       var parser = new DOMParser();
       var doc = parser.parseFromString(str, "text/html");
       return doc.head.children;
+    },
+    saveAdmin() {
+      axios
+      .post(`${process.env.VUE_APP_BASE_URL}/admin/registration`, admin)
+      .then(() => {
+          this.$swal.fire({
+            title: "Poslato!",
+            text: "Admin je uspešno registrovan.",
+            type: "success"
+          });
+        })
+        .catch(error => {
+          this.$swal.fire({
+            title: "Greška!",
+            text: error.response.data.error,
+            type: "error"
+          });
+        });
     }
   }
 };
