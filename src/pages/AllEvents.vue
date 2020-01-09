@@ -118,6 +118,33 @@ export default {
           if (type == "otvorensp") {
             events[i].type = "otvoren sa prijavom";
           }
+          let space = events[i].space;
+          if (space == "malasala") {
+            events[i].space = "Mala sala";
+          } else if (space == "velikasala") {
+            events[i].space = "Velika sala";
+          } else if (space == "drucentar") {
+            events[i].space = "Društveni centar";
+          } else if (space == "dvoriste") {
+            events[i].space = "Dvorište";
+          }
+           else if (space == "teren") {
+            events[i].space = "Sportski tereni sa tribinama";
+          }
+          let category = events[i].category;
+          if (category == "muzickiprogram"){
+            events[i].category = "Muzički program";
+          } else if (category == "izlozba"){
+            events[i].category = "Izložba";
+          } else if (category == "audiovideo"){
+            events[i].category = "Audio-vizuelni program";
+          }
+  
+          // if (events[i].category) events[i].category = events[i].category.charAt(0).toUpperCase() + events[i].category.substring(1);
+          // if (events[i].type) events[i].type = events[i].type.charAt(0).toUpperCase() + events[i].type.substring(1);
+          // if (events[i].space) console.log( events[i].space);
+          // //if (events[i].space) events[i].space = events[i].space.charAt(0).toUpperCase() + events[i].space.substring(1);
+          // if (events[i].status) events[i].status = events[i].status.charAt(0).toUpperCase() + events[i].status.substring(1);
         }
         this.tableData = events;
         let number = 0;

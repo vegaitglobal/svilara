@@ -10,8 +10,15 @@
           v-on:keyup="() => set('text', question.text, form)"
         />
         <span v-if="form.text.error" class="error">{{ form.text.error }}</span>
-         <!--<p>Ponuđeni odgovori:</p>
-      <input v-if="deleteUpdateOption()" v-for="(option, index) in JSON.parse(question.values)" v-model="question.values[index]"/>-->
+        <p v-if="deleteUpdateOption() && question.name == 'question16'">
+          Ponuđeni odgovori:
+        </p>
+        <input
+          :disabled="!editing"
+          v-if="deleteUpdateOption() && question.name == 'question16'"
+          v-for="(option, index) in values"
+          v-model="values[index]"
+        />
       </div>
       <div class="button-wrapper">
         <button
@@ -50,30 +57,39 @@ export default {
   props: ["question", "showModalQuestionDeleteProp"],
   data() {
     return {
+      values: [],
       editing: false,
       set,
       validate,
       form: {
         text: {
-          valid: false,
+          valid: true,
           error: null,
           constraints: [required]
         }
       }
     };
   },
-
+  mounted() {
+    if (this.question.values) {
+      this.values = JSON.parse(this.question.values);
+    }
+  },
   methods: {
     showModalQuestionDelete(id) {
       this.showModalQuestionDeleteProp(id);
     },
     save() {
+      if (this.question.name == "question16") {
+        this.question.values = JSON.stringify(this.values);
+      }
       this.$store
         .dispatch("updateQuestion", this.question)
         .then(() => {
           this.editing = false;
         })
         .catch(error => {
+          console.log(error)
           this.$swal.fire({
             type: "error",
             title: "Greška",
