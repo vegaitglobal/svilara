@@ -84,7 +84,7 @@
                 </button>
             </div>
         </tab>
-        <tab :title="'Dodavanje admina'">
+        <tab v-if="user.type=='superadmin'" :title="'Dodavanje admina'">
             <div class="admin-settings">
                 <input
                 type="text"
@@ -344,6 +344,7 @@ export default {
   },
   data() {
     return {
+      user: {},
       idDelete: "",
       settingsIdDelete: "",
       data1: {
@@ -459,6 +460,9 @@ export default {
   created() {
     this.$store.dispatch("fetchSettings");
     this.$store.dispatch("fetchQuestions").catch(err => {});
+    let userString = localStorage.getItem("user");
+    let user = JSON.parse(userString)
+    this.user = user;
   },
   computed: {
     settings: {
@@ -777,6 +781,8 @@ export default {
             text: "Admin je uspešno registrovan.",
             type: "success"
           });
+          this.admin.email = "";
+          this.admin.password = ""
         })
         .catch(error => {
           this.$swal.fire({

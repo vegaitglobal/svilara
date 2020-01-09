@@ -45,7 +45,7 @@
             :disabled="!formValid"
             type="button"
             class="btn btn__green"
-            @click.prevent="() => acceptEvent(event.id)"
+            @click.prevent="() => acceptEvent(event.id, event.contactEmail)"
           >
             Prihvati
           </button>
@@ -90,9 +90,9 @@ export default {
     }
   },
   methods: {
-    async acceptEvent(id) {
+    async acceptEvent(id, mail) {
       try {
-        let response = await this.$store.dispatch("acceptEvent", id);
+        let response = await this.$store.dispatch("acceptEvent", {id:id, mail:mail});
         this.$swal({
           type: "success",
           title: "Prihvaćeno",

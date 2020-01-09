@@ -67,12 +67,11 @@ export default {
                 })
                 .catch((error) => reject(error))
             })
-
         },
 
-        async acceptEvent({ dispatch }, id) {
+        async acceptEvent({ dispatch }, idMail) {
             return new Promise((resolve, reject) => {
-                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${id}`)
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${idMail.id}`, {email: idMail.mail})
                 .then(response => {
                     dispatch('fetchAdminEvents');
                     resolve(response);
@@ -83,8 +82,10 @@ export default {
             })
         },
         async rejectEvent({ dispatch }, id) {
+            let userString = localStorage.getItem("user");
+            let user = JSON.parse(userString);
             return new Promise((resolve, reject) => {
-                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/reject/${id}`)
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/reject/${id}`, {email: user.email})
                 .then(response => {
                     dispatch('fetchAdminEvents');
                     resolve(response);
