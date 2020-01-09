@@ -4,17 +4,15 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { to, ReS, ReE } = require("../helpers/utils");
 
-
 let mailgun = require("mailgun-js")({
   apiKey: process.env.MAILGUN_API_KEY,
   domain: process.env.MAILGUN_DOMAIN
 });
 
-
 //let random = new Random(Random.engines.mt19937().autoSeed());
 
 // LOGIN ADMIN
-exports.loginAdmin = async function (req, res) {
+exports.loginAdmin = async function(req, res) {
   let email = req.body.email;
   let password = req.body.password;
   // console.log('email: '+  email);
@@ -31,7 +29,6 @@ exports.loginAdmin = async function (req, res) {
     return ReE(res, "Nevalidni parametri!", 400);
   }
 
-
   let [err, dbAdmin] = await to(
     models.Admin.findOne({
       where: {
@@ -41,11 +38,10 @@ exports.loginAdmin = async function (req, res) {
   );
 
   if (err) return ReE(res, "Nešto nije u redu!", 400);
-  
+
   if (dbAdmin == null) {
     return ReE(res, "Korisnik sa datim mejlom ne postoji!", 400);
   }
-
 
   let [err2, result] = await to(bcrypt.compare(password, dbAdmin.password));
 
@@ -57,21 +53,21 @@ exports.loginAdmin = async function (req, res) {
         id: dbAdmin.id
       },
       process.env.ADMIN_SECRET,
-      { expiresIn: 14400 } 
+      { expiresIn: 14400 }
     );
     return ReS(res, {
       msg: "Uspešno ste se ulogovali.",
-      token: token
+      token: token,
+      user: dbAdmin
     });
   } else return ReE(res, "Pogrešan mejl ili šifra!", 400);
 };
 
-
-
-exports.forgotPassword = async function (req, res) {
+exports.forgotPassword = async function(req, res) {
   let email = req.body.email;
+  let referer = req.headers.referer;
 
-  if (!email){
+  if (!email) {
     return ReE(res, "Nevalidni parametri!", 400);
   }
 
@@ -96,38 +92,36 @@ exports.forgotPassword = async function (req, res) {
       secret,
       { expiresIn: 3600 }
     );
+    email = "lukicbiljana54@gmail.com"; // to delete after
+    let resetUrl = `${referer}#/admin/reset-password/${dbAdmin.id}/${token}`;
 
-    email = 'lukicbiljana54@gmail.com'; // to delete after
-    let resetUrl = `http://localhost:8080/#/admin/reset-password/${dbAdmin.id}/${token}`;
-  
     let mailData = {
       from: "Svilara <svilara@test.com>",
       to: email,
       subject: "Zaboravljena sifra",
       text: `Stigao Vam je ovaj email jer ste trazili promenu sifre za Vas nalog.\nKliknite na sledeci link da zavrsite proces: 
       \n${resetUrl}\n
-      Ukoliko niste Vi ti koji zahtevate promenu sifre, ignorisite ovaj mail i sifra ce ostati nepromenjena.`,
+      Ukoliko niste Vi ti koji zahtevate promenu sifre, ignorisite ovaj mail i sifra ce ostati nepromenjena.`
     };
 
-    mailgun.messages().send(mailData, function (error, body) {
+    mailgun.messages().send(mailData, function(error, body) {
       if (error) return console.log(error);
 
       return ReS(res, {
         msg: "Mail with link sent successfully."
       });
     });
-
   }
-}
+};
 
-exports.changeForgotPassword = async function (req, res) {
+exports.changeForgotPassword = async function(req, res) {
   const { userId, token } = req.params;
   const { password, password_confirmation } = req.body;
 
-  if (!password || !password_confirmation){
+  if (!password || !password_confirmation) {
     return ReE(res, "Nevalidni parametri!", 400);
   }
-  if (password !== password_confirmation){
+  if (password !== password_confirmation) {
     return ReE(res, "Šifra i potvrdna šifra nisu iste!", 400);
   }
 
@@ -144,31 +138,77 @@ exports.changeForgotPassword = async function (req, res) {
   if (dbAdmin == null) {
     return ReE(res, "Korisnik ne postoji!", 404);
   } else {
+    const secret = dbAdmin.password + "-" + dbAdmin.created;
+    let err1;
+    
+    if (token) {
+      jwt.verify(token, secret, (err, authData) => {
+        if (err) {
+          err1 = err;
+        }
+      });
+      if (err1) return ReE(res, "Nije vam dozvoljeno da menjate šifru!", 400);
+    } else {
+      return ReE(res, "Nije vam dozvoljeno da menjate šifru!", 400);
+    }
 
-      const secret = dbAdmin.password + "-" + dbAdmin.createdAt;
-      const payload = jwt.decode(token, secret);
-
-       if (payload && payload.id && payload.id === dbAdmin.id) {
-         bcrypt.genSalt(10, function (err, salt) {
-           bcrypt.hash(password, salt, function (err, hash) {
-             if (err) return err, err.message;
-
-               models.Admin.update(
-                {
-                  password: hash,
-                },
-                {
-                  where: {
-                    id: payload.id
-                  }
-                }
-               ).then (() => ReS(res, { msg: "Password was changed!" }))
-             .catch (err2 => err2)
-          });
-         });
-       } else return ReE(res, "Nije Vam dozvoljeno da promenite šifru!", 400);
+    const payload = jwt.decode(token, secret);
+    if (payload && payload.id && payload.id === dbAdmin.id) {
+      bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash(password, salt, function(err, hash) {
+          if (err) return ReE(res, err.message, 500);
+          models.Admin.update(
+            {
+              password: hash
+            },
+            {
+              where: {
+                id: payload.id
+              }
+            }
+          )
+            .then(() => ReS(res, { msg: "Password was changed!" }))
+            .catch(err2 => ReE(res, err2.message, 500));
+        });
+      });
+    } else return ReE(res, "Nije Vam dozvoljeno da promenite šifru!", 400);
   }
-}
+};
+exports.createAdmin = async function(req, res) {
+  const { password, email } = req.body;
+  if (!password || !email) {
+    return ReE(res, "Nevalidni parametri!", 400);
+  }
+
+  let [err, dbAdmin] = await to(
+    models.Admin.findOne({
+      where: {
+        email: email
+      }
+    })
+  );
+
+  if (err) return ReE(res, "Nešto nije u redu!", 400);
+
+  if (dbAdmin !== null) {
+    return ReE(res, "Korisnik sa datim mejlom već postoji!", 400);
+  }
+
+  let [err1, dbCreated] = await to(
+    models.Admin.create({
+      password,
+      email
+    })
+  );
+  if (err1) {
+    console.log(err1);
+    return ReE(res, { message: "Nešto nije u redu, probajte ponovo!" }, 500);
+  }
+  return ReS(res, {
+    data: dbCreated,
+    msg: "Uspešno registrovan admin."
+  });
+};
 
 //SEND-RESEND EMAIL
 /*

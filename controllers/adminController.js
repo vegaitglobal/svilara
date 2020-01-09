@@ -75,9 +75,17 @@ exports.getEventsTable = async function(req, res) {
         "endTime",
         "created"
       ],
-      where:{
-        [Op.or]: [{status: 'pending'}, {status: 'rejected', created:{[Op.gt]: new Date(new Date() - 30 * 24 * 60 * 60 * 1000)}}, 
-        {status: 'accepted', endTime:{[Op.gt]: new Date()}}]
+      where: {
+        [Op.or]: [
+          { status: "pending" },
+          {
+            status: "rejected",
+            created: {
+              [Op.gt]: new Date(new Date() - 30 * 24 * 60 * 60 * 1000)
+            }
+          },
+          { status: "accepted", endTime: { [Op.gt]: new Date() } }
+        ]
       }
     })
   );
@@ -91,7 +99,6 @@ exports.getEventsTable = async function(req, res) {
     data: dbEvents
   });
 };
-
 
 // CREATE EVENT
 exports.createEvent = async function(req, res) {
@@ -115,9 +122,13 @@ exports.createEvent = async function(req, res) {
 
     let validatorMessage = validateEvent(fields, files);
     if (validatorMessage) {
-      return ReE(res, {
-        message: validatorMessage
-      }, 400);
+      return ReE(
+        res,
+        {
+          message: validatorMessage
+        },
+        400
+      );
     }
 
     if (files.picture) {
@@ -137,7 +148,8 @@ exports.createEvent = async function(req, res) {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
+        if (err)
+          return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
       });
       //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = "default-picture.png";
@@ -217,9 +229,13 @@ exports.updateEvent = async function(req, res) {
 
     let validatorMessage = validateEvent(fields, files);
     if (validatorMessage) {
-      return ReE(res, {
-        message: validatorMessage
-      }, 400);
+      return ReE(
+        res,
+        {
+          message: validatorMessage
+        },
+        400
+      );
     }
 
     if (files.picture) {
@@ -239,7 +255,8 @@ exports.updateEvent = async function(req, res) {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 400);
+        if (err)
+          return ReE(res, { message: "Slika nije uspešno upisana!" }, 400);
       });
       //fs.renameSync(imageTmpPath, newImagePath);
     } else imageName = fields.picture;
@@ -254,7 +271,7 @@ exports.updateEvent = async function(req, res) {
         var fileName2 = random.string("24");
         if (files.logo.type == "image/jpeg") var imgExt2 = ".jpg";
         if (files.logo.type == "image/png") var imgExt2 = ".png";
-       logoName = fileName2 + imgExt2;
+        logoName = fileName2 + imgExt2;
         var newLogoPath = "./public/uploads/" + logoName;
       }
       mv(logoTmpPath, newLogoPath, function(err) {
@@ -370,8 +387,9 @@ exports.updateEvent = async function(req, res) {
 // ACCEPT EVENT
 exports.acceptEvent = async (req, res) => {
   //let explanation = req.body.explanation;
-  //let email = req.body.email;
-  let email = "lukicbiljana54@gmail.com";
+  let email = req.body.email;
+  //console.log(email);
+  email = "lukicbiljana54@gmail.com";
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "accepted" },
@@ -410,8 +428,6 @@ exports.acceptEvent = async (req, res) => {
 
 // REJECT EVENT
 exports.rejectEvent = async (req, res) => {
-  let explanation = req.body.explanation;
-
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "rejected" },
@@ -513,7 +529,7 @@ exports.createQuestion = async (req, res) => {
   let values = null;
   let name = req.body.name;
 
-  if (text === '' || mandatory === ''){
+  if (text === "" || mandatory === "") {
     return ReE(res, { message: "Nevalidni parametri!" }, 400);
   }
 
@@ -532,7 +548,7 @@ exports.createQuestion = async (req, res) => {
       fieldType,
       values,
       order,
-      mandatory, 
+      mandatory,
       name
     })
   );
@@ -555,10 +571,14 @@ exports.updateQuestion = async (req, res) => {
   let mandatory = req.body.mandatory;
   let values = req.body.values;
 
-  if (text == ''){
-    return ReE(res, {
-      message: 'Nevalidni parametri!'
-    }, 400);
+  if (text == "") {
+    return ReE(
+      res,
+      {
+        message: "Nevalidni parametri!"
+      },
+      400
+    );
   }
 
   // let validatorMessage = validateQuestion(req.body);
@@ -572,9 +592,13 @@ exports.updateQuestion = async (req, res) => {
 
   let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
   if (!allowedFiledTypes.includes(fieldType))
-    return ReE(res, {
-      messsage: "Pogrešni parametri!"
-    }, 400);
+    return ReE(
+      res,
+      {
+        messsage: "Pogrešni parametri!"
+      },
+      400
+    );
 
   let [err, dbUpdated] = await to(
     models.Question.update(
@@ -590,9 +614,13 @@ exports.updateQuestion = async (req, res) => {
   );
   if (err) {
     console.log(err);
-    return ReE(res, {
-      message: "Nešto nije u redu, probajte ponovo."
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Nešto nije u redu, probajte ponovo."
+      },
+      500
+    );
   }
   return ReS(res, {
     msg: "Uspešno promenjeno."
@@ -609,9 +637,13 @@ exports.deleteQuestion = async (req, res) => {
     })
   );
   if (err) {
-    return ReE(res, {
-      message: "Nešto nije u redu, probajte ponovo."
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Nešto nije u redu, probajte ponovo."
+      },
+      500
+    );
   }
   return ReS(res, {
     msg: "Uspešno obrisano."
@@ -623,9 +655,13 @@ exports.getSettings = async (req, res) => {
   let [err, dbSettings] = await to(models.Settings.findAll());
   if (err) {
     console.log(err);
-    return ReE(res, {
-      message: "Nešto nije u redu, probajte ponovo."
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Nešto nije u redu, probajte ponovo."
+      },
+      500
+    );
   }
   return ReS(res, {
     data: dbSettings
@@ -636,13 +672,12 @@ exports.getSettings = async (req, res) => {
 exports.createSettings = async (req, res) => {
   let key = req.body.key;
   let value = req.body.value;
-  let keyShown =req.body.keyShown;
+  let keyShown = req.body.keyShown;
 
-  if (key === '' || value === ''){
-    return ReE(res, {message: "Nevalidni parametri!"}, 400);
-  }
-  else if (keyShown && !validator.isURL(value)){
-    return ReE(res, {message: "Nevalidan link!"}, 400);
+  if (key === "" || value === "") {
+    return ReE(res, { message: "Nevalidni parametri!" }, 400);
+  } else if (keyShown && !validator.isURL(value)) {
+    return ReE(res, { message: "Nevalidan link!" }, 400);
   }
   let [err, dbSettings] = await to(
     models.Settings.create({
@@ -654,9 +689,13 @@ exports.createSettings = async (req, res) => {
   );
   if (err) {
     console.log(err);
-    return ReE(res, {
-      message: "Nešto nije u redu, probajte ponovo."
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Nešto nije u redu, probajte ponovo."
+      },
+      500
+    );
   }
   return ReS(res, {
     msg: "Uspešno kreirano",
@@ -674,7 +713,7 @@ exports.updateSettings = async (req, res) => {
     }
     let key = fields.key;
     let value = "";
-    
+
     if (files.value) {
       if (
         files.value.type !== "image/jpeg" &&
@@ -692,18 +731,22 @@ exports.updateSettings = async (req, res) => {
         var newImagePath = "./public/uploads/" + imageName;
       }
       mv(imageTmpPath, newImagePath, function(err) {
-        if (err) return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
+        if (err)
+          return ReE(res, { message: "Slika nije uspešno upisana!" }, 500);
       });
-  } else if (key == 'glavni logo' || key == 'sporedni logo 1' || key == 'sporedni logo 2'){
+    } else if (
+      key == "glavni logo" ||
+      key == "sporedni logo 1" ||
+      key == "sporedni logo 2"
+    ) {
       value = "";
-  }
-  else {
-    value = fields.value;
-    if (value === '' || key === ''){
-      return ReE(res, { message: "Nevalidni parametri!" }, 400);
+    } else {
+      value = fields.value;
+      if (value === "" || key === "") {
+        return ReE(res, { message: "Nevalidni parametri!" }, 400);
+      }
     }
-  }
-   
+
     let [err, dbUpdated] = await to(
       models.Settings.update(
         {
@@ -714,9 +757,13 @@ exports.updateSettings = async (req, res) => {
       )
     );
     if (err) {
-      return ReE(res, {
-        message: "Došlo je do greške!"
-      }, 500);
+      return ReE(
+        res,
+        {
+          message: "Došlo je do greške!"
+        },
+        500
+      );
     }
     return ReS(res, {
       data: dbUpdated
@@ -734,9 +781,13 @@ exports.deleteSettings = async (req, res) => {
     })
   );
   if (err) {
-    return ReE(res, {
-      message: "Došlo je do greške!"
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Došlo je do greške!"
+      },
+      500
+    );
   }
   return ReS(res, {
     msg: "Uspešno obrisano"
@@ -747,9 +798,13 @@ exports.getScripts = async function(req, res) {
   let [err, dbScripts] = await to(models.Script.findAll({}));
 
   if (err) {
-    return ReE(res, {
-      message: "Došlo je do greške!"
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Došlo je do greške!"
+      },
+      500
+    );
   }
   return ReS(res, {
     data: dbScripts
@@ -759,8 +814,8 @@ exports.getScripts = async function(req, res) {
 exports.createScript = async (req, res) => {
   let script = req.body.value;
 
-  if (!script || script.substring(0, 8) !== "<script>"){
-    return ReE(res, {message: "Nevalidni parametri!"}, 400);
+  if (!script || script.substring(0, 8) !== "<script>") {
+    return ReE(res, { message: "Nevalidni parametri!" }, 400);
   }
 
   let [err, dbScript] = await to(
@@ -770,9 +825,13 @@ exports.createScript = async (req, res) => {
   );
   if (err) {
     console.log(err);
-    return ReE(res, {
-      message: "Nesto nije u redu, probajte ponovo!"
-    }, 500);
+    return ReE(
+      res,
+      {
+        message: "Nesto nije u redu, probajte ponovo!"
+      },
+      500
+    );
   }
   return ReS(res, {
     msg: "Successfully created",
@@ -804,19 +863,15 @@ function validateQuestion(body) {
 
 function validateEvent(body, files) {
   if (!body.title || validator.isEmpty(body.title)) {
-    
     return "Unesite naslov programa";
   }
-  if (!files.picture && !body.picture)
-  {
-    return "Unesite sliku"
+  if (!files.picture && !body.picture) {
+    return "Unesite sliku";
   }
 
-  if (!files.logo && !body.logo)
-  {
-    return "Unesite logo"
+  if (!files.logo && !body.logo) {
+    return "Unesite logo";
   }
-
 
   if (!body.description || validator.isEmpty(body.description)) {
     return "Unesite opis programa";
@@ -830,7 +885,11 @@ function validateEvent(body, files) {
     return "Unesite tip programa";
   }
 
-  if (!body.socialMedia || validator.isEmpty(body.socialMedia)  || !validator.isURL(body.socialMedia)) {
+  if (
+    !body.socialMedia ||
+    validator.isEmpty(body.socialMedia) ||
+    !validator.isURL(body.socialMedia)
+  ) {
     return "Unesite validan link";
   }
 
