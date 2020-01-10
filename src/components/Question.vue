@@ -10,15 +10,15 @@
           v-on:keyup="() => set('text', question.text, form)"
         />
         <span v-if="form.text.error" class="error">{{ form.text.error }}</span>
-        <p v-if="deleteUpdateOption() && question.name == 'question16'">
-          Ponuđeni odgovori:
-        </p>
-        <input
-          :disabled="!editing"
-          v-if="deleteUpdateOption() && question.name == 'question16'"
-          v-for="(option, index) in values"
-          v-model="values[index]"
-        />
+        <div class="answers" v-if="deleteUpdateOption() && question.name == 'question16'">
+          <p>Ponuđeni odgovori:</p>
+          <input
+            :disabled="!editing"
+            v-for="(option, index) in values"
+            v-model="values[index]"
+            v-bind:key="option"
+          />
+        </div>
       </div>
       <div class="button-wrapper">
         <button
@@ -112,3 +112,15 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+@import "../assets/scss/variables.scss";
+
+.answers {
+  margin-left: 20px;
+  p {
+    font-size: 16px;
+    margin: 5px 0 10px;
+  }
+}
+</style>
