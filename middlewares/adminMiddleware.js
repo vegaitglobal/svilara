@@ -15,32 +15,6 @@ exports.auth = function(req, res, next) {
         req.originalUrl === "/api/admin/questions"))
   ) {
     next();
-  // } else if (req.originalUrl.startsWith("/api/auth/reset-password")) {
-  //   const { token } = req.params;
-  //   console.log(req)
-  //   if (token) {
-  //     jwt.verify(token, process.env.ADMIN_SECRET, (err, authData) => {
-  //       if (err) {
-  //         console.log("Wrong JWT");
-  //         res.statusCode = 401;
-  //         return res.json({
-  //           success: false,
-  //           error: "Nije vam dozvoljeno da menjate šifru!"
-  //         });
-  //         //res.sendStatus(401);
-  //       } else {
-  //         next();
-  //       }
-  //     });
-  //   } else {
-  //     console.log("JWT missing!");
-  //     res.statusCode = 401;
-  //     return res.json({
-  //       success: false,
-  //       error: "Nije vam dozvoljeno da menjate šifru!"
-  //     });
-  //     //res.sendStatus(401);
-  //   }
   } else {
     if (typeof bearerHeader !== "undefined") {
       const bearer = bearerHeader.split(" ");

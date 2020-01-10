@@ -92,20 +92,19 @@ exports.forgotPassword = async function(req, res) {
       secret,
       { expiresIn: 3600 }
     );
-    email = "lukicbiljana54@gmail.com"; // to delete after
+    email = process.env.TEST_MAIL || email;
     let resetUrl = `${referer}#/admin/reset-password/${dbAdmin.id}/${token}`;
 
     let mailData = {
-      from: "Svilara <svilara@test.com>",
+      from: `${dbAdmin.nameFrom} <${dbAdmin.emailFrom}>`,
       to: email,
-      subject: "Zaboravljena sifra",
-      text: `Stigao Vam je ovaj email jer ste trazili promenu sifre za Vas nalog.\nKliknite na sledeci link da zavrsite proces: 
-      \n${resetUrl}\n
-      Ukoliko niste Vi ti koji zahtevate promenu sifre, ignorisite ovaj mail i sifra ce ostati nepromenjena.`
+      subject: "Zaboravljena šifra",
+      text: `Stigao Vam je ovaj mejl jer ste tražili promenu šifre za Vaš nalog.\nKliknite na sledeći link da završite proces: 
+      \n${resetUrl}\n\nUkoliko niste Vi ti koji zahtevate promenu šifre, ignorišite ovaj mejl i šifra će ostati nepromenjena.`
     };
 
     mailgun.messages().send(mailData, function(error, body) {
-      if (error) return console.log(error);
+      if (error) return ReE(res, "Greška u slanju mejla!", 502);
 
       return ReS(res, {
         msg: "Mail with link sent successfully."
@@ -175,8 +174,8 @@ exports.changeForgotPassword = async function(req, res) {
   }
 };
 exports.createAdmin = async function(req, res) {
-  const { password, email } = req.body;
-  if (!password || !email) {
+  const { password, email, emailFrom, nameFrom } = req.body;
+  if (!password || !email || !emailFrom || !nameFrom) {
     return ReE(res, "Nevalidni parametri!", 400);
   }
 
@@ -197,7 +196,10 @@ exports.createAdmin = async function(req, res) {
   let [err1, dbCreated] = await to(
     models.Admin.create({
       password,
-      email
+      email,
+      type : "admin",
+      emailFrom, 
+      nameFrom
     })
   );
   if (err1) {

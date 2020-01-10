@@ -10,6 +10,9 @@ module.exports = {
           password:
             "$2b$10$5Us97B7yX9AfRT3KUaCrTub3BbOMO9Z18fkq6AgeTCouzoXOWTQ8.",
           // phone: "+38164987654",
+          type:"superadmin",
+          emailFrom: "kulturnastanica@ks.com",
+          nameFrom: "Kulturna stanica",
           resetCode: "2579"
         }
       ],

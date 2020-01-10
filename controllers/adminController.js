@@ -386,10 +386,12 @@ exports.updateEvent = async function(req, res) {
 
 // ACCEPT EVENT
 exports.acceptEvent = async (req, res) => {
-  //let explanation = req.body.explanation;
   let email = req.body.email;
-  //console.log(email);
-  email = "lukicbiljana54@gmail.com";
+  let emailFrom = req.body.emailFrom;
+  let nameFrom = req.body.nameFrom;
+
+  email = process.env.TEST_MAIL || email;
+  
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "accepted" },
@@ -408,18 +410,17 @@ exports.acceptEvent = async (req, res) => {
   if (dbUpdated[0] === 0) {
     return ReE(res, "Zahtev nije pronađen.", 404);
   }
-
+console.log(`${nameFrom} <${emailFrom}>`)
   let mailData = {
-    from: "Svilara <svilara@test.com>",
+    from: `${nameFrom} <${emailFrom}>`,
     to: email,
     subject: "Zahtev Prihvaćen",
-    text: "Vas zahtev je prihvaćen."
+    text: `Poštovani,\n\nVaš zahtev za organizaciju događaja je prihvaćen.\n\nPozdrav,\n${nameFrom}`
     //text: explanation
   };
 
   mailgun.messages().send(mailData, function(error, body) {
-    if (error) return ReE(res, "Mail nije uspešno poslat.", 400);
-    console.log(body);
+    if (error) return ReE(res, "Mail nije uspešno poslat.", 502);
     return ReS(res, {
       msg: "Uspešno prihvaćeno."
     });
@@ -428,6 +429,17 @@ exports.acceptEvent = async (req, res) => {
 
 // REJECT EVENT
 exports.rejectEvent = async (req, res) => {
+  let email = req.body.email;
+  let [err1, dbAdmin] = await to(
+    models.Admin.findOne({
+      where: {
+        email: email
+      }
+    })
+  );
+  if (err1) {
+    return ReE(res, "Zahtev nije uspešno odbijen.", 400);
+  }
   let [err, dbUpdated] = await to(
     models.Event.update(
       { status: "rejected" },
@@ -447,17 +459,27 @@ exports.rejectEvent = async (req, res) => {
     return ReE(res, "Zahtev nije pronađen.", 404);
   }
 
-  let email = "lukicbiljana54@gmail.com"; // ovde ce biti mail od svilare kao podsetnik da posalju obrazlozenje za odbijanje
+  let [err2, dbEvent] = await to(
+    models.Event.findOne(
+      {
+        where: {
+          id: req.params.id
+        }
+      }
+    )
+  );
+
+  email = process.env.TEST_MAIL || email; 
   let mailData = {
-    from: "Svilara <svilara@test.com>",
+    from: `${dbAdmin.nameFrom} <${dbAdmin.emailFrom}>`,
     to: email,
     subject: "Zahtev Odbijen",
-    text: "Vas zahtev je odbijen"
+    text: `Ovaj mejl služi kao podsetnik da treba da pošaljete obrazloženje zašto je zahtev odbijen, na mejl: ${dbEvent.contactEmail}.`
   };
 
   mailgun.messages().send(mailData, function(error, body) {
     if (error)
-      return ReE(res, "Podsetnik nije uspešno poslat na mail adresu.", 400);
+      return ReE(res, "Podsetnik nije uspešno poslat na mail adresu.", 502);
     console.log(body);
     return ReS(res, {
       msg: "Uspešno odbijeno."
@@ -570,7 +592,8 @@ exports.updateQuestion = async (req, res) => {
   let order = req.body.order;
   let mandatory = req.body.mandatory;
   let values = req.body.values;
-
+  console.log(req.body);
+  console.log(values)
   if (text == "") {
     return ReE(
       res,
@@ -590,7 +613,7 @@ exports.updateQuestion = async (req, res) => {
 
   if (req.body.values) values = req.body.values;
 
-  let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file"];
+  let allowedFiledTypes = ["input", "checkbox", "radiobutton", "file", "textarea"];
   if (!allowedFiledTypes.includes(fieldType))
     return ReE(
       res,
@@ -742,7 +765,7 @@ exports.updateSettings = async (req, res) => {
       value = "";
     } else {
       value = fields.value;
-      if (value === "" || key === "") {
+      if ( key === "") {
         return ReE(res, { message: "Nevalidni parametri!" }, 400);
       }
     }

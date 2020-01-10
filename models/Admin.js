@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(100),
         allowNull: false
       },
+      emailFrom: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      nameFrom: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
+      type: {
+        type: DataTypes.STRING(100),
+        allowNull: false
+      },
       // phone: {
       //   type: DataTypes.STRING(100),
       //   allowNull: false
