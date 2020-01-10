@@ -81,7 +81,6 @@ export default {
       this.$store
         .dispatch("submitEvent")
         .then(response => {
-          if (response.data.success) {
             this.$swal
               .fire({
                 title: "Događaj poslat.",
@@ -93,18 +92,11 @@ export default {
                   this.$modal.hide("userCreateEventModal");
                 }
               });
-          } else {
-            this.$swal.fire({
-              title: "Upozorenje",
-              text: response.data.error.msg,
-              type: "warning"
-            });
-          }
         })
         .catch(error => {
           this.$swal.fire({
             title: "Greška",
-            text: error && error.response? error.response.data.error.msg : 'Došlo je do greške!',
+            text: error && error.response? error.response.data.error : 'Došlo je do greške!',
             type: "error"
           });
         });

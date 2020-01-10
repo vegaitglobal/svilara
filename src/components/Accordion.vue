@@ -92,8 +92,6 @@ export default {
   methods: {
     async acceptEvent(id, mail) {
       let admin = JSON.parse(localStorage.getItem("user"));
-      console.log(admin);
-      console.log(admin.nameFrom);
       try {
         let response = await this.$store.dispatch("acceptEvent", {id:id, mail:mail, emailFrom: admin.emailFrom, nameFrom: admin.nameFrom});
         this.$swal({

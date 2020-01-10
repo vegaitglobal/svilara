@@ -1,7 +1,13 @@
 <template>
   <div>
     <wysiwyg v-model="html" />
-    <button type="submit" class="btn btn__purple btn__large editr-btn" @click="createPage">Sačuvaj</button>
+    <button
+      type="submit"
+      class="btn btn__purple btn__large editr-btn"
+      @click="createPage"
+    >
+      Sačuvaj
+    </button>
   </div>
 </template>
 
@@ -44,17 +50,18 @@ export default {
           }
         )
         .then(res => {
-          console.error(res);
+          this.$swal.fire({
+            title: "Stranica je kreirana",
+            type: "success"
+          });
         })
         .catch(err => {
-          console.error(err);
+          this.$swal.fire({
+            title: "Greška!",
+            type: "error",
+            text: err && err.response ? err.response.data.error : 'Došlo je do greške!'
+          });
         });
-
-        this.$swal
-        .fire({
-          title: "Stranica je kreirana",
-          type: "success"
-        })
     }
   }
 };

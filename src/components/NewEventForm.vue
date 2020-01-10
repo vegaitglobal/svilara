@@ -447,7 +447,6 @@ export default {
       if (eventCopy.space.toLowerCase() === "drugo") {
         eventCopy.space = this.spaceOther;
       }
-      console.log(eventCopy);
       const form = new FormData();
       for (var prop in eventCopy) {
         form.append(prop, eventCopy[prop]);

@@ -89,7 +89,6 @@ export default {
           this.editing = false;
         })
         .catch(error => {
-          console.log(error)
           this.$swal.fire({
             type: "error",
             title: "Greška",
