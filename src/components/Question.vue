@@ -93,7 +93,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: error.response.data.error
+            text: error && error.response? error.response.data.error : 'Došlo je do greške!'
           });
         });
     },

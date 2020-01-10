@@ -59,7 +59,7 @@ export default {
            this.$swal({
             type: "error",
             title: "Oops...",
-            text: err.response.data.error
+            text: err && err.response ? err.response.data.error : 'Došlo je do greške!'
           });
       });
     }

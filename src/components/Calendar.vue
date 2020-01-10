@@ -542,7 +542,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: err.response.data.error
+            text: err && err.response ? err.response.data.error : 'Došlo je do greške!'
           });
         });
     },

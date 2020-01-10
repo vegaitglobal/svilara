@@ -104,7 +104,7 @@ export default {
         .catch(error => {
           this.$swal.fire({
             title: "Greška",
-            text: error.response.data.error.msg,
+            text: error && error.response? error.response.data.error.msg : 'Došlo je do greške!',
             type: "error"
           });
         });

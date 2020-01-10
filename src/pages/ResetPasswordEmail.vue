@@ -133,8 +133,8 @@ export default {
       } catch (error) {
         this.$swal({
           type: "error",
-          title: "Oops...",
-          text: error.response.data.error
+          title: "Greška!",
+          text: error && error.response? error.response.data.error : 'Došlo je do greške!'
         });
       }
     }

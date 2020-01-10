@@ -79,8 +79,8 @@ export default {
       } catch (err) {
         this.$swal({
           type: "error",
-          title: "Oops...",
-          text: err.response.data.error
+          title: "Greška!",
+          text: err && err.response ? err.response.data.error : 'Došlo je do greške!'
         });
       }
     },

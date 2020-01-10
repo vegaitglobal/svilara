@@ -648,7 +648,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: error.response.data.error
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!'
           });
         });
     },
@@ -670,7 +670,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: error.response.data.error
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!'
           });
         });
     },
@@ -695,7 +695,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška!",
-            text: error.response.data.error
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!'
           });
         });
     },
@@ -720,7 +720,7 @@ export default {
           this.$swal.fire({
             type: "error",
             title: "Greška!",
-            text: error.response.data.error
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!'
           });
         });
     },
@@ -754,7 +754,7 @@ export default {
         .catch(error => {
           this.$swal.fire({
             title: "Greška!",
-            text: error.response.data.error,
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!',
             type: "error"
           });
         });
@@ -790,7 +790,7 @@ export default {
         .catch(error => {
           this.$swal.fire({
             title: "Greška!",
-            text: error.response.data.error,
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!',
             type: "error"
           });
         });
@@ -815,7 +815,7 @@ export default {
         .catch(error => {
           this.$swal.fire({
             title: "Greška!",
-            text: error.response.data.error,
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!',
             type: "error"
           });
         });
