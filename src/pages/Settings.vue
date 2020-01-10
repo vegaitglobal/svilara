@@ -89,7 +89,7 @@
                 <input
                 type="text"
                 v-model="admin.email"
-                placeholder="Email"
+                placeholder="I-mejl"
                 v-on:keyup="() => set('email', admin.email, adminForm)"
                 />
                 <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
@@ -97,10 +97,26 @@
                 <input
                 type="text"
                 v-model="admin.password"
-                placeholder="Password"
+                placeholder="Šifra"
                 v-on:keyup="() => set('password', admin.password, adminForm)"
                 />
                 <span v-if="adminForm.password.error" class="error">{{ adminForm.password.error }}</span>
+
+                <input
+                type="text"
+                v-model="admin.emailFrom"
+                placeholder="I-mejl koji želite da se pojavi u 'od' sekciji I-mejla"
+                v-on:keyup="() => set('emailFrom', admin.emailFrom, adminForm)"
+                />
+                <span v-if="adminForm.emailFrom.error" class="error">{{ adminForm.emailFrom.error }}</span>
+
+                <input
+                type="text"
+                v-model="admin.nameFrom"
+                placeholder="Naziv koji želite da se pojavi u 'od' sekciji I-mejla"
+                v-on:keyup="() => set('nameFrom', admin.nameFrom, adminForm)"
+                />
+                <span v-if="adminForm.nameFrom.error" class="error">{{ adminForm.nameFrom.error }}</span>
 
                 <button
                 @click="saveAdmin"
@@ -365,7 +381,9 @@ export default {
       },
       admin: {
         password: "",
-        email: ""
+        email: "",
+        emailFrom: "",
+        nameFrom: ""
       },
       firstScript: "",
       secondScript: "",
@@ -448,6 +466,16 @@ export default {
           valid: false,
           error: null,
           constraints: [required, isEmail]
+        },
+        emailFrom: {
+          valid: false,
+          error: null,
+          constraints: [required, isEmail]
+        },
+        nameFrom: {
+          valid: false,
+          error: null,
+          constraints: [required]
         },
         password: {
           valid: false,

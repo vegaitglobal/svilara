@@ -71,7 +71,7 @@ export default {
 
         async acceptEvent({ dispatch }, idMail) {
             return new Promise((resolve, reject) => {
-                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${idMail.id}`, {email: idMail.mail})
+                axios.put(`${process.env.VUE_APP_BASE_URL}/admin/event/accept/${idMail.id}`, {email: idMail.mail, emailFrom: idMail.emailFrom, nameFrom: idMail.nameFrom})
                 .then(response => {
                     dispatch('fetchAdminEvents');
                     resolve(response);
