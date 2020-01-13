@@ -54,7 +54,7 @@ export default {
     },
     mailLink() {
       if (this.settings.length && this.settings[7].value) {
-        return this.settings[7].value;
+        return `mailto:+ ${this.settings[7].value}`;
       }
       return "";
     },
