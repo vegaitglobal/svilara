@@ -232,7 +232,28 @@
 
       <button
         class="btn btn__red btn__large"
+        @click="openDeleteEventModal"
       >Obriši događaj</button>
+    </modal>
+    <modal
+      name="deleteEvent"
+      height="450"
+      width="600"
+      overlayTransition="overlay-fade"
+      class="modal__create-question"
+    >
+      <div class="question-wrapper">
+        <h2>Da li ste sigurni da želite da obrišete ovaj događaj?</h2>
+      </div>
+      <button
+        @click="cancelDeleteEvent"
+        class="btn btn__purple btn__large"
+      >
+        Odustani
+      </button>
+      <button @click="deleteEvent" class="btn btn__purple btn__large">
+        Obriši
+      </button>
     </modal>
   </div>
 </template>
@@ -465,6 +486,37 @@ export default {
     },
     closeModal() {
       this.$modal.hide("modalEventEdit");
+    },
+    openDeleteEventModal(){
+        this.$modal.show("deleteEvent");
+        this.$modal.hide("modalEventEdit");
+    },
+    cancelDeleteEvent(){
+      this.$modal.hide("deleteEvent");
+      this.$modal.show("modalEventEdit");
+    },
+    deleteEvent(){
+      this.$store.dispatch("deleteEvent", this.selectedEvent.id)
+      .then(() => {
+          this.$swal
+            .fire({
+              type: "success",
+              title: "Događaj je izbrisan!"
+            })
+            .then(res => {
+              if (res.value) {
+                this.$modal.hide("modalEventEdit");
+                this.$modal.hide("deleteEvent");
+                this.$store.dispatch("fetchAdminEvents");
+              }
+            });
+      }).catch((error) => {
+          this.$swal.fire({
+            type: "error",
+            title: "Greška",
+            text: error && error.response ? error.response.data.error : 'Došlo je do greške!'
+          });
+      })
     },
     checkForm() {
       for (let key in this.form) {
