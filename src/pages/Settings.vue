@@ -49,7 +49,7 @@
         </tab>
         <tab :title="'Dodavanje skripte'">
             <div class="script-input">
-                <h3>Dodaj skriptu za Google Analytics:</h3>
+                <h3>Dodaj skriptu za Google Tag Manager:</h3>
                 <textarea
                     rows="10"
                     cols="90"
@@ -67,7 +67,7 @@
             </div>
 
             <div class="script-input">
-                <h3>Dodaj skriptu za Google Tag Manager:</h3>
+                <h3>Dodaj skriptu za Google Analytics:</h3>
                 <textarea
                     rows="10"
                     cols="90"
