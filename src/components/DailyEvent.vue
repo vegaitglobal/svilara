@@ -178,6 +178,7 @@ export default {
   &--time {
     color: $gray;
     margin: 16px 0;
+    font-size: 14px;
   }
   h3 {
     margin-bottom: 13px;

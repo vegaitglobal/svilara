@@ -229,6 +229,10 @@
         class="btn btn__purple btn__large"
         :disabled="!validate(form)"
       >Sačuvaj</button>
+
+      <button
+        class="btn btn__red btn__large"
+      >Obriši događaj</button>
     </modal>
   </div>
 </template>
@@ -245,7 +249,7 @@ import {
   set,
   validate,
   notNull,
-  notUndefined, 
+  notUndefined,
   isEmail
 } from "vue-val";
 
@@ -388,28 +392,27 @@ export default {
     }
   },
   methods: {
-	onCategoryChange(e) {
-		set('category', e.target.value, this.form);
+    onCategoryChange(e) {
+        set('category', e.target.value, this.form);
 
-		if(e.target.value == 'drugo') {
-			const validationResult = required(this.categoryOther);
+        if(e.target.value == 'drugo') {
+            const validationResult = required(this.categoryOther);
 
-			this.form.category.valid = validationResult.valid;
-			this.form.category.error = validationResult.valid ? null : validationResult.message;
-		}
-	},
-	onSpaceChange(e) {
-		set('space', e.target.value, this.form);
+            this.form.category.valid = validationResult.valid;
+            this.form.category.error = validationResult.valid ? null : validationResult.message;
+        }
+    },
+    onSpaceChange(e) {
+        set('space', e.target.value, this.form);
 
-		if(e.target.value == 'drugo') {
-			const validationResult = required(this.spaceOther);
+        if(e.target.value == 'drugo') {
+            const validationResult = required(this.spaceOther);
 
-			this.form.space.valid = validationResult.valid;
-			this.form.space.error = validationResult.valid ? null : validationResult.message;
-		}
-	},
+            this.form.space.valid = validationResult.valid;
+            this.form.space.error = validationResult.valid ? null : validationResult.message;
+        }
+    },
     eventClicked(info) {
-      
       this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps));
       let cat = this.selectedEvent.category;
       if (
@@ -589,6 +592,10 @@ export default {
   .inputfield-row {
     list-style-type: decimal;
     margin-bottom: 20px;
+  }
+  .btn {
+    display: block;
+    margin-bottom: 40px;
   }
 }
 .input-file-wrapper {
