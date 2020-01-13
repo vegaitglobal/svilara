@@ -46,6 +46,18 @@
           </li>
 
           <li class="inputfield-row">
+            <span>Kontakt i-mejl</span>
+            <input
+              v-on:keyup="() => set('contactEmail', selectedEvent.contactEmail, form)"
+              v-model="selectedEvent.contactEmail"
+              type="text"
+            />
+            <span v-if="form.contactEmail.error" class="error">{{
+              form.contactEmail.error
+            }}</span>
+          </li>
+
+          <li class="inputfield-row">
             <span>Logo organizacije</span>
             <div class="input-file-wrapper">
               <div v-if="selectedEvent.logo">
@@ -233,7 +245,8 @@ import {
   set,
   validate,
   notNull,
-  notUndefined
+  notUndefined, 
+  isEmail
 } from "vue-val";
 
 export default {
@@ -248,6 +261,7 @@ export default {
       selectedEvent: {
         id: "",
         title: "",
+        contactEmail: "",
         description: "",
         type: "",
         price: "",
@@ -267,6 +281,11 @@ export default {
           valid: true,
           error: null,
           constraints: [required]
+        },
+        contactEmail: {
+          valid: true,
+          error: null,
+          constraints: [required, isEmail]
         },
         description: {
           valid: true,
@@ -390,6 +409,7 @@ export default {
 		}
 	},
     eventClicked(info) {
+      
       this.selectedEvent = JSON.parse(JSON.stringify(info.event.extendedProps));
       let cat = this.selectedEvent.category;
       if (

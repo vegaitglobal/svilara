@@ -95,7 +95,8 @@ export default {
             startTime: state.adminEvents[i].startTime,
             endTime: state.adminEvents[i].endTime,
             picture: state.adminEvents[i].picture,
-            logo: state.adminEvents[i].logo
+            logo: state.adminEvents[i].logo,
+            contactEmail: state.adminEvents[i].contactEmail
           }
         };
         serializedEvents.push(parsedEvent);
