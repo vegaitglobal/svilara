@@ -2,8 +2,8 @@
   <footer class="footer">
     <SocialIcons />
     <ContactInfo />
-    <img class="footer__logo--small" :src="logo1" />
-    <img class="footer__logo--small" :src="logo2" alt="logo" />
+    <img v-if="logo1 !== ''" class="footer__logo--small" :src="logo1" />
+    <img v-if="logo2 !== ''" class="footer__logo--small" :src="logo2" alt="logo" />
   </footer>
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     settings() {
-      return this.$store.getters.getSettings;
+      return this.$store.getters.getSettings();
     },
     logo1() {
       if (this.settings.length && this.settings[1].value) {

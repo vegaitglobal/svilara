@@ -74,7 +74,7 @@ export default {
     };
   },
   methods: {
-    showModalSettingsDelete(id){
+    showModalSettingsDelete(id) {
       this.showModalSettingsDeleteProp(id);
     },
     async save() {
@@ -86,16 +86,19 @@ export default {
 
       this.$store
         .dispatch("updateSettings", formIdObject)
-        .then(() => { this.editing = false; })
+        .then(() => {
+          this.editing = false;
+        })
         .catch(error => {
           this.$swal.fire({
             type: "error",
             title: "Greška",
-            text: error && error.response? error.response.data.error: 'Došlo je do greške!'
+            text:
+              error && error.response
+                ? error.response.data.error
+                : "Došlo je do greške!"
           });
         });
-
-     
     },
     logoChange(event) {
       this.loaclOption.value = event.target.files[0];
