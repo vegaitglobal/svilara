@@ -46,7 +46,7 @@
           </li>
 
           <li class="inputfield-row">
-            <span>Kontakt i-mejl</span>
+            <span>Kontakt e-mail</span>
             <input
               v-on:keyup="() => set('contactEmail', selectedEvent.contactEmail, form)"
               v-model="selectedEvent.contactEmail"

@@ -89,7 +89,7 @@
                 <input
                 type="text"
                 v-model="admin.email"
-                placeholder="I-mejl"
+                placeholder="E-mail"
                 v-on:keyup="() => set('email', admin.email, adminForm)"
                 />
                 <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
@@ -105,7 +105,7 @@
                 <input
                 type="text"
                 v-model="admin.emailFrom"
-                placeholder="I-mejl koji želite da se pojavi u 'od' sekciji I-mejla"
+                placeholder="E-mail koji želite da se pojavi u 'od' sekciji E-mail-a"
                 v-on:keyup="() => set('emailFrom', admin.emailFrom, adminForm)"
                 />
                 <span v-if="adminForm.emailFrom.error" class="error">{{ adminForm.emailFrom.error }}</span>
@@ -113,7 +113,7 @@
                 <input
                 type="text"
                 v-model="admin.nameFrom"
-                placeholder="Naziv koji želite da se pojavi u 'od' sekciji I-mejla"
+                placeholder="Naziv koji želite da se pojavi u 'od' sekciji E-mail-a"
                 v-on:keyup="() => set('nameFrom', admin.nameFrom, adminForm)"
                 />
                 <span v-if="adminForm.nameFrom.error" class="error">{{ adminForm.nameFrom.error }}</span>
@@ -810,7 +810,9 @@ export default {
             type: "success"
           });
           this.admin.email = "";
-          this.admin.password = ""
+          this.admin.password = "";
+          this.admin.emailFrom = "";
+          this.admin.nameFrom = "";
         })
         .catch(error => {
           this.$swal.fire({
@@ -933,7 +935,7 @@ export default {
         padding: 10px;
         display: block;
         margin-bottom: 10px;
-        min-width: 350px;
+        min-width: 355px;
 
         & + .btn {
             margin-top: 10px;

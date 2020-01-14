@@ -19,19 +19,16 @@ const sortByDate = (a, b) => {
 
 const searchColorsByType = (settings, type) => {
   for (var i = 0; i < settings.length; i++) {
-    // if (settings[i].key === "otvoren bez prijave") {
-    //   settings[i].key = "otvorenbp";
-    // }
-    // if (settings[i].key === "otvoren sa prijavom") {
-    //   settings[i].key = "otvorensp";
-    // }
     if (settings[i].key === type) {
       return settings[i].value;
     }
-    if (settings[i].key === "otvoren bez prijave" && type === "otvorenbp"){
+    if (settings[i].key === "Otvoren bez prijave" && type === "otvorenbp"){
       return settings[i].value;
     }
-    if (settings[i].key === "otvoren sa prijavom" && type === "otvorensp"){
+    if (settings[i].key === "Otvoren sa prijavom" && type === "otvorensp"){
+      return settings[i].value;
+    }
+    if (settings[i].key === "Zatvoren" && type === "zatvoren"){
       return settings[i].value;
     }
   }
@@ -72,7 +69,7 @@ export default {
       let serializedEvents = [];
       for (var i = 0; i < state.adminEvents.length; i++) {
         var color = searchColorsByType(settings, state.adminEvents[i].type);
-        var borderColor = searchColorsByType(settings, "placanje");
+        var borderColor = searchColorsByType(settings, "Plaćanje");
         let parsedEvent = {
           id: state.adminEvents[i].id,
           title: state.adminEvents[i].title,
