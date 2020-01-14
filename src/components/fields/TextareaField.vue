@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{index+1}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}<span v-if="question.mandatory"> *</span></h5>
     <div class="inputfield-row">
       <textarea v-model="questionData" @keyup="onChange" cols="55" rows="5" />
     </div>
@@ -51,6 +51,11 @@ export default {
 textarea {
   @include breakpoint(mob) {
     max-width: 235px;
+  }
+}
+.question {
+  h5 span {
+    color: red;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{ index + 1 }}. {{ question.text }}</h5>
+    <h5>{{ index + 1 }}. {{ question.text }}<span v-if="question.mandatory"> *</span></h5>
     <ul>
       <li class="radio-btn" v-for="(value, index) in JSON.parse(question.values)" :key="index">
         <input
@@ -87,5 +87,10 @@ export default {
   padding-left: 25px;
   display: block;
   color: $main;
+}
+.question {
+  h5 span {
+    color: red;
+  }
 }
 </style>

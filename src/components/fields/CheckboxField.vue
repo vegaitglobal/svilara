@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{index+1}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}<span v-if="question.mandatory"> *</span></h5>
     <ul>
       <li class="check-box" v-for="(value, index) in JSON.parse(question.values)" :key="index">
         <input
@@ -103,6 +103,11 @@ export default {
   margin-bottom: 5px;
   input {
     margin-right: 10px;
+  }
+}
+.question {
+  h5 span {
+    color: red;
   }
 }
 </style>
