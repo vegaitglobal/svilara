@@ -89,7 +89,7 @@
                 <input
                 type="text"
                 v-model="admin.email"
-                placeholder="I-mejl"
+                placeholder="E-mail"
                 v-on:keyup="() => set('email', admin.email, adminForm)"
                 />
                 <span v-if="adminForm.email.error" class="error">{{ adminForm.email.error }}</span>
@@ -105,7 +105,7 @@
                 <input
                 type="text"
                 v-model="admin.emailFrom"
-                placeholder="I-mejl koji želite da se pojavi u 'od' sekciji I-mejla"
+                placeholder="E-mail koji želite da se pojavi u 'od' sekciji E-mail-a"
                 v-on:keyup="() => set('emailFrom', admin.emailFrom, adminForm)"
                 />
                 <span v-if="adminForm.emailFrom.error" class="error">{{ adminForm.emailFrom.error }}</span>
@@ -113,7 +113,7 @@
                 <input
                 type="text"
                 v-model="admin.nameFrom"
-                placeholder="Naziv koji želite da se pojavi u 'od' sekciji I-mejla"
+                placeholder="Naziv koji želite da se pojavi u 'od' sekciji E-mail-a"
                 v-on:keyup="() => set('nameFrom', admin.nameFrom, adminForm)"
                 />
                 <span v-if="adminForm.nameFrom.error" class="error">{{ adminForm.nameFrom.error }}</span>
@@ -137,6 +137,11 @@
       @opened="cleanNewTextQuestion() && disableScroll()"
       @before-close="enableScroll()"
     >
+     <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateQuestionText')"
+      ></button>
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -183,6 +188,11 @@
       @opened="cleanNewImageQuestion() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateQuestionPicture')"
+      ></button>
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -229,6 +239,11 @@
       @opened="cleanNewSettingText() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateSettingsText')"
+      ></button>
       <div class="question-wrapper">
         <h2>Naziv tekstualnog polja:</h2>
         <input
@@ -271,6 +286,11 @@
       @opened="cleanNewSettingLink() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateSettingsLink')"
+      ></button>
       <div class="question-wrapper">
         <h2>Naslov linka:</h2>
         <input
@@ -310,6 +330,11 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('deleteQuestion')"
+      ></button>
       <div class="question-wrapper">
         <h2>Da li ste sigurni da želite da obrišete ovo pitanje?</h2>
       </div>
@@ -330,6 +355,11 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('deleteSettings')"
+      ></button>
       <div class="question-wrapper">
         <h2>Da li ste sigurni da želite da obrišete ovo podešavanje?</h2>
       </div>
@@ -810,7 +840,9 @@ export default {
             type: "success"
           });
           this.admin.email = "";
-          this.admin.password = ""
+          this.admin.password = "";
+          this.admin.emailFrom = "";
+          this.admin.nameFrom = "";
         })
         .catch(error => {
           this.$swal.fire({
@@ -933,7 +965,7 @@ export default {
         padding: 10px;
         display: block;
         margin-bottom: 10px;
-        min-width: 350px;
+        min-width: 355px;
 
         & + .btn {
             margin-top: 10px;

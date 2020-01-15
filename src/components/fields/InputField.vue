@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{index+1}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}<span v-if="question.mandatory"> *</span></h5>
     <div class="inputfield-row">
       <input type="text" v-model="questionData" @keyup="onChange" />
       <span class="error">{{ errorMessage }}</span>
@@ -112,5 +112,10 @@ select {
   margin: 5px 0 10px !important;
   font-size: 14px !important;
   display: block;
+}
+.question {
+  h5 span {
+    color: red;
+  }
 }
 </style>

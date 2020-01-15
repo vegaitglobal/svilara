@@ -1,10 +1,10 @@
 <template>
   <div>
     <header class="header">
-      <a class="header__link" href="/">
+      <a v-if="mainLogo !== ''" class="header__link" href="/">
         <img
           class="header__logo"
-          src="../assets/img/svilara-logo.jpg"
+          :src="mainLogo"
           alt="logo"
         />
       </a>
@@ -167,6 +167,14 @@ export default {
       get: function() {
         return this.$store.getters.getSettings();
       }
+    },
+     mainLogo() {
+      if (this.settings.length && this.settings[0].value) {
+        return (
+          process.env.VUE_APP_MEDIA_BASE_URL + "/" + this.settings[0].value
+        );
+      }
+      return "";
     },
     title() {
       if (this.settings.length && this.settings[14]) {

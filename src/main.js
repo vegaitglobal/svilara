@@ -59,7 +59,7 @@ messages.isDate = () => `Datum mora biti u validnom formatu: dd.mm.yyyy.`;
 messages.isTime = () => `Vreme mora biti u validnom formatu: hh:mm`;
 messages.isValue = value => `Morate izabrati jednu od sledecih vrednosti: ${value} `;
 messages.isUrl = () => `Morate uneti validan URL.`;
-messages.isEmail = () => `Morate uneti validnu i-mejl adresu.`;
+messages.isEmail = () => `Morate uneti validnu e-mail adresu.`;
 
 new Vue({
   el: "#app",

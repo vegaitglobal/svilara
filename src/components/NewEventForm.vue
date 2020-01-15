@@ -37,7 +37,7 @@
           </li>
 
           <li class="inputfield-row">
-            <span>Kontakt i-mejl</span>
+            <span>Kontakt e-mail</span>
             <input
               v-on:keyup="() => set('contactEmail', event.contactEmail, form)"
               v-model="event.contactEmail"
@@ -55,7 +55,9 @@
               type="file"
               v-on:change="() => set('logo', event.logo, form)"
             />
-            <span v-if="form.logo.error" class="error">{{form.logo.error}}</span>
+            <span v-if="form.logo.error" class="error">{{
+              form.logo.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -65,7 +67,9 @@
               type="file"
               v-on:change="() => set('picture', event.picture, form)"
             />
-            <span v-if="form.picture.error" class="error">{{form.picture.error}}</span>
+            <span v-if="form.picture.error" class="error">{{
+              form.picture.error
+            }}</span>
           </li>
 
           <li class="inputfield-row">
@@ -227,7 +231,7 @@
         @click="createEvent"
         class="btn btn__purple btn__large mt-20"
         type="submit"
-       :disabled="!validate(form)"
+        :disabled="!validate(form)"
       >
         Sačuvaj
       </button>
@@ -453,11 +457,34 @@ export default {
       }
       this.$store
         .dispatch("addEvent", form)
-        .then(() =>
+        .then(() => { 
           this.$swal.fire({
             type: "success",
             title: "Događaj je kreiran!"
-          })
+          });
+        this.event = {
+        id: "",
+        title: "",
+        description: "",
+        type: "",
+        price: "",
+        category: "",
+        space: "",
+        socialMedia: "",
+        age: "",
+        startTime: "",
+        endTime: "",
+        picture: "",
+        logo: "",
+        contactEmail: ""
+        };
+      this.startDate = "";
+      this.startTime = "";
+      this.endDate = "";
+      this.endTime = "";
+      this.spaceOther = "";
+      this.categoryOther = "";
+      }
         )
         .catch(err => {
            this.$swal.fire({

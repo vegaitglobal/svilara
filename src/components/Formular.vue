@@ -10,6 +10,7 @@
       :index="index"
     ></component>
     <button :disabled="!isFormValid" class="btn btn__purple btn__large" @click="submit">Pošalji</button>
+    <p class="explanation">* Pitanja označena zvezdicom su obavezna pitanja</p>
   </div>
 </template>
 
@@ -148,6 +149,10 @@ export default {
   ul {
     list-style: decimal;
     list-style-position: inside;
+  }
+  .explanation {
+    font-size: 12px;
+    padding-top: 20px;
   }
 }
 </style>

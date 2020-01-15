@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h5>{{index+1}}. {{question.text}}</h5>
+    <h5>{{index+1}}. {{question.text}}<span v-if="question.mandatory"> *</span></h5>
     <input type="file" accept="image/*" @change="uploadImage($event)" />
   </div>
 </template>
@@ -22,3 +22,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+.question {
+  h5 span {
+    color: red;
+  }
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar" :style="{ background: `url(${sidebarBg}) no-repeat` }">
-    <a v-if="mainLogo" href="/">
+    <a v-if="mainLogo !== ''" href="/">
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
     <SocialIcons />
