@@ -242,6 +242,11 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
+     <button
+        type="button"
+        class="btn btn__close"
+        @click="cancelDeleteEvent"
+      ></button>
       <div class="question-wrapper">
         <h2>Da li ste sigurni da želite da obrišete ovaj događaj?</h2>
       </div>
@@ -493,7 +498,6 @@ export default {
     },
     cancelDeleteEvent(){
       this.$modal.hide("deleteEvent");
-      this.$modal.show("modalEventEdit");
     },
     deleteEvent(){
       this.$store.dispatch("deleteEvent", this.selectedEvent.id)

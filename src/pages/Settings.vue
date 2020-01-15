@@ -137,6 +137,11 @@
       @opened="cleanNewTextQuestion() && disableScroll()"
       @before-close="enableScroll()"
     >
+     <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateQuestionText')"
+      ></button>
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -183,6 +188,11 @@
       @opened="cleanNewImageQuestion() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateQuestionPicture')"
+      ></button>
       <div class="question-wrapper">
         <h2>Unesite pitanje:</h2>
         <input
@@ -229,6 +239,11 @@
       @opened="cleanNewSettingText() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateSettingsText')"
+      ></button>
       <div class="question-wrapper">
         <h2>Naziv tekstualnog polja:</h2>
         <input
@@ -271,6 +286,11 @@
       @opened="cleanNewSettingLink() && disableScroll()"
       @before-close="enableScroll()"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('adminCreateSettingsLink')"
+      ></button>
       <div class="question-wrapper">
         <h2>Naslov linka:</h2>
         <input
@@ -310,6 +330,11 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('deleteQuestion')"
+      ></button>
       <div class="question-wrapper">
         <h2>Da li ste sigurni da želite da obrišete ovo pitanje?</h2>
       </div>
@@ -330,6 +355,11 @@
       overlayTransition="overlay-fade"
       class="modal__create-question"
     >
+    <button
+        type="button"
+        class="btn btn__close"
+        @click="()=>this.$modal.hide('deleteSettings')"
+      ></button>
       <div class="question-wrapper">
         <h2>Da li ste sigurni da želite da obrišete ovo podešavanje?</h2>
       </div>
