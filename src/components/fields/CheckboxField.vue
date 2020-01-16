@@ -98,16 +98,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../assets/scss/variables.scss";
+
 .check-box {
   list-style-type: none;
   margin-bottom: 5px;
   input {
     margin-right: 10px;
-  }
-}
-.question {
-  h5 span {
-    color: red;
   }
 }
 </style>

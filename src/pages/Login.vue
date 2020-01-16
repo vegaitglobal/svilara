@@ -115,6 +115,9 @@ export default {
     @include breakpoint(mob) {
       width: 220px;
     }
+    &[type="submit"] {
+      width: 150px;
+    }
   }
   .error {
     text-align: left;

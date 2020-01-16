@@ -53,9 +53,4 @@ textarea {
     max-width: 235px;
   }
 }
-.question {
-  h5 span {
-    color: red;
-  }
-}
 </style>
