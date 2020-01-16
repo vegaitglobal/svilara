@@ -22,10 +22,3 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.question {
-  h5 span {
-    color: red;
-  }
-}
-</style>

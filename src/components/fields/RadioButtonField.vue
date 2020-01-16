@@ -88,9 +88,4 @@ export default {
   display: block;
   color: $main;
 }
-.question {
-  h5 span {
-    color: red;
-  }
-}
 </style>

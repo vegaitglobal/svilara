@@ -115,7 +115,7 @@ select {
 }
 .question {
   h5 span {
-    color: red;
+    color: $red;
   }
 }
 </style>
