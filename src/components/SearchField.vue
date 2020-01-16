@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     search() {
-      if (this.query !== '')
       this.$store.dispatch("searchEvent", this.query);
+      
     }
   }
 };

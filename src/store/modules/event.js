@@ -301,7 +301,7 @@ export default {
       }
     },
 
-    async searchEvent({ commit, state }, query) {
+    async searchEvent({ commit, state, dispatch }, query) {
       let result;
       let eventsWithoutDuplicates = state.events.filter(ev => {
         for (let prop in ev) {
@@ -319,13 +319,13 @@ export default {
           }
           return false;
         })
+        commit("SET_SEARCHED_EVENTS", result);
         // let fuse = new Fuse(eventsWithoutDuplicates, fuseOptions);
         // result = fuse.search(query);
       } else {
         commit("SET_SEARCHING", false);
-        result = eventsWithoutDuplicates;
+        dispatch("filterByMonth");
       }
-      commit("SET_SEARCHED_EVENTS", result);
     },
 
     async filterByMonth({ commit, state }) {

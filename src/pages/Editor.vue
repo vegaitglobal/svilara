@@ -23,14 +23,15 @@ export default {
   },
   mounted() {
     this.getPage();
+    let titleUrlInput = document.querySelectorAll(".editr--toolbar .dashboard label input");
+    titleUrlInput[1].onclick = function() {
+      titleUrlInput[1].focus();
+    }
+    titleUrlInput[0].onclick = function() {
+      titleUrlInput[0].focus();
+    }
   },
   methods: {
-    showImagePrompt(command) {
-      const src = prompt("Enter the url of your image here");
-      if (src !== null) {
-        command({ src });
-      }
-    },
     getPage() {
       this.axios
         .get(
