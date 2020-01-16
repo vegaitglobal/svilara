@@ -23,11 +23,20 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px;
 }
 
+h1 span, h2 span, h3 span, h4 span, h5 span, h6 span {
+    font-size: inherit !important;
+}
+
 p,
 span,
 a {
     font-size: 16px;
     line-height: 18px;
+    font-family: $font-primary !important;
+}
+
+span p {
+    font-size: 16px !important;
 }
 
 a {
@@ -43,6 +52,11 @@ b {
 
 i {
     font-style: italic;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid $purple-light;
 }
 
 .link {
