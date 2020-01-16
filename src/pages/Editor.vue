@@ -1,6 +1,6 @@
 <template>
   <div>
-    <wysiwyg v-model="html" />
+    <wysiwyg v-model="content" />
     <button
       type="submit"
       class="btn btn__purple btn__large editr-btn"
@@ -17,24 +17,32 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      html: ""
+      html: "",
+      content:'<h1>Some initial content</h1>'
     };
   },
   mounted() {
     this.getPage();
   },
   methods: {
+    showImagePrompt(command) {
+      const src = prompt("Enter the url of your image here");
+      if (src !== null) {
+        command({ src });
+      }
+    },
     getPage() {
       this.axios
         .get(
           `${process.env.VUE_APP_BASE_URL}/admin/event/page/` +
             this.$route.params.id,
           {
-            pageData: this.html
+            pageData: this.content //this.html
           }
         )
         .then(res => {
-          this.html = res.data.data.html;
+          this.content = res.data.data.html;
+          //this.html = res.data.data.html;
         })
         .catch(err => {
           console.error(err);
@@ -46,7 +54,7 @@ export default {
           `${process.env.VUE_APP_BASE_URL}/admin/event/page/` +
             this.$route.params.id,
           {
-            pageData: this.html
+            pageData: this.content //this.html
           }
         )
         .then(res => {
@@ -59,7 +67,10 @@ export default {
           this.$swal.fire({
             title: "Greška!",
             type: "error",
-            text: err && err.response ? err.response.data.error : 'Došlo je do greške!'
+            text:
+              err && err.response
+                ? err.response.data.error
+                : "Došlo je do greške!"
           });
         });
     }

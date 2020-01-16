@@ -1,58 +1,62 @@
 <template>
   <div>
-    <MainEvent  v-if="!isSearching && isCurrentMonth" :event="nextEvent"/>
-    <EventHeadline/>
+    <MainEvent v-if="!isSearching && isCurrentMonth" :event="nextEvent" />
+    <EventHeadline />
     <div class="daily-event-wrap">
-      <DailyEvent :key="event.id" v-for="(event) in events" :event="event"/>
-      <h3 v-if="events.length == 0"> Nema rezultata</h3>
+      <DailyEvent :key="event.id" v-for="event in events" :event="event" />
+      <h3 v-if="events.length == 0">Nema rezultata</h3>
     </div>
   </div>
 </template>
 
 <script>
-import MainEvent from '../components/MainEvent.vue'
-import DailyEvent from '../components/DailyEvent.vue'
-import EventHeadline from '../components/EventHeadline.vue'
+import MainEvent from "../components/MainEvent.vue";
+import DailyEvent from "../components/DailyEvent.vue";
+import EventHeadline from "../components/EventHeadline.vue";
 
 export default {
   components: {
     MainEvent,
     DailyEvent,
-    EventHeadline,
+    EventHeadline
   },
 
-  async created(){
-    await this.$store.dispatch('fetchEvents');
-    this.$store.dispatch('filterByMonth');
+  async created() {
+    await this.$store.dispatch("fetchEvents");
+    this.$store.dispatch("filterByMonth");
     this.$store.dispatch("fetchSettings");
   },
 
-  mounted(){
-    this.$store.dispatch('filterByMonth')
+  mounted() {
+    this.$store.dispatch("filterByMonth");
   },
 
-  computed:{
-    events(){
-      return this.$store.getters.getSearchedEvents.sort(this.sortByDate)
+  computed: {
+    events() {
+      let searchedEvents = this.$store.getters.getSearchedEvents;
+      let searchedEventsPublic = searchedEvents.filter((e) => e.public);
+      if (searchedEventsPublic.length) {
+        return searchedEventsPublic.sort(this.sortByDate);
+      }
+      return [];
     },
-    isSearching(){
+    isSearching() {
       return this.$store.getters.getSearching;
     },
-    isCurrentMonth(){
+    isCurrentMonth() {
       return this.$store.getters.getIsSelectedCurrentMonth;
     },
-    nextEvent(){
-      return this.events.find((ev) => new Date(ev.startTime) > new Date())
+    nextEvent() {
+      return this.events.find(ev => new Date(ev.startTime) > new Date());
     }
   },
 
   methods: {
-    sortByDate (a, b) {
+    sortByDate(a, b) {
       return new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
-    },
+    }
   }
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -63,5 +67,4 @@ export default {
   flex-wrap: wrap;
   width: 100%;
 }
-
 </style>

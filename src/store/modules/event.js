@@ -93,9 +93,10 @@ export default {
             endTime: state.adminEvents[i].endTime,
             picture: state.adminEvents[i].picture,
             logo: state.adminEvents[i].logo,
-            contactEmail: state.adminEvents[i].contactEmail
+            contactEmail: state.adminEvents[i].contactEmail,
+            public: state.adminEvents[i].public
           }
-        };
+         };
         serializedEvents.push(parsedEvent);
       }
       return serializedEvents;

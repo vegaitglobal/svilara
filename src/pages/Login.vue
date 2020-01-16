@@ -1,6 +1,7 @@
 <template>
   <div id="login">
     <h1>Ulogujte se</h1>
+    <form>
     <input
       type="text"
       name="email"
@@ -17,14 +18,14 @@
       v-on:keyup="() => set('password', credentials.password, form)"
     />
     <span v-if="form.password.error" class="error">{{form.password.error}}</span>
-    <button
+    <input
       type="submit"
       class="btn btn__purple btn__large"
       @click.prevent="submit"
       :disabled="!validate(form)"
-    >
-      Login
-    </button>
+      value="Login"
+    />
+     </form>
     <button class="link" @click.prevent="redirectToForgotPasssword">
       Zaboravili ste lozinku?
     </button>

@@ -118,6 +118,20 @@
           </li>
 
           <li class="inputfield-row">
+            <span>Da li ovaj događaj treba da se nalazi na javnom kalendaru?</span>
+            <select
+              v-model="selectedEvent.public"
+              v-on:change="e => set('public', e.target.value, form)"
+            >
+              <option value="1">Da</option>
+              <option value="0">Ne</option>
+            </select>
+            <span v-if="form.public.error" class="error">{{
+              form.public.error
+            }}</span>
+          </li>
+
+          <li class="inputfield-row">
             <span>Da li se događaj naplaćuje</span>
             <select
               v-model="selectedEvent.price"
@@ -295,6 +309,7 @@ export default {
         description: "",
         type: "",
         price: "",
+        public:"",
         category: "",
         space: "",
         socialMedia: "",
@@ -344,6 +359,11 @@ export default {
           valid: true,
           error: null,
           constraints: [notNull, notUndefined]
+        },
+         public: {
+          valid: true,
+          error: null,
+          constraints: [notNull]
         },
         category: {
           valid: true,
