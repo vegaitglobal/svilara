@@ -1,6 +1,6 @@
 <template>
   <div class="daily-event w-22">
-    <div class="daily-event--date">
+    <div class="daily-event--date" :style="{backgroundColor: backgroundColor}">
       <p>
         {{startingDateMonth}}
         <span>{{startingDay}}</span>
@@ -13,7 +13,7 @@
     <p class="daily-event--time">{{space}} | {{startingTime}}-{{endingTime}}h</p>
     <h3>{{event.title}}</h3>
     <div class="daily-event__bottom">
-      <div class="daily-event__bottom--icons">
+      <div class="daily-event__bottom--icons" :style="{color: iconColor}">
         <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
           <currency-usd-off class="daily-event__bottom--icons-ico" title="" />
         </span>
@@ -142,7 +142,25 @@ export default {
     endingTime() {
       var start = new Date(this.event.endTime).getTime();
       return moment(start).format("HH:mm");
+    },
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    backgroundColor() {
+       if (this.settings.length && this.settings[22].value) {
+        return this.settings[22].value;
+      }
+      return "";
+    },
+    iconColor() {
+       if (this.settings.length && this.settings[23].value) {
+        return this.settings[23].value;
+      }
+      return "";
     }
+
   }
 };
 </script>

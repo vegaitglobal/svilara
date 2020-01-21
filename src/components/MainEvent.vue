@@ -2,7 +2,7 @@
   <div class="main-event" v-if="event">
     <h2>Sledeći događaj</h2>
     <div class="main-event__box">
-      <div class="main-event__box--date">
+      <div class="main-event__box--date" :style="{backgroundColor: backgroundColor}">
         <p>
           {{ startingDateMonth }}
           <span>{{ startingDay }}</span>
@@ -43,6 +43,17 @@ export default {
     };
   },
   computed: {
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    backgroundColor() {
+       if (this.settings.length && this.settings[22].value) {
+        return this.settings[22].value;
+      }
+      return "";
+    },
     startingDay() {
       return moment(this.event.startTime).date();
     },

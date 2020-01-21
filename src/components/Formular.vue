@@ -13,6 +13,7 @@
       class="btn btn__purple btn__large"
       :disabled="!isFormValid"
       @click="submit"
+      :style="{backgroundColor: backgroundColor}"
     >
       Pošalji
     </button>
@@ -56,8 +57,8 @@ export default {
       }
     },
     backgroundColor() {
-      if (this.settings.length && this.settings[22].value) {
-        return this.settings[22].value;
+      if (this.settings.length && this.settings[21].value) {
+        return this.settings[21].value;
       }
       return "";
     }

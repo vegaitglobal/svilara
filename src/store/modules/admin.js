@@ -3,18 +3,25 @@ import * as _ from "lodash";
 
 export default {
     state: {
-        settings: []
+        settings: [],
+        loaderFlag: true
     },
 
     getters: {
         getSettings(state) {
             return () => state.settings;
         },
+        getLoaderFlag(state) {
+            return () => state.loaderFlag;
+        }
     },
 
     mutations: {
         SET_SETTINGS(state, settings) {
             state.settings = settings;
+        },
+        SET_LOADER(state, loaderFlag) {
+            state.loaderFlag = loaderFlag;
         },
     },
 
@@ -28,6 +35,7 @@ export default {
                     favicon.href = process.env.VUE_APP_MEDIA_BASE_URL + "/" + response.data.data[12].value;
                     title.innerText = response.data.data[13].value;
                     commit("SET_SETTINGS", response.data.data);
+                    commit("SET_LOADER", false);
                     resolve(response)})
                 .catch(error => {
                     reject(error);

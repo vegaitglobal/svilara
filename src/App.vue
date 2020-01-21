@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="loader">
+    <div v-if="loaderFlag" class="loader">
       <img src="../src/assets/img/spinning-circles.svg" alt="" />
     </div>
   </div>
@@ -61,6 +61,11 @@ export default {
       }
       return "";
     },
+    loaderFlag: {
+     get: function() {
+        return this.$store.getters.getLoaderFlag();
+      }
+    }
   },
   methods: {
     stringToHtml(str) {
