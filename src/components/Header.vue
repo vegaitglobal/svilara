@@ -23,7 +23,7 @@
         <SearchField v-if="['Welcome'].includes($route.name)" />
         <div class="button-wrapper">
           <button
-            class="btn btn__purple btn__large"
+            class="btn btn__default btn__large"
             :style="{backgroundColor: backgroundColor}"
             type="button"
             @click="showUserCreateEventModal"
@@ -71,10 +71,10 @@
           </router-link>
           <router-link
             to="/"
-            class="btn btn__purple btn__large"
+            class="btn btn__default btn__large"
             v-if="['EventPage'].includes($route.name)"
           >
-            Nazad
+            Nazad 3
           </router-link>
           <button
             @click="logout"

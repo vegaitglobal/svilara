@@ -12,7 +12,7 @@
     <span v-if="form.email.error" class="error">{{form.email.error}}</span>
     <button
       type="button"
-      class="btn btn__purple btn__large"
+      class="btn btn__blue btn__large"
       @click.prevent="sendEmail"
       :disabled="!validate(form)"
     >Pošalji</button>

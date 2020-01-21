@@ -240,7 +240,7 @@
 
       <button
         @click="updateEvent"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
         :disabled="!validate(form)"
       >Sačuvaj</button>
 
@@ -266,11 +266,11 @@
       </div>
       <button
         @click="cancelDeleteEvent"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Odustani
       </button>
-      <button @click="deleteEvent" class="btn btn__purple btn__large">
+      <button @click="deleteEvent" class="btn btn__blue btn__large">
         Obriši
       </button>
     </modal>
