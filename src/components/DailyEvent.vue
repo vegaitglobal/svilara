@@ -15,7 +15,7 @@
     <div class="daily-event__bottom">
       <div class="daily-event__bottom--icons">
         <span v-if="event.price=='0'" data-tooltip="Ulaz besplatan">
-          <currency-usd-off class="daily-event__bottom--icons-ico" title=""/>
+          <currency-usd-off class="daily-event__bottom--icons-ico" title="" />
         </span>
         <span v-else data-tooltip="Ulaz se naplaćuje">
           <currency-usd class="daily-event__bottom--icons-ico" />
@@ -217,7 +217,7 @@ export default {
     }
     &--icons-ico {
       margin-right: 5px;
-      background: $main;
+      background: $blue;
       border-radius: 30px;
       text-align: center;
       color: $white;
