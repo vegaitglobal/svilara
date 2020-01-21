@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :style="{ background: `url(${sidebarBg}) no-repeat`, boxShadow: `inset 0 0 0 160px rgba(${backgroundColor}, 0.8)` }">
+  <div class="sidebar" :style="{ background: `url(${sidebarBg}) no-repeat`, boxShadow: `inset 0 0 0 160px rgba(${backgroundColor}, 0.7)` }">
     <a v-if="mainLogo !== ''" href="/">
       <img class="sidebar__logo" :src="mainLogo" alt="logo" />
     </a>
@@ -82,7 +82,6 @@ export default {
     },
     backgroundColor() {
       if (this.settings.length && this.settings[18].value) {
-        //console.log(this.settings[18].value);
         return this.settings[18].value;
       }
       return "";
@@ -105,7 +104,6 @@ export default {
   width: 305px;
   top: 0;
   left: 0;
-  //box-shadow: inset 0 0 0 160px rgba($main, 0.8);
   padding: 26px 20px;
   @include breakpoint(htab) {
     width: 220px;

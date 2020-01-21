@@ -54,7 +54,7 @@ export default {
 @import "../assets/scss/variables.scss";
 
 .date-picker {
-  color: $main;
+  color: $gray-dark;
   &--val {
     font-size: 25px;
     vertical-align: 10%;

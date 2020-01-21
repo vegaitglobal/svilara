@@ -99,7 +99,7 @@ body {
 
 .top-bar {
   height: 275px;
-  background-color: $purple-lighter;
+  background-color: $white;
   position: absolute;
   width: 100%;
   z-index: -1;

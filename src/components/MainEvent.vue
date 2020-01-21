@@ -127,7 +127,7 @@ export default {
     &--date {
       text-transform: uppercase;
       color: $white;
-      background: $main;
+      background: $white;
       height: 53px;
       width: 53px;
       position: absolute;
