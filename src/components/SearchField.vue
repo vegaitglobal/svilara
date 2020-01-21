@@ -31,7 +31,6 @@ export default {
   methods: {
     search() {
       this.$store.dispatch("searchEvent", this.query);
-      
     }
   },
   computed: {
@@ -43,7 +42,6 @@ export default {
     placeholderColor() {
       if (this.settings.length && this.settings[21].value) {
         return this.settings[21].value;
-        
       }
       return "";
     }
@@ -65,7 +63,7 @@ export default {
     font-size: 20px;
     margin-bottom: 6px;
     svg {
-      fill: $main;
+      fill: $gray-dark;
     }
   }
   &--input {
@@ -75,13 +73,11 @@ export default {
     border: 0;
     color: $main;
     padding: 5px;
-    //--placeholder-color: $white;
     &::placeholder {
       font-size: 16px;
       line-height: 20px;
       color: var(--placeholder-color);
       opacity: 0.5;
-      //color: rgba($main, 0.5);
     }
     @include breakpoint(desk-xl) {
       width: 142px;

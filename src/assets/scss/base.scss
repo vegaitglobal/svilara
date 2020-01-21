@@ -143,10 +143,10 @@ td {
         }
     }
     &[disabled] {
-        background-color: $gray;
+        background-color: $gray !important;
         &:hover,
         &:active {
-            background-color: $gray;
+            background-color: $gray !important;
         }
     }
 }
