@@ -11,10 +11,6 @@
         <Footer />
       </div>
     </div>
-
-    <div v-if="loaderFlag" class="loader">
-      <img src="../src/assets/img/spinning-circles.svg" alt="" />
-    </div>
   </div>
 </template>
 
@@ -136,21 +132,5 @@ body {
       width: 100%;
     }
   }
-}
-
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #c4c0c0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-        width: 80px;
-    }
 }
 </style>
