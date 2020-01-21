@@ -4,7 +4,6 @@
     <input
       v-on:keyup="search"
       class="search-field--input"
-      :style="placeholderColor ? {'--placeholder-color': placeholderColor, color: placeholderColor} : {'--placeholder-color': 'white', color: 'white'}"
       v-model="query"
       type="text"
       placeholder="Pretraži..."
@@ -38,12 +37,6 @@ export default {
       get: function() {
         return this.$store.getters.getSettings();
       }
-    },
-    placeholderColor() {
-      if (this.settings.length && this.settings[21].value) {
-        return this.settings[21].value;
-      }
-      return "";
     }
   }
 };
@@ -71,19 +64,19 @@ export default {
     line-height: 20px;
     background-color: transparent;
     border: 0;
-    color: $main;
+    color: $gray-dark;
     padding: 5px;
     &::placeholder {
       font-size: 16px;
       line-height: 20px;
-      color: var(--placeholder-color);
+      color: $gray-dark;
       opacity: 0.5;
     }
     @include breakpoint(desk-xl) {
       width: 142px;
     }
     @include breakpoint(mob-sm) {
-      border-bottom: 1px solid $main;
+      border-bottom: 1px solid $gray-dark;
       width: 180px;
     }
   }
