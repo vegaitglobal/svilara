@@ -3,7 +3,7 @@
     <wysiwyg v-model="content" />
     <button
       type="submit"
-      class="btn btn__purple btn__large editr-btn"
+      class="btn btn__blue btn__large editr-btn"
       @click="createPage"
     >
       Sačuvaj

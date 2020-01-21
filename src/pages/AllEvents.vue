@@ -2,7 +2,7 @@
   <div>
     <v-client-table :data="tableData" :columns="columns" :options="options">
       <button
-        class="btn btn__purple"
+        class="btn btn__blue"
         slot="editor"
         slot-scope="props"
         @click="$router.push('/admin/editor/' + props.row.id)"

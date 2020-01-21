@@ -177,10 +177,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border: 1px solid $main;
+  border: 1px solid $blue;
   margin-bottom: 4px;
   border-radius: 10px;
-  background-color: $main;
+  background-color: $blue;
   color: $white;
   cursor: pointer;
 }

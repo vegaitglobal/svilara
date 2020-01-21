@@ -6,13 +6,13 @@
             <div class="settings-input">
                 <button
                     @click="showModalSettingsLink()"
-                    class="btn btn__purple settings-button"
+                    class="btn btn__blue settings-button"
                 >
                     Dodaj link u sidebar
                 </button>
                 <button
                     @click="showModalSettingsText()"
-                    class="btn btn__purple settings-button"
+                    class="btn btn__blue settings-button"
                 >
                     Dodaj tekst u sidebar
                 </button>
@@ -28,13 +28,13 @@
             <div class="settings-input">
                 <button
                     @click="showModalQuestionText"
-                    class="btn btn__purple settings-button"
+                    class="btn btn__blue settings-button"
                 >
                     Dodaj pitanje gde je odgovor tekst
                 </button>
                 <button
                     @click="showModalQuestionPicture"
-                    class="btn btn__purple settings-button"
+                    class="btn btn__blue settings-button"
                 >
                     Dodaj pitanje gde je odgovor slika
                 </button>
@@ -60,7 +60,7 @@
                 <button
                     :disabled="!validate(analyticsForm)"
                     @click="addFirstScript"
-                    class="btn btn__purple"
+                    class="btn btn__blue"
                 >
                     Dodaj skriptu
                 </button>
@@ -78,7 +78,7 @@
                 <button
                     :disabled="!validate(gtmForm)"
                     @click="addSecondScript"
-                    class="btn btn__purple"
+                    class="btn btn__blue"
                 >
                     Dodaj skriptu
                 </button>
@@ -120,7 +120,7 @@
 
                 <button
                 @click="saveAdmin"
-                class="btn btn__purple"
+                class="btn btn__blue"
                 :disabled="!validate(adminForm)">
                 Dodaj admina
                 </button>
@@ -173,7 +173,7 @@
       <button
         :disabled="!validate(newTextQuestionForm)"
         @click="saveInputText"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Sačuvaj
       </button>
@@ -224,7 +224,7 @@
       <button
         :disabled="!validate(newImageQuestionForm)"
         @click="saveInputFile"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Sačuvaj
       </button>
@@ -271,7 +271,7 @@
       <button
         :disabled="!validate(textModalForm)"
         @click="addSettingsText()"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Sačuvaj
       </button>
@@ -318,7 +318,7 @@
       <button
         :disabled="!validate(linkModalForm)"
         @click="addSettingsLink()"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Sačuvaj
       </button>
@@ -340,11 +340,11 @@
       </div>
       <button
         @click="hideModalQuestionDelete"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Odustani
       </button>
-      <button @click="deleteQuestion" class="btn btn__purple btn__large">
+      <button @click="deleteQuestion" class="btn btn__blue btn__large">
         Obriši
       </button>
     </modal>
@@ -365,11 +365,11 @@
       </div>
       <button
         @click="hideModalSettingsDelete"
-        class="btn btn__purple btn__large"
+        class="btn btn__blue btn__large"
       >
         Odustani
       </button>
-      <button @click="deleteSettings" class="btn btn__purple btn__large">
+      <button @click="deleteSettings" class="btn btn__blue btn__large">
         Obriši
       </button>
     </modal>
@@ -977,9 +977,9 @@ export default {
 }
 .vue-tabs__nav-item {
     border: 0;
-    background: rgba($purple-lighter, 0.7);
-    border: 1px solid $purple-lighter;
-    border-top: 1px solid $purple-lighter;
+    background: rgba($gray-light, 0.7);
+    border: 1px solid $gray-light;
+    border-top: 1px solid $gray-light;
     padding: 10px;
     position: relative;
     &:hover,
@@ -991,7 +991,7 @@ export default {
             content: '';
             width: calc(100% + 2px);
             height: 2px;
-            background: $main;
+            background: $gray;
             top: -1px;
             left: -1px;
         }

@@ -67,6 +67,9 @@ td {
     &:hover{
         text-decoration: none;
     }
+    &.link__blue {
+        color: $blue;
+    }
 }
 
 .btn {
@@ -96,6 +99,13 @@ td {
         background-color: rgba($main, 0.6);
       }
     }
+    &.btn__blue {
+        background-color: $blue;
+        &:hover,
+        &:active {
+          background-color: rgba($blue, 0.6);
+        }
+      }
     &.btn__orange {
       background-color: $orange;
       &:hover,

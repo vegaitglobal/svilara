@@ -243,7 +243,7 @@
       </div>
       <button
         @click="createEvent"
-        class="btn btn__purple btn__large mt-20"
+        class="btn btn__blue btn__large mt-20"
         type="submit"
         :disabled="!validate(form)"
       >

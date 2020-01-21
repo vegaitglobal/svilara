@@ -20,13 +20,13 @@
     <span v-if="form.password.error" class="error">{{form.password.error}}</span>
     <input
       type="submit"
-      class="btn btn__purple btn__large"
+      class="btn btn__blue btn__large"
       @click.prevent="submit"
       :disabled="!validate(form)"
       value="Login"
     />
      </form>
-    <button class="link" @click.prevent="redirectToForgotPasssword">
+    <button class="link link__blue" @click.prevent="redirectToForgotPasssword">
       Zaboravili ste lozinku?
     </button>
   </div>

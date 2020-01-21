@@ -33,7 +33,7 @@
           </button>
           <router-link
             to="/admin/new-event"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
@@ -41,7 +41,7 @@
           >
           <router-link
             to="/admin/all-events"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
@@ -49,7 +49,7 @@
           >
           <router-link
             to="/admin/settings"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             type="button"
             tag="button"
             v-if="['Admin'].includes($route.name)"
@@ -57,14 +57,14 @@
           >
           <router-link
             to="/admin"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             v-if="['NewEvent', 'AllEvents', 'Settings'].includes($route.name)"
           >
             Nazad
           </router-link>
           <router-link
             to="/admin/all-events"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             v-if="['Editor'].includes($route.name)"
           >
             Nazad
@@ -78,7 +78,7 @@
           </router-link>
           <button
             @click="logout"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             type="button"
             v-if="['ForgotPassword'].includes($route.name)"
           >
@@ -86,7 +86,7 @@
           </button>
           <button
             @click="logout"
-            class="btn btn__purple btn__large"
+            class="btn btn__blue btn__large"
             type="button"
             v-if="['Admin'].includes($route.name)"
           >

@@ -119,16 +119,16 @@ hr.fc-divider {
 .fc td {
   padding: 0;
   vertical-align: top;
-  border-top: 1px solid $purple-lighter;
-  border-bottom: 1px solid $purple-lighter;
+  border-top: 1px solid $gray-light;
+  border-bottom: 1px solid $gray-light;
 }
 
 .fc-unthemed th {
   padding: 24px 0;
-  background-color: $purple-lighter;
+  background-color: $gray-light;
   span {
     font-size: 16px;
-    color: $main;
+    color: $gray-dark;
     font-weight: 600;
   }
 }
@@ -718,8 +718,8 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* "primary" coloring */
 .fc-button-primary {
   color: #fff;
-  background-color: $main;
-  border-color: $main;
+  background-color: $blue;
+  border-color: $blue;
 }
 
 .fc-button-primary:hover {
@@ -1108,7 +1108,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
   float: left;
-  color: $main;
+  color: $gray-dark;
   font-size: 16px;
   padding-top: 5px;
 }
