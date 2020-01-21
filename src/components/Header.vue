@@ -24,6 +24,7 @@
         <div class="button-wrapper">
           <button
             class="btn btn__purple btn__large"
+            :style="{backgroundColor: backgroundColor}"
             type="button"
             @click="showUserCreateEventModal"
             v-if="['Welcome'].includes($route.name)"
@@ -137,7 +138,7 @@
           >
         </div>
         <div class="text-center">
-          <button class="btn btn__purple btn__large" @click="goNext">
+          <button class="btn btn__purple btn__large" :style="{backgroundColor: backgroundColor}" @click="goNext">
             Dalje
           </button>
         </div>
@@ -167,6 +168,12 @@ export default {
       get: function() {
         return this.$store.getters.getSettings();
       }
+    },
+    backgroundColor() {
+      if (this.settings.length && this.settings[22].value) {
+        return this.settings[22].value;
+      }
+      return "";
     },
      mainLogo() {
       if (this.settings.length && this.settings[0].value) {

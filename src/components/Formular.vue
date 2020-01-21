@@ -6,10 +6,16 @@
       :question="question"
       :is="mapToType(question.fieldType)"
       :constraints="question.mandatory ? [required] : []"
-      @validate="(isValid) => setQuestion(question.name, isValid)"
+      @validate="isValid => setQuestion(question.name, isValid)"
       :index="index"
     ></component>
-    <button :disabled="!isFormValid" class="btn btn__purple btn__large" @click="submit">Pošalji</button>
+    <button
+      class="btn btn__purple btn__large"
+      :disabled="!isFormValid"
+      @click="submit"
+    >
+      Pošalji
+    </button>
     <p class="explanation">* Pitanja označena zvezdicom su obavezna pitanja</p>
   </div>
 </template>
@@ -42,6 +48,19 @@ export default {
   async created() {
     this.questions = await this.$store.dispatch("fetchQuestions");
     this.sortQuestions();
+  },
+  computed: {
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    backgroundColor() {
+      if (this.settings.length && this.settings[22].value) {
+        return this.settings[22].value;
+      }
+      return "";
+    }
   },
   methods: {
     setQuestion(questionName, isValid) {
@@ -82,22 +101,25 @@ export default {
       this.$store
         .dispatch("submitEvent")
         .then(response => {
-            this.$swal
-              .fire({
-                title: "Događaj poslat.",
-                text: "Predlog događaja poslat je administratorima na procenu.",
-                type: "success"
-              })
-              .then(result => {
-                if (result.value) {
-                  this.$modal.hide("userCreateEventModal");
-                }
-              });
+          this.$swal
+            .fire({
+              title: "Događaj poslat.",
+              text: "Predlog događaja poslat je administratorima na procenu.",
+              type: "success"
+            })
+            .then(result => {
+              if (result.value) {
+                this.$modal.hide("userCreateEventModal");
+              }
+            });
         })
         .catch(error => {
           this.$swal.fire({
             title: "Greška",
-            text: error && error.response? error.response.data.error : 'Došlo je do greške!',
+            text:
+              error && error.response
+                ? error.response.data.error
+                : "Došlo je do greške!",
             type: "error"
           });
         });

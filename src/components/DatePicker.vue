@@ -1,38 +1,53 @@
 <template>
-    <div class="date-picker">
-        <chevron-left-icon @click="decMonth" class="date-picker--ico" title=""/>
-        <span class="date-picker--val">{{selectedMonth}}</span>
-        <chevron-right-icon @click="incMonth" class="date-picker--ico" title=""/>
-    </div>
+  <div class="date-picker" :style="{ color: monthColor }">
+    <chevron-left-icon
+      @click="decMonth"
+      class="date-picker--ico"
+      title=""
+    />
+    <span class="date-picker--val" :style="{ color: monthColor }" >{{ selectedMonth }}</span>
+    <chevron-right-icon @click="incMonth" class="date-picker--ico" title="" />
+  </div>
 </template>
 
 <script>
-import ChevronRightIcon from 'vue-material-design-icons/ChevronRight.vue'
-import ChevronLeftIcon from 'vue-material-design-icons/ChevronLeft.vue';
+import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
+import ChevronLeftIcon from "vue-material-design-icons/ChevronLeft.vue";
 
 export default {
-    name: "DatePicker",
-    components: {
-        ChevronRightIcon,
-        ChevronLeftIcon
+  name: "DatePicker",
+  components: {
+    ChevronRightIcon,
+    ChevronLeftIcon
+  },
+
+  methods: {
+    incMonth() {
+      this.$store.dispatch("increaseMonth");
     },
 
-    methods:{
-        incMonth(){
-            this.$store.dispatch('increaseMonth')
-        },
-
-        decMonth(){
-            this.$store.dispatch('decreaseMonth')
-        }
-    },
-
-    computed:{
-        selectedMonth(){
-            return this.$store.getters.getSelectedMonth
-        }
+    decMonth() {
+      this.$store.dispatch("decreaseMonth");
     }
-}
+  },
+
+  computed: {
+    selectedMonth() {
+      return this.$store.getters.getSelectedMonth;
+    },
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    monthColor() {
+      if (this.settings.length && this.settings[20].value) {
+        return this.settings[20].value;
+      }
+      return "";
+    }
+  }
+};
 </script>
 
 <style lang="scss">
@@ -55,5 +70,4 @@ export default {
     width: 30px;
   }
 }
-
 </style>

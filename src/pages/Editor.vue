@@ -18,7 +18,7 @@ export default {
   data: function() {
     return {
       html: "",
-      content:'<h1>Some initial content</h1>'
+      content:''
     };
   },
   mounted() {

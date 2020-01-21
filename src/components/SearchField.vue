@@ -1,9 +1,10 @@
 <template>
   <div class="search-field">
-    <magnify-icon class="search-field--ico" />
+    <magnify-icon class="search-field--ico"/>
     <input
       v-on:keyup="search"
       class="search-field--input"
+      :style="placeholderColor ? {'--placeholder-color': placeholderColor, color: placeholderColor} : {'--placeholder-color': 'white', color: 'white'}"
       v-model="query"
       type="text"
       placeholder="Pretraži..."
@@ -24,10 +25,27 @@ export default {
       query: ""
     };
   },
+   mounted() {
+    this.$store.dispatch("fetchSettings");
+  },
   methods: {
     search() {
       this.$store.dispatch("searchEvent", this.query);
       
+    }
+  },
+  computed: {
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    placeholderColor() {
+      if (this.settings.length && this.settings[21].value) {
+        return this.settings[21].value;
+        
+      }
+      return "";
     }
   }
 };
@@ -57,10 +75,13 @@ export default {
     border: 0;
     color: $main;
     padding: 5px;
+    //--placeholder-color: $white;
     &::placeholder {
       font-size: 16px;
       line-height: 20px;
-      color: rgba($main, 0.5);
+      color: var(--placeholder-color);
+      opacity: 0.5;
+      //color: rgba($main, 0.5);
     }
     @include breakpoint(desk-xl) {
       width: 142px;

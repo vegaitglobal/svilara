@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <div class="top-bar"></div>
+      <div class="top-bar" :style="{backgroundColor: backgroundColor}"></div>
       <Sidebar/>
       <div class="content--wrapper">
         <Header />
@@ -26,6 +26,9 @@ export default {
     Footer,
     Sidebar
   },
+  beforeCreate(){
+    this.$store.dispatch("fetchSettings");
+  },
   mounted() {
     axios.get(`${process.env.VUE_APP_BASE_URL}/admin/scripts`).then(data => {
       let scriptsArrayOfString = data.data.data;
@@ -41,6 +44,19 @@ export default {
         head.prepend(scriptsArray[j]);
       }
     });
+  },
+  computed: {
+    settings: {
+      get: function() {
+        return this.$store.getters.getSettings();
+      }
+    },
+    backgroundColor() {
+      if (this.settings.length && this.settings[19].value) {
+        return  this.settings[19].value;
+      }
+      return "";
+    },
   },
   methods: {
     stringToHtml(str) {
