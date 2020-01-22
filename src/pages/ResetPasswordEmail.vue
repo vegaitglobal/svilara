@@ -32,7 +32,7 @@
         <div>
         <input
             @click.prevent="resetPassword"
-            class="btn btn-main btn__default btn__large"
+            class="btn btn-main btn__blue btn__large"
             type="submit"
             value="Resetujte lozinku"
             :disabled="!validate(form)"
