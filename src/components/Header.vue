@@ -73,8 +73,9 @@
             to="/"
             class="btn btn__default btn__large"
             v-if="['EventPage'].includes($route.name)"
+            :style="{backgroundColor: backgroundColor}"
           >
-            Nazad 3
+            Nazad
           </router-link>
           <button
             @click="logout"
