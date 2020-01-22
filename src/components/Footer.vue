@@ -57,8 +57,8 @@ export default {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: $main;
   display: none;
+  background: $white;
   padding: 10px 0;
   @include breakpoint(mob) {
     display: block;
