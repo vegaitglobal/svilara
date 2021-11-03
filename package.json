@@ -31,7 +31,7 @@
     "parse-error": "^0.2.0",
     "random-js": "^2.1.0",
     "sequelize": "^5.19.2",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.3",
